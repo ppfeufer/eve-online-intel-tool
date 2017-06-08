@@ -7,20 +7,13 @@ defined('ABSPATH') or die();
 <div class="container main">
 	<div class="row main-content">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-12">
-			<div class="content content-archive">
+			<div class="content content-archive dscan-archive">
 				<header class="page-title">
-					<h1>
+					<h2>
 						<?php
-							\_e('D-Scan Archives', 'eve-online-dscan-tool-for-wordpress');
+						\_e('D-Scan', 'eve-online-dscan-tool-for-wordpress');
 						?>
-					</h1>
-					<?php
-					// Show an optional category description
-					$category_description = \category_description();
-					if($category_description) {
-						echo \apply_filters('category_archive_meta', '<div class="category-archive-meta">' . $category_description . '</div>');
-					} // END if($category_description)
-					?>
+					</h2>
 				</header>
 				<?php
 				if(\have_posts()) {
