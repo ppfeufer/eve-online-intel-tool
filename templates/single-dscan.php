@@ -56,7 +56,7 @@ $countOffGrid = (!empty($dscanDataOffGrid['count'])) ? $dscanDataOffGrid['count'
 					if(!empty($countAll)) {
 						foreach($dscanDataAll['data'] as $data) {
 							?>
-							<div data-typeclass="<?php echo $data['shipClassSanitized']; ?>" class="dscan-row" onmouseover="dscanHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');" onmouseout="dscanDisableHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');">
+							<div data-typeclass="<?php echo $data['shipClassSanitized']; ?>" title="<?php echo $data['shipClass']; ?>" class="dscan-row" onmouseover="dscanHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');" onmouseout="dscanDisableHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');">
 								<span class="dscan-ship-image">
 									<?php
 									$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('ship', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('inventory') . $data['itemID'] . '_32.png');
@@ -81,7 +81,7 @@ $countOffGrid = (!empty($dscanDataOffGrid['count'])) ? $dscanDataOffGrid['count'
 					if(!empty($countOnGrid)) {
 						foreach($dscanDataOnGrid['data'] as $data) {
 							?>
-							<div data-typeclass="<?php echo $data['shipClassSanitized']; ?>" class="dscan-row" onmouseover="dscanHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');" onmouseout="dscanDisableHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');">
+							<div data-typeclass="<?php echo $data['shipClassSanitized']; ?>" title="<?php echo $data['shipClass']; ?>" class="dscan-row" onmouseover="dscanHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');" onmouseout="dscanDisableHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');">
 								<span class="dscan-ship-image">
 									<?php
 									$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('ship', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('inventory') . $data['itemID'] . '_32.png');
@@ -106,7 +106,7 @@ $countOffGrid = (!empty($dscanDataOffGrid['count'])) ? $dscanDataOffGrid['count'
 					if(!empty($countOffGrid)) {
 						foreach($dscanDataOffGrid['data'] as $data) {
 							?>
-							<div data-typeclass="<?php echo $data['shipClassSanitized']; ?>" class="dscan-row" onmouseover="dscanHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');" onmouseout="dscanDisableHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');">
+							<div data-typeclass="<?php echo $data['shipClassSanitized']; ?>" title="<?php echo $data['shipClass']; ?>" class="dscan-row" onmouseover="dscanHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');" onmouseout="dscanDisableHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');">
 								<span class="dscan-ship-image">
 									<?php
 									$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('ship', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('inventory') . $data['itemID'] . '_32.png');
@@ -146,11 +146,11 @@ $countOffGrid = (!empty($dscanDataOffGrid['count'])) ? $dscanDataOffGrid['count'
 		<script type="text/javascript">
 		function dscanHighlightShipClass(shipClass) {
 			jQuery("div[data-typeclass='" + shipClass + "']").addClass('highlightShipClass');
-		}
+		} // END function dscanHighlightShipClass(shipClass)
 
 		function dscanDisableHighlightShipClass(shipClass) {
 			jQuery("div[data-typeclass='" + shipClass + "']").removeClass('highlightShipClass');
-		}
+		} // END function dscanDisableHighlightShipClass(shipClass)
 		</script>
 	</section>
 </article><!-- /.post-->

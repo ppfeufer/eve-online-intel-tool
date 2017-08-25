@@ -29,11 +29,14 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 	 */
 	private $esi = null;
 
+	/**
+	 * Constructor
+	 */
 	protected function __construct() {
 		parent::__construct();
 
 		$this->esi = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
-	}
+	} // END protected function __construct()
 
 	/**
 	 * Breaking down the D-Scan into arrays
