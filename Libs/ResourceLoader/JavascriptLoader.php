@@ -45,8 +45,8 @@ class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Inte
 				\wp_enqueue_script('bootstrap-toolkit-js', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('bootstrap/bootstrap-toolkit/bootstrap-toolkit.min.js'), ['jquery', 'bootstrap-js'], '', true);
 				\wp_enqueue_script('bootstrap-gallery-js', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('js/jquery.bootstrap-gallery.min.js'), ['jquery', 'bootstrap-js'], '', true);
 				\wp_enqueue_script('copy-to-clipboard-js', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('js/copy-to-clipboard.min.js'), ['jquery'], '', true);
-//				\wp_enqueue_script('eve-online-intel-tool-js', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('js/eve-online-fitting-manager.min.js'), ['jquery'], '', true);
-//				\wp_localize_script('eve-online-fitting-manager-js', 'fittingManagerL10n', $this->getJavaScriptTranslations());
+				\wp_enqueue_script('eve-online-intel-tool-js', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('js/eve-online-intel-tool.min.js'), ['jquery'], '', true);
+				\wp_localize_script('eve-online-intel-tool-js', 'eveIntelToolL10n', $this->getJavaScriptTranslations());
 			} // END if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('fittings')) || \get_post_type() === 'fitting')
 		} // END if(!\is_admin())
 	} // END public function enqueue()
@@ -59,23 +59,17 @@ class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Inte
 	private function getJavaScriptTranslations() {
 		return [
 			'copyToClipboard' => [
-				'eft' => [
-					'text' => [
-						'success' => \__('EFT data successfully copied', 'eve-online-fitting-manager'),
-						'error' => \__('Something went wrong. Nothing copied. Maybe your browser doesn\'t support this function.', 'eve-online-fitting-manager')
-					]
-				],
 				'permalink' => [
 					'text' => [
-						'success' => \__('Permalink successfully copied', 'eve-online-fitting-manager'),
-						'error' => \__('Something went wrong. Nothing copied. Maybe your browser doesn\'t support this function.', 'eve-online-fitting-manager')
+						'success' => \__('Permalink successfully copied', 'eve-online-intel-tool'),
+						'error' => \__('Something went wrong. Nothing copied. Maybe your browser doesn\'t support this function.', 'eve-online-intel-tool')
 					]
 				]
 			],
-			'ajax' => [
-				'url' => \admin_url('admin-ajax.php'),
-				'loaderImage' => \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getPluginUri('images/loader-sprite.gif')
-			]
+//			'ajax' => [
+//				'url' => \admin_url('admin-ajax.php'),
+//				'loaderImage' => \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getPluginUri('images/loader-sprite.gif')
+//			]
 		];
 	} // END private function getJavaScriptTranslations()
 } // END class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AssetsInterface

@@ -26,4 +26,27 @@
 		border-left: 2px solid #ff0000;
 		margin-left: -2px;
 	}
+
+	.eve-intel-copy-to-clipboard {
+		margin-top: 16px;
+		margin-top: 1rem;
+	}
+
+	.copy-permalink-to-clipboard {
+		width: 150px;
+		margin-bottom: 24px;
+		margin-bottom: 1.5rem;
+	}
+
+	.copy-permalink-to-clipboard .btn-copy-permalink-to-clipboard {
+		position: relative;
+		display: block;
+		padding: 10px 15px;
+	}
+
+	.eve-intel-copy-result {
+		width: 300px;
+/*		margin-top: 8px;
+		margin-top: 0.5rem;*/
+	}
 }

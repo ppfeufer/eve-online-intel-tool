@@ -26,9 +26,18 @@ $countOffGrid = (!empty($dscanDataOffGrid['count'])) ? $dscanDataOffGrid['count'
 
 	<?php
 	if(!empty($dscanDataTime)) {
-		echo '<br><small>' . \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $dscanDataTime . '</small>';
+		echo '<small>' . \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $dscanDataTime . '</small>';
 	} // END if(!empty($dscanDataTime))
 	?>
+
+	<div class="eve-intel-copy-to-clipboard copy-permalink-to-clipboard">
+		<ul class="nav nav-pills nav-stacked">
+			<li role="presentation">
+				<span type="button" class="btn btn-default btn-copy-permalink-to-clipboard" data-clipboard-action="copy" data-clipboard-text="<?php echo \get_the_permalink(); ?>"><?php echo \__('Copy Permalink', 'eve-online-intel-tool') ; ?></span>
+			</li>
+		</ul>
+	</div>
+	<div class="eve-intel-copy-result"></div>
 </header>
 
 <article id="post-<?php \the_ID(); ?>" <?php \post_class('clearfix content-single template-single-dscan'); ?>>
