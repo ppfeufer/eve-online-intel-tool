@@ -71,13 +71,13 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 				 * Determine OnGrid and OffGrid
 				 */
 				if($lineDetailsArray['3'] === '-') {
-					$dscanDetailShipsOnGrid[] = [
+					$dscanDetailShipsOffGrid[] = [
 						'dscanData' => $lineDetailsArray,
 						'shipData' => $shipData['data'],
 						'shipClass' => $shipClass['data']
 					];
 				} else {
-					$dscanDetailShipsOffGrid[] = [
+					$dscanDetailShipsOnGrid[] = [
 						'dscanData' => $lineDetailsArray,
 						'shipData' => $shipData['data'],
 						'shipClass' => $shipClass['data']

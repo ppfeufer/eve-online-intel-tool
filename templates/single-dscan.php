@@ -5,6 +5,10 @@ $dscanDataAll = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan
 $dscanDataOnGrid = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-onGrid', true));
 $dscanDataOffGrid = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-offGrid', true));
 $dscanDataShipTypes = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-shipTypes', true));
+
+$countAll = (!empty($dscanDataAll['count'])) ? $dscanDataAll['count'] : 0;
+$countOnGrid = (!empty($dscanDataOnGrid['count'])) ? $dscanDataOnGrid['count'] : 0;
+$countOffGrid = (!empty($dscanDataOffGrid['count'])) ? $dscanDataOffGrid['count'] : 0;
 ?>
 
 <header class="page-title">
@@ -19,22 +23,24 @@ $dscanDataShipTypes = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool
 				// Full D-Scan Breakdown
 				-->
 				<div class="col-md-4 col-sm-6 col-lg-3">
-					<header class="entry-header"><h2 class="entry-title"><?php echo \__('All', 'eve-online-intel-tool'); ?> (<?php echo $dscanDataAll['count']; ?>)</h2></header>
+					<header class="entry-header"><h2 class="entry-title"><?php echo \__('All', 'eve-online-intel-tool'); ?> (<?php echo $countAll; ?>)</h2></header>
 					<?php
-					foreach($dscanDataAll['data'] as $data) {
-						?>
-						<div data-typeclass="<?php echo $data['shipClassSanitized']; ?>" class="dscan-row" onmouseover="dscanHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');" onmouseout="dscanDisableHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');">
-							<span class="dscan-ship-image">
-								<?php
-								$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('ship', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('inventory') . $data['itemID'] . '_32.png');
-								?>
-								<img src="<?php echo $image; ?>" alt="<?php echo $data['type']; ?>" width="32" heigh="32">
-							</span>
-							<span class="dscan-ship-count"><?php echo $data['count']; ?></span>
-							<span class="dscan-ship-type"><?php echo $data['type']; ?></span>
-						</div>
-						<?php
-					} // END foreach($dscanDataAll['data'] as $data)
+					if(!empty($countAll)) {
+						foreach($dscanDataAll['data'] as $data) {
+							?>
+							<div data-typeclass="<?php echo $data['shipClassSanitized']; ?>" class="dscan-row" onmouseover="dscanHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');" onmouseout="dscanDisableHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');">
+								<span class="dscan-ship-image">
+									<?php
+									$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('ship', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('inventory') . $data['itemID'] . '_32.png');
+									?>
+									<img src="<?php echo $image; ?>" alt="<?php echo $data['type']; ?>" width="32" heigh="32">
+								</span>
+								<span class="dscan-ship-count"><?php echo $data['count']; ?></span>
+								<span class="dscan-ship-type"><?php echo $data['type']; ?></span>
+							</div>
+							<?php
+						} // END foreach($dscanDataAll['data'] as $data)
+					} // END if(!empty($dscanDataAll['count']))
 					?>
 				</div>
 
@@ -42,22 +48,24 @@ $dscanDataShipTypes = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool
 				// On Grid D-Scan Breakdown
 				-->
 				<div class="col-md-4 col-sm-6 col-lg-3">
-					<header class="entry-header"><h2 class="entry-title"><?php echo \__('On Grid', 'eve-online-intel-tool'); ?> (<?php echo $dscanDataOnGrid['count']; ?>)</h2></header>
+					<header class="entry-header"><h2 class="entry-title"><?php echo \__('On Grid', 'eve-online-intel-tool'); ?> (<?php echo $countOnGrid; ?>)</h2></header>
 					<?php
-					foreach($dscanDataOnGrid['data'] as $data) {
-						?>
-						<div data-typeclass="<?php echo $data['shipClassSanitized']; ?>" class="dscan-row" onmouseover="dscanHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');" onmouseout="dscanDisableHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');">
-							<span class="dscan-ship-image">
-								<?php
-								$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('ship', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('inventory') . $data['itemID'] . '_32.png');
-								?>
-								<img src="<?php echo $image; ?>" alt="<?php echo $data['type']; ?>" width="32" heigh="32">
-							</span>
-							<span class="dscan-ship-count"><?php echo $data['count']; ?></span>
-							<span class="dscan-ship-type"><?php echo $data['type']; ?></span>
-						</div>
-						<?php
-					} // END foreach($dscanDataOnGrid['data'] as $data)
+					if(!empty($countOnGrid)) {
+						foreach($dscanDataOnGrid['data'] as $data) {
+							?>
+							<div data-typeclass="<?php echo $data['shipClassSanitized']; ?>" class="dscan-row" onmouseover="dscanHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');" onmouseout="dscanDisableHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');">
+								<span class="dscan-ship-image">
+									<?php
+									$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('ship', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('inventory') . $data['itemID'] . '_32.png');
+									?>
+									<img src="<?php echo $image; ?>" alt="<?php echo $data['type']; ?>" width="32" heigh="32">
+								</span>
+								<span class="dscan-ship-count"><?php echo $data['count']; ?></span>
+								<span class="dscan-ship-type"><?php echo $data['type']; ?></span>
+							</div>
+							<?php
+						} // END foreach($dscanDataOnGrid['data'] as $data)
+					} // END if(!empty($dscanDataOnGrid['count']))
 					?>
 				</div>
 
@@ -65,22 +73,24 @@ $dscanDataShipTypes = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool
 				// Off Grid D-Scan Breakdown
 				-->
 				<div class="col-md-4 col-sm-6 col-lg-3">
-					<header class="entry-header"><h2 class="entry-title"><?php echo \__('Off Grid', 'eve-online-intel-tool'); ?> (<?php echo $dscanDataOffGrid['count']; ?>)</h2></header>
+					<header class="entry-header"><h2 class="entry-title"><?php echo \__('Off Grid', 'eve-online-intel-tool'); ?> (<?php echo $countOffGrid; ?>)</h2></header>
 					<?php
-					foreach($dscanDataOffGrid['data'] as $data) {
-						?>
-						<div data-typeclass="<?php echo $data['shipClassSanitized']; ?>" class="dscan-row" onmouseover="dscanHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');" onmouseout="dscanDisableHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');">
-							<span class="dscan-ship-image">
-								<?php
-								$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('ship', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('inventory') . $data['itemID'] . '_32.png');
-								?>
-								<img src="<?php echo $image; ?>" alt="<?php echo $data['type']; ?>" width="32" heigh="32">
-							</span>
-							<span class="dscan-ship-count"><?php echo $data['count']; ?></span>
-							<span class="dscan-ship-type"><?php echo $data['type']; ?></span>
-						</div>
-						<?php
-					} // END foreach($dscanDataOffGrid['data'] as $data)
+					if(!empty($countOffGrid)) {
+						foreach($dscanDataOffGrid['data'] as $data) {
+							?>
+							<div data-typeclass="<?php echo $data['shipClassSanitized']; ?>" class="dscan-row" onmouseover="dscanHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');" onmouseout="dscanDisableHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');">
+								<span class="dscan-ship-image">
+									<?php
+									$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('ship', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('inventory') . $data['itemID'] . '_32.png');
+									?>
+									<img src="<?php echo $image; ?>" alt="<?php echo $data['type']; ?>" width="32" heigh="32">
+								</span>
+								<span class="dscan-ship-count"><?php echo $data['count']; ?></span>
+								<span class="dscan-ship-type"><?php echo $data['type']; ?></span>
+							</div>
+							<?php
+						} // END foreach($dscanDataOffGrid['data'] as $data)
+					} // END if(!empty($dscanDataOffGrid['count']))
 					?>
 				</div>
 
@@ -90,14 +100,16 @@ $dscanDataShipTypes = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool
 				<div class="col-md-4 col-sm-6 col-lg-3">
 					<header class="entry-header"><h2 class="entry-title"><?php echo \__('Ship Classes', 'eve-online-intel-tool'); ?></h2></header>
 					<?php
-					foreach($dscanDataShipTypes as $data) {
-						?>
-						<div data-typeclass="<?php echo $data['shipClassSanitized']; ?>" class="dscan-row" onmouseover="dscanHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');" onmouseout="dscanDisableHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');">
-							<span class="dscan-ship-count"><?php echo $data['count']; ?></span>
-							<span class="dscan-ship-type"><?php echo $data['type']; ?></span>
-						</div>
-						<?php
-					} // END foreach($dscanDataOffGrid['data'] as $data)
+					if(\count($dscanDataShipTypes) > 0) {
+						foreach($dscanDataShipTypes as $data) {
+							?>
+							<div data-typeclass="<?php echo $data['shipClassSanitized']; ?>" class="dscan-row" onmouseover="dscanHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');" onmouseout="dscanDisableHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');">
+								<span class="dscan-ship-count"><?php echo $data['count']; ?></span>
+								<span class="dscan-ship-type"><?php echo $data['type']; ?></span>
+							</div>
+							<?php
+						} // END foreach($dscanDataOffGrid['data'] as $data)
+					} // END if(\count($dscanDataShipTypes) > 0)
 					?>
 				</div>
 			</div>
