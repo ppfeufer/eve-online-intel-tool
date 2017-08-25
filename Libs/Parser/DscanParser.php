@@ -54,8 +54,8 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		$dscanDetailShipsOnGrid = [];
 		$dscanDetailShipsOffGrid = [];
 
-		foreach(\explode("\n", trim($cleanedScanData)) as $line) {
-			$lineDetailsArray = explode("\t", str_replace('*', '', trim($line)));
+		foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
+			$lineDetailsArray = explode("\t", \str_replace('*', '', \trim($line)));
 
 			$shipData = $this->esi->getShipData($lineDetailsArray['0']);
 			$shipClass = $this->esi->getShipClassData($lineDetailsArray['0']);
@@ -86,6 +86,9 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 			} // END if($shipData !== null && $shipClass !== null)
 		} // END foreach(\explode("\n", trim($cleanedScanData)) as $line)
 
+		// Let's see if we can find out in what system we are ....
+		$system = $this->detectSystem($cleanedScanData);
+
 		$dscanArray = [
 			'all' => [
 				'count' => \count($dscanDetailShipsAll),
@@ -98,11 +101,79 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 			'offGrid' => [
 				'count' => \count($dscanDetailShipsOffGrid),
 				'data' => $dscanDetailShipsOffGrid
-			]
+			],
+			'system' => $system
 		];
 
 		return $dscanArray;
 	} // END public function parseDscan($scanData)
+
+	/**
+	 * Try and detect the system the scan was made in
+	 *
+	 * @param string $cleanedScanData
+	 * @return array
+	 */
+	public function detectSystem($cleanedScanData) {
+		$returnValue = null;
+		$systemFound = false;
+		$systemName = null;
+
+		// These ID's have the system name in their name
+		$arraySystemIds = [
+			/**
+			 * Citadels
+			 */
+			'35832', // Astrahus
+			'35833', // Fortizar
+			'35834', // Keepstar
+			'40340', // Upwell Palatine Keepstar
+
+			/**
+			 * Engeneering Complexes
+			 */
+			'35825', // Raitaru
+			'35826', // Azbel
+			'35827' // Sotiyo
+		];
+
+		/**
+		 * Trying to find the system by one of the structure IDs
+		 */
+		foreach(\explode("\n", trim($cleanedScanData)) as $line) {
+			$lineDetailsArray = explode("\t", \str_replace('*', '', \trim($line)));
+
+			if(\in_array($lineDetailsArray['0'], $arraySystemIds)) {
+				$parts = explode(' - ', $lineDetailsArray['1']);
+				$systemName = \trim($parts['0']);
+
+				$systemFound = true;
+			} // END if(\in_array($line['0'], $arraySystemIds))
+		} // END foreach(\explode("\n", trim($cleanedScanData)) as $line)
+
+		/**
+		 * Determine system by its sun
+		 */
+		if($systemFound === false) {
+			foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
+				$lineDetailsArray = explode("\t", \str_replace('*', '', \trim($line)));
+				if(\preg_match('/(.*) - Star/', $lineDetailsArray['1']) && \preg_match('/Sun (.*)/', $lineDetailsArray['2'])) {
+					$systemName = \trim(\str_replace(' - Star', '', $lineDetailsArray['1']));
+				} // END if(\preg_match('/(.*) - Star/', $line['0']) && preg_match('/Sun (.*)/', $line['1']))
+			} // END foreach(\explode("\n", trim($cleanedScanData)) as $line)
+		} // END if($systemFound === false)
+
+		if($systemName !== null) {
+			$systemID = $this->esi->getEveIdFromName($systemName, 'solarsystem');
+			$systemData = $this->esi->getSystemData($systemID);
+			$returnValue = [
+				'name' => $systemName,
+				'data' => $systemData['data']
+			];
+		} // END if($system !== null)
+
+		return $returnValue;
+	} // END public function detectSystem($cleanedScanData)
 
 	/**
 	 * Parsing the D-Scan arrays
@@ -149,7 +220,9 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 			} // END switch($item['shipClass']->category_id)
 		} // END foreach($dscanArray['data'] as $item)
 
-		\ksort($dscanDetails['data']);
+		if(!empty($dscanDetails['data'])) {
+			\ksort($dscanDetails['data']);
+		}
 
 		$returnData = $dscanDetails;
 
@@ -186,6 +259,8 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 			$dscanOffGrid = $this->parseScanArray($dscanArray['offGrid']);
 			$returnData['offGrid'] = $dscanOffGrid;
 		} // END if($dscanArray['onGrid']['count'] !== 0)
+
+		$returnData['system'] = $dscanArray['system'];
 
 		return $returnData;
 	} // END public function parseDscan($scanData)

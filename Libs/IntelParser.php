@@ -114,8 +114,18 @@ class IntelParser {
 		$parsedDscanData = Parser\DscanParser::getInstance()->parseDscan($scanData);
 
 		if($parsedDscanData !== null) {
+			$uniqueID = \uniqid();
+			$postTitle = $uniqueID;
+
+			/**
+			 * If we have a system, add it to the post title
+			 */
+			if(!empty($parsedDscanData['system']['name'])) {
+				$postTitle = $parsedDscanData['system']['name'] . ' ' . $uniqueID;
+			} // END if(!empty($parsedDscanData['system']['name']))
+
 			$newPostID = \wp_insert_post([
-				'post_title' => $this->uniqueID,
+				'post_title' => $postTitle,
 				'post_content' => '',
 				'post_category' => '',
 				'post_status' => 'publish',
@@ -128,6 +138,7 @@ class IntelParser {
 					'eve-intel-tool_dscan-onGrid' => \serialize($parsedDscanData['onGrid']),
 					'eve-intel-tool_dscan-offGrid' => \serialize($parsedDscanData['offGrid']),
 					'eve-intel-tool_dscan-shipTypes' => \serialize($parsedDscanData['shipTypes']),
+					'eve-intel-tool_dscan-system' => \serialize($parsedDscanData['system']),
 				]
 			], true);
 
