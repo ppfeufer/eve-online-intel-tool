@@ -35,7 +35,7 @@ get_header();
 						<button type="submit" class="btn btn-default"><?php echo \__('Submit', 'eve-online-intel-tool'); ?></button>
 
 						<input type="hidden" name="action" value="new_intel" />
-						<?php \wp_nonce_field('eve-online-intel-tool-new-intel'); ?>
+						<?php // \wp_nonce_field('eve-online-intel-tool-new-intel'); ?>
 					</form>
 				</article>
 			</div> <!-- /.content -->

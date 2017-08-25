@@ -53,10 +53,10 @@ class IntelParser {
 		$this->eveIntel = \filter_input(INPUT_POST, 'eveIntel');
 		$this->uniqueID = \uniqid();
 
-		$nonce = \filter_input(\INPUT_POST, '_wpnonce');
-		if(!\wp_verify_nonce($nonce, 'eve-online-intel-tool-new-intel')) {
-			die('Busted!');
-		}
+//		$nonce = \filter_input(\INPUT_POST, '_wpnonce');
+//		if(!\wp_verify_nonce($nonce, 'eve-online-intel-tool-new-intel')) {
+//			die('Busted!');
+//		}
 
 		$intelType = $this->checkIntelType($this->eveIntel);
 
