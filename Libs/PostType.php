@@ -175,7 +175,6 @@ class PostType {
 	 * @return string
 	 */
 	public function registerPageTemplate($pageTemplate) {
-		echo 'foobar';
 		if(\is_page(self::getPosttypeSlug('intel'))) {
 			$pageTemplate = Helper\PluginHelper::getPluginPath('templates/page-intel.php');
 		} // END if(\is_page($this->getPosttypeSlug('intel')))
