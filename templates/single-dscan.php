@@ -6,6 +6,7 @@ $dscanDataOnGrid = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_ds
 $dscanDataOffGrid = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-offGrid', true));
 $dscanDataShipTypes = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-shipTypes', true));
 $dscanDataSystem = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-system', true));
+$dscanDataTime =\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-time', true);
 
 $countAll = (!empty($dscanDataAll['count'])) ? $dscanDataAll['count'] : 0;
 $countOnGrid = (!empty($dscanDataOnGrid['count'])) ? $dscanDataOnGrid['count'] : 0;
@@ -22,6 +23,12 @@ $countOffGrid = (!empty($dscanDataOffGrid['count'])) ? $dscanDataOffGrid['count'
 		} // END if(!empty($dscanDataSystem['name']))
 		?>
 	</h1>
+
+	<?php
+	if(!empty($dscanDataTime)) {
+		echo '<br><small>' . \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $dscanDataTime . '</small>';
+	} // END if(!empty($dscanDataTime))
+	?>
 </header>
 
 <article id="post-<?php \the_ID(); ?>" <?php \post_class('clearfix content-single template-single-dscan'); ?>>

@@ -139,6 +139,7 @@ class IntelParser {
 					'eve-intel-tool_dscan-offGrid' => \serialize($parsedDscanData['offGrid']),
 					'eve-intel-tool_dscan-shipTypes' => \serialize($parsedDscanData['shipTypes']),
 					'eve-intel-tool_dscan-system' => \serialize($parsedDscanData['system']),
+					'eve-intel-tool_dscan-time' => \gmdate("Y-m-d H:i:s", time()),
 				]
 			], true);
 
