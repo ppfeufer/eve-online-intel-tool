@@ -53,11 +53,10 @@ class IntelParser {
 		$this->eveIntel = \filter_input(INPUT_POST, 'eveIntel');
 		$this->uniqueID = \uniqid();
 
-//		$nonce = \filter_input(\INPUT_POST, '_wpnonce');
-//		if(!\wp_verify_nonce($nonce, 'eve-online-intel-tool-new-intel')) {
-//			die('Busted!');
-//		}
-
+		/**
+		 * Let's get the intel type
+		 * dscan / fleetcomposition / local
+		 */
 		$intelType = $this->checkIntelType($this->eveIntel);
 
 		switch($intelType) {
@@ -65,7 +64,12 @@ class IntelParser {
 				$this->postID = $this->saveDscanData($this->eveIntel);
 				break;
 
+			case 'fleetcomposition':
+				$this->postID = $this->saveFleetComositionData($this->eveIntel);
+				break;
+
 			case 'local':
+				$this->postID = $this->saveLocalScanData($this->eveIntel);
 				break;
 
 			default:
@@ -90,24 +94,32 @@ class IntelParser {
 		 */
 		$cleanedScanData = Helper\IntelHelper::getInstance()->fixLineBreaks($scanData);
 
-		$linesArray = \explode("\n", \trim($cleanedScanData));
-
-		switch($linesArray['0']) {
-			case (\preg_match('/(.*)[\t](.*)[\t](.*)/', $linesArray['0']) ? true : false):
+		switch($cleanedScanData) {
+			case (\preg_match('/^\d+(.*)(-|AU) ?$/m', $cleanedScanData) ? true : false):
 				$intelType =  'dscan';
 				break;
 
-			case (\preg_match('/^[a-zA-Z0-9 -_]+$/', $linesArray['0']) ? true : false):
+			case (\preg_match('/\w+ \/ \w+( \d+)? ?$/m', $cleanedScanData) ? true : false):
+				$intelType =  'fleetcomposition';
+				break;
+
+			case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
 				$intelType =  'local';
 				break;
 
 			default:
 				break;
-		} // END switch($linesArray['0'])
+		} // END switch($cleanedScanData)
 
 		return $intelType;
 	} // END private function checkIntelType($scanData)
 
+	/**
+	 * Saving the D-Scan data
+	 *
+	 * @param string $scanData
+	 * @return int
+	 */
 	private function saveDscanData($scanData) {
 		$returnData = null;
 
@@ -147,9 +159,17 @@ class IntelParser {
 				\wp_set_object_terms($newPostID, 'dscan', 'intel_category');
 
 				$returnData = $newPostID;
-			}
-		}
+			} // END if($newPostID)
+		} // END if($parsedDscanData !== null)
 
 		return $returnData;
 	} // END private function saveDscanData($scanData)
+
+	private function saveFleetComositionData($scanData) {
+		return null;
+	} // END private function saveFleetComositionData($scanData)
+
+	private function saveLocalScanData($scanData) {
+		return null;
+	} // END private function saveFleetComositionData($scanData)
 } // END class IntelParser

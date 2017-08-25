@@ -1,0 +1,15 @@
+35832	JEIV-E - NETS Trading	Astrahus	5,3 AU
+35832	JEIV-E - Alpha Centauri	Astrahus	5,1 AU
+27532	Dark Blood Control Tower	Dark Blood Control Tower	-
+27532	Terra Nova	Dark Blood Control Tower	-
+27535	Dread Guristas Control Tower	Dread Guristas Control Tower	-
+27535	Dread Guristas Control Tower	Dread Guristas Control Tower	-
+21645	JEIV-E X - Zitadelle des Lichts	Gallente Administrative Outpost	5,7 AU
+20063	Sparky!	Gallente Control Tower Medium	-
+32458	Infrastructure Hub	Infrastructure Hub	3,8 AU
+33474	Mobile Depot	Mobile Depot	-
+29624	O-Y5JQ	Stargate (Amarr System)	2,6 AU
+29624	DNR-7M	Stargate (Amarr System)	13,7 AU
+29624	N-RMSH	Stargate (Amarr System)	2,6 AU
+45030	JEIV-E - Star	Sun G5 (Yellow)	0,9 AU
+32226	Territorial Claim Unit	Territorial Claim Unit	5,7 AU

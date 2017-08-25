@@ -87,6 +87,9 @@ class PostType {
 		\wp_insert_term('D-Scan', 'intel_category', [
 			'slug' => 'dscan'
 		]);
+		\wp_insert_term('Fleet Composition', 'intel_category', [
+			'slug' => 'fleetcomposition'
+		]);
 		\wp_insert_term('Local Scan', 'intel_category', [
 			'slug' => 'local'
 		]);
