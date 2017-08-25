@@ -126,11 +126,11 @@ $countOffGrid = (!empty($dscanDataOffGrid['count'])) ? $dscanDataOffGrid['count'
 
 		<script type="text/javascript">
 		function dscanHighlightShipClass(shipClass) {
-			jQuery("div[data-typeclass='"+shipClass+"']").addClass('highlightShipClass');
+			jQuery("div[data-typeclass='" + shipClass + "']").addClass('highlightShipClass');
 		}
 
 		function dscanDisableHighlightShipClass(shipClass) {
-			jQuery("div[data-typeclass='"+shipClass+"']").removeClass('highlightShipClass');
+			jQuery("div[data-typeclass='" + shipClass + "']").removeClass('highlightShipClass');
 		}
 		</script>
 	</section>
