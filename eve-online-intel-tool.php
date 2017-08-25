@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
  * Git URI: https://github.com/ppfeufer/eve-online-intel-tool
  * Description: A D-Scan Tool for WordPress. (Best with a theme running with <a href="http://getbootstrap.com/">Bootstrap</a>)
- * Version: 1.0
+ * Version: 0.1-dev
  * Author: Rounon Dax
  * Author URI: http://yulaifederation.net
  * Text Domain: eve-online-intel-tool
