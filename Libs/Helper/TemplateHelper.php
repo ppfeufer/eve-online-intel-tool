@@ -1,8 +1,25 @@
 <?php
+/**
+ * Copyright (C) 2017 Rounon Dax
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 
-namespace WordPress\Plugin\EveOnlineDscanTool\Helper;
+namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Helper;
 
-use WordPress\Plugin\EveOnlineDscanTool;
+\defined('ABSPATH') or die();
 
 class TemplateHelper {
 	/**
@@ -12,7 +29,7 @@ class TemplateHelper {
 	 * Search Order:
 	 * 1. /themes/theme/templates/$template_name
 	 * 2. /themes/theme/$template_name
-	 * 3. /plugins/eve-online-fitting-manager/templates/$template_name.
+	 * 3. /plugins/eve-online-intel-tool/templates/$template_name.
 	 *
 	 * @since 1.0.0
 	 *
@@ -34,21 +51,21 @@ class TemplateHelper {
 
 		// Set default plugin templates path.
 		if(!$default_path) {
-			$default_path = EveOnlineDscanTool\Helper\PluginHelper::getPluginPath() . 'templates/'; // Path to the template folder
+			$default_path = PluginHelper::getInstance()->getPluginPath('templates/'); // Path to the template folder
 		} // END if(!$default_path)
 
 		// Search template file in theme folder.
-		$template = \locate_template(array(
+		$template = \locate_template([
 			$template_path . $template_name,
 			$template_name
-		));
+		]);
 
 		// Get plugins template file.
 		if(!$template) {
 			$template = $default_path . $template_name;
 		} // END if(!$template)
 
-		return \apply_filters('eve-online-fitting-manager_locate_template', $template, $template_name, $template_path, $default_path);
+		return \apply_filters('eve-online-intel-tool_locate_template', $template, $template_name, $template_path, $default_path);
 	}
 
 	/**
@@ -65,7 +82,7 @@ class TemplateHelper {
 	 * @param string 	$tempate_path			Path to templates.
 	 * @param string	$default_path			Default path to template files.
 	 */
-	public static function getTemplate($template_name, $args = array(), $tempate_path = '', $default_path = '') {
+	public static function getTemplate($template_name, $args = [], $tempate_path = '', $default_path = '') {
 		if(\is_array($args) && isset($args)) {
 			\extract($args);
 		} // END if(\is_array($args) && isset($args))
