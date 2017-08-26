@@ -122,7 +122,31 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		return [
 			'data' => $shipClassData
 		];
-	}
+	} // END public function getShipClassData($shipID)
+
+	public function getCharacterData($characterID) {
+		$characterData = $this->getEsiData($this->esiEndpoints['character-information'] . $characterID . '/');
+
+		return [
+			'data' => $characterData
+		];
+	} // END public function getCharacterData($characterID)
+
+	public function getCorporationData($corporationID) {
+		$corporationData = $this->getEsiData($this->esiEndpoints['corporation-information'] . $corporationID . '/');
+
+		return [
+			'data' => $corporationData
+		];
+	} // END public function getCorporationData($corporationID)
+
+	public function getAllianceData($allianceID) {
+		$allianceData = $this->getEsiData($this->esiEndpoints['alliance-information'] . $allianceID . '/');
+
+		return [
+			'data' => $allianceData
+		];
+	} // END public function getAllianceData($allianceID)
 
 	/**
 	 * Getting all the needed system information from the ESI
@@ -198,7 +222,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 			 * setting the transient caches
 			 */
 			if(!isset($data->error)) {
-				CacheHelper::getInstance()->setTransientCache($transientName, $data, 24);
+				CacheHelper::getInstance()->setTransientCache($transientName, $data, 120);
 			}
 		} // END if($data === false)
 

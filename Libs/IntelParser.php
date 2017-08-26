@@ -170,6 +170,41 @@ class IntelParser {
 	} // END private function saveFleetComositionData($scanData)
 
 	private function saveLocalScanData($scanData) {
-		return null;
+		$returnData = null;
+
+		$parsedLocalData = Parser\LocalScanParser::getInstance()->parseLocalScan($scanData);
+
+		if($parsedLocalData !== null) {
+			$uniqueID = \uniqid();
+			$postTitle = $uniqueID;
+
+			$newPostID = \wp_insert_post([
+				'post_title' => $postTitle,
+				'post_content' => '',
+				'post_category' => '',
+				'post_status' => 'publish',
+				'post_type' => 'intel',
+				'comment_status' => 'closed',
+				'ping_status' => 'closed',
+				'meta_input' => [
+					'eve-intel-tool_local-rawData' => $parsedLocalData['rawData'],
+					'eve-intel-tool_local-pilotDetails' => \maybe_serialize($parsedLocalData['pilotDetails']),
+					'eve-intel-tool_local-pilotList' => \maybe_serialize($parsedLocalData['characterList']),
+					'eve-intel-tool_local-corporationList' => \maybe_serialize($parsedLocalData['corporationList']),
+					'eve-intel-tool_local-allianceList' => \maybe_serialize($parsedLocalData['allianceList']),
+					'eve-intel-tool_local-corporationParticipation' => \maybe_serialize($parsedLocalData['corporationParticipation']),
+					'eve-intel-tool_local-allianceParticipation' => \maybe_serialize($parsedLocalData['allianceParticipation']),
+					'eve-intel-tool_local-time' => \gmdate("Y-m-d H:i:s", time()),
+				]
+			], true);
+
+			if($newPostID) {
+				\wp_set_object_terms($newPostID, 'local', 'intel_category');
+
+				$returnData = $newPostID;
+			} // END if($newPostID)
+		} // END if($parsedDscanData !== null)
+
+		return $returnData;
 	} // END private function saveFleetComositionData($scanData)
 } // END class IntelParser

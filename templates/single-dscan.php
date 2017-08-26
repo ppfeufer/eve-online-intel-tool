@@ -6,7 +6,7 @@ $dscanDataOnGrid = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_ds
 $dscanDataOffGrid = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-offGrid', true));
 $dscanDataShipTypes = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-shipTypes', true));
 $dscanDataSystem = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-system', true));
-$dscanDataTime =\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-time', true);
+$dscanDataTime = \get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-time', true);
 
 $countAll = (!empty($dscanDataAll['count'])) ? $dscanDataAll['count'] : 0;
 $countOnGrid = (!empty($dscanDataOnGrid['count'])) ? $dscanDataOnGrid['count'] : 0;
