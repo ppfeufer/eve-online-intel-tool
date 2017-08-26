@@ -216,13 +216,13 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		$transientName = \sanitize_title('eve-esi-data_' . $route);
 		$data = CacheHelper::getInstance()->getTransientCache($transientName);
 
-		if($data === false) {
+		if($data === false || empty($data)) {
 			$data = RemoteHelper::getInstance()->getRemoteData($this->esiUrl . $route);
 
 			/**
 			 * setting the transient caches
 			 */
-			if(!isset($data->error)) {
+			if(!isset($data->error) && !empty($data)) {
 				CacheHelper::getInstance()->setTransientCache($transientName, $data, $cacheTime);
 			} // END if(!isset($data->error))
 		} // END if($data === false)
