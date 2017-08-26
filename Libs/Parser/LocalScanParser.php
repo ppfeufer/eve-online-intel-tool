@@ -41,7 +41,6 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 	public function parseLocalScan($scanData) {
 		$returnValue = null;
 		$localArray = $this->getLocalArray($scanData);
-
 		$employementData = $this->getParticipation($localArray['pilotDetails']);
 
 		if(!\is_null($localArray)) {
@@ -76,6 +75,7 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 		 */
 		$cleanedScanData = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\IntelHelper::getInstance()->fixLineBreaks($scanData);
 
+		$pilotList = [];
 		$pilotDetails = [];
 
 		foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
@@ -85,48 +85,49 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 			$characterID = $this->esi->getEveIdFromName($line, 'character');
 			$characterSheet = $this->esi->getCharacterData($characterID);
 
+
 			if(!empty($characterSheet['data']) && !isset($characterSheet['data']->error)) {
 				unset($characterSheet['data']->description);
+
+				$pilotList[$characterID] = $line;
+
+				$pilotDetails[$characterID] = [
+					'characterID' => $characterID,
+					'characterName' => $line
+				];
+
 				$characterData = $characterSheet['data'];
 				/**
 				 * Grabbing corporation information
 				 */
-				$corporationData = null;
 				if(isset($characterData->corporation_id)) {
 					$corporationSheet = $this->esi->getCorporationData($characterData->corporation_id);
 
 					if(!empty($corporationSheet['data']) && !isset($corporationSheet['data']->error)) {
-						unset($corporationSheet['data']->corporation_description);
-						$corporationData = $corporationSheet['data'];
+						$pilotDetails[$characterID]['corporationID'] = $characterData->corporation_id;
+						$pilotDetails[$characterID]['corporationName'] = $corporationSheet['data']->corporation_name;
+						$pilotDetails[$characterID]['corporationTicker'] = $corporationSheet['data']->ticker;
 					} // END if(!empty($corporationSheet['data']) && !isset($corporationSheet['data']->error))
 				} // END if(isset($characterData->corporation_id))
 
 				/**
 				 * Grabbing alliance information
 				 */
-				$allianceData = null;
 				if(isset($characterData->alliance_id)) {
 					$allianceSheet = $this->esi->getAllianceData($characterData->alliance_id);
 
 					if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error)) {
-
-						$allianceData = $allianceSheet['data'];
+						$pilotDetails[$characterID]['allianceID'] = $characterData->alliance_id;
+						$pilotDetails[$characterID]['allianceName'] = $allianceSheet['data']->alliance_name;
+						$pilotDetails[$characterID]['allianceTicker'] = $allianceSheet['data']->ticker;
 					} // END if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error))
 				} // END if(isset($characterData->alliance_id))
-
-				$pilotDetails[\sanitize_title($line)] = [
-					'name' => $line,
-					'characterID' => $characterID,
-					'characterData' => $characterData,
-					'corporationData' => $corporationData,
-					'allianceData' => $allianceData
-				];
 			} // END if(!empty($characterSheet['data']) && !isset($characterSheet['data']->error))
 		} // END foreach(\explode("\n", \trim($cleanedScanData)) as $line)
 
 		if(\count($pilotDetails) > 0) {
 			$returnValue = [
-				'pilotList' => \explode("\n", \trim($cleanedScanData)),
+				'pilotList' => $pilotList,
 				'pilotDetails' => $pilotDetails
 			];
 		} // END if(\count($pilotDetails) > 0)
@@ -153,44 +154,44 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 			/**
 			 * Corporation list
 			 */
-			if(isset($pilotSheet['characterData']->corporation_id)) {
-				if(!isset($counter[\sanitize_title($pilotSheet['corporationData']->corporation_name)])) {
-					$counter[\sanitize_title($pilotSheet['corporationData']->corporation_name)] = 0;
-				} // END if(!isset($counter[\sanitize_title($pilotSheet['corporationData']->corporation_name)]))
-				$counter[\sanitize_title($pilotSheet['corporationData']->corporation_name)]++;
+			if(isset($pilotSheet['corporationID'])) {
+				if(!isset($counter[\sanitize_title($pilotSheet['corporationName'])])) {
+					$counter[\sanitize_title($pilotSheet['corporationName'])] = 0;
+				} // END if(!isset($counter[\sanitize_title($pilotSheet['corporationName'])]))
+				$counter[\sanitize_title($pilotSheet['corporationName'])]++;
 
-				$corporationList[\sanitize_title($pilotSheet['corporationData']->corporation_name)] = [
-					'corporationID' => $pilotSheet['characterData']->corporation_id,
-					'corporationName' => $pilotSheet['corporationData']->corporation_name,
-					'corporationTicker' => $pilotSheet['corporationData']->ticker
+				$corporationList[\sanitize_title($pilotSheet['corporationName'])] = [
+					'corporationID' => $pilotSheet['corporationID'],
+					'corporationName' => $pilotSheet['corporationName'],
+					'corporationTicker' => $pilotSheet['corporationTicker']
 				];
 
-				$corporationParticipation[\sanitize_title($pilotSheet['corporationData']->corporation_name)] = [
-					'corporationID' => $pilotSheet['characterData']->corporation_id,
-					'corporationName' => $pilotSheet['corporationData']->corporation_name,
-					'count' => $counter[\sanitize_title($pilotSheet['corporationData']->corporation_name)]
+				$corporationParticipation[\sanitize_title($pilotSheet['corporationName'])] = [
+					'corporationID' => $pilotSheet['corporationID'],
+					'corporationName' => $pilotSheet['corporationName'],
+					'count' => $counter[\sanitize_title($pilotSheet['corporationName'])]
 				];
-			} // END if(isset($pilotSheet['characterData']->corporation_id))
+			} // END if(isset($pilotSheet['corporationID']))
 
 			/**
 			 * Alliance List
 			 */
-			if(isset($pilotSheet['characterData']->alliance_id)) {
-				if(!isset($counter[\sanitize_title($pilotSheet['allianceData']->alliance_name)])) {
-					$counter[\sanitize_title($pilotSheet['allianceData']->alliance_name)] = 0;
-				} // END if(!isset($counter[\sanitize_title($pilotSheet['corporationData']->corporation_name)]))
-				$counter[\sanitize_title($pilotSheet['allianceData']->alliance_name)]++;
+			if(isset($pilotSheet['allianceID'])) {
+				if(!isset($counter[\sanitize_title($pilotSheet['allianceName'])])) {
+					$counter[\sanitize_title($pilotSheet['allianceName'])] = 0;
+				} // END if(!isset($counter[\sanitize_title($pilotSheet['allianceName'])]))
+				$counter[\sanitize_title($pilotSheet['allianceName'])]++;
 
-				$allianceList[\sanitize_title($pilotSheet['allianceData']->alliance_name)] = [
-					'allianceID' => $pilotSheet['characterData']->alliance_id,
-					'allianceName' => $pilotSheet['allianceData']->alliance_name,
-					'allianceTicker' => $pilotSheet['allianceData']->ticker
+				$allianceList[\sanitize_title($pilotSheet['allianceName'])] = [
+					'allianceID' => $pilotSheet['allianceID'],
+					'allianceName' => $pilotSheet['allianceName'],
+					'allianceTicker' => $pilotSheet['allianceTicker']
 				];
 
-				$allianceParticipation[\sanitize_title($pilotSheet['allianceData']->alliance_name)] = [
-					'allianceID' => $pilotSheet['characterData']->alliance_id,
-					'allianceName' => $pilotSheet['allianceData']->alliance_name,
-					'count' => $counter[\sanitize_title($pilotSheet['allianceData']->alliance_name)]
+				$allianceParticipation[\sanitize_title($pilotSheet['allianceName'])] = [
+					'allianceID' => $pilotSheet['allianceID'],
+					'allianceName' => $pilotSheet['allianceName'],
+					'count' => $counter[\sanitize_title($pilotSheet['allianceName'])]
 				];
 			} // END if(isset($pilotSheet['characterData']->corporation_id))
 		} // END foreach($pilotDetails as $pilotSheet)

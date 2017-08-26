@@ -7,7 +7,7 @@ $localDataCorporationList = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'ev
 $localDataCorporationParticipation = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_local-corporationParticipation', true));
 $localDataAllianceList = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_local-allianceList', true));
 $localDataAllianceParticipation = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_local-allianceParticipation', true));
-$localDataTime = \get_post_meta(\get_the_ID(), 'eve-intel-tool_local-time', true);
+$localDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_local-time', true));
 ?>
 
 <header class="page-title">
@@ -118,17 +118,17 @@ $localDataTime = \get_post_meta(\get_the_ID(), 'eve-intel-tool_local-time', true
 											<?php
 											$imagePilot = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('character', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('character') . $pilot['characterID'] . '_32.jpg');
 											?>
-											<img src="<?php echo $imagePilot; ?>" alt="<?php echo $pilot['name']; ?>" width="32" heigh="32">
-											<?php echo $pilot['name']; ?>
+											<img src="<?php echo $imagePilot; ?>" alt="<?php echo $pilot['characterName']; ?>" width="32" heigh="32">
+											<?php echo $pilot['characterName']; ?>
 										</td>
 
 										<td>
 											<?php
-											if(isset($pilot['characterData']->alliance_id)) {
-												$imageAlliance = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('alliance', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('alliance') . $pilot['characterData']->alliance_id . '_32.png');
+											if(isset($pilot['allianceID'])) {
+												$imageAlliance = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('alliance', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('alliance') . $pilot['allianceID'] . '_32.png');
 												?>
-												<img src="<?php echo $imageAlliance; ?>" alt="<?php echo $pilot['allianceData']->alliance_name; ?>" title="<?php echo $pilot['allianceData']->alliance_name; ?>" width="32" heigh="32">
-													<?php echo $pilot['allianceData']->ticker; ?>
+												<img src="<?php echo $imageAlliance; ?>" alt="<?php echo $pilot['allianceName']; ?>" title="<?php echo $pilot['allianceName']; ?>" width="32" heigh="32">
+													<?php echo $pilot['allianceTicker']; ?>
 												<?php
 											} // END if(isset($pilot['characterData']->alliance_id))
 											?>
@@ -136,10 +136,10 @@ $localDataTime = \get_post_meta(\get_the_ID(), 'eve-intel-tool_local-time', true
 
 										<td>
 											<?php
-											$imageCorporation = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('corporation', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('corporation') . $pilot['characterData']->corporation_id . '_32.png');
+											$imageCorporation = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('corporation', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('corporation') . $pilot['corporationID'] . '_32.png');
 											?>
-											<img src="<?php echo $imageCorporation; ?>" alt="<?php echo $pilot['allianceData']->alliance_name; ?>" title="<?php echo $pilot['corporationData']->corporation_name; ?>" width="32" heigh="32">
-												<?php echo $pilot['corporationData']->ticker; ?>
+											<img src="<?php echo $imageCorporation; ?>" alt="<?php echo $pilot['corporationName']; ?>" title="<?php echo $pilot['corporationName']; ?>" width="32" heigh="32">
+												<?php echo $pilot['corporationTicker']; ?>
 										</td>
 									</tr>
 									<?php

@@ -187,14 +187,14 @@ class IntelParser {
 				'comment_status' => 'closed',
 				'ping_status' => 'closed',
 				'meta_input' => [
-					'eve-intel-tool_local-rawData' => $parsedLocalData['rawData'],
+					'eve-intel-tool_local-rawData' => \maybe_serialize($parsedLocalData['rawData']),
 					'eve-intel-tool_local-pilotDetails' => \maybe_serialize($parsedLocalData['pilotDetails']),
 					'eve-intel-tool_local-pilotList' => \maybe_serialize($parsedLocalData['characterList']),
 					'eve-intel-tool_local-corporationList' => \maybe_serialize($parsedLocalData['corporationList']),
 					'eve-intel-tool_local-allianceList' => \maybe_serialize($parsedLocalData['allianceList']),
 					'eve-intel-tool_local-corporationParticipation' => \maybe_serialize($parsedLocalData['corporationParticipation']),
 					'eve-intel-tool_local-allianceParticipation' => \maybe_serialize($parsedLocalData['allianceParticipation']),
-					'eve-intel-tool_local-time' => \gmdate("Y-m-d H:i:s", time()),
+					'eve-intel-tool_local-time' => \maybe_serialize(\gmdate("Y-m-d H:i:s", time())),
 				]
 			], true);
 
