@@ -28,7 +28,7 @@ get_header();
 				</header>
 				<article class="post clearfix">
 					<p>
-						<?php echo \__('Please keep in mind, that parsing large amount of data can take some time. Be patient, CCP\'s API is not the fastest to answer ....', 'eve-online-intel-tool'); ?>
+						<?php echo \__('Please keep in mind, parsing large amount of data can take some time. Be patient, CCP\'s API is not the fastest to answer ....', 'eve-online-intel-tool'); ?>
 					</p>
 					<div class="row">
 						<div class="col-lg-4 paste-explanation">
