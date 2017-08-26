@@ -108,7 +108,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return array
 	 */
 	public function getShipData($shipID) {
-		$shipData = $this->getEsiData($this->esiEndpoints['type-information'] . $shipID . '/');
+		$shipData = $this->getEsiData($this->esiEndpoints['type-information'] . $shipID . '/', 3600);
 
 		return [
 			'data' => $shipData
@@ -117,7 +117,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 
 	public function getShipClassData($shipID) {
 		$shipData = $this->getShipData($shipID);
-		$shipClassData = $this->getEsiData($this->esiEndpoints['group-information'] . $shipData['data']->group_id . '/');
+		$shipClassData = $this->getEsiData($this->esiEndpoints['group-information'] . $shipData['data']->group_id . '/', 3600);
 
 		return [
 			'data' => $shipClassData
@@ -133,7 +133,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	} // END public function getCharacterData($characterID)
 
 	public function getCorporationData($corporationID) {
-		$corporationData = $this->getEsiData($this->esiEndpoints['corporation-information'] . $corporationID . '/');
+		$corporationData = $this->getEsiData($this->esiEndpoints['corporation-information'] . $corporationID . '/', 3600);
 
 		return [
 			'data' => $corporationData
@@ -141,7 +141,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	} // END public function getCorporationData($corporationID)
 
 	public function getAllianceData($allianceID) {
-		$allianceData = $this->getEsiData($this->esiEndpoints['alliance-information'] . $allianceID . '/');
+		$allianceData = $this->getEsiData($this->esiEndpoints['alliance-information'] . $allianceID . '/', 3600);
 
 		return [
 			'data' => $allianceData
@@ -155,7 +155,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return array
 	 */
 	public function getSystemData($systemID) {
-		$systemData = $this->getEsiData($this->esiEndpoints['system-information'] . $systemID . '/');
+		$systemData = $this->getEsiData($this->esiEndpoints['system-information'] . $systemID . '/', 3600);
 
 		return [
 			'data' => $systemData
@@ -195,7 +195,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	public function getEveIdFromName($name, $type) {
 		$returnData = null;
 
-		$data = $this->getEsiData($this->esiEndpoints['search'] . '?search=' . \urlencode(\wp_specialchars_decode($name, \ENT_QUOTES)) . '&strict=true&categories=' . $type);
+		$data = $this->getEsiData($this->esiEndpoints['search'] . '?search=' . \urlencode(\wp_specialchars_decode($name, \ENT_QUOTES)) . '&strict=true&categories=' . $type, 3600);
 
 		if(isset($data->{$type}['0'])) {
 			$returnData = $data->{$type}['0'];
@@ -208,11 +208,12 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * Getting data from the ESI
 	 *
 	 * @param string $route
+	 * @param int $cacheTime Caching time in hours (Default: 120)
 	 * @return object
 	 */
-	private function getEsiData($route) {
+	private function getEsiData($route, $cacheTime = 120) {
 		$returnValue = null;
-		$transientName = \sanitize_title('eve-online-intel-tool-data_' . $route);
+		$transientName = \sanitize_title('eve-esi-data_' . $route);
 		$data = CacheHelper::getInstance()->getTransientCache($transientName);
 
 		if($data === false) {
@@ -222,8 +223,8 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 			 * setting the transient caches
 			 */
 			if(!isset($data->error)) {
-				CacheHelper::getInstance()->setTransientCache($transientName, $data, 120);
-			}
+				CacheHelper::getInstance()->setTransientCache($transientName, $data, $cacheTime);
+			} // END if(!isset($data->error))
 		} // END if($data === false)
 
 		if(!empty($data) && !isset($data->error)) {
