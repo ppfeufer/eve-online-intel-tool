@@ -56,7 +56,7 @@
 		width: 300px;
 	}
 
-	.table-local-scan > tbody > tr > td {
+	.table-local-scan tbody > tr > td {
 		vertical-align: middle;
 		color: rgb(51,51,51);
 	}
