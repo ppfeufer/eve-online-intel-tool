@@ -21,32 +21,22 @@ $localDataTime = \get_post_meta(\get_the_ID(), 'eve-intel-tool_local-time', true
 	if(!empty($localDataTime)) {
 		echo '<small>' . \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $localDataTime . '</small>';
 	} // END if(!empty($dscanDataTime))
-	?>
 
-	<div class="eve-intel-copy-to-clipboard copy-permalink-to-clipboard">
-		<ul class="nav nav-pills clearfix">
-			<li role="presentation">
-				<a href="<?php echo \get_post_type_archive_link('intel'); ?>"><span type="button" class="btn btn-default"><?php echo \__('New Scan', 'eve-online-intel-tool') ; ?></span></a>
-			</li>
-			<li role="presentation">
-				<span type="button" class="btn btn-default btn-copy-permalink-to-clipboard" data-clipboard-action="copy" data-clipboard-text="<?php echo \get_the_permalink(); ?>"><?php echo \__('Copy Permalink', 'eve-online-intel-tool') ; ?></span>
-			</li>
-		</ul>
-	</div>
-	<div class="eve-intel-copy-result"></div>
+	\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('extra/buttons');
+	?>
 </header>
 
 <article id="post-<?php \the_ID(); ?>" <?php \post_class('clearfix content-single template-content-fitting'); ?>>
 	<section class="post-content">
 		<div class="entry-content">
 			<div class="local-scan-result row">
-				<div class="col-md-6 col-lg-4">
+				<div class="col-md-6 col-lg-3">
 					<header class="entry-header"><h2 class="entry-title"><?php echo \__('Alliances Breakdown', 'eve-online-intel-tool'); ?> (<?php echo \count($localDataAllianceList); ?>)</h2></header>
 					<?php
 					if(!empty($localDataAllianceParticipation)) {
 						?>
-						<div class="table-responsive">
-							<table class="table table-condensed table-local-scan table-local-scan-alliances">
+						<div class="table-responsive table-local-scan table-local-scan-alliances">
+							<table class="table table-condensed">
 								<?php
 								foreach($localDataAllianceParticipation as $allianceList) {
 									foreach($allianceList as $alliance) {
@@ -57,8 +47,6 @@ $localDataTime = \get_post_meta(\get_the_ID(), 'eve-intel-tool_local-time', true
 												$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('alliance', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('alliance') . $alliance['allianceID'] . '_32.png');
 												?>
 												<img src="<?php echo $image; ?>" alt="<?php echo $alliance['allianceName']; ?>" width="32" heigh="32">
-											</td>
-											<td>
 												<?php echo $alliance['allianceName']; ?>
 											</td>
 											<td>
@@ -76,13 +64,13 @@ $localDataTime = \get_post_meta(\get_the_ID(), 'eve-intel-tool_local-time', true
 					?>
 				</div>
 
-				<div class="col-md-6 col-lg-4">
+				<div class="col-md-6 col-lg-3">
 					<header class="entry-header"><h2 class="entry-title"><?php echo \__('Corporations Breakdown', 'eve-online-intel-tool'); ?> (<?php echo \count($localDataCorporationList); ?>)</h2></header>
 					<?php
 					if(!empty($localDataCorporationParticipation)) {
 						?>
-						<div class="table-responsive">
-							<table class="table table-condensed table-local-scan table-local-scan-corporation">
+						<div class="table-responsive table-local-scan table-local-scan-corporation">
+							<table class="table table-condensed">
 								<?php
 								foreach($localDataCorporationParticipation as $corporationList) {
 									foreach($corporationList as $corporation) {
@@ -93,8 +81,6 @@ $localDataTime = \get_post_meta(\get_the_ID(), 'eve-intel-tool_local-time', true
 												$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('corporation', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('corporation') . $corporation['corporationID'] . '_32.png');
 												?>
 												<img src="<?php echo $image; ?>" alt="<?php echo $corporation['corporationName']; ?>" width="32" heigh="32">
-											</td>
-											<td>
 												<?php echo $corporation['corporationName']; ?>
 											</td>
 											<td>
@@ -112,13 +98,18 @@ $localDataTime = \get_post_meta(\get_the_ID(), 'eve-intel-tool_local-time', true
 					?>
 				</div>
 
-				<div class="col-md-12 col-lg-4">
+				<div class="col-md-12 col-lg-6">
 					<header class="entry-header"><h2 class="entry-title"><?php echo \__('Pilots Breakdown', 'eve-online-intel-tool'); ?> (<?php echo \count($localDataPilotList); ?>)</h2></header>
 					<?php
 					if(!empty($localDataPilotDetails)) {
 						?>
-						<div class="table-responsive">
-							<table class="table table-condensed table-local-scan table-local-scan-pilots">
+						<div class="table-responsive table-local-scan table-local-scan-pilots">
+							<table class="table table-condensed">
+								<thead>
+									<th>Name</th>
+									<th>Alliance</th>
+									<th>Corporation</th>
+								</thead>
 								<?php
 								foreach($localDataPilotDetails as $pilot) {
 									?>
