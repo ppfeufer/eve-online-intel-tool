@@ -35,7 +35,7 @@ get_header();
 							<header class="entry-header"><h2 class="entry-title">What can I paste?</h2></header>
 							<ul>
 								<li>» D-Scan</li>
-								<li>» Chat Memberlist <small>(takes time to parse)</small></li>
+								<li>» Chat Memberlist <small>(takes some time to parse)</small></li>
 								<li>» Fleet Composition <small>(Well, not yet, still working on that one ...)</small></li>
 							</ul>
 						</div>
