@@ -85,7 +85,6 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 			$characterID = $this->esi->getEveIdFromName($line, 'character');
 			$characterSheet = $this->esi->getCharacterData($characterID);
 
-
 			if(!empty($characterSheet['data']) && !isset($characterSheet['data']->error)) {
 				$pilotList[$characterID] = $line;
 
