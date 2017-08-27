@@ -217,7 +217,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 					case 'corporation':
 						$corporationSheet = $this->getCorporationData($entityID);
 
-						if($corporationSheet['data']->name === $name) {
+						if($corporationSheet['data']->corporation_name === $name) {
 							$returnData = $entityID;
 							break;
 						} // END if($corporationSheet['data']->name === $name)
@@ -226,7 +226,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 					case 'alliance':
 						$allianceSheet = $this->getAllianceData($entityID);
 
-						if($allianceSheet['data']->name === $name) {
+						if($allianceSheet['data']->alliance_name === $name) {
 							$returnData = $entityID;
 							break;
 						} // END if($allianceSheet['data']->name === $name)
