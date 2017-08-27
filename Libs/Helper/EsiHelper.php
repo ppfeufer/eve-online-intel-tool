@@ -133,7 +133,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	} // END public function getCharacterData($characterID)
 
 	public function getCorporationData($corporationID) {
-		$corporationData = $this->getEsiData($this->esiEndpoints['corporation-information'] . $corporationID . '/', 3600);
+		$corporationData = $this->getEsiData($this->esiEndpoints['corporation-information'] . $corporationID . '/');
 
 		return [
 			'data' => $corporationData

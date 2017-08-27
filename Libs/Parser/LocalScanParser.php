@@ -113,11 +113,11 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 				/**
 				 * Grabbing alliance information
 				 */
-				if(isset($characterData->alliance_id)) {
+				if(isset($corporationSheet->alliance_id)) {
 					$allianceSheet = $this->esi->getAllianceData($characterData->alliance_id);
 
 					if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error)) {
-						$pilotDetails[$characterID]['allianceID'] = $characterData->alliance_id;
+						$pilotDetails[$characterID]['allianceID'] = $corporationSheet->alliance_id;
 						$pilotDetails[$characterID]['allianceName'] = $allianceSheet['data']->alliance_name;
 						$pilotDetails[$characterID]['allianceTicker'] = $allianceSheet['data']->ticker;
 					} // END if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error))
