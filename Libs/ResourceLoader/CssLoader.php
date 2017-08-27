@@ -45,7 +45,7 @@ class CssLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\
 			 */
 			if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('intel')) || \get_post_type() === 'intel') {
 				\wp_enqueue_style('bootstrap', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('bootstrap/css/bootstrap.min.css'));
-				\wp_enqueue_style('data-tables-bootstrap', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('css/data-tables/dataTables.bootstrap.min.css.css'));
+				\wp_enqueue_style('data-tables-bootstrap', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('css/data-tables/dataTables.bootstrap.min.css'));
 				\wp_enqueue_style('eve-online-intel-tool', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('css/eve-online-intel-tool.min.css'));
 			} // END if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('fittings')) || \get_post_type() === 'fitting')
 		} // END if(!\is_admin())
