@@ -1,6 +1,7 @@
 <?php
 defined('ABSPATH') or die();
 
+// Meta data
 $dscanDataAll = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-all', true));
 $dscanDataOnGrid = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-onGrid', true));
 $dscanDataOffGrid = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-offGrid', true));
@@ -8,9 +9,15 @@ $dscanDataShipTypes = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool
 $dscanDataSystem = \unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-system', true));
 $dscanDataTime = \get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-time', true);
 
+// Counter
 $countAll = (!empty($dscanDataAll['count'])) ? $dscanDataAll['count'] : 0;
 $countOnGrid = (!empty($dscanDataOnGrid['count'])) ? $dscanDataOnGrid['count'] : 0;
 $countOffGrid = (!empty($dscanDataOffGrid['count'])) ? $dscanDataOffGrid['count'] : 0;
+
+// System data
+$systemName = (!empty($dscanDataSystem['systemName'])) ? $dscanDataSystem['systemName'] : null;
+$constellationName = (!empty($dscanDataSystem['constellationName'])) ? $dscanDataSystem['constellationName'] : null;
+$regionName = (!empty($dscanDataSystem['regionName'])) ? $dscanDataSystem['regionName'] : null;
 ?>
 
 <header class="page-title">
@@ -18,9 +25,17 @@ $countOffGrid = (!empty($dscanDataOffGrid['count'])) ? $dscanDataOffGrid['count'
 		<?php
 		echo \__('D-Scan', 'eve-online-intel-tool');
 
-		if(!empty($dscanDataSystem['name'])) {
-			echo '<br><small>' . \__('Solar System:', 'eve-online-intel-tool') . ' ' . $dscanDataSystem['name'] . '</small>';
-		} // END if(!empty($dscanDataSystem['name']))
+		if(!\is_null($systemName)) {
+			echo '<br><small>' . \__('Solar System:', 'eve-online-intel-tool') . ' ' . $systemName . '</small>';
+
+			if(!\is_null($constellationName)) {
+				echo '<small> - ' . $constellationName . '</small>';
+			}
+
+			if(!\is_null($regionName)) {
+				echo '<small> - ' . $regionName . '</small>';
+			}
+		} // END if(!\is_null($systemName))
 		?>
 	</h1>
 
@@ -118,7 +133,7 @@ $countOffGrid = (!empty($dscanDataOffGrid['count'])) ? $dscanDataOffGrid['count'
 				<div class="col-md-4 col-sm-6 col-lg-3">
 					<header class="entry-header"><h2 class="entry-title"><?php echo \__('Ship Classes', 'eve-online-intel-tool'); ?></h2></header>
 					<?php
-					if(\count($dscanDataShipTypes) > 0) {
+					if(\is_array($dscanDataShipTypes) && \count($dscanDataShipTypes) > 0) {
 						foreach($dscanDataShipTypes as $data) {
 							?>
 							<div data-typeclass="<?php echo $data['shipClassSanitized']; ?>" class="dscan-row" onmouseover="dscanHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');" onmouseout="dscanDisableHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');">

@@ -179,7 +179,7 @@ class PostType {
 	 */
 	public function registerPageTemplate($pageTemplate) {
 		if(\is_page(self::getPosttypeSlug('intel'))) {
-			$pageTemplate = Helper\PluginHelper::getPluginPath('templates/page-intel.php');
+			$pageTemplate = Helper\PluginHelper::getInstance()->getPluginPath('templates/page-intel.php');
 		} // END if(\is_page($this->getPosttypeSlug('intel')))
 
 		return $pageTemplate;

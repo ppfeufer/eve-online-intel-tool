@@ -132,12 +132,23 @@ class IntelParser {
 			/**
 			 * If we have a system, add it to the post title
 			 */
-			if(!empty($parsedDscanData['system']['name'])) {
-				$postTitle = $parsedDscanData['system']['name'] . ' ' . $uniqueID;
+			if(!empty($parsedDscanData['system']['systemName'])) {
+				$postTitle = $parsedDscanData['system']['systemName'];
+
+				if(!empty($parsedDscanData['system']['constellationName'])) {
+					$postTitle .= ' - ' . $parsedDscanData['system']['constellationName'];
+				} // END if(!empty($parsedDscanData['system']['constellationName']))
+
+				if(!empty($parsedDscanData['system']['regionName'])) {
+					$postTitle .= ' - ' . $parsedDscanData['system']['regionName'];
+				} // END if(!empty($parsedDscanData['system']['regionName']))
+
+				$postTitle .= ' ' . $uniqueID;
 			} // END if(!empty($parsedDscanData['system']['name']))
 
 			$newPostID = \wp_insert_post([
-				'post_title' => $postTitle,
+				'post_title' => 'D-Scan: ' . $postTitle,
+				'post_name' => \sanitize_title($postTitle),
 				'post_content' => '',
 				'post_category' => '',
 				'post_status' => 'publish',
@@ -179,7 +190,8 @@ class IntelParser {
 			$postTitle = $uniqueID;
 
 			$newPostID = \wp_insert_post([
-				'post_title' => $postTitle,
+				'post_title' => 'Local Scan: ' . $postTitle,
+				'post_name' => \sanitize_title($postTitle),
 				'post_content' => '',
 				'post_category' => '',
 				'post_status' => 'publish',

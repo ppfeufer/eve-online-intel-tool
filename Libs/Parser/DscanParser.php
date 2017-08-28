@@ -167,11 +167,35 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		} // END if($systemFound === false)
 
 		if($systemName !== null) {
-			$systemID = $this->esi->getEveIdFromName($systemName, 'solarsystem');
+			$systemID = $this->esi->getEveIdFromName(\trim($systemName), 'solarsystem');
 			$systemData = $this->esi->getSystemData($systemID);
+			$constellationData = null;
+			$regionData = null;
+
+			$constellationName = null;
+			$regionName = null;
+
+			// Get the constellation data
+			if($this->esi->isValidEsiData($systemData) === true) {
+				$constellationData = $this->esi->getConstellationData($systemData['data']->constellation_id);
+			} // END if($this->esi->isValidEsiData($systemData) === true)
+
+			// Get the region data
+			if($this->esi->isValidEsiData($constellationData) === true) {
+				// Set the constellation name
+				$constellationName = $constellationData['data']->name;
+				$regionData = $this->esi->getRegionData($constellationData['data']->region_id);
+			} // END if($this->esi->isValidEsiData($constellationData) === true)
+
+			// Set the region name
+			if($this->esi->isValidEsiData($regionData) === true) {
+				$regionName = $regionData['data']->name;
+			} // END if($this->esi->isValidEsiData($regionData) === true)
+
 			$returnValue = [
-				'name' => $systemName,
-				'data' => $systemData['data']
+				'systemName' => $systemName,
+				'constellationName' => $constellationName,
+				'regionName' => $regionName
 			];
 		} // END if($system !== null)
 

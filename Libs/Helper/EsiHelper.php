@@ -77,6 +77,8 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 			'search' => 'search/', // Search for entities that match a given sub-string. - https://esi.tech.ccp.is/latest/search/?search=Yulai%20Federation&strict=true&categories=alliance
 			'group-information' => 'universe/groups/', // getting types information by ID - https://esi.tech.ccp.is/latest/universe/groups/1305/
 			'system-information' => 'universe/systems/', // getting system information by ID - https://esi.tech.ccp.is/latest/universe/systems/30000003/
+			'constellation-information' => 'universe/constellations/', // getting constellation information by ID - https://esi.tech.ccp.is/latest/universe/constellations/20000315/
+			'region-information' => 'universe/regions/', // getting constellation information by ID - https://esi.tech.ccp.is/latest/universe/regions/10000025/
 			'type-information' => 'universe/types/', // getting types information by ID - https://esi.tech.ccp.is/latest/universe/types/670/
 		];
 
@@ -163,6 +165,34 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	} // END public function getSystemData($systemID)
 
 	/**
+	 * Getting all the needed constellation information from the ESI
+	 *
+	 * @param int $constellationID
+	 * @return array
+	 */
+	public function getConstellationData($constellationID) {
+		$constellationData = $this->getEsiData($this->esiEndpoints['constellation-information'] . $constellationID . '/', 3600);
+
+		return [
+			'data' => $constellationData
+		];
+	} // END public function getConstellationData($constellationID)
+
+	/**
+	 * Getting all the needed constellation information from the ESI
+	 *
+	 * @param int $regionID
+	 * @return array
+	 */
+	public function getRegionData($regionID) {
+		$regionData = $this->getEsiData($this->esiEndpoints['region-information'] . $regionID . '/', 3600);
+
+		return [
+			'data' => $regionData
+		];
+	} // END public function getRegionData($regionID)
+
+	/**
 	 * Get the ship image by ship ID
 	 *
 	 * @param int $shipTypeID
@@ -231,6 +261,15 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 							break;
 						} // END if($allianceSheet['data']->name === $name)
 						break;
+
+					case 'solarsystem':
+						$systemSheet = $this->getSystemData($entityID);
+
+						if($systemSheet['data']->name === $name) {
+							$returnData = $entityID;
+							break;
+						} // END if($allianceSheet['data']->name === $name)
+						break;
 				} // END switch($type)
 			} // END foreach($data->{$type} as $entityID)
 		} // END if(!isset($data->error) && !empty($data))
@@ -267,4 +306,20 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 
 		return $returnValue;
 	} // END private function getEsiData($route)
+
+	/**
+	 * Check if we have valid ESI data or not
+	 *
+	 * @param array $esiData
+	 * @return boolean
+	 */
+	public function isValidEsiData($esiData) {
+		$returnValue = false;
+
+		if(!\is_null($esiData) && isset($esiData['data']) && !\is_null($esiData['data']) && !isset($esiData['data']->error)) {
+			$returnValue = true;
+		} // END if(!\is_null($esiData) && isset($esiData['data']) && !\is_null($esiData['data']) && !isset($esiData['data']->error))
+
+		return $returnValue;
+	} // END public function isValidEsiData($esiData)
 } // END class EveApi
