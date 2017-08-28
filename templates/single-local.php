@@ -26,7 +26,7 @@ $localDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-too
 	?>
 </header>
 
-<article id="post-<?php \the_ID(); ?>" <?php \post_class('clearfix content-single template-content-fitting'); ?>>
+<article id="post-<?php \the_ID(); ?>" <?php \post_class('clearfix content-single template-single-local'); ?>>
 	<section class="post-content">
 		<div class="entry-content">
 			<div class="local-scan-result row">
@@ -128,7 +128,7 @@ $localDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-too
 												$imageAlliance = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('alliance', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('alliance') . $pilot['allianceID'] . '_32.png');
 												?>
 												<img src="<?php echo $imageAlliance; ?>" alt="<?php echo $pilot['allianceName']; ?>" title="<?php echo $pilot['allianceName']; ?>" width="32" heigh="32">
-													<?php echo $pilot['allianceTicker']; ?>
+												<?php echo $pilot['allianceTicker']; ?>
 												<?php
 											} // END if(isset($pilot['characterData']->alliance_id))
 											?>
@@ -139,7 +139,7 @@ $localDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-too
 											$imageCorporation = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('corporation', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('corporation') . $pilot['corporationID'] . '_32.png');
 											?>
 											<img src="<?php echo $imageCorporation; ?>" alt="<?php echo $pilot['corporationName']; ?>" title="<?php echo $pilot['corporationName']; ?>" width="32" heigh="32">
-												<?php echo $pilot['corporationTicker']; ?>
+											<?php echo $pilot['corporationTicker']; ?>
 										</td>
 									</tr>
 									<?php

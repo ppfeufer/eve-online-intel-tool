@@ -38,6 +38,11 @@ get_header();
 								<li>» Chat Memberlist <small>(takes some time to parse)</small></li>
 								<li>» Fleet Composition <small>(Well, not yet, still working on that one ...)</small></li>
 							</ul>
+
+							<div class="bs-callout bs-callout-info">
+								<p class="small"><?php echo \__('This tool is still in its testing phase, so it might have some hick ups and rough edges here and there. If you experience any odd behaviour, please let me (Rounon Dax) know about it.', 'eve-online-intel-tool'); ?></p>
+								<p class="small"><?php echo \__('Thank you!', 'eve-online-intel-tool'); ?></p>
+							</div>
 						</div>
 						<div class="col-lg-8">
 							<form id="new_intel" name="new_intel" method="post">
