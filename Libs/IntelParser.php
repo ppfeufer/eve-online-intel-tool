@@ -155,13 +155,13 @@ class IntelParser {
 				'comment_status' => 'closed',
 				'ping_status' => 'closed',
 				'meta_input' => [
-					'eve-intel-tool_dscan-rawData' => Helper\IntelHelper::getInstance()->fixLineBreaks($scanData),
-					'eve-intel-tool_dscan-all' => \serialize($parsedDscanData['all']),
-					'eve-intel-tool_dscan-onGrid' => \serialize($parsedDscanData['onGrid']),
-					'eve-intel-tool_dscan-offGrid' => \serialize($parsedDscanData['offGrid']),
-					'eve-intel-tool_dscan-shipTypes' => \serialize($parsedDscanData['shipTypes']),
-					'eve-intel-tool_dscan-system' => \serialize($parsedDscanData['system']),
-					'eve-intel-tool_dscan-time' => \gmdate("Y-m-d H:i:s", time()),
+					'eve-intel-tool_dscan-rawData' => \maybe_serialize(Helper\IntelHelper::getInstance()->fixLineBreaks($scanData)),
+					'eve-intel-tool_dscan-all' => \maybe_serialize($parsedDscanData['all']),
+					'eve-intel-tool_dscan-onGrid' => \maybe_serialize($parsedDscanData['onGrid']),
+					'eve-intel-tool_dscan-offGrid' => \maybe_serialize($parsedDscanData['offGrid']),
+					'eve-intel-tool_dscan-shipTypes' => \maybe_serialize($parsedDscanData['shipTypes']),
+					'eve-intel-tool_dscan-system' => \maybe_serialize($parsedDscanData['system']),
+					'eve-intel-tool_dscan-time' => \maybe_serialize(\gmdate("Y-m-d H:i:s", time())),
 				]
 			], true);
 

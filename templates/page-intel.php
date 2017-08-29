@@ -16,7 +16,7 @@ if($serverRequest === 'POST' && !empty($formAction) && $formAction === 'new_inte
 	} // END if($parsedIntel->postID !== null)
 } // END if($serverRequest === 'POST' && !empty($formAction) && $formAction === 'new_intel')
 
-get_header();
+\get_header();
 ?>
 
 <div class="container main template-page-intel">
@@ -32,11 +32,11 @@ get_header();
 					</p>
 					<div class="row">
 						<div class="col-lg-4 paste-explanation">
-							<header class="entry-header"><h2 class="entry-title">What can I paste?</h2></header>
+							<header class="entry-header"><h2 class="entry-title"><?php echo \_('What can I paste?', 'eve-online-intel-tool'); ?></h2></header>
 							<ul>
-								<li>» D-Scan</li>
-								<li>» Chat Memberlist <small>(takes some time to parse)</small></li>
-								<li>» Fleet Composition <small>(Well, not yet, still working on that one ...)</small></li>
+								<li>» <?php echo \__('D-Scan', 'eve-online-intel-tool'); ?></li>
+								<li>» <?php echo \__('Chat Memberlist', 'eve-online-intel-tool'); ?> <small><?php echo \__('(takes some time to parse)', 'eve-online-intel-tool'); ?></small></li>
+								<li>» <?php echo \__('Fleet Composition', 'eve-online-intel-tool'); ?> <small><?php echo \__('(takes some time to parse)', 'eve-online-intel-tool'); ?></small></li>
 							</ul>
 
 							<div class="bs-callout bs-callout-info">
@@ -47,13 +47,11 @@ get_header();
 						<div class="col-lg-8">
 							<form id="new_intel" name="new_intel" method="post">
 								<div class="form-group">
-									<!--<label for="eveIntel"></label>-->
-									<textarea class="form-control" rows="15" id="eveIntel" name="eveIntel" placeholder="Paste here ..."></textarea>
+									<textarea class="form-control" rows="15" id="eveIntel" name="eveIntel" placeholder="<?php echo \__('Paste here ...', 'eve-online-intel-tool'); ?>"></textarea>
 								</div>
 								<button type="submit" class="btn btn-default"><?php echo \__('Submit', 'eve-online-intel-tool'); ?></button>
 
 								<input type="hidden" name="action" value="new_intel" />
-								<?php // \wp_nonce_field('eve-online-intel-tool-new-intel'); ?>
 							</form>
 						</div>
 					</div>
@@ -63,4 +61,4 @@ get_header();
 	</div> <!--/.row -->
 </div><!-- /.container -->
 
-<?php get_footer(); ?>
+<?php \get_footer(); ?>
