@@ -74,7 +74,7 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 					if(\is_array($shipTypes) && \count($shipTypes)) {
 						?>
 						<div class="table-responsive table-fleetcomposition-scan table-fleetcomposition-scan-shiptypes">
-							<table class="table">
+							<table class="table table-condensed">
 								<?php
 								foreach($shipTypes as $ship) {
 									?>
