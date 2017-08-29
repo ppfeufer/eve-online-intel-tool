@@ -82,7 +82,7 @@ jQuery(document).ready(function($) {
 		});
 	});
 
-	$('.table-local-scan-pilots table').DataTable({
+	$('.table-sortable').DataTable({
 //		'paging': false,
 //		'info': false
 	});

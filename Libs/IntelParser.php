@@ -126,8 +126,7 @@ class IntelParser {
 		$parsedDscanData = Parser\DscanParser::getInstance()->parseDscan($scanData);
 
 		if($parsedDscanData !== null) {
-			$uniqueID = \uniqid();
-			$postTitle = $uniqueID;
+			$postTitle = $this->uniqueID;
 
 			/**
 			 * If we have a system, add it to the post title
@@ -143,7 +142,7 @@ class IntelParser {
 					$postTitle .= ' - ' . $parsedDscanData['system']['regionName'];
 				} // END if(!empty($parsedDscanData['system']['regionName']))
 
-				$postTitle .= ' ' . $uniqueID;
+				$postTitle .= ' ' . $this->uniqueID;
 			} // END if(!empty($parsedDscanData['system']['name']))
 
 			$newPostID = \wp_insert_post([
@@ -177,7 +176,44 @@ class IntelParser {
 	} // END private function saveDscanData($scanData)
 
 	private function saveFleetComositionData($scanData) {
-		return null;
+		$returnData = null;
+		$parsedFleetComposition = Parser\FleetCompositionParser::getInstance()->parseFleetCompositionScan($scanData);
+
+		if($parsedFleetComposition !== null) {
+			$postTitle = $this->uniqueID;
+
+			$newPostID = \wp_insert_post([
+				'post_title' => 'Fleet Composition: ' . $postTitle,
+				'post_name' => \sanitize_title($postTitle),
+				'post_content' => '',
+				'post_category' => '',
+				'post_status' => 'publish',
+				'post_type' => 'intel',
+				'comment_status' => 'closed',
+				'ping_status' => 'closed',
+				'meta_input' => [
+					'eve-intel-tool_fleetcomposition-rawData' => \maybe_serialize($parsedFleetComposition['rawData']),
+					'eve-intel-tool_fleetcomposition-fleetOverview' => \maybe_serialize($parsedFleetComposition['fleetCompositionData']['overview']),
+					'eve-intel-tool_fleetcomposition-shipClasses' => \maybe_serialize($parsedFleetComposition['fleetCompositionData']['shipClasses']),
+					'eve-intel-tool_fleetcomposition-shipTypes' => \maybe_serialize($parsedFleetComposition['fleetCompositionData']['shipTypes']),
+					'eve-intel-tool_fleetcomposition-pilotDetails' => \maybe_serialize($parsedFleetComposition['participationData']['pilotDetails']),
+					'eve-intel-tool_fleetcomposition-pilotList' => \maybe_serialize($parsedFleetComposition['participationData']['characterList']),
+					'eve-intel-tool_fleetcomposition-corporationList' => \maybe_serialize($parsedFleetComposition['participationData']['corporationList']),
+					'eve-intel-tool_fleetcomposition-allianceList' => \maybe_serialize($parsedFleetComposition['participationData']['allianceList']),
+					'eve-intel-tool_fleetcomposition-corporationParticipation' => \maybe_serialize($parsedFleetComposition['participationData']['corporationParticipation']),
+					'eve-intel-tool_fleetcomposition-allianceParticipation' => \maybe_serialize($parsedFleetComposition['participationData']['allianceParticipation']),
+					'eve-intel-tool_fleetcomposition-time' => \maybe_serialize(\gmdate("Y-m-d H:i:s", time())),
+				]
+			], true);
+
+			if($newPostID) {
+				\wp_set_object_terms($newPostID, 'fleetcomposition', 'intel_category');
+
+				$returnData = $newPostID;
+			} // END if($newPostID)
+		}
+
+		return $returnData;
 	} // END private function saveFleetComositionData($scanData)
 
 	private function saveLocalScanData($scanData) {
@@ -186,8 +222,7 @@ class IntelParser {
 		$parsedLocalData = Parser\LocalScanParser::getInstance()->parseLocalScan($scanData);
 
 		if($parsedLocalData !== null) {
-			$uniqueID = \uniqid();
-			$postTitle = $uniqueID;
+			$postTitle = $this->uniqueID;
 
 			$newPostID = \wp_insert_post([
 				'post_title' => 'Local Scan: ' . $postTitle,

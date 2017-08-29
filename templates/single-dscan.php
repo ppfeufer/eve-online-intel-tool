@@ -128,21 +128,13 @@ $regionName = (!empty($dscanDataSystem['regionName'])) ? $dscanDataSystem['regio
 				</div>
 
 				<!--
-				// Ship Class D-Scan Breakdown
+				// Ship Types D-Scan Breakdown
 				-->
 				<div class="col-md-4 col-sm-6 col-lg-3">
-					<header class="entry-header"><h2 class="entry-title"><?php echo \__('Ship Classes', 'eve-online-intel-tool'); ?></h2></header>
 					<?php
-					if(\is_array($dscanDataShipTypes) && \count($dscanDataShipTypes) > 0) {
-						foreach($dscanDataShipTypes as $data) {
-							?>
-							<div data-typeclass="<?php echo $data['shipClassSanitized']; ?>" class="dscan-row" onmouseover="dscanHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');" onmouseout="dscanDisableHighlightShipClass('<?php echo $data['shipClassSanitized']; ?>');">
-								<span class="dscan-ship-count"><?php echo $data['count']; ?></span>
-								<span class="dscan-ship-type"><?php echo $data['type']; ?></span>
-							</div>
-							<?php
-						} // END foreach($dscanDataOffGrid['data'] as $data)
-					} // END if(\count($dscanDataShipTypes) > 0)
+					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/ship-types',[
+						'shipTypeList' => $dscanDataShipTypes
+					]);
 					?>
 				</div>
 			</div>

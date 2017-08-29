@@ -31,124 +31,29 @@ $localDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-too
 		<div class="entry-content">
 			<div class="local-scan-result row">
 				<div class="col-md-6 col-lg-3">
-					<header class="entry-header"><h2 class="entry-title"><?php echo \__('Alliances Breakdown', 'eve-online-intel-tool'); ?> (<?php echo \count($localDataAllianceList); ?>)</h2></header>
 					<?php
-					if(!empty($localDataAllianceParticipation)) {
-						?>
-						<div class="table-responsive table-local-scan table-local-scan-alliances">
-							<table class="table table-condensed">
-								<?php
-								foreach($localDataAllianceParticipation as $allianceList) {
-									foreach($allianceList as $alliance) {
-										?>
-										<tr>
-											<td>
-												<?php
-												$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('alliance', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('alliance') . $alliance['allianceID'] . '_32.png');
-												?>
-												<img src="<?php echo $image; ?>" alt="<?php echo $alliance['allianceName']; ?>" width="32" heigh="32">
-												<?php echo $alliance['allianceName']; ?>
-											</td>
-											<td>
-												<?php echo $alliance['count']; ?>
-											</td>
-										</tr>
-										<?php
-									} // END foreach($allianceList as $alliance)
-								} // END foreach($localDataAllianceParticipation as $allianceList)
-								?>
-							</table>
-						</div>
-						<?php
-					} // END if(!empty($localDataAllianceParticipation))
+					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/alliance-participation',[
+						'allianceCount' => \count($localDataAllianceList),
+						'allianceParticipation' => $localDataAllianceParticipation
+					]);
 					?>
 				</div>
 
 				<div class="col-md-6 col-lg-3">
-					<header class="entry-header"><h2 class="entry-title"><?php echo \__('Corporations Breakdown', 'eve-online-intel-tool'); ?> (<?php echo \count($localDataCorporationList); ?>)</h2></header>
 					<?php
-					if(!empty($localDataCorporationParticipation)) {
-						?>
-						<div class="table-responsive table-local-scan table-local-scan-corporation">
-							<table class="table table-condensed">
-								<?php
-								foreach($localDataCorporationParticipation as $corporationList) {
-									foreach($corporationList as $corporation) {
-										?>
-										<tr>
-											<td>
-												<?php
-												$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('corporation', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('corporation') . $corporation['corporationID'] . '_32.png');
-												?>
-												<img src="<?php echo $image; ?>" alt="<?php echo $corporation['corporationName']; ?>" width="32" heigh="32">
-												<?php echo $corporation['corporationName']; ?>
-											</td>
-											<td>
-												<?php echo $corporation['count']; ?>
-											</td>
-										</tr>
-										<?php
-									} // END foreach($corporationList as $corporation)
-								} // END foreach($localDataCorporationParticipation as $corporationList)
-								?>
-							</table>
-						</div>
-						<?php
-					} // END if(!empty($localDataCorporationParticipation))
+					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/corporation-participation',[
+						'corporationCount' => \count($localDataCorporationList),
+						'corporationParticipation' => $localDataCorporationParticipation
+					]);
 					?>
 				</div>
 
 				<div class="col-md-12 col-lg-6">
-					<header class="entry-header"><h2 class="entry-title"><?php echo \__('Pilots Breakdown', 'eve-online-intel-tool'); ?> (<?php echo \count($localDataPilotList); ?>)</h2></header>
 					<?php
-					if(!empty($localDataPilotDetails)) {
-						?>
-						<div class="table-responsive table-local-scan table-local-scan-pilots">
-							<table class="table table-condensed">
-								<thead>
-									<th>Name</th>
-									<th>Alliance</th>
-									<th>Corporation</th>
-								</thead>
-								<?php
-								foreach($localDataPilotDetails as $pilot) {
-									?>
-									<tr>
-										<td>
-											<?php
-											$imagePilot = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('character', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('character') . $pilot['characterID'] . '_32.jpg');
-											?>
-											<img src="<?php echo $imagePilot; ?>" alt="<?php echo $pilot['characterName']; ?>" width="32" heigh="32">
-											<?php echo $pilot['characterName']; ?>
-										</td>
-
-										<td>
-											<?php
-											if(isset($pilot['allianceID'])) {
-												$imageAlliance = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('alliance', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('alliance') . $pilot['allianceID'] . '_32.png');
-												?>
-												<img src="<?php echo $imageAlliance; ?>" alt="<?php echo $pilot['allianceName']; ?>" title="<?php echo $pilot['allianceName']; ?>" width="32" heigh="32">
-												<?php echo $pilot['allianceTicker']; ?>
-												<?php
-											} // END if(isset($pilot['characterData']->alliance_id))
-											?>
-										</td>
-
-										<td>
-											<?php
-											$imageCorporation = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('corporation', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('corporation') . $pilot['corporationID'] . '_32.png');
-											?>
-											<img src="<?php echo $imageCorporation; ?>" alt="<?php echo $pilot['corporationName']; ?>" title="<?php echo $pilot['corporationName']; ?>" width="32" heigh="32">
-											<?php echo $pilot['corporationTicker']; ?>
-										</td>
-									</tr>
-									<?php
-								} // END foreach($localDataPilotDetails as $pilot)
-								?>
-							</table>
-						</div>
-						<?php
-					} // END if(!empty($localDataPilotDetails))
+					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/pilot-participation',[
+						'pilotCount' => \count($localDataPilotList),
+						'pilotParticipation' => $localDataPilotDetails
+					]);
 					?>
 				</div>
 			</div>

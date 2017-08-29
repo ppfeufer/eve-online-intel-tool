@@ -58,7 +58,7 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		$dscanDetailShipsOffGrid = [];
 
 		foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
-			$lineDetailsArray = explode("\t", \str_replace('*', '', \trim($line)));
+			$lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
 
 			$shipData = $this->esi->getShipData($lineDetailsArray['0']);
 			$shipClass = $this->esi->getShipClassData($lineDetailsArray['0']);
