@@ -1,4 +1,4 @@
-<header class="entry-header"><h2 class="entry-title"><?php echo \__('Ship Types', 'eve-online-intel-tool'); ?></h2></header>
+<header class="entry-header"><h2 class="entry-title"><?php echo \__('Ship Classes', 'eve-online-intel-tool'); ?></h2></header>
 <?php
 if(\is_array($shipClassList) && \count($shipClassList) > 0) {
 	?>

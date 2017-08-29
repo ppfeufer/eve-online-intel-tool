@@ -13,9 +13,11 @@ if(!empty($shipTypeList)) {
 						$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('ship', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('inventory') . $data['itemID'] . '_32.png');
 						?>
 						<img src="<?php echo $image; ?>" alt="<?php echo $data['type']; ?>" width="32" heigh="32">
+						<?php echo $data['type']; ?>
 					</td>
-					<td><?php echo $data['type']; ?></td>
-					<td><?php echo $data['count']; ?></td>
+					<td>
+						<?php echo $data['count']; ?>
+					</td>
 				</tr>
 				<?php
 			} // END foreach($dscanDataOffGrid['data'] as $data)
