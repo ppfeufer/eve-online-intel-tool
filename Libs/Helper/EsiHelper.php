@@ -238,7 +238,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 					case 'character':
 						$characterSheet = $this->getCharacterData($entityID);
 
-						if(\strtolower($characterSheet['data']->name) === \strtolower($name)) {
+						if($this->isValidEsiData($characterSheet) === true && \strtolower($characterSheet['data']->name) === \strtolower($name)) {
 							$returnData = $entityID;
 							break;
 						} // END if($characterSheet['data']->name === $name)
@@ -247,7 +247,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 					case 'corporation':
 						$corporationSheet = $this->getCorporationData($entityID);
 
-						if(\strtolower($corporationSheet['data']->corporation_name) === \strtolower($name)) {
+						if($this->isValidEsiData($corporationSheet) === true && \strtolower($corporationSheet['data']->corporation_name) === \strtolower($name)) {
 							$returnData = $entityID;
 							break;
 						} // END if($corporationSheet['data']->name === $name)
@@ -256,7 +256,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 					case 'alliance':
 						$allianceSheet = $this->getAllianceData($entityID);
 
-						if(\strtolower($allianceSheet['data']->alliance_name) === \strtolower($name)) {
+						if($this->isValidEsiData($allianceSheet) === true && \strtolower($allianceSheet['data']->alliance_name) === \strtolower($name)) {
 							$returnData = $entityID;
 							break;
 						} // END if($allianceSheet['data']->name === $name)
@@ -265,7 +265,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 					case 'solarsystem':
 						$systemSheet = $this->getSystemData($entityID);
 
-						if(\strtolower($systemSheet['data']->name) === \strtolower($name)) {
+						if($this->isValidEsiData($systemSheet) === true && \strtolower($systemSheet['data']->name) === \strtolower($name)) {
 							$returnData = $entityID;
 							break;
 						} // END if($allianceSheet['data']->name === $name)
