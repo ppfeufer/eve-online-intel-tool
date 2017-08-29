@@ -56,6 +56,7 @@
 		width: 300px;
 	}
 
+	.table-fleetcomposition-scan tbody > tr > td,
 	.table-local-scan tbody > tr > td {
 		vertical-align: middle;
 		color: rgb(51,51,51);
@@ -83,29 +84,9 @@
 		color: rgb(119,119,119);
 	}
 
-	table.dataTable thead .sorting_desc:after {
-		content: "\e156";
-	}
-
-	table.dataTable thead .sorting_asc:after {
-		content: "\e155";
-	}
-
-	table.dataTable thead .sorting:after {
-		opacity: 0.2;
-		content: "\e150";
-	}
-
-	table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
-		display: inline-block;
-		font-family: 'Glyphicons Halflings';
-		opacity: .5;
-		float: right;
-	}
-
-	.local-scan-result .dataTables_wrapper > .row {
-		margin-right: 0;
-		margin-left: 0;
+	.table-fleetcomposition-scan-shiptypes > table > tbody > tr > td {
+		padding-top: 11px;
+		padding-bottom: 12px;
 	}
 }
 
