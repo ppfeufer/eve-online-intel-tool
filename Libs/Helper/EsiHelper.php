@@ -227,7 +227,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 
 		$data = $this->getEsiData($this->esiEndpoints['search'] . '?search=' . \urlencode(\wp_specialchars_decode($name, \ENT_QUOTES)) . '&strict=true&categories=' . $type, 3600);
 
-		if(!isset($data->error) && !empty($data)) {
+		if(!isset($data->error) && !empty((array) $data) && isset($data->{$type})) {
 			/**
 			 * -= FIX =-
 			 * CCPs strict mode is not really strict, so we have to check manually ....
@@ -238,7 +238,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 					case 'character':
 						$characterSheet = $this->getCharacterData($entityID);
 
-						if($characterSheet['data']->name === $name) {
+						if(\strtolower($characterSheet['data']->name) === \strtolower($name)) {
 							$returnData = $entityID;
 							break;
 						} // END if($characterSheet['data']->name === $name)
@@ -247,7 +247,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 					case 'corporation':
 						$corporationSheet = $this->getCorporationData($entityID);
 
-						if($corporationSheet['data']->corporation_name === $name) {
+						if(\strtolower($corporationSheet['data']->corporation_name) === \strtolower($name)) {
 							$returnData = $entityID;
 							break;
 						} // END if($corporationSheet['data']->name === $name)
@@ -256,7 +256,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 					case 'alliance':
 						$allianceSheet = $this->getAllianceData($entityID);
 
-						if($allianceSheet['data']->alliance_name === $name) {
+						if(\strtolower($allianceSheet['data']->alliance_name) === \strtolower($name)) {
 							$returnData = $entityID;
 							break;
 						} // END if($allianceSheet['data']->name === $name)
@@ -265,7 +265,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 					case 'solarsystem':
 						$systemSheet = $this->getSystemData($entityID);
 
-						if($systemSheet['data']->name === $name) {
+						if(\strtolower($systemSheet['data']->name) === \strtolower($name)) {
 							$returnData = $entityID;
 							break;
 						} // END if($allianceSheet['data']->name === $name)
