@@ -132,7 +132,7 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 			 *
 			 * This is just in case our cronjob doesn't run for whetever reason
 			 */
-			if(\time() - \filemtime($cacheDir . $imageName) > 24 * 3600) {
+			if(\time() - \filemtime($cacheDir . $imageName) > 120 * 3600) {
 				\unlink($cacheDir . $imageName);
 
 				$returnValue = false;
