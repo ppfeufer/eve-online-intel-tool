@@ -2,7 +2,7 @@
 <?php
 if(!empty($pilotParticipation)) {
 	?>
-	<div class="table-responsive table-local-scan table-local-scan-pilots">
+	<div class="table-responsive table-local-scan table-local-scan-pilots table-eve-intel">
 		<table class="table table-sortable table-condensed">
 			<thead>
 				<th>Name</th>

@@ -32,7 +32,7 @@ if($serverRequest === 'POST' && !empty($formAction) && $formAction === 'new_inte
 					</p>
 					<div class="row">
 						<div class="col-lg-4 paste-explanation">
-							<header class="entry-header"><h2 class="entry-title"><?php echo \_('What can I paste?', 'eve-online-intel-tool'); ?></h2></header>
+							<header class="entry-header"><h2 class="entry-title"><?php echo \__('What can I paste?', 'eve-online-intel-tool'); ?></h2></header>
 							<ul>
 								<li>» <?php echo \__('D-Scan', 'eve-online-intel-tool'); ?></li>
 								<li>» <?php echo \__('Chat Memberlist', 'eve-online-intel-tool'); ?> <small><?php echo \__('(takes some time to parse)', 'eve-online-intel-tool'); ?></small></li>

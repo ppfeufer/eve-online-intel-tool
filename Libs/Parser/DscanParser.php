@@ -238,7 +238,7 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 					$dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['type'] = $item['dscanData']['2'];
 					$dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['count'] = \count($count[$item['dscanData']['0']]['all']);
 					$dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipClass'] = $item['shipClass']->name;
-					$dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipClassSanitized'] = \sanitize_title((string) $item['shipClass']->name);
+					$dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipTypeSanitized'] = \sanitize_title((string) $item['shipClass']->name);
 
 					break;
 
@@ -307,7 +307,7 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 				$count[\sanitize_title($scanResult['shipClass']->name)][] = '';
 				$shipTypeArray[\sanitize_title($scanResult['shipClass']->name)] = [
 					'type' => $scanResult['shipClass']->name,
-					'shipClassSanitized' => \sanitize_title($scanResult['shipClass']->name),
+					'shipTypeSanitized' => \sanitize_title($scanResult['shipClass']->name),
 					'count' => \count($count[\sanitize_title($scanResult['shipClass']->name)])
 				];
 			} // END if($scanResult['shipClass']->category_id === 6)

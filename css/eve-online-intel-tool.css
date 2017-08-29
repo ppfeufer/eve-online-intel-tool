@@ -1,32 +1,4 @@
 @media all {
-	.dscan-row {
-		display: flex;
-		margin-bottom: 5px;
-	}
-
-	.dscan-row > span {
-		display: inline-block;
-	}
-
-	.dscan-row .dscan-ship-count, .dscan-row .dscan-ship-type {
-		padding-top: 5px;
-	}
-
-	.dscan-row .dscan-ship-image {
-		margin-left: 5px;
-	}
-
-	.dscan-row .dscan-ship-count {
-		width: 32px;
-		text-align: right;
-		margin-right: 16px;
-	}
-
-	.highlightShipClass {
-		border-left: 2px solid #ff0000;
-		margin-left: -2px;
-	}
-
 	.eve-intel-copy-to-clipboard {
 		margin-top: 16px;
 		margin-top: 1rem;
@@ -37,6 +9,7 @@
 		width: 150px;
 		float: left;
 	}
+
 	.eve-intel-copy-to-clipboard ul li > a {
 		padding: 0;
 	}
@@ -56,23 +29,9 @@
 		width: 300px;
 	}
 
-	.table-fleetcomposition-scan tbody > tr > td,
-	.table-local-scan tbody > tr > td {
+	.table-eve-intel tbody > tr > td {
 		vertical-align: middle;
 		color: rgb(51,51,51);
-	}
-
-	#new_intel label, .table-local-scan-pilots label {
-		font-weight: normal;
-	}
-
-	.table-local-scan-pilots .dataTables_filter input[type="search"] {
-		margin-left: 5px;
-	}
-
-	.dscan-result .entry-title, .content-page-intel .entry-title {
-		font-size: 18px;
-		font-size: 1.125rem;
 	}
 
 	.paste-explanation ul {
@@ -84,9 +43,19 @@
 		color: rgb(119,119,119);
 	}
 
-	.table-fleetcomposition-scan-shiptypes > table > tbody > tr > td {
+	.table-no-images > table > tbody > tr > td {
 		padding-top: 11px;
 		padding-bottom: 12px;
+	}
+}
+
+/* Highlighting
+----------------------------------------------------------------------------- */
+@media all {
+	.highlightShipClass td:first-child {
+		border-left: 1px solid #ff0000;
+		margin-left: -11px;
+		padding-left: 4px;
 	}
 }
 

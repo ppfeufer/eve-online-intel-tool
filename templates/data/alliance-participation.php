@@ -2,7 +2,7 @@
 <?php
 if(!empty($allianceParticipation)) {
 	?>
-	<div class="table-responsive table-local-scan table-local-scan-alliances">
+	<div class="table-responsive table-local-scan table-local-scan-alliances table-eve-intel">
 		<table class="table table-condensed">
 			<?php
 			foreach($allianceParticipation as $allianceList) {

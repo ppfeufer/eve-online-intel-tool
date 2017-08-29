@@ -95,7 +95,7 @@ class IntelParser {
 		$cleanedScanData = Helper\IntelHelper::getInstance()->fixLineBreaks($scanData);
 
 		switch($cleanedScanData) {
-			case (\preg_match('/^\d+(.*)(-|AU) ?$/m', $cleanedScanData) ? true : false):
+			case (\preg_match('/^\d+(.*) ?$/m', $cleanedScanData) ? true : false):
 				$intelType =  'dscan';
 				break;
 

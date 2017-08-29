@@ -3,6 +3,7 @@ defined('ABSPATH') or die();
 
 // Meta data
 $fleetOverview = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-fleetOverview', true));
+
 $shipClasses = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-shipClasses', true));
 $shipTypes = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-shipTypes', true));
 
@@ -37,61 +38,21 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 		<div class="entry-content">
 			<div class="fleetcomposition-result row">
 				<div class="col-md-6 col-lg-3">
-					<header class="entry-header"><h2 class="entry-title"><?php echo \__('Ship Classes', 'eve-online-intel-tool'); ?></h2></header>
 					<?php
 					if(\is_array($shipClasses) && \count($shipClasses)) {
-						?>
-						<div class="table-responsive table-fleetcomposition-scan table-fleetcomposition-scan-shipclasses">
-							<table class="table table-condensed">
-								<?php
-								foreach($shipClasses as $ship) {
-									?>
-									<tr>
-										<td>
-											<?php
-											$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('ship', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('ship') . $ship['shipID'] . '_32.png');
-											?>
-											<img src="<?php echo $image; ?>" alt="<?php echo $ship['shipName']; ?>" width="32" heigh="32">
-											<?php echo $ship['shipName']; ?>
-										</td>
-										<td>
-											<?php echo $ship['count']; ?>
-										</td>
-									</tr>
-									<?php
-								} // END foreach($shipClasses as $ship)
-								?>
-							</table>
-						</div>
-						<?php
+						\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/ship-classes',[
+							'shipClassList' => $shipClasses
+						]);
 					} // END if(\is_array($shipClasses) && \count($shipClasses))
 					?>
 				</div>
 
 				<div class="col-md-6 col-lg-3">
-					<header class="entry-header"><h2 class="entry-title"><?php echo \__('Ship Types', 'eve-online-intel-tool'); ?></h2></header>
 					<?php
 					if(\is_array($shipTypes) && \count($shipTypes)) {
-						?>
-						<div class="table-responsive table-fleetcomposition-scan table-fleetcomposition-scan-shiptypes">
-							<table class="table table-condensed">
-								<?php
-								foreach($shipTypes as $ship) {
-									?>
-									<tr>
-										<td>
-											<?php echo $ship['name']; ?>
-										</td>
-										<td>
-											<?php echo $ship['count']; ?>
-										</td>
-									</tr>
-									<?php
-								} // END foreach($shipTypes as $ship)
-								?>
-							</table>
-						</div>
-						<?php
+						\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/ship-types',[
+							'shipTypeList' => $shipTypes
+						]);
 					} // END if(\is_array($shipTypes) && \count($shipTypes))
 					?>
 				</div>
@@ -100,7 +61,7 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 					<?php
 					if(\is_array($fleetOverview) && \count($fleetOverview)) {
 						?>
-						<div class="table-responsive table-fleetcomposition-scan table-fleetcomposition-scan-fleetinfo">
+						<div class="table-responsive table-fleetcomposition-scan table-fleetcomposition-scan-fleetinfo table-eve-intel">
 							<table class="table table-sortable table-condensed">
 								<thead>
 									<th>Name</th>
@@ -112,25 +73,19 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 									?>
 									<tr>
 										<td>
-											<?php
-											$imagePilot = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('character', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('character') . $data['pilotID'] . '_32.jpg');
-											?>
+											<?php $imagePilot = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('character', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('character') . $data['pilotID'] . '_32.jpg'); ?>
 											<img src="<?php echo $imagePilot; ?>" alt="<?php echo $data['pilotName']; ?>" width="32" heigh="32">
 											<?php echo $data['pilotName']; ?>
 										</td>
 										<td>
-											<?php
-											echo $data['shipClass'];
-											?>
+											<?php echo $data['shipClass']; ?>
 										</td>
 										<td>
-											<?php
-											echo $data['system'];
-											?>
+											<?php echo $data['system']; ?>
 										</td>
 									</tr>
 									<?php
-								}
+								} // END foreach($fleetOverview as $data)
 								?>
 							</table>
 						</div>
@@ -167,5 +122,15 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 				</div>
 			</div>
 		</div>
+
+		<script type="text/javascript">
+		function dscanHighlightShipClass(shipClass) {
+			jQuery("tr[data-typeclass='" + shipClass + "']").addClass('highlightShipClass');
+		} // END function dscanHighlightShipClass(shipClass)
+
+		function dscanDisableHighlightShipClass(shipClass) {
+			jQuery("tr[data-typeclass='" + shipClass + "']").removeClass('highlightShipClass');
+		} // END function dscanDisableHighlightShipClass(shipClass)
+		</script>
 	</section>
 </article><!-- /.post-->

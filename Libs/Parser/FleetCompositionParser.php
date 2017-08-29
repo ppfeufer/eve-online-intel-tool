@@ -102,6 +102,7 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 			$shipClassBreakdown[\sanitize_title($lineDetailsArray['2'])] = [
 				'shipName' => $lineDetailsArray['2'],
 				'shipID' => $this->esi->getEveIdFromName($lineDetailsArray['2'], 'inventorytype'),
+				'shipTypeSanitized' => \sanitize_title($lineDetailsArray['3']),
 				'count' => $counter['class'][\sanitize_title($lineDetailsArray['2'])]
 			];
 
@@ -111,7 +112,8 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 			} // END if(!isset($counter[\sanitize_title($pilotSheet['corporationName'])]))
 			$counter['type'][\sanitize_title($lineDetailsArray['3'])]++;
 			$shipTypeBreakdown[\sanitize_title($lineDetailsArray['3'])] = [
-				'name' => $lineDetailsArray['3'],
+				'type' => $lineDetailsArray['3'],
+				'shipTypeSanitized' => \sanitize_title($lineDetailsArray['3']),
 				'count' => $counter['type'][\sanitize_title($lineDetailsArray['3'])]
 			];
 		} // END foreach(\explode("\n", \trim($cleanedScanData)) as $line)

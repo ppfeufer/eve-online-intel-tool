@@ -2,7 +2,7 @@
 <?php
 if(!empty($corporationParticipation)) {
 	?>
-	<div class="table-responsive table-local-scan table-local-scan-corporation">
+	<div class="table-responsive table-local-scan table-local-scan-corporation table-eve-intel">
 		<table class="table table-condensed">
 			<?php
 			foreach($corporationParticipation as $corporationList) {
