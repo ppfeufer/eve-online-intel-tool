@@ -234,8 +234,8 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 					/**
 					 * Ship breakdown
 					 */
-					$dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['itemID'] = $item['dscanData']['0'];
-					$dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['type'] = $item['dscanData']['2'];
+					$dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipID'] = $item['dscanData']['0'];
+					$dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipName'] = $item['dscanData']['2'];
 					$dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['count'] = \count($count[$item['dscanData']['0']]['all']);
 					$dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipClass'] = $item['shipClass']->name;
 					$dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipTypeSanitized'] = \sanitize_title((string) $item['shipClass']->name);

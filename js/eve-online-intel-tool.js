@@ -82,8 +82,18 @@ jQuery(document).ready(function($) {
 		});
 	});
 
-	$('.table-sortable').DataTable({
-//		'paging': false,
-//		'info': false
+	var dataTables = $('.table-sortable');
+	dataTables.each(function() {
+		if(typeof($(this).data('haspaging')) !== 'undefined' && $(this).data('haspaging') === 'no') {
+			$($(this)).DataTable({
+				'paging': false,
+				dom:
+					"<'row'<'col-sm-12'f>>" +
+					"<'row'<'col-sm-12'tr>>" +
+					"<'row'<'col-sm-12'i>>"
+			});
+		} else {
+			$($(this)).DataTable();
+		}
 	});
 });

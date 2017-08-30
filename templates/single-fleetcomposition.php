@@ -41,6 +41,7 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 					<?php
 					if(\is_array($shipClasses) && \count($shipClasses)) {
 						\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/ship-classes',[
+							'title' => \__('Ship Classes', 'eve-online-intel-tool'),
 							'shipClassList' => $shipClasses
 						]);
 					} // END if(\is_array($shipClasses) && \count($shipClasses))
@@ -51,6 +52,7 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 					<?php
 					if(\is_array($shipTypes) && \count($shipTypes)) {
 						\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/ship-types',[
+							'title' => \__('Ship Types', 'eve-online-intel-tool'),
 							'shipTypeList' => $shipTypes
 						]);
 					} // END if(\is_array($shipTypes) && \count($shipTypes))
@@ -64,9 +66,9 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 						<div class="table-responsive table-fleetcomposition-scan table-fleetcomposition-scan-fleetinfo table-eve-intel">
 							<table class="table table-sortable table-condensed">
 								<thead>
-									<th>Name</th>
-									<th>Ship Class</th>
-									<th>Where</th>
+									<th><?php echo \__('Name', 'eve-online-intel-tool'); ?></th>
+									<th><?php echo \__('Ship Class', 'eve-online-intel-tool'); ?></th>
+									<th><?php echo \__('Where', 'eve-online-intel-tool'); ?></th>
 								</thead>
 								<?php
 								foreach($fleetOverview as $data) {

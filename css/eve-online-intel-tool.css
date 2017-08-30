@@ -43,9 +43,15 @@
 		color: rgb(119,119,119);
 	}
 
-	.table-no-images > table > tbody > tr > td {
+	.table-no-images > tbody > tr > td {
 		padding-top: 11px;
 		padding-bottom: 12px;
+	}
+
+	.table-sortable > tbody > tr > .table-data-count {
+		text-align: right;
+		padding-right: 16px;
+		padding-right: 1rem;
 	}
 }
 

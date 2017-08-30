@@ -3,7 +3,11 @@
 if(!empty($corporationParticipation)) {
 	?>
 	<div class="table-responsive table-local-scan table-local-scan-corporation table-eve-intel">
-		<table class="table table-condensed">
+		<table class="table table-condensed table-sortable" data-haspaging="no" data-order='[[ 1, "desc" ]]'>
+			<thead>
+				<td><?php echo \__('Corporation Name', 'eve-online-intel-tool'); ?></td>
+				<td><?php echo \__('Count', 'eve-online-intel-tool'); ?></td>
+			</thead>
 			<?php
 			foreach($corporationParticipation as $corporationList) {
 				foreach($corporationList as $corporation) {
@@ -16,7 +20,7 @@ if(!empty($corporationParticipation)) {
 							<img src="<?php echo $image; ?>" alt="<?php echo $corporation['corporationName']; ?>" width="32" heigh="32">
 							<?php echo $corporation['corporationName']; ?>
 						</td>
-						<td>
+						<td class="table-data-count">
 							<?php echo $corporation['count']; ?>
 						</td>
 					</tr>

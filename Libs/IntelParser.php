@@ -144,7 +144,8 @@ class IntelParser {
 
 				$postTitle .= ' ' . $this->uniqueID;
 			} // END if(!empty($parsedDscanData['system']['name']))
-
+//echo '<pre>' . print_r($parsedDscanData, true) . '</pre>';
+//wp_die();
 			$newPostID = \wp_insert_post([
 				'post_title' => 'D-Scan: ' . $postTitle,
 				'post_name' => \sanitize_title($postTitle),

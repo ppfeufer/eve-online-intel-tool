@@ -5,9 +5,9 @@ if(!empty($pilotParticipation)) {
 	<div class="table-responsive table-local-scan table-local-scan-pilots table-eve-intel">
 		<table class="table table-sortable table-condensed">
 			<thead>
-				<th>Name</th>
-				<th>Alliance</th>
-				<th>Corporation</th>
+				<th><?php echo \__('Name', 'eve-online-intel-tool'); ?></th>
+				<th><?php echo \__('Alliance', 'eve-online-intel-tool'); ?>Alliance</th>
+				<th><?php echo \__('Corporation', 'eve-online-intel-tool'); ?>Corporation</th>
 			</thead>
 			<?php
 			foreach($pilotParticipation as $pilot) {
