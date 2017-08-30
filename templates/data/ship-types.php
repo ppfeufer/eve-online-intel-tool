@@ -5,8 +5,8 @@ if(\is_array($shipTypeList) && \count($shipTypeList) > 0) {
 	<div class="table-responsive table-eve-intel-shiptypes table-eve-intel">
 		<table class="table table-condensed table-sortable table-no-images" data-haspaging="no" data-order='[[ 1, "desc" ]]'>
 			<thead>
-				<td><?php echo \__('Ship Type', 'eve-online-intel-tool'); ?></td>
-				<td><?php echo \__('Count', 'eve-online-intel-tool'); ?></td>
+				<th><?php echo \__('Ship Type', 'eve-online-intel-tool'); ?></th>
+				<th><?php echo \__('Count', 'eve-online-intel-tool'); ?></th>
 			</thead>
 			<?php
 			foreach($shipTypeList as $data) {

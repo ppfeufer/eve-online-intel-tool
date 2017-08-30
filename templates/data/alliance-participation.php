@@ -5,8 +5,8 @@ if(!empty($allianceParticipation)) {
 	<div class="table-responsive table-local-scan table-local-scan-alliances table-eve-intel">
 		<table class="table table-condensed table-sortable" data-haspaging="no" data-order='[[ 1, "desc" ]]'>
 			<thead>
-				<td><?php echo \__('Alliance Name', 'eve-online-intel-tool'); ?></td>
-				<td><?php echo \__('Count', 'eve-online-intel-tool'); ?></td>
+				<th><?php echo \__('Alliance Name', 'eve-online-intel-tool'); ?></th>
+				<th><?php echo \__('Count', 'eve-online-intel-tool'); ?></th>
 			</thead>
 			<?php
 			foreach($allianceParticipation as $allianceList) {

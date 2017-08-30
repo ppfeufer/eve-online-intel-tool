@@ -2,8 +2,13 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.2...HEAD)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.3...HEAD)
 - in development
+
+## [v0.1.3](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.3) - 2017-08-30
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.2...v0.1.3)
+### Fixed
+- Table Header
 
 ## [v0.1.2](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.2) - 2017-08-30
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.1...v0.1.2)

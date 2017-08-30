@@ -40,7 +40,7 @@ if($serverRequest === 'POST' && !empty($formAction) && $formAction === 'new_inte
 							</ul>
 
 							<div class="bs-callout bs-callout-info">
-								<p class="small"><?php echo \__('This tool is still in its testing phase, so it might have some hick ups and rough edges here and there. If you experience any odd behaviour, please let me (Rounon Dax) know about it.', 'eve-online-intel-tool'); ?></p>
+								<p class="small"><?php echo \sprintf(\__('This tool is still in its testing phase, so it might have some hick ups and rough edges here and there. If you experience any odd behaviour, please let me know about it in the %1$s.', 'eve-online-intel-tool'), '<a href="' .\esc_url('https://github.com/ppfeufer/eve-online-intel-tool/issues') . '" rel="external">' . \__('Github Issue Tracker', '') . '</a>'); ?></p>
 								<p class="small"><?php echo \__('Thank you!', 'eve-online-intel-tool'); ?></p>
 							</div>
 						</div>
