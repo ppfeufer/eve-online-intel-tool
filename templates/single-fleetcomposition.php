@@ -25,7 +25,7 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 	</h1>
 
 	<?php
-	if(!empty($dscanDataTime)) {
+	if(!empty($fleetScanDataTime)) {
 		echo '<small>' . \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $fleetScanDataTime . '</small>';
 	} // END if(!empty($dscanDataTime))
 

@@ -40,10 +40,10 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 
 	public function parseFleetCompositionScan($scanData) {
 		$returnData = null;
-		$fleetCompositionArray = $this->getFleetCompositionArray($scanData);
+		$fleetCompArray = $this->getFleetCompositionArray($scanData);
 
-		if(!\is_null($fleetCompositionArray)) {
-			$returnData = $fleetCompositionArray;
+		if(!\is_null($fleetCompArray)) {
+			$returnData = $fleetCompArray;
 		}
 
 		return $returnData;

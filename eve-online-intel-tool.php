@@ -3,8 +3,8 @@
  * Plugin Name: EVE Online Intel Tool for WordPress
  * Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
  * Git URI: https://github.com/ppfeufer/eve-online-intel-tool
- * Description: A D-Scan Tool for WordPress. (Best with a theme running with <a href="http://getbootstrap.com/">Bootstrap</a>)
- * Version: 0.1-dev
+ * Description: An EVE Online Intel Tool for WordPress. Parsing D-Scans, Local and Fleet Compositions. (Best with a theme running with <a href="http://getbootstrap.com/">Bootstrap</a>)
+ * Version: 0.1.0
  * Author: Rounon Dax
  * Author URI: http://yulaifederation.net
  * Text Domain: eve-online-intel-tool
@@ -18,6 +18,13 @@ const WP_GITHUB_FORCE_UPDATE = true;
 require_once(\trailingslashit(\dirname(__FILE__)) . 'inc/autoloader.php');
 
 class EveOnlineIntelTool {
+	/**
+	 * Current (non develop) Plugin Version
+	 *
+	 * @var string
+	 */
+	private $pluginVersion = '0.1.0';
+
 	/**
 	 * Textdomain
 	 *
@@ -77,6 +84,25 @@ class EveOnlineIntelTool {
 
 		if(\is_admin()) {
 			new Libs\TemplateLoader;
+
+			/**
+			 * Check Github for updates
+			 */
+			$githubConfig = [
+				'slug' => \plugin_basename(__FILE__),
+				'proper_folder_name' => \dirname(\plugin_basename(__FILE__)),
+				'api_url' => 'https://api.github.com/repos/ppfeufer/eve-online-intel-tool',
+				'raw_url' => 'https://raw.github.com/ppfeufer/eve-online-intel-tool/master',
+				'github_url' => 'https://github.com/ppfeufer/eve-online-intel-tool',
+				'zip_url' => 'https://github.com/ppfeufer/eve-online-intel-tool/archive/v' . $this->pluginVersion . '.zip',
+				'sslverify' => true,
+				'requires' => '4.7',
+				'tested' => '4.9-alpha',
+				'readme' => 'README.md',
+				'access_token' => '',
+			];
+
+			new Libs\GithubUpdater($githubConfig);
 		} // END if(\is_admin())
 	} // END public function init()
 

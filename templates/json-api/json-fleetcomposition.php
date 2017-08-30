@@ -32,7 +32,7 @@ $jsonData = [
 	'allianceList' => $allianceList,
 	'allianceParticipation' => $allianceParticipation,
 
-	'localEveTime' => $fleetScanDataTime
+	'eveTime' => $fleetScanDataTime
 ];
 
 echo \json_encode($jsonData);
