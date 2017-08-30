@@ -57,6 +57,11 @@
 		white-space: initial;
 	}
 
+	/* usually we don't use !important, but here we have to, thx firefox ... */
+	table.dataTable {
+		width: 100% !important;
+	}
+
 	.table-eve-intel tbody > tr > td {
 		vertical-align: middle;
 		color: rgb(51,51,51);
