@@ -134,7 +134,7 @@ class GithubUpdater {
 	 * @return bool overrule or not
 	 */
 	public function overruleTransients() {
-		return (\defined('\WordPress\Plugin\EveOnlineFittingManager\WP_GITHUB_FORCE_UPDATE') && \WordPress\Plugin\EveOnlineFittingManager\WP_GITHUB_FORCE_UPDATE);
+		return (\defined('\WordPress\Plugin\EveOnlineIntelTool\WP_GITHUB_FORCE_UPDATE') && \WordPress\Plugin\EveOnlineIntelTool\WP_GITHUB_FORCE_UPDATE);
 	} // END public function overruleTransients()
 
 	/**
@@ -451,8 +451,8 @@ class GithubUpdater {
 		$activate = \activate_plugin(\WP_PLUGIN_DIR . '/' . $this->config['slug']);
 
 		// Output the update message
-		$fail = \__('The plugin has been updated, but could not be reactivated. Please reactivate it manually.', 'eve-online-killboard-widget');
-		$success = \__('Plugin reactivated successfully.', 'eve-online-killboard-widget');
+		$fail = \__('The plugin has been updated, but could not be reactivated. Please reactivate it manually.', 'eve-online-intel-tool');
+		$success = \__('Plugin reactivated successfully.', 'eve-online-intel-tool');
 
 		echo \is_wp_error($activate) ? $fail : $success;
 
