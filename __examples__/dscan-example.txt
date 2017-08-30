@@ -1,0 +1,190 @@
+37604	Inga Hard Apostle	Apostle*	67 км
+650	Nereus	Nereus*	1 362 км
+11387	XXX	Hyena*	4 905 м
+22456	,	Sabre*	8 608 м
+22456	Bull	Sabre*	3 186 м
+22456	saba	Sabre*	9 419 м
+22456	=0=SD	Sabre*	3 604 м
+22456	M i D Sabre	Sabre*	8 794 м
+22456	f	Sabre*	22 км
+22456	Sabre	Sabre*	10 км
+22456	XXX	Sabre*	1 322 м
+23757	derp	Archon*	70 км
+22852	☜☢☞	Hel*	53 км
+23913	Bag of Nyx	Nyx*	58 км
+23919	Space Whale	Aeon*	47 км
+23913	Fox Terros Nyx	Nyx*	53 км
+670	Andree Praisels Capsule	Capsule*	72 км
+670	DIEGO McDESTROYERS's Capsule	Capsule*	78 км
+11987	Guardian	Guardian*	13 км
+11987	bum Shi Guardian	Guardian*	8 879 м
+11989	Jon Red Saissore Oneiros	Oneiros*	8 082 м
+11989	O	Oneiros*	5 937 м
+11987	Guard	Guardian*	9 641 м
+11987	Лечу-Лучу	Guardian*	7 259 м
+11987	♏	Guardian*	4 882 м
+11989	NFA	Oneiros*	9 595 м
+11989	Jonni IV Oneiros	Oneiros*	9 446 м
+11987	Guard 50mn	Guardian*	7 932 м
+11989	Oneiros	Oneiros*	8 717 м
+11987	lOG ))	Guardian*	9 122 м
+11987	Sunshine	Guardian*	7 824 м
+11987	VII Armor Whore	Guardian*	3 798 м
+12743	Sledge	Viator*	75 км
+22474	Доминатор	Damnation*	5 327 м
+22474	≡v≡...	Damnation*	10 км
+22474	CTA	Damnation*	10 км
+22474	Tank	Damnation*	10 км
+606	G in Space's Velator	Velator*	86 км
+606	Cyno	Velator*	72 км
+634	Medicine Sister	Exequror*	8 286 м
+634	✚	Exequror*	6 392 м
+634	Adler BC	Exequror*	0 м
+17843	Geldvernichter 5	Vexor Navy Issue*	161 км
+634	Exequror*	Exequror*	8 612 м
+634	БлевотаЕнота	Exequror*	5 871 м
+632	Ням I	Blackbird*	2 572 м
+634	Exequror	Exequror*	8 974 м
+631	FCON Scythe	Scythe*	5 577 м
+634	Zerg	Exequror*	9 798 м
+17738	Vachariel	Machariel*	7 085 м
+17738	CTA mini	Machariel*	8 524 м
+17738	-	Machariel*	35 м
+17738	☰✔☰	Machariel*	8 030 м
+17738	,,,	Machariel*	7 626 м
+17738	Planlos durchs All	Machariel*	9 297 м
+17738	Мачальника	Machariel*	5 718 м
+17738	.√_	Machariel*	2 867 м
+17738	Mach-Arti MWD L II	Machariel*	5 598 м
+17738	General Arti-Passiv	Machariel*	10 км
+17738	Event Horizon	Machariel*	5 965 м
+17738	БомБом	Machariel*	8 904 м
+17738	 .√	Machariel*	6 370 м
+17738	 ΞΘΞ Mach-Arti MWD L	Machariel*	8 978 м
+17738	Mach-Arti MWD L II	Machariel*	9 739 м
+17738	THX	Machariel*	7 795 м
+17738	-_-	Machariel*	1 518 м
+17738	RMacha	Machariel*	7 549 м
+17738	YongGuk Machariel2	Machariel*	4 684 м
+17738	oki	Machariel*	8 666 м
+17738	Azazel	Machariel*	3 843 м
+17738	1234	Machariel*	7 635 м
+17738	31337	Machariel*	10 км
+17738	:)	Machariel*	9 720 м
+17738	Mech II	Machariel*	8 143 м
+17738	^^	Machariel*	2 395 м
+17738	Chimaeron A	Machariel*	9 930 м
+17738	Провиденс НАШ	Machariel*	1 799 м
+17738	g44	Machariel*	1 842 м
+17738	КТА 2017	Machariel*	6 080 м
+17738	Ƹ̵̡Ӝ̵̨̄Ʒ	Machariel*	2 297 м
+17738	Маха	Machariel*	5 606 м
+17738	,	Machariel*	9 615 м
+17738	✘✘✘	Machariel*	5 161 м
+17738	Mach-Arti MWD L II	Machariel*	10 км
+17738	Machariel	Machariel*	10 км
+17738	Ryusey	Machariel*	6 935 м
+17738	Lemmingtrain	Machariel*	6 959 м
+17738	упс9	Machariel*	2 787 м
+17738	ghjghkhlh	Machariel*	9 260 м
+17738	☜DFP☞ Raubritterbund	Machariel*	10 км
+17738	Aero Rad Machariel	Machariel*	5 216 м
+17738	Якудза	Machariel*	7 732 м
+17738	911	Machariel*	10 км
+17738	blub	Machariel*	3 198 м
+17738	Machariel	Machariel*	8 056 м
+17738	#3_14	Machariel*	2 793 м
+17738	〄♮ ท Мочало	Machariel*	4 271 м
+17738	*☺*	Machariel*	3 018 м
+17738	2 №;%:;%	Machariel*	7 726 м
+17738	General Arti-Passiv	Machariel*	3 436 м
+17738	ATC	Machariel*	269 м
+17738	....1	Machariel*	4 563 м
+17738	Marta Soul	Machariel*	0 м
+17738	My_Dick_Is_Big	Machariel*	10 км
+17738	Приношу удачу	Machariel*	4 108 м
+17738	45	Machariel*	6 732 м
+17738	-npp- 084K-BS-M	Machariel*	5 085 м
+17738	╬═	Machariel*	10 км
+17738	D'Лори	Machariel*	10 км
+17738	☜NPP☞ Macha 3	Machariel*	9 184 м
+17738	CCP	Machariel*	2 114 м
+17738	main	Machariel*	7 878 м
+17738	Галактика	Machariel*	10 км
+17738	Machariel T2	Machariel*	5 477 м
+17738	Плюшевый дилдо	Machariel*	10 км
+17738	Mach-Arti MWD L II	Machariel*	6 407 м
+17738	&lt;-_-&gt;	Machariel*	5 083 м
+17738	B4MR2	Machariel*	8 721 м
+17738	Mach-Arti MWD L II	Machariel*	6 482 м
+17738	23	Machariel*	1 950 м
+17738	MACHA	Machariel*	5 106 м
+17738	1	Machariel*	10 км
+17738	Mach-Arti MWD L I	Machariel*	6 889 м
+17738	Machariel	Machariel*	5 439 м
+17738	BzzZzzZzz	Machariel*	5 571 м
+17738	Mach-Arti MWD L II	Machariel*	5 264 м
+17738	_(*,.,*)_	Machariel*	7 522 м
+17738	ins3	Machariel*	10 км
+17738	©	Machariel*	6 058 м
+17738	-= Kāhili =-	Machariel*	8 687 м
+17738	Mach-Arti MWD L II	Machariel*	10 км
+17738	Machariel -H-	Machariel*	8 306 м
+17738	B.S.L/Mch_14	Machariel*	4 356 м
+17738	CTA Death 2017	Machariel*	10 км
+17738	упс8	Machariel*	5 698 м
+11129	Gunner Nilson's Gallente Shuttle	Gallente Shuttle*	-
+44993	\0/	Pacifier*	9 379 м
+11182	bbbbbbbbbbbbbbb	Cheetah*	5 068 м
+34317	**FC	Confessor*	77 км
+35683	☜|✠|☞ Hunger	Hecate*	76 км
+34317	Space Catholics	Confessor*	77 км
+11198	Характерник*	Stiletto*	10 км
+11202	Steel Fang	Ares*	5 856 м
+11196	Claw*	Claw*	6 466 м
+11198	*Stiletto*123	Stiletto*	10 км
+11196	*☺*	Claw*	6 624 м
+11176	Azazel	Crow*	8 682 м
+11198	Ibis	Stiletto*	9 789 м
+11196	Fozzi Claw	Claw*	145 км
+11202	Candy Colored Clown	Ares*	-
+11202	Taxi	Ares*	73 км
+35825	4-GB14 - eleventh	Raitaru*	1 817 км
+35825	4-GB14 - Noc's Rubber Toy Company Inc	Raitaru*	1 556 км
+35825	4-GB14 - 999	Raitaru*	2 282 км
+35825	4-GB14 - tenth	Raitaru*	2 329 км
+29988	&nbsp;	Proteus*	9 563 м
+29986	General Info	Legion*	4 064 м
+29986	╬═(•̪●)═╬	Legion*	5 898 м
+29988	-=prot=-	Proteus*	10 км
+29990	д	Loki*	7 292 м
+29986	combat	Legion*	9 914 м
+12021	322	Phobos*	9 904 м
+609	SorFuS Maulus	Maulus*	2 048 м
+609	...	Maulus*	6 557 м
+586	asdfffgd	Probe*	9 140 м
+35832	4-GB14 - Second	Astrahus*	1 447 км
+35833	4-GB14 - The Cow's Pasture	Fortizar*	1 326 км
+35832	4-GB14 - Mostly Harmless	Astrahus*	1 305 км
+35833	4-GB14 - PorkCleaner Express	Fortizar*	1 294 км
+35832	4-GB14 - 777	Astrahus*	1 667 км
+35832	4-GB14 - New Gap	Astrahus*	1 258 км
+35832	4-GB14 - Old Folks Home	Astrahus*	1 369 км
+35832	4-GB14 - Bacon	Astrahus*	1 980 км
+35832	4-GB14 - Third	Astrahus*	1 795 км
+35832	4-GB14 - 888	Astrahus*	2 405 км
+35833	4-GB14 - Kacion's Brothel	Fortizar*	1 284 км
+35833	4-GB14 - Straight Lines R Hard Exhibit B	Fortizar*	1 262 км
+35832	4-GB14 - First	Astrahus*	1 931 км
+35832	4-GB14 - Fith	Astrahus*	2 248 км
+35833	4-GB14 - Straight Lines R Hard Exhibit A	Fortizar*	1 125 км
+35832	4-GB14 - Out-of-Space Buccaneers	Astrahus*	1 310 км
+35832	4-GB14 - NOT WITH'E COMMANDER	Astrahus*	2 028 км
+35832	4-GB14 - Destinys Birds Nest	Astrahus*	1 336 км
+35832	4-GB14 - griffins4everyone	Astrahus*	2 226 км
+35832	4-GB14 - Sixth	Astrahus*	1 637 км
+35832	4-GB14 - Pants City	Astrahus*	1 321 км
+35833	4-GB14 - Torunaga's Basement	Fortizar*	1 302 км
+35832	4-GB14 - Chaos Army Kaesekuchen	Astrahus*	1 731 км
+35832	4-GB14 - Fourth	Astrahus*	2 488 км
+35834	4-GB14 - Phoenix Sky Harbor	Keepstar*	0 м
