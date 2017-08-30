@@ -29,11 +29,6 @@
 		width: 300px;
 	}
 
-	.table-eve-intel tbody > tr > td {
-		vertical-align: middle;
-		color: rgb(51,51,51);
-	}
-
 	.paste-explanation ul {
 		list-style-type: none;
 		padding: 0;
@@ -41,6 +36,30 @@
 
 	.paste-explanation li > small {
 		color: rgb(119,119,119);
+	}
+}
+
+/* Highlighting
+----------------------------------------------------------------------------- */
+@media all {
+	.highlightShipClass td:first-child {
+		border-left: 1px solid #ff0000;
+		margin-left: -11px;
+		padding-left: 4px;
+	}
+}
+
+/* Data Tables
+----------------------------------------------------------------------------- */
+@media all {
+	div.dataTables_wrapper div.dataTables_info {
+		padding-top: 8px;
+		white-space: initial;
+	}
+
+	.table-eve-intel tbody > tr > td {
+		vertical-align: middle;
+		color: rgb(51,51,51);
 	}
 
 	.table-no-images > tbody > tr > td {
@@ -52,16 +71,6 @@
 		text-align: right;
 		padding-right: 16px;
 		padding-right: 1rem;
-	}
-}
-
-/* Highlighting
------------------------------------------------------------------------------ */
-@media all {
-	.highlightShipClass td:first-child {
-		border-left: 1px solid #ff0000;
-		margin-left: -11px;
-		padding-left: 4px;
 	}
 }
 
