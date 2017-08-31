@@ -62,7 +62,7 @@ $regionName = (!empty($dscanDataSystem['regionName'])) ? $dscanDataSystem['regio
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/ship-classes',[
 						'title' => \__('All', 'eve-online-intel-tool'),
 						'count' => $countAll,
-						'shipClassList' => $dscanDataAll['data']
+						'shipClassList' => (!empty($dscanDataAll['data'])) ? $dscanDataAll['data'] : null
 					]);
 					?>
 				</div>
@@ -75,7 +75,7 @@ $regionName = (!empty($dscanDataSystem['regionName'])) ? $dscanDataSystem['regio
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/ship-classes',[
 						'title' => \__('On Grid', 'eve-online-intel-tool'),
 						'count' => $countOnGrid,
-						'shipClassList' => $dscanDataOnGrid['data']
+						'shipClassList' => (!empty($dscanDataOnGrid['data'])) ? $dscanDataOnGrid['data'] : null
 					]);
 					?>
 				</div>
@@ -88,7 +88,7 @@ $regionName = (!empty($dscanDataSystem['regionName'])) ? $dscanDataSystem['regio
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/ship-classes',[
 						'title' => \__('Off Grid', 'eve-online-intel-tool'),
 						'count' => $countOffGrid,
-						'shipClassList' => $dscanDataOffGrid['data']
+						'shipClassList' => (!empty($dscanDataOffGrid['data'])) ? $dscanDataOffGrid['data'] : null
 					]);
 					?>
 				</div>
