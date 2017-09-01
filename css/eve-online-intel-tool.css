@@ -46,6 +46,10 @@
 /* Highlighting
 ----------------------------------------------------------------------------- */
 @media all {
+	.highlightShipClass {
+		background-color: rgba(255,255,255,0.5);
+	}
+
 	.highlightShipClass td:first-child {
 		border-left: 1px solid #ff0000;
 		margin-left: -11px;
@@ -64,6 +68,15 @@
 	/* usually we don't use !important, but here we have to, thx firefox ... */
 	table.dataTable {
 		width: 100% !important;
+	}
+
+	.dataTable tr.even {
+		background-color: rgba(255,255,255,0.2);
+	}
+
+	.dataTable tbody tr:hover,
+	.dataTable tbody tr.highlightShipClass{
+		background-color: rgba(255,255,255,0.5);
 	}
 
 	.table-eve-intel tbody > tr > td {
