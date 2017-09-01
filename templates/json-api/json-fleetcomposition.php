@@ -3,6 +3,8 @@ defined('ABSPATH') or die();
 
 // Meta data
 $fleetOverview = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-fleetOverview', true));
+$fleetInformation = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-fleetInformation', true));
+
 $shipClasses = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-shipClasses', true));
 $shipTypes = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-shipTypes', true));
 
@@ -18,21 +20,25 @@ $allianceParticipation = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-i
 $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-time', true));
 
 $jsonData = [
-	'overview' => $fleetOverview,
-	'shipClasses' => $shipClasses,
-	'shipTypes' => $shipTypes,
+	'type' => 'fleetcomposition',
+	'eveTime' => $fleetScanDataTime,
+	'data' => [
+		'overview' => $fleetOverview,
+		'information' => $fleetInformation,
 
-	'pilotCount' => \count($pilotList),
-	'pilotList' => $pilotList,
-	'pilotDetails' => $pilotParticipation,
+		'shipClasses' => $shipClasses,
+		'shipTypes' => $shipTypes,
 
-	'corporationList' => $corporationList,
-	'corporationParticipation' => $corporationParticipation,
+		'pilotCount' => \count($pilotList),
+		'pilotList' => $pilotList,
+		'pilotDetails' => $pilotParticipation,
 
-	'allianceList' => $allianceList,
-	'allianceParticipation' => $allianceParticipation,
+		'corporationList' => $corporationList,
+		'corporationParticipation' => $corporationParticipation,
 
-	'eveTime' => $fleetScanDataTime
+		'allianceList' => $allianceList,
+		'allianceParticipation' => $allianceParticipation
+	]
 ];
 
 echo \json_encode($jsonData);

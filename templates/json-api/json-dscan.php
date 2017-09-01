@@ -10,14 +10,16 @@ $dscanDataSystem = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-t
 $dscanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-time', true));
 
 $jsonData = [
-	'dscanAll' => $dscanDataAll,
-	'dscanOngrid' => $dscanDataOnGrid,
-	'dscanOffgrid' => $dscanDataOffGrid,
+	'type' => 'dscan',
+	'eveTime' => $dscanDataTime,
+	'data' => [
+		'dscanAll' => $dscanDataAll,
+		'dscanOngrid' => $dscanDataOnGrid,
+		'dscanOffgrid' => $dscanDataOffGrid,
 
-	'dscanShipTypes' => $dscanDataShipTypes,
-	'dscanSystemInformation' => $dscanDataSystem,
-
-	'eveTime' => $dscanDataTime
+		'dscanShipTypes' => $dscanDataShipTypes,
+		'dscanSystemInformation' => $dscanDataSystem
+	]
 ];
 
 echo \json_encode($jsonData);
