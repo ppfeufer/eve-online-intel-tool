@@ -3,6 +3,7 @@ defined('ABSPATH') or die();
 
 // Meta data
 $fleetOverview = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-fleetOverview', true));
+$fleetInformation = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-fleetInformation', true));
 
 $shipClasses = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-shipClasses', true));
 $shipTypes = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-shipTypes', true));
@@ -36,6 +37,42 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 <article id="post-<?php \the_ID(); ?>" <?php \post_class('clearfix content-single template-single-dscan'); ?>>
 	<section class="post-content">
 		<div class="entry-content">
+			<div class="fleetcomposition-information row">
+				<div class="col-md-12">
+					<header class="entry-header"><h2 class="entry-title"><?php echo \__('General Information', 'eve-online-intel-tool'); ?></h2></header>
+					<div class="row">
+						<div class="col-md-6 col-lg-3">
+							<div class="table-responsive table-local-scan table-local-scan-corporation table-eve-intel">
+								<table class="table table-condensed">
+									<tr>
+										<td><?php echo \__('Fleetboss', 'eve-online-intel-tool'); ?></td>
+										<td class="data-align-right"><?php echo (!empty($fleetInformation['fleetBoss'])) ? $fleetInformation['fleetBoss'] : \__('Unknown', 'eve-online-intel-tool'); ?></td>
+									</tr>
+									<tr>
+										<td><?php echo \__('Pilots seen', 'eve-online-intel-tool'); ?></td>
+										<td class="data-align-right"><?php echo \count($pilotList); ?></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+
+						<div class="col-md-6 col-lg-3">
+							<div class="table-responsive table-local-scan table-local-scan-corporation table-eve-intel">
+								<table class="table table-condensed">
+									<tr>
+										<td><?php echo \__('Pilots docked', 'eve-online-intel-tool'); ?></td>
+										<td class="data-align-right"><?php echo (!empty($fleetInformation['pilots']['docked'])) ? $fleetInformation['pilots']['docked'] : \__('Unknown', 'eve-online-intel-tool'); ?></td>
+									</tr>
+									<tr>
+										<td><?php echo \__('Pilots in space', 'eve-online-intel-tool'); ?></td>
+										<td class="data-align-right"><?php echo (!empty($fleetInformation['pilots']['inSpace'])) ? $fleetInformation['pilots']['inSpace'] : \__('Unknown', 'eve-online-intel-tool'); ?></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="fleetcomposition-result row">
 				<div class="col-md-6 col-lg-3">
 					<?php

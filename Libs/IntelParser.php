@@ -95,11 +95,11 @@ class IntelParser {
 		$cleanedScanData = Helper\IntelHelper::getInstance()->fixLineBreaks($scanData);
 
 		switch($cleanedScanData) {
-			case (\preg_match('/\d+[\t](.*)[\t](-|\d(.*)) ?$/m', $cleanedScanData) ? true : false):
+			case (\preg_match('/^\d+[\t](.*)[\t](-|\d(.*)) ?$/m', $cleanedScanData) ? true : false):
 				$intelType =  'dscan';
 				break;
 
-			case (\preg_match('/\w+ \/ \w+( \d+)? ?$/m', $cleanedScanData) ? true : false):
+			case (\preg_match('/^([a-zA-Z0-9 -_]{3,37})[\t](.*)[\t](.* \/ .*) ?$/m', $cleanedScanData) ? true : false):
 				$intelType =  'fleetcomposition';
 				break;
 
@@ -195,6 +195,7 @@ class IntelParser {
 				'meta_input' => [
 					'eve-intel-tool_fleetcomposition-rawData' => \maybe_serialize($parsedFleetComposition['rawData']),
 					'eve-intel-tool_fleetcomposition-fleetOverview' => \maybe_serialize($parsedFleetComposition['fleetCompositionData']['overview']),
+					'eve-intel-tool_fleetcomposition-fleetInformation' => \maybe_serialize($parsedFleetComposition['fleetInformation']),
 					'eve-intel-tool_fleetcomposition-shipClasses' => \maybe_serialize($parsedFleetComposition['fleetCompositionData']['shipClasses']),
 					'eve-intel-tool_fleetcomposition-shipTypes' => \maybe_serialize($parsedFleetComposition['fleetCompositionData']['shipTypes']),
 					'eve-intel-tool_fleetcomposition-pilotDetails' => \maybe_serialize($parsedFleetComposition['participationData']['pilotDetails']),
