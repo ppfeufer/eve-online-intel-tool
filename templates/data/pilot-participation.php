@@ -6,8 +6,8 @@ if(!empty($pilotParticipation)) {
 		<table class="table table-sortable table-condensed">
 			<thead>
 				<th><?php echo \__('Name', 'eve-online-intel-tool'); ?></th>
-				<th><?php echo \__('Alliance', 'eve-online-intel-tool'); ?>Alliance</th>
-				<th><?php echo \__('Corporation', 'eve-online-intel-tool'); ?>Corporation</th>
+				<th><?php echo \__('Alliance', 'eve-online-intel-tool'); ?></th>
+				<th><?php echo \__('Corporation', 'eve-online-intel-tool'); ?></th>
 			</thead>
 			<?php
 			foreach($pilotParticipation as $pilot) {
