@@ -95,11 +95,11 @@ class IntelParser {
 		$cleanedScanData = Helper\IntelHelper::getInstance()->fixLineBreaks($scanData);
 
 		switch($cleanedScanData) {
-			case (\preg_match('/\d+[\t](.*)[\t](-|\d(.*)) ?$/m', $cleanedScanData) ? true : false):
+			case (\preg_match('/^\d+[\t](.*)[\t](-|\d(.*)) ?$/m', $cleanedScanData) ? true : false):
 				$intelType =  'dscan';
 				break;
 
-			case (\preg_match('/\w+ \/ \w+( \d+)? ?$/m', $cleanedScanData) ? true : false):
+			case (\preg_match('/^([a-zA-Z0-9 -_]{3,37})[\t](.*)[\t](.* \/ .*) ?$/m', $cleanedScanData) ? true : false):
 				$intelType =  'fleetcomposition';
 				break;
 
