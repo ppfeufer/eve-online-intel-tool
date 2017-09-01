@@ -2,13 +2,24 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.6...HEAD)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.7...HEAD)
 - in development
+
+## [v0.1.7](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.7) - 2017-09-01
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.6...v0.1.7)
+### Added
+- Some eyecandy for the sortable tables
+
+### Changed
+- Fleet information pushed into its own template
+
+### Fixed
+- "Unknown" number of pilots docked or in space in fleet compisition scan should be 0 instead
 
 ## [v0.1.6](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.6) - 2017-09-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.5...v0.1.6)
 ### Fixed
--- Removed duplicate label on some table header
+- Removed duplicate label on some table header
 
 ## [v0.1.5](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.5) - 2017-09-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.4...v0.1.5)
@@ -16,7 +27,7 @@
 - General Fleet information to teh fleet scan, as in how many pilots in total, how many are docked, how many are in space.
 
 ### Fixed
--- Regular Expression for detecting fleet scans. I really hate this stuff ...
+- Regular Expression for detecting fleet scans. I really hate this stuff ...
 
 ## [v0.1.4](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.4) - 2017-08-31
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.3...v0.1.4)
