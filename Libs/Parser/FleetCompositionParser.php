@@ -60,6 +60,7 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 
 		$pilotListRaw = null;
 		$fleetComposition = [];
+		$fleetInformation = [];
 		$counter = [];
 
 		foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
@@ -78,6 +79,29 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 			 *	)
 			 */
 			$lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
+
+			// get the fleet boss
+			if(\preg_match('/.* \(Boss\)/', $lineDetailsArray['4'])) {
+				$fleetInformation['fleetBoss'] = $lineDetailsArray['0'];
+			} // END if(\preg_match('/* \(Boss\)/', $lineDetailsArray['0']))
+
+			// get count of docked pilots
+			if(!isset($fleetInformation['pilots']['docked'])) {
+				$fleetInformation['pilots']['docked'] = 0;
+			} // END if(!isset($fleetInformation['pilots']['docked'])) 
+
+			if(\preg_match('/.* \(Docked\)/', $lineDetailsArray['1'])) {
+				$fleetInformation['pilots']['docked']++;
+			}
+
+			// get count of pilots in space
+			if(!isset($fleetInformation['pilots']['inSpace'])) {
+				$fleetInformation['pilots']['inSpace'] = 0;
+			} // END if(!isset($fleetInformation['pilots']['inSpace']))
+
+			if(!\preg_match('/.* \(Docked\)/', $lineDetailsArray['1'])) {
+				$fleetInformation['pilots']['inSpace']++;
+			}
 
 			// build a list of pilot names
 			$pilotListRaw .= $lineDetailsArray['0'] . "\n";
@@ -128,6 +152,7 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 
 		$returnData = [
 			'rawData' => $cleanedScanData,
+			'fleetInformation' => $fleetInformation,
 			'fleetCompositionData' => $fleetComposition,
 			'participationData' => $participationData
 		];

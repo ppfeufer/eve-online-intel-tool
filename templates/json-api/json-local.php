@@ -12,17 +12,19 @@ $localDataAllianceParticipation = \maybe_unserialize(\get_post_meta(\get_the_ID(
 $localDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_local-time', true));
 
 $jsonData = [
-	'pilotCount' => \count($localDataPilotList),
-	'pilotList' => $localDataPilotList,
-	'pilotDetails' => $localDataPilotDetails,
+	'type' => 'local',
+	'eveTime' => $localDataTime,
+	'data' => [
+		'pilotCount' => \count($localDataPilotList),
+		'pilotList' => $localDataPilotList,
+		'pilotDetails' => $localDataPilotDetails,
 
-	'corporationList' => $localDataCorporationList,
-	'corporationParticipation' => $localDataCorporationParticipation,
+		'corporationList' => $localDataCorporationList,
+		'corporationParticipation' => $localDataCorporationParticipation,
 
-	'allianceList' => $localDataAllianceList,
-	'allianceParticipation' => $localDataAllianceParticipation,
-
-	'eveTime' => $localDataTime
+		'allianceList' => $localDataAllianceList,
+		'allianceParticipation' => $localDataAllianceParticipation
+	]
 ];
 
 echo \json_encode($jsonData);

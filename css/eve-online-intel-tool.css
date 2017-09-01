@@ -37,6 +37,10 @@
 	.paste-explanation li > small {
 		color: rgb(119,119,119);
 	}
+
+	td.data-align-right {
+		text-align: right;
+	}
 }
 
 /* Highlighting

@@ -2,9 +2,9 @@
 /**
  * Plugin Name: EVE Online Intel Tool for WordPress
  * Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
- * Git URI: https://github.com/ppfeufer/eve-online-intel-tool
+ * GitHub Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
  * Description: An EVE Online Intel Tool for WordPress. Parsing D-Scans, Local and Fleet Compositions. (Best with a theme running with <a href="http://getbootstrap.com/">Bootstrap</a>)
- * Version: 0.1.4
+ * Version: 0.1.5
  * Author: Rounon Dax
  * Author URI: http://yulaifederation.net
  * Text Domain: eve-online-intel-tool
