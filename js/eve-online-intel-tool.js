@@ -1,4 +1,4 @@
-/* global Clipboard, eveIntelToolL10n */
+/* global Clipboard, eveIntelToolL10n, dataHighlight */
 
 jQuery(document).ready(function($) {
 	/**
@@ -111,11 +111,11 @@ jQuery(document).ready(function($) {
 	 */
 	dataHighlight = function(action, highlight) {
 		if(action === 'enable') {
-			$("tr[data-highlight='" + highlight + "']").addClass('dataHighlight');
+			$('tr[data-highlight="' + highlight + '"]').addClass('dataHighlight');
 		} // END if(action === 'enable')
 
 		if(action === 'disable') {
-			$("tr[data-highlight='" + highlight + "']").removeClass('dataHighlight');
+			$('tr[data-highlight="' + highlight + '"]').removeClass('dataHighlight');
 		} // END if(action === 'disable')
 	}; // END function dataHighlight(action, highlight)
 });

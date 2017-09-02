@@ -3,6 +3,9 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.7...HEAD)
+### Added
+- Visual association of pilots and corporations to their respective alliance in local and fleet composition scans
+
 ### Changed
 - Optimized the JavaSript to highlight table similar data
 
@@ -15,7 +18,7 @@
 - Fleet information pushed into its own template
 
 ### Fixed
-- "Unknown" number of pilots docked or in space in fleet compisition scan should be 0 instead
+- "Unknown" number of pilots docked or in space in fleet composition scan should be 0 instead
 
 ## [v0.1.6](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.6) - 2017-09-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.5...v0.1.6)

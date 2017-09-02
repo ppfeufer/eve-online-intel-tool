@@ -159,13 +159,20 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 				$corporationList[\sanitize_title($pilotSheet['corporationName'])] = [
 					'corporationID' => $pilotSheet['corporationID'],
 					'corporationName' => $pilotSheet['corporationName'],
-					'corporationTicker' => $pilotSheet['corporationTicker']
+					'corporationTicker' => $pilotSheet['corporationTicker'],
+					'allianceID' => (isset($pilotSheet['allianceID'])) ? $pilotSheet['allianceID'] : null,
+					'allianceName' => (isset($pilotSheet['allianceName'])) ? $pilotSheet['allianceName'] : null,
+					'allianceTicker' => (isset($pilotSheet['allianceTicker'])) ? $pilotSheet['allianceTicker'] : null
 				];
 
 				$corporationParticipation[\sanitize_title($pilotSheet['corporationName'])] = [
+					'count' => $counter[\sanitize_title($pilotSheet['corporationName'])],
 					'corporationID' => $pilotSheet['corporationID'],
 					'corporationName' => $pilotSheet['corporationName'],
-					'count' => $counter[\sanitize_title($pilotSheet['corporationName'])]
+					'corporationTicker' => $pilotSheet['corporationTicker'],
+					'allianceID' => (isset($pilotSheet['allianceID'])) ? $pilotSheet['allianceID'] : null,
+					'allianceName' => (isset($pilotSheet['allianceName'])) ? $pilotSheet['allianceName'] : null,
+					'allianceTicker' => (isset($pilotSheet['allianceTicker'])) ? $pilotSheet['allianceTicker'] : null
 				];
 			} // END if(isset($pilotSheet['corporationID']))
 
@@ -185,9 +192,10 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 				];
 
 				$allianceParticipation[\sanitize_title($pilotSheet['allianceName'])] = [
+					'count' => $counter[\sanitize_title($pilotSheet['allianceName'])],
 					'allianceID' => $pilotSheet['allianceID'],
 					'allianceName' => $pilotSheet['allianceName'],
-					'count' => $counter[\sanitize_title($pilotSheet['allianceName'])]
+					'allianceTicker' => $pilotSheet['allianceTicker']
 				];
 			} // END if(isset($pilotSheet['characterData']->corporation_id))
 		} // END foreach($pilotDetails as $pilotSheet)

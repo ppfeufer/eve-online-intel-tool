@@ -38,6 +38,9 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 	<section class="post-content">
 		<div class="entry-content">
 			<div class="fleetcomposition-information row">
+				<!--
+				// General fleet information
+				-->
 				<?php
 				if(\is_array($shipTypes) && \count($shipTypes)) {
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/fleet-information',[
@@ -49,6 +52,9 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 			</div>
 
 			<div class="fleetcomposition-result row">
+				<!--
+				// Ship class overview
+				-->
 				<div class="col-md-6 col-lg-3">
 					<?php
 					if(\is_array($shipClasses) && \count($shipClasses)) {
@@ -60,6 +66,9 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 					?>
 				</div>
 
+				<!--
+				// Ship type overview
+				-->
 				<div class="col-md-6 col-lg-3">
 					<?php
 					if(\is_array($shipTypes) && \count($shipTypes)) {
@@ -70,46 +79,23 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 					} // END if(\is_array($shipTypes) && \count($shipTypes))
 					?>
 				</div>
+
+				<!--
+				// Who is flying what?
+				-->
 				<div class="col-md-12 col-lg-6">
-					<header class="entry-header"><h2 class="entry-title"><?php echo \__('Who is flying what', 'eve-online-intel-tool'); ?></h2></header>
 					<?php
-					if(\is_array($fleetOverview) && \count($fleetOverview)) {
-						?>
-						<div class="table-responsive table-fleetcomposition-scan table-fleetcomposition-scan-fleetinfo table-eve-intel">
-							<table class="table table-sortable table-condensed">
-								<thead>
-									<th><?php echo \__('Name', 'eve-online-intel-tool'); ?></th>
-									<th><?php echo \__('Ship Class', 'eve-online-intel-tool'); ?></th>
-									<th><?php echo \__('Where', 'eve-online-intel-tool'); ?></th>
-								</thead>
-								<?php
-								foreach($fleetOverview as $data) {
-									?>
-									<tr>
-										<td>
-											<?php $imagePilot = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('character', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('character') . $data['pilotID'] . '_32.jpg'); ?>
-											<img src="<?php echo $imagePilot; ?>" alt="<?php echo $data['pilotName']; ?>" width="32" heigh="32">
-											<?php echo $data['pilotName']; ?>
-										</td>
-										<td>
-											<?php echo $data['shipClass']; ?>
-										</td>
-										<td>
-											<?php echo $data['system']; ?>
-										</td>
-									</tr>
-									<?php
-								} // END foreach($fleetOverview as $data)
-								?>
-							</table>
-						</div>
-						<?php
-					} // END if(\is_array($shipTypes) && \count($shipTypes))
+					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/fleet-composition',[
+						'fleetOverview' => $fleetOverview
+					]);
 					?>
 				</div>
 			</div>
 
 			<div class="fleetcomposition-result row">
+				<!--
+				// Alliance participation
+				-->
 				<div class="col-md-6 col-lg-3">
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/alliance-participation',[
@@ -118,6 +104,10 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 					]);
 					?>
 				</div>
+
+				<!--
+				// Corporation participation
+				-->
 				<div class="col-md-6 col-lg-3">
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/corporation-participation',[
@@ -126,6 +116,10 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 					]);
 					?>
 				</div>
+
+				<!--
+				// Pilots participation and breakdown to corporations and alliances
+				-->
 				<div class="col-md-12 col-lg-6">
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/pilot-participation',[

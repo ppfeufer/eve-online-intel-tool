@@ -12,7 +12,7 @@ if(!empty($corporationParticipation)) {
 			foreach($corporationParticipation as $corporationList) {
 				foreach($corporationList as $corporation) {
 					?>
-					<tr>
+					<tr data-highlight="alliance-<?php echo $corporation['allianceID']; ?>" onmouseover="dataHighlight('enable', 'alliance-<?php echo $corporation['allianceID']; ?>');" onmouseout="dataHighlight('disable', 'alliance-<?php echo $corporation['allianceID']; ?>');">
 						<td>
 							<?php
 							$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('corporation', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('corporation') . $corporation['corporationID'] . '_32.png');
