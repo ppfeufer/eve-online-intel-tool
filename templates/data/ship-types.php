@@ -11,7 +11,7 @@ if(\is_array($shipTypeList) && \count($shipTypeList) > 0) {
 			<?php
 			foreach($shipTypeList as $data) {
 				?>
-				<tr data-typeclass="<?php echo $data['shipTypeSanitized']; ?>" onmouseover="dscanHighlightShipClass('<?php echo $data['shipTypeSanitized']; ?>');" onmouseout="dscanDisableHighlightShipClass('<?php echo $data['shipTypeSanitized']; ?>');">
+				<tr data-highlight="<?php echo $data['shipTypeSanitized']; ?>" onmouseover="dataHighlight('enable', '<?php echo $data['shipTypeSanitized']; ?>');" onmouseout="dataHighlight('disable', '<?php echo $data['shipTypeSanitized']; ?>');">
 					<td><?php echo $data['type']; ?></td>
 					<td class="table-data-count"><?php echo $data['count']; ?></td>
 				</tr>

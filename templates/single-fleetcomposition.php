@@ -136,15 +136,5 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 				</div>
 			</div>
 		</div>
-
-		<script type="text/javascript">
-		function dscanHighlightShipClass(shipClass) {
-			jQuery("tr[data-typeclass='" + shipClass + "']").addClass('highlightShipClass');
-		} // END function dscanHighlightShipClass(shipClass)
-
-		function dscanDisableHighlightShipClass(shipClass) {
-			jQuery("tr[data-typeclass='" + shipClass + "']").removeClass('highlightShipClass');
-		} // END function dscanDisableHighlightShipClass(shipClass)
-		</script>
 	</section>
 </article><!-- /.post-->

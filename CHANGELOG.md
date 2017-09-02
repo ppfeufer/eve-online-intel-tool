@@ -3,7 +3,8 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.7...HEAD)
-- in development
+### Changed
+- Optimized the JavaSript to highlight table similar data
 
 ## [v0.1.7](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.7) - 2017-09-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.6...v0.1.7)

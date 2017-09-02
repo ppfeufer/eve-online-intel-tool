@@ -46,11 +46,11 @@
 /* Highlighting
 ----------------------------------------------------------------------------- */
 @media all {
-	.highlightShipClass {
+	.dataHighlight {
 		background-color: rgba(255,255,255,0.5);
 	}
 
-	.highlightShipClass td:first-child {
+	.dataHighlight td:first-child {
 		border-left: 1px solid #ff0000;
 		margin-left: -11px;
 		padding-left: 4px;
@@ -75,7 +75,7 @@
 	}
 
 	.dataTable tbody tr:hover,
-	.dataTable tbody tr.highlightShipClass{
+	.dataTable tbody tr.dataHighlight {
 		background-color: rgba(255,255,255,0.5);
 	}
 
