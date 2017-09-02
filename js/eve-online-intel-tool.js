@@ -1,4 +1,4 @@
-/* global Clipboard, eveIntelToolL10n */
+/* global Clipboard, eveIntelToolL10n, dataHighlight */
 
 jQuery(document).ready(function($) {
 	/**
@@ -82,18 +82,40 @@ jQuery(document).ready(function($) {
 		});
 	});
 
+	/**
+	 * Array of all data tables on the current page
+	 *
+	 * @type array
+	 */
 	var dataTables = $('.table-sortable');
 	dataTables.each(function() {
 		if(typeof($(this).data('haspaging')) !== 'undefined' && $(this).data('haspaging') === 'no') {
 			$($(this)).DataTable({
 				'paging': false,
 				dom:
-					"<'row'<'col-sm-12'f>>" +
-					"<'row'<'col-sm-12'tr>>" +
-					"<'row'<'col-sm-12'i>>"
+					'<\'row\'<\'col-sm-12\'f>>' +
+					'<\'row\'<\'col-sm-12\'tr>>' +
+					'<\'row\'<\'col-sm-12\'i>>'
 			});
 		} else {
 			$($(this)).DataTable();
 		}
 	});
+
+	/**
+	 * Highlighting similar table rows on mouse over
+	 *
+	 * @param {string} action
+	 * @param {string} highlight
+	 * @returns {void}
+	 */
+	dataHighlight = function(action, highlight) {
+		if(action === 'enable') {
+			$('tr[data-highlight="' + highlight + '"]').addClass('dataHighlight');
+		} // END if(action === 'enable')
+
+		if(action === 'disable') {
+			$('tr[data-highlight="' + highlight + '"]').removeClass('dataHighlight');
+		} // END if(action === 'disable')
+	}; // END function dataHighlight(action, highlight)
 });

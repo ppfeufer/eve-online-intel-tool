@@ -11,8 +11,11 @@ if(!empty($pilotParticipation)) {
 			</thead>
 			<?php
 			foreach($pilotParticipation as $pilot) {
+				if(!isset($pilot['allianceID'])) {
+					$pilot['allianceID'] = null;
+				} // END if(!isset($pilot['allianceID']))
 				?>
-				<tr>
+				<tr data-highlight="alliance-<?php echo $pilot['allianceID']; ?>" onmouseover="dataHighlight('enable', 'alliance-<?php echo $pilot['allianceID']; ?>');" onmouseout="dataHighlight('disable', 'alliance-<?php echo $pilot['allianceID']; ?>');">
 					<td>
 						<?php
 						$imagePilot = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('character', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('character') . $pilot['characterID'] . '_32.jpg');
