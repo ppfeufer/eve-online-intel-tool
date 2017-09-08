@@ -12,7 +12,7 @@ if(\is_array($fleetOverview) && \count($fleetOverview)) {
 			<?php
 			foreach($fleetOverview as $data) {
 				?>
-				<tr data-highlight="shiptype-<?php echo \sanitize_title($data['shipType']); ?>" onmouseover="dataHighlight('enable', 'shiptype-<?php echo \sanitize_title($data['shipType']); ?>');" onmouseout="dataHighlight('disable', 'shiptype-<?php echo \sanitize_title($data['shipType']); ?>');">
+				<tr data-highlight="shiptype-<?php echo \sanitize_title($data['shipType']); ?>">
 					<td>
 						<?php $imagePilot = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('character', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('character') . $data['pilotID'] . '_32.jpg'); ?>
 						<img src="<?php echo $imagePilot; ?>" alt="<?php echo $data['pilotName']; ?>" width="32" heigh="32">
