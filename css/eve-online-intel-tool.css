@@ -46,11 +46,11 @@
 /* Highlighting
 ----------------------------------------------------------------------------- */
 @media all {
-	.dataHighlight {
+	.dataHighlight, .dataHighlightSticky {
 		background-color: rgba(255,255,255,0.5);
 	}
 
-	.dataHighlight td:first-child {
+	.dataHighlight td:first-child, .dataHighlightSticky td:first-child {
 		border-left: 1px solid #ff0000;
 		margin-left: -11px;
 		padding-left: 4px;
@@ -75,7 +75,8 @@
 	}
 
 	.dataTable tbody tr:hover,
-	.dataTable tbody tr.dataHighlight {
+	.dataTable tbody tr.dataHighlight,
+	.dataTable tbody tr.dataHighlightSticky {
 		background-color: rgba(255,255,255,0.5);
 	}
 

@@ -1,4 +1,4 @@
-/* global Clipboard, eveIntelToolL10n, dataHighlight */
+/* global Clipboard, eveIntelToolL10n */
 
 jQuery(document).ready(function($) {
 	/**
@@ -91,7 +91,7 @@ jQuery(document).ready(function($) {
 	dataTables.each(function() {
 		if(typeof($(this).data('haspaging')) !== 'undefined' && $(this).data('haspaging') === 'no') {
 			$($(this)).DataTable({
-				'paging': false,
+				paging: false,
 				dom:
 					'<\'row\'<\'col-sm-12\'f>>' +
 					'<\'row\'<\'col-sm-12\'tr>>' +
@@ -99,23 +99,20 @@ jQuery(document).ready(function($) {
 			});
 		} else {
 			$($(this)).DataTable();
-		}
+		} // END if(typeof($(this).data('haspaging')) !== 'undefined' && $(this).data('haspaging') === 'no')
 	});
 
 	/**
 	 * Highlighting similar table rows on mouse over
-	 *
-	 * @param {string} action
-	 * @param {string} highlight
-	 * @returns {void}
 	 */
-	dataHighlight = function(action, highlight) {
-		if(action === 'enable') {
-			$('tr[data-highlight="' + highlight + '"]').addClass('dataHighlight');
-		} // END if(action === 'enable')
+	$('tr[data-highlight]').hover(function() {
+		$('tr[data-highlight="' + $(this).data('highlight') + '"]').toggleClass('dataHighlight');
+	});
 
-		if(action === 'disable') {
-			$('tr[data-highlight="' + highlight + '"]').removeClass('dataHighlight');
-		} // END if(action === 'disable')
-	}; // END function dataHighlight(action, highlight)
+	/**
+	 * Sticky highlight similar table rows on click
+	 */
+	$('tr[data-highlight]').click(function() {
+		$('tr[data-highlight="' + $(this).data('highlight') + '"]').toggleClass('dataHighlightSticky');
+	});
 });
