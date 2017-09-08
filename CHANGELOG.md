@@ -3,15 +3,19 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.8...HEAD)
-- in development
+### Added
+- Sticky highlight on click in one of the sortable table fields, another click removes it again
+
+### Changed
+- Optimized the JavaScript for highlighting the sortable table fields
 
 ## [v0.1.8](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.8) - 2017-09-02
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.7...v0.1.8)
 ### Added
-- Visual association of pilots and corporations to their respective alliance in local and fleet composition scans
+- Visual association of pilots and corporations to their respective alliance in local and fleet composition scans.
 
 ### Changed
-- Optimized the JavaSript to highlight table similar data
+- Optimized the JavaSript to highlight table similar data.
 
 ## [v0.1.7](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.7) - 2017-09-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.6...v0.1.7)
