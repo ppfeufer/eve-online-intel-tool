@@ -2,7 +2,11 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.8...HEAD)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.9...HEAD)
+- in development
+
+## [v0.1.9](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.9) - 2017-09-08
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.8...v0.1.9)
 ### Added
 - Sticky highlight on click in one of the sortable table fields, another click removes it again
 
