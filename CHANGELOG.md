@@ -3,7 +3,11 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.9...HEAD)
-- in development
+### Added
+- German translation
+
+### Changed
+- Made data tables translatable (To create your own translation, use the [Loco Translate](https://wordpress.org/plugins/loco-translate/) plugin in your WordPress backend. Feel free to send me your translation files via the GitHub issue tracker so I can add them to the plugin.)
 
 ## [v0.1.9](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.9) - 2017-09-08
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.8...v0.1.9)
