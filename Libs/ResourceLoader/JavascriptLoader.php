@@ -71,6 +71,33 @@ class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Inte
 					]
 				]
 			],
+			'dataTables' => [
+				'translation' => [
+					'decimal' => \__(',', 'eve-online-intel-tool'),
+					'thousands' => \__('.', 'eve-online-intel-tool'),
+					'emptyTable' => \__('No data available in table', 'eve-online-intel-tool'),
+					'info' => \__('Showing page _PAGE_ of _PAGES_', 'eve-online-intel-tool'),
+					'infoEmpty' => \__('No records available', 'eve-online-intel-tool'),
+					'infoFiltered' => \__('(filtered from _MAX_ total records)', 'eve-online-intel-tool'),
+					'infoPostFix'  => \__('', 'eve-online-intel-tool'),
+					'lengthMenu' => \__('Show _MENU_', 'eve-online-intel-tool'),
+					'loadingRecords' => \__('Loading...', 'eve-online-intel-tool'),
+					'processing' => \__('Processing...', 'eve-online-intel-tool'),
+					'zeroRecords' => \__('Nothing found - sorry', 'eve-online-intel-tool'),
+					'search' => \__('_INPUT_', 'eve-online-intel-tool'),
+					'searchPlaceholder' => \__('Search...', 'eve-online-intel-tool'),
+					'paginate' => [
+						'first' => \__('First', 'eve-online-intel-tool'),
+						'last' => \__('Last', 'eve-online-intel-tool'),
+						'next' => \__('Next', 'eve-online-intel-tool'),
+						'previous' => \__('Previous', 'eve-online-intel-tool'),
+					],
+					'aria' => [
+						'sortAscending' => \__(': activate to sort column ascending', 'eve-online-intel-tool'),
+						'sortDescending' => \__(': activate to sort column descending', 'eve-online-intel-tool'),
+					]
+				]
+			]
 //			'ajax' => [
 //				'url' => \admin_url('admin-ajax.php'),
 //				'loaderImage' => \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getPluginUri('images/loader-sprite.gif')
