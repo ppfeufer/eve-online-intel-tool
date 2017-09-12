@@ -96,7 +96,7 @@ jQuery(document).ready(function($) {
 				dom:
 					'<\'row\'<\'col-sm-12\'f>>' +
 					'<\'row\'<\'col-sm-12\'tr>>' +
-					'<\'row\'<\'col-sm-12\'i>>',
+					'<\'row\'<\'col-sm-12\'i>>'
 			});
 		} else {
 			$($(this)).DataTable({
