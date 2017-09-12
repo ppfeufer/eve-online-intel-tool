@@ -2,7 +2,11 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.9...HEAD)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.10...HEAD)
+- in development
+
+## [v0.1.10](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.10) - 2017-09-12
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.9...v0.1.10)
 ### Added
 - German translation
 
