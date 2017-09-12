@@ -89,35 +89,9 @@ jQuery(document).ready(function($) {
 	 */
 	var dataTables = $('.table-sortable');
 	dataTables.each(function() {
-		var translation = {
-			decimal: eveIntelToolL10n.dataTables.translation.decimal,
-			thousands: eveIntelToolL10n.dataTables.translation.thousands,
-			emptyTable: eveIntelToolL10n.dataTables.translation.emptyTable,
-			info: eveIntelToolL10n.dataTables.translation.info,
-			infoEmpty: eveIntelToolL10n.dataTables.translation.infoEmpty,
-			infoFiltered: eveIntelToolL10n.dataTables.translation.infoFiltered,
-			infoPostFix: eveIntelToolL10n.dataTables.translation.infoPostFix,
-			lengthMenu: eveIntelToolL10n.dataTables.translation.lengthMenu,
-			loadingRecords: eveIntelToolL10n.dataTables.translation.loadingRecords,
-			processing: eveIntelToolL10n.dataTables.translation.processing,
-			zeroRecords: eveIntelToolL10n.dataTables.translation.zeroRecords,
-			search: eveIntelToolL10n.dataTables.translation.search,
-			searchPlaceholder: eveIntelToolL10n.dataTables.translation.searchPlaceholder,
-			paginate: {
-				first: eveIntelToolL10n.dataTables.translation.paginate.first,
-				last: eveIntelToolL10n.dataTables.translation.paginate.last,
-				next: eveIntelToolL10n.dataTables.translation.paginate.next,
-				previous: eveIntelToolL10n.dataTables.translation.paginate.previous
-			},
-			aria: {
-				sortAscending: eveIntelToolL10n.dataTables.translation.paginate.sortAscending,
-				sortDescending: eveIntelToolL10n.dataTables.translation.paginate.sortDescending
-			}
-		};
-
 		if(typeof($(this).data('haspaging')) !== 'undefined' && $(this).data('haspaging') === 'no') {
 			$($(this)).DataTable({
-				language: translation,
+				language: eveIntelToolL10n.dataTables.translation,
 				paging: false,
 				dom:
 					'<\'row\'<\'col-sm-12\'f>>' +
@@ -126,7 +100,7 @@ jQuery(document).ready(function($) {
 			});
 		} else {
 			$($(this)).DataTable({
-				language: translation
+				language: eveIntelToolL10n.dataTables.translation
 			});
 		} // END if(typeof($(this).data('haspaging')) !== 'undefined' && $(this).data('haspaging') === 'no')
 	});
