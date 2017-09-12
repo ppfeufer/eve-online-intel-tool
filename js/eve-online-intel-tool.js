@@ -91,6 +91,7 @@ jQuery(document).ready(function($) {
 	dataTables.each(function() {
 		if(typeof($(this).data('haspaging')) !== 'undefined' && $(this).data('haspaging') === 'no') {
 			$($(this)).DataTable({
+				language: eveIntelToolL10n.dataTables.translation,
 				paging: false,
 				dom:
 					'<\'row\'<\'col-sm-12\'f>>' +
@@ -98,7 +99,9 @@ jQuery(document).ready(function($) {
 					'<\'row\'<\'col-sm-12\'i>>'
 			});
 		} else {
-			$($(this)).DataTable();
+			$($(this)).DataTable({
+				language: eveIntelToolL10n.dataTables.translation
+			});
 		} // END if(typeof($(this).data('haspaging')) !== 'undefined' && $(this).data('haspaging') === 'no')
 	});
 
