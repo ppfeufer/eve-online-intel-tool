@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-12 09:54+0000\n"
+"POT-Creation-Date: 2017-09-13 13:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,13 +14,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco - https://localise.biz/"
 
-#: Libs/GithubUpdater.php:454
+#: Libs/GithubUpdater.php:466
 msgid ""
 "The plugin has been updated, but could not be reactivated. Please reactivate "
 "it manually."
 msgstr ""
 
-#: Libs/GithubUpdater.php:455
+#: Libs/GithubUpdater.php:467
 msgid "Plugin reactivated successfully."
 msgstr ""
 
@@ -32,54 +32,62 @@ msgstr ""
 msgid "Intel"
 msgstr ""
 
-#: templates/page-intel.php:27
+#: templates/page-intel.php:30
 msgid "Intel Parser"
 msgstr ""
 
-#: templates/page-intel.php:31
+#: templates/page-intel.php:34
 msgid ""
 "Please keep in mind, parsing large amount of data can take some time. Be "
 "patient, CCP's API is not the fastest to answer ...."
 msgstr ""
 
-#: templates/page-intel.php:35
+#: templates/page-intel.php:42
+msgid "The provided data could not be parsed. Please check and try again."
+msgstr ""
+
+#: templates/page-intel.php:49
 msgid "What can I paste?"
 msgstr ""
 
-#: templates/page-intel.php:37 templates/single-dscan.php:28
+#: templates/page-intel.php:51 templates/single-dscan.php:28
 msgid "D-Scan"
 msgstr ""
 
-#: templates/page-intel.php:38
+#: templates/page-intel.php:52
 msgid "Chat Memberlist"
 msgstr ""
 
-#: templates/page-intel.php:38 templates/page-intel.php:39
+#: templates/page-intel.php:52 templates/page-intel.php:53
 msgid "(takes some time to parse)"
 msgstr ""
 
-#: templates/page-intel.php:39 templates/single-fleetcomposition.php:25
+#: templates/page-intel.php:53 templates/single-fleetcomposition.php:25
 msgid "Fleet Composition"
 msgstr ""
 
-#: templates/page-intel.php:43
+#: templates/page-intel.php:58
 #, php-format
 msgid ""
-"This tool is still in its testing phase, so it might have some hick ups and "
+"This tool is still in its testing phase, so it might have some hiccups and "
 "rough edges here and there. If you experience any odd behaviour, please let "
 "me know about it in the %1$s."
 msgstr ""
 
-#: templates/page-intel.php:44
+#: templates/page-intel.php:59
 msgid "Thank you!"
 msgstr ""
 
-#: templates/page-intel.php:50
+#: templates/page-intel.php:65
 msgid "Paste here ..."
 msgstr ""
 
-#: templates/page-intel.php:52
+#: templates/page-intel.php:70
 msgid "Submit"
+msgstr ""
+
+#: templates/page-intel.php:75
+msgid "Waiting for the system to authenticate the form ..."
 msgstr ""
 
 #: templates/single-dscan.php:31

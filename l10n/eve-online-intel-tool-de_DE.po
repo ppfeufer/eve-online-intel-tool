@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EVE Online Intel Tool for WordPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-12 09:55+0000\n"
-"PO-Revision-Date: 2017-09-12 09:55+0000\n"
+"POT-Creation-Date: 2017-09-13 13:17+0000\n"
+"PO-Revision-Date: 2017-09-13 13:18+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German\n"
 "Language: de-DE\n"
@@ -13,11 +13,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco - https://localise.biz/"
 
-#. Author URI of the plugin
-msgid "https://yulaifederation.net"
-msgstr "https://yulaifederation.net"
+#: templates/page-intel.php:42
+msgid "The provided data could not be parsed. Please check and try again."
+msgstr ""
+"Die Daten konnten nicht verarbeitet werden. Bitte prüfe diese und versuche "
+"es noch einmal."
 
-#: Libs/GithubUpdater.php:454
+#: templates/page-intel.php:58
+#, php-format
+msgid ""
+"This tool is still in its testing phase, so it might have some hiccups and "
+"rough edges here and there. If you experience any odd behaviour, please let "
+"me know about it in the %1$s."
+msgstr ""
+"Dieses Tool ist in der Testphase, es kann also ein paar kleinere Stolperer "
+"haben. Solltest Du ungewöhnliches Verhalten bemerken, so lass es mich bitte "
+"im %1$s wissen."
+
+#: templates/page-intel.php:75
+msgid "Waiting for the system to authenticate the form ..."
+msgstr "Warte auf die Authentifizierung des Formulars durch das System ..."
+
+#: Libs/GithubUpdater.php:466
 msgid ""
 "The plugin has been updated, but could not be reactivated. Please reactivate "
 "it manually."
@@ -25,7 +42,7 @@ msgstr ""
 "Dieses Plugin wurde aktualisiert, konnte jedoch nicht reaktiviert werden. "
 "Bitte aktiviere es manuell."
 
-#: Libs/GithubUpdater.php:455
+#: Libs/GithubUpdater.php:467
 msgid "Plugin reactivated successfully."
 msgstr "Plugin erfolgreich reaktiviert."
 
@@ -37,11 +54,11 @@ msgstr "Kategorie"
 msgid "Intel"
 msgstr "Intel"
 
-#: templates/page-intel.php:27
+#: templates/page-intel.php:30
 msgid "Intel Parser"
 msgstr "Intel Parser"
 
-#: templates/page-intel.php:31
+#: templates/page-intel.php:34
 msgid ""
 "Please keep in mind, parsing large amount of data can take some time. Be "
 "patient, CCP's API is not the fastest to answer ...."
@@ -50,46 +67,35 @@ msgstr ""
 "Anspruch nehmen. Bitte hab etwas Geduld, CCP's API ist nicht die Schnellste ."
 ".."
 
-#: templates/page-intel.php:35
+#: templates/page-intel.php:49
 msgid "What can I paste?"
 msgstr "Was kann ich parsen?"
 
-#: templates/page-intel.php:37 templates/single-dscan.php:28
+#: templates/page-intel.php:51 templates/single-dscan.php:28
 msgid "D-Scan"
 msgstr "D-Scan"
 
-#: templates/page-intel.php:38
+#: templates/page-intel.php:52
 msgid "Chat Memberlist"
 msgstr "Chat Liste"
 
-#: templates/page-intel.php:38 templates/page-intel.php:39
+#: templates/page-intel.php:52 templates/page-intel.php:53
 msgid "(takes some time to parse)"
 msgstr "(benötigt einige Zeit zum parsen)"
 
-#: templates/page-intel.php:39 templates/single-fleetcomposition.php:25
+#: templates/page-intel.php:53 templates/single-fleetcomposition.php:25
 msgid "Fleet Composition"
 msgstr "Flottenzusammenstellung"
 
-#: templates/page-intel.php:43
-#, php-format
-msgid ""
-"This tool is still in its testing phase, so it might have some hick ups and "
-"rough edges here and there. If you experience any odd behaviour, please let "
-"me know about it in the %1$s."
-msgstr ""
-"Dieses Tool ist in der Testphase, es kann also ein paar kleinere Stolperer "
-"haben. Solltest Du ungewöhnliches Verhalten bemerken, so lass es mich bitte "
-"im %1$s wissen."
-
-#: templates/page-intel.php:44
+#: templates/page-intel.php:59
 msgid "Thank you!"
 msgstr "Danke!"
 
-#: templates/page-intel.php:50
+#: templates/page-intel.php:65
 msgid "Paste here ..."
 msgstr "Hier einfügen ..."
 
-#: templates/page-intel.php:52
+#: templates/page-intel.php:70
 msgid "Submit"
 msgstr "Absenden"
 
@@ -330,3 +336,7 @@ msgstr "https://github.com/ppfeufer/eve-online-intel-tool"
 #. Author of the plugin
 msgid "Rounon Dax"
 msgstr "Rounon Dax"
+
+#. Author URI of the plugin
+msgid "https://yulaifederation.net"
+msgstr "https://yulaifederation.net"
