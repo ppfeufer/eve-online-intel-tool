@@ -73,9 +73,8 @@
 		white-space: initial;
 	}
 
-	/* usually we don't use !important, but here we have to, thx firefox ... */
-	table.dataTable {
-		width: 100% !important;
+	.dataTables_wrapper table.dataTable {
+		width: 100%;
 	}
 
 	.dataTable tr.even {
