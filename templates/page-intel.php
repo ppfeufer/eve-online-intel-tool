@@ -50,7 +50,7 @@ if($serverRequest === 'POST' && !empty($formAction) && $formAction === 'new_inte
 									<textarea class="form-control" rows="15" id="eveIntel" name="eveIntel" placeholder="<?php echo \__('Paste here ...', 'eve-online-intel-tool'); ?>"></textarea>
 								</div>
 
-								<div class="row">
+								<div class="row form-submit-area">
 									<div class="col-sm-2">
 										<button type="submit" class="btn btn-default" name="submit-form" disabled><?php echo \__('Submit', 'eve-online-intel-tool'); ?></button>
 									</div>
