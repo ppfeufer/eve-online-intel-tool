@@ -23,11 +23,6 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces;
 
 interface AjaxInterface {
 	/**
-	 * Constructor
-	 */
-	public function __construct();
-
-	/**
 	 * Initialize Actions and Filter
 	 */
 	public function initActions();
