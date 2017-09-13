@@ -167,23 +167,6 @@ jQuery(document).ready(function($) {
 		var SECONDS_BETWEEN_FRAMES = 0;
 
 		/**
-		 * Start animation
-		 *
-		 * @returns {undefined}
-		 */
-		var startAnimation = function() {
-			$('#new_intel .loaderImage').css('display', 'block');
-			$('#new_intel .loaderImage').css('backgroundImage', 'url(' + cImageSrc + ')');
-			$('#new_intel .loaderImage').css('width', cWidth + 'px');
-			$('#new_intel .loaderImage').css('height', cHeight + 'px');
-
-			var FPS = Math.round(100 / cSpeed);
-			SECONDS_BETWEEN_FRAMES = 1 / FPS;
-
-			cPreloaderTimeout = setTimeout(continueAnimation, SECONDS_BETWEEN_FRAMES / 1000);
-		};
-
-		/**
 		 * Continue animation
 		 *
 		 * @returns {undefined}
@@ -211,6 +194,23 @@ jQuery(document).ready(function($) {
 			}
 
 			cPreloaderTimeout = setTimeout(continueAnimation, SECONDS_BETWEEN_FRAMES * 1000);
+		};
+
+		/**
+		 * Start animation
+		 *
+		 * @returns {undefined}
+		 */
+		var startAnimation = function() {
+			$('#new_intel .loaderImage').css('display', 'block');
+			$('#new_intel .loaderImage').css('backgroundImage', 'url(' + cImageSrc + ')');
+			$('#new_intel .loaderImage').css('width', cWidth + 'px');
+			$('#new_intel .loaderImage').css('height', cHeight + 'px');
+
+			var FPS = Math.round(100 / cSpeed);
+			SECONDS_BETWEEN_FRAMES = 1 / FPS;
+
+			cPreloaderTimeout = setTimeout(continueAnimation, SECONDS_BETWEEN_FRAMES / 1000);
 		};
 
 		/**
