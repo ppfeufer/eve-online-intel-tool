@@ -158,7 +158,7 @@
 }
 
 @media screen and (min-width: 1200px) {
-	.paste-explanation .entry-title {
+	.paste-explanation .entry-title, .intel-parse-error {
 		margin-top: 0;
 	}
 }
