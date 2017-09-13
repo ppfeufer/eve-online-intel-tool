@@ -8,6 +8,12 @@ jQuery(document).ready(function($) {
 		$('.eve-intel-copy-to-clipboard').remove();
 	} // END if(!Clipboard.isSupported())
 
+	/**
+	 * Closing the message
+	 *
+	 * @param {string} element
+	 * @returns {void}
+	 */
 	function closeCopyMessageElement(element) {
 		/**
 		 * close after 5 seconds

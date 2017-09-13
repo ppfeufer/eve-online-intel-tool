@@ -416,6 +416,12 @@ class GithubUpdater {
 			return false;
 		} // END if(!isset($response->slug) || $response->slug != $this->config['slug'])
 
+		/**
+		 * These are not used, but propagated by Wordress
+		 */
+		unset($false);
+		unset($action);
+
 		$response->slug = $this->config['slug'];
 		$response->plugin_name = $this->config['plugin_name'];
 		$response->version = $this->config['new_version'];
@@ -443,6 +449,12 @@ class GithubUpdater {
 	 */
 	public function upgraderPostInstall($true, $hookExtra, $result) {
 		global $wp_filesystem;
+
+		/**
+		 * These are not used, but propagated by Wordress
+		 */
+		unset($true);
+		unset($hookExtra);
 
 		// Move & Activate
 		$proper_destination = \WP_PLUGIN_DIR . '/' . $this->config['proper_folder_name'];
