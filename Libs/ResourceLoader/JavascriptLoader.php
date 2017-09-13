@@ -97,11 +97,11 @@ class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Inte
 						'sortDescending' => \__(': activate to sort column descending', 'eve-online-intel-tool'),
 					]
 				]
+			],
+			'ajax' => [
+				'url' => \admin_url('admin-ajax.php'),
+				'loaderImage' => \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('images/loader-sprite.gif')
 			]
-//			'ajax' => [
-//				'url' => \admin_url('admin-ajax.php'),
-//				'loaderImage' => \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getPluginUri('images/loader-sprite.gif')
-//			]
 		];
 	} // END private function getJavaScriptTranslations()
 } // END class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AssetsInterface

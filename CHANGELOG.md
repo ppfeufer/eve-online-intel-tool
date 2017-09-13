@@ -3,7 +3,8 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.10...HEAD)
-- in development
+### Added
+- Security check for the intel form to prevent [Cross-Site Request Forgery](https://en.wikipedia.org/wiki/Cross-site_request_forgery)
 
 ## [v0.1.10](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.10) - 2017-09-12
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.9...v0.1.10)
