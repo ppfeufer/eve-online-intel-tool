@@ -8,6 +8,12 @@ jQuery(document).ready(function($) {
 		$('.eve-intel-copy-to-clipboard').remove();
 	} // END if(!Clipboard.isSupported())
 
+	/**
+	 * Closing the message
+	 *
+	 * @param {string} element
+	 * @returns {void}
+	 */
 	function closeCopyMessageElement(element) {
 		/**
 		 * close after 5 seconds
@@ -118,4 +124,138 @@ jQuery(document).ready(function($) {
 	$('tr[data-highlight]').click(function() {
 		$('tr[data-highlight="' + $(this).data('highlight') + '"]').toggleClass('dataHighlightSticky');
 	});
+
+	/**
+	 * Getting the nonce for the form
+	 * Have to do it this way, because of possible static caches that might be used
+	 */
+	if($('form#new_intel').length) {
+		/**
+		 * Ajax Call EVE Market Data
+		 */
+		var getEveIntelFormNonce = {
+			ajaxCall: function() {
+				$.ajax({
+					type: 'post',
+					url: eveIntelToolL10n.ajax.url,
+					data: 'action=get-eve-intel-form-nonce',
+					dataType: 'json',
+					success: function(result) {
+						if(result !== null) {
+							// Setting the nonce
+							$('#_wpnonce').val(result);
+
+							// Enabling the button
+							$('button[name="submit-form"]').removeAttr('disabled').button('refresh');
+
+							// Removing loader animation
+							$('.authenticating-form').remove();
+						} // END if(result !== null)
+					},
+					error: function(jqXHR, textStatus, errorThrow) {
+						console.log('Ajax request - ' + textStatus + ': ' + errorThrow);
+					}
+				});
+			}
+		};
+
+		var cSpeed = 5;
+		var cWidth = 127;
+		var cHeight = 19;
+		var cTotalFrames = 20;
+		var cFrameWidth = 127;
+		var cImageSrc = eveIntelToolL10n.ajax.loaderImage;
+
+		var cImageTimeout = false;
+		var cIndex = 0;
+		var cXpos = 0;
+		var cPreloaderTimeout = false;
+		var SECONDS_BETWEEN_FRAMES = 0;
+
+		/**
+		 * Continue animation
+		 *
+		 * @returns {undefined}
+		 */
+		var continueAnimation = function() {
+			cXpos += cFrameWidth;
+
+			/**
+			 * increase the index so we know which frame
+			 * of our animation we are currently on
+			 */
+			cIndex += 1;
+
+			/**
+			 * if our cIndex is higher than our total number of frames,
+			 * we're at the end and should restart
+			 */
+			if(cIndex >= cTotalFrames) {
+				cXpos = 0;
+				cIndex = 0;
+			}
+
+			if($('#new_intel .loaderImage')) {
+				$('#new_intel .loaderImage').css('backgroundPosition', (-cXpos) + 'px 0');
+			}
+
+			cPreloaderTimeout = setTimeout(continueAnimation, SECONDS_BETWEEN_FRAMES * 1000);
+		};
+
+		/**
+		 * Start animation
+		 *
+		 * @returns {undefined}
+		 */
+		var startAnimation = function() {
+			$('#new_intel .loaderImage').css('display', 'block');
+			$('#new_intel .loaderImage').css('backgroundImage', 'url(' + cImageSrc + ')');
+			$('#new_intel .loaderImage').css('width', cWidth + 'px');
+			$('#new_intel .loaderImage').css('height', cHeight + 'px');
+
+			var FPS = Math.round(100 / cSpeed);
+			SECONDS_BETWEEN_FRAMES = 1 / FPS;
+
+			cPreloaderTimeout = setTimeout(continueAnimation, SECONDS_BETWEEN_FRAMES / 1000);
+		};
+
+		/**
+		 * stops animation
+		 *
+		 * @returns {undefined}
+		 */
+		var stopAnimation = function() {
+			clearTimeout(cPreloaderTimeout);
+			cPreloaderTimeout = false;
+		};
+
+		/**
+		 * Imageloader
+		 *
+		 * @param {type} s
+		 * @param {type} fun
+		 * @returns {undefined}
+		 */
+		var imageLoader = function(s, fun) {
+			clearTimeout(cImageTimeout);
+			cImageTimeout = 0;
+
+			var genImage = new Image();
+			genImage.onload = function() {
+				cImageTimeout = setTimeout(fun, 0);
+			};
+			genImage.onerror = new Function('alert(\'Could not load the image\')');
+			genImage.src = s;
+		};
+
+		/**
+		 * Start the animation
+		 */
+		imageLoader(cImageSrc, startAnimation);
+
+		/**
+		 * Call the ajax to get the nonce
+		 */
+		getEveIntelFormNonce.ajaxCall();
+	} // END if($('form#new_intel').length)
 });
