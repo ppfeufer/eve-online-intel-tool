@@ -1,23 +1,5 @@
 <?php
 defined('ABSPATH') or die();
-
-// Meta data
-$fleetOverview = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-fleetOverview', true));
-$fleetInformation = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-fleetInformation', true));
-
-$shipClasses = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-shipClasses', true));
-$shipTypes = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-shipTypes', true));
-
-$pilotList = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-pilotList', true));
-$pilotParticipation = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-pilotDetails', true));
-
-$corporationList = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-corporationList', true));
-$corporationParticipation = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-corporationParticipation', true));
-
-$allianceList = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-allianceList', true));
-$allianceParticipation = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-allianceParticipation', true));
-
-$fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_fleetcomposition-time', true));
 ?>
 
 <header class="page-title">
@@ -26,8 +8,8 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 	</h1>
 
 	<?php
-	if(!empty($fleetScanDataTime)) {
-		echo '<small>' . \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $fleetScanDataTime . '</small>';
+	if(!empty($intelData['eveTime'])) {
+		echo '<small>' . \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $intelData['eveTime'] . '</small>';
 	} // END if(!empty($dscanDataTime))
 
 	\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('extra/buttons');
@@ -42,12 +24,12 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 				// General fleet information
 				-->
 				<?php
-				if(\is_array($shipTypes) && \count($shipTypes)) {
+				if(\is_array($intelData['shipTypes']) && \count($intelData['shipTypes'])) {
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/fleet-information',[
-						'pilotCount' => \count($pilotList),
-						'fleetInformation' => $fleetInformation
+						'pilotCount' => \count($intelData['pilotList']),
+						'fleetInformation' => $intelData['fleetInformation']
 					]);
-				} // END if(\is_array($shipTypes) && \count($shipTypes))
+				} // END if(\is_array($intelData['shipTypes']) && \count($intelData['shipTypes']))
 				?>
 			</div>
 
@@ -57,12 +39,12 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 				-->
 				<div class="col-md-6 col-lg-3">
 					<?php
-					if(\is_array($shipClasses) && \count($shipClasses)) {
+					if(\is_array($intelData['shipClasses']) && \count($intelData['shipClasses'])) {
 						\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/ship-classes',[
 							'title' => \__('Ship Classes', 'eve-online-intel-tool'),
-							'shipClassList' => $shipClasses
+							'shipClassList' => $intelData['shipClasses']
 						]);
-					} // END if(\is_array($shipClasses) && \count($shipClasses))
+					} // END if(\is_array($intelData['shipClasses']) && \count($intelData['shipClasses']))
 					?>
 				</div>
 
@@ -71,12 +53,12 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 				-->
 				<div class="col-md-6 col-lg-3">
 					<?php
-					if(\is_array($shipTypes) && \count($shipTypes)) {
+					if(\is_array($intelData['shipTypes']) && \count($intelData['shipTypes'])) {
 						\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/ship-types',[
 							'title' => \__('Ship Types', 'eve-online-intel-tool'),
-							'shipTypeList' => $shipTypes
+							'shipTypeList' => $intelData['shipTypes']
 						]);
-					} // END if(\is_array($shipTypes) && \count($shipTypes))
+					} // END if(\is_array($intelData['shipTypes']) && \count($intelData['shipTypes']))
 					?>
 				</div>
 
@@ -86,7 +68,7 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 				<div class="col-md-12 col-lg-6">
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/fleet-composition',[
-						'fleetOverview' => $fleetOverview
+						'fleetOverview' => $intelData['fleetOverview']
 					]);
 					?>
 				</div>
@@ -99,8 +81,8 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 				<div class="col-md-6 col-lg-3">
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/alliance-participation',[
-						'allianceCount' => \count($allianceList),
-						'allianceParticipation' => $allianceParticipation
+						'allianceCount' => \count($intelData['allianceList']),
+						'allianceParticipation' => $intelData['allianceParticipation']
 					]);
 					?>
 				</div>
@@ -111,8 +93,8 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 				<div class="col-md-6 col-lg-3">
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/corporation-participation',[
-						'corporationCount' => \count($corporationList),
-						'corporationParticipation' => $corporationParticipation
+						'corporationCount' => \count($intelData['corporationList']),
+						'corporationParticipation' => $intelData['corporationParticipation']
 					]);
 					?>
 				</div>
@@ -123,8 +105,8 @@ $fleetScanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel
 				<div class="col-md-12 col-lg-6">
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/pilot-participation',[
-						'pilotCount' => \count($pilotList),
-						'pilotParticipation' => $pilotParticipation
+						'pilotCount' => \count($intelData['pilotList']),
+						'pilotParticipation' => $intelData['pilotParticipation']
 					]);
 					?>
 				</div>
