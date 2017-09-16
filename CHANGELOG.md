@@ -14,7 +14,7 @@
 - Optimized data handling to reduce duplicate code
 
 ### Fixed
--Some spelling mistakes
+- Some spelling mistakes
 
 ## [v0.2.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.2.0) - 2017-09-13
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.10...v0.2.0)
