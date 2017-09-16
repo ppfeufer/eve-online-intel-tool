@@ -2,12 +2,19 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.2.0...HEAD)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.2.1...HEAD)
+- in development
+
+## [v0.2.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.2.1) - 2017-09-16
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.2.0...v0.2.1)
 ### Added
 - Issue a warning when intel coudn't be parsed
 
 ### Changed
 - Optimized data handling to reduce duplicate code
+
+### Fixed
+-Some spelling mistakes
 
 ## [v0.2.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.2.0) - 2017-09-13
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.10...v0.2.0)
