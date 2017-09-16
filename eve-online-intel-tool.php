@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
  * GitHub Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
  * Description: An EVE Online Intel Tool for WordPress. Parsing D-Scans, Local and Fleet Compositions. (Best with a theme running with <a href="http://getbootstrap.com/">Bootstrap</a>)
- * Version: 0.2.1
+ * Version: 0.2.2
  * Author: Rounon Dax
  * Author URI: https://yulaifederation.net
  * Text Domain: eve-online-intel-tool
@@ -33,20 +33,6 @@ class EveOnlineIntelTool {
 	private $localizationDirectory = null;
 
 	/**
-	 * Plugin Directory
-	 *
-	 * @var string
-	 */
-	private $pluginDir = null;
-
-	/**
-	 * PLugin URI
-	 *
-	 * @var string
-	 */
-	private $pluginUri = null;
-
-	/**
 	 * Plugin constructor
 	 *
 	 * @param boolean $init
@@ -56,17 +42,15 @@ class EveOnlineIntelTool {
 		 * Initializing Variables
 		 */
 		$this->textDomain = 'eve-online-intel-tool';
-		$this->pluginDir = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginPath();
-		$this->pluginUri = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri();
-		$this->localizationDirectory = $this->pluginDir . '/l10n/';
-
-		$this->loadTextDomain();
+		$this->localizationDirectory = \basename(\dirname(__FILE__)) . '/l10n/';
 	} // END public function __construct()
 
 	/**
 	 * Initialize the plugin
 	 */
 	public function init() {
+		$this->loadTextDomain();
+
 		$jsLoader = new Libs\ResourceLoader\JavascriptLoader;
 		$jsLoader->init();
 
@@ -77,28 +61,35 @@ class EveOnlineIntelTool {
 		new Libs\Ajax\FormNonce;
 
 		if(\is_admin()) {
-			new Libs\TemplateLoader;
-
-			/**
-			 * Check Github for updates
-			 */
-			$githubConfig = [
-				'slug' => \plugin_basename(__FILE__),
-				'proper_folder_name' => \dirname(\plugin_basename(__FILE__)),
-				'api_url' => 'https://api.github.com/repos/ppfeufer/eve-online-intel-tool',
-				'raw_url' => 'https://raw.github.com/ppfeufer/eve-online-intel-tool/master',
-				'github_url' => 'https://github.com/ppfeufer/eve-online-intel-tool',
-				'zip_url' => 'https://github.com/ppfeufer/eve-online-intel-tool/archive/master.zip',
-				'sslverify' => true,
-				'requires' => '4.7',
-				'tested' => '4.9-alpha',
-				'readme' => 'README.md',
-				'access_token' => '',
-			];
-
-			new Libs\GithubUpdater($githubConfig);
+			$this->initGitHubUpdater();
 		} // END if(\is_admin())
 	} // END public function init()
+
+	/**
+	 * Initializing the GitHub Updater
+	 */
+	private function initGitHubUpdater() {
+		new Libs\TemplateLoader;
+
+		/**
+		 * Check Github for updates
+		 */
+		$githubConfig = [
+			'slug' => \plugin_basename(__FILE__),
+			'proper_folder_name' => \dirname(\plugin_basename(__FILE__)),
+			'api_url' => 'https://api.github.com/repos/ppfeufer/eve-online-intel-tool',
+			'raw_url' => 'https://raw.github.com/ppfeufer/eve-online-intel-tool/master',
+			'github_url' => 'https://github.com/ppfeufer/eve-online-intel-tool',
+			'zip_url' => 'https://github.com/ppfeufer/eve-online-intel-tool/archive/master.zip',
+			'sslverify' => true,
+			'requires' => '4.7',
+			'tested' => '4.9-alpha',
+			'readme' => 'README.md',
+			'access_token' => '',
+		];
+
+		new Libs\GithubUpdater($githubConfig);
+	} // END private function initGitHubUpdater()
 
 	/**
 	 * Setting up our text domain for translations
