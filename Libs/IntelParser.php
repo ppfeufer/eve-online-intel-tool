@@ -65,6 +65,10 @@ class IntelParser {
 		$intelType = $this->checkIntelType($this->eveIntel);
 
 		switch($intelType) {
+			case null:
+				$this->postID = null;
+				break;
+
 			case 'dscan':
 				$this->postID = $this->saveDscanData($this->eveIntel);
 				break;
@@ -78,6 +82,7 @@ class IntelParser {
 				break;
 
 			default:
+				$this->postID = null;
 				break;
 		} // END switch($intelType)
 	} // END public function __construct()
@@ -100,19 +105,24 @@ class IntelParser {
 		$cleanedScanData = Helper\IntelHelper::getInstance()->fixLineBreaks($scanData);
 
 		switch($cleanedScanData) {
+			case '':
+				$intelType = null;
+				break;
+
 			case (\preg_match('/^\d+[\t](.*)[\t](-|\d(.*)) ?$/m', $cleanedScanData) ? true : false):
-				$intelType =  'dscan';
+				$intelType = 'dscan';
 				break;
 
 			case (\preg_match('/^([a-zA-Z0-9 -_]{3,37})[\t](.*)[\t](.* \/ .*) ?$/m', $cleanedScanData) ? true : false):
-				$intelType =  'fleetcomposition';
+				$intelType = 'fleetcomposition';
 				break;
 
 			case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
-				$intelType =  'local';
+				$intelType = 'local';
 				break;
 
 			default:
+				$intelType = null;
 				break;
 		} // END switch($cleanedScanData)
 

@@ -1,28 +1,15 @@
 <?php
 defined('ABSPATH') or die();
-
-$localDataPilotList = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_local-pilotList', true));
-$localDataPilotDetails = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_local-pilotDetails', true), [false]);
-
-$localDataCorporationList = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_local-corporationList', true));
-$localDataCorporationParticipation = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_local-corporationParticipation', true));
-
-$localDataAllianceList = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_local-allianceList', true));
-$localDataAllianceParticipation = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_local-allianceParticipation', true));
-
-$localDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_local-time', true));
 ?>
 
 <header class="page-title">
 	<h1>
-		<?php
-		echo \__('Chat Scan', 'eve-online-intel-tool');
-		?>
+		<?php echo \__('Chat Scan', 'eve-online-intel-tool'); ?>
 	</h1>
 
 	<?php
-	if(!empty($localDataTime)) {
-		echo '<small>' . \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $localDataTime . '</small>';
+	if(!empty($intelData['eveTime'])) {
+		echo '<small>' . \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $intelData['eveTime'] . '</small>';
 	} // END if(!empty($dscanDataTime))
 
 	\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('extra/buttons');
@@ -36,8 +23,8 @@ $localDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-too
 				<div class="col-md-6 col-lg-3">
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/alliance-participation',[
-						'allianceCount' => \count($localDataAllianceList),
-						'allianceParticipation' => $localDataAllianceParticipation
+						'allianceCount' => \count($intelData['localDataAllianceList']),
+						'allianceParticipation' => $intelData['localDataAllianceParticipation']
 					]);
 					?>
 				</div>
@@ -45,8 +32,8 @@ $localDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-too
 				<div class="col-md-6 col-lg-3">
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/corporation-participation',[
-						'corporationCount' => \count($localDataCorporationList),
-						'corporationParticipation' => $localDataCorporationParticipation
+						'corporationCount' => \count($intelData['localDataCorporationList']),
+						'corporationParticipation' => $intelData['localDataCorporationParticipation']
 					]);
 					?>
 				</div>
@@ -54,8 +41,8 @@ $localDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-too
 				<div class="col-md-12 col-lg-6">
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/pilot-participation',[
-						'pilotCount' => \count($localDataPilotList),
-						'pilotParticipation' => $localDataPilotDetails
+						'pilotCount' => \count($intelData['localDataPilotList']),
+						'pilotParticipation' => $intelData['localDataPilotDetails']
 					]);
 					?>
 				</div>

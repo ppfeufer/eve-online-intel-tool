@@ -41,9 +41,10 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 	public function parseLocalScan($scanData) {
 		$returnValue = null;
 		$localArray = $this->getLocalArray($scanData);
-		$employementData = $this->getParticipation($localArray['pilotDetails']);
 
 		if(!\is_null($localArray)) {
+			$employementData = $this->getParticipation($localArray['pilotDetails']);
+
 			$returnValue = [
 				'rawData' => $scanData,
 				'pilotDetails' => (!\is_null($localArray)) ? $localArray['pilotDetails'] : null,

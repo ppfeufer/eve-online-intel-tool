@@ -1,25 +1,15 @@
 <?php
 defined('ABSPATH') or die();
 
-// Meta data
-$dscanDataAll = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-all', true));
-$dscanDataOnGrid = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-onGrid', true));
-$dscanDataOffGrid = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-offGrid', true));
-
-$dscanDataShipTypes = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-shipTypes', true));
-$dscanDataSystem = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-system', true));
-
-$dscanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-time', true));
-
 // Counter
-$countAll = (!empty($dscanDataAll['count'])) ? $dscanDataAll['count'] : 0;
-$countOnGrid = (!empty($dscanDataOnGrid['count'])) ? $dscanDataOnGrid['count'] : 0;
-$countOffGrid = (!empty($dscanDataOffGrid['count'])) ? $dscanDataOffGrid['count'] : 0;
+$countAll = (!empty($intelData['dscanDataAll']['count'])) ? $intelData['dscanDataAll']['count'] : 0;
+$countOnGrid = (!empty($intelData['dscanDataOnGrid']['count'])) ? $intelData['dscanDataOnGrid']['count'] : 0;
+$countOffGrid = (!empty($intelData['dscanDataOffGrid']['count'])) ? $intelData['dscanDataOffGrid']['count'] : 0;
 
 // System data
-$systemName = (!empty($dscanDataSystem['systemName'])) ? $dscanDataSystem['systemName'] : null;
-$constellationName = (!empty($dscanDataSystem['constellationName'])) ? $dscanDataSystem['constellationName'] : null;
-$regionName = (!empty($dscanDataSystem['regionName'])) ? $dscanDataSystem['regionName'] : null;
+$systemName = (!empty($intelData['dscanDataSystem']['systemName'])) ? $intelData['dscanDataSystem']['systemName'] : null;
+$constellationName = (!empty($intelData['dscanDataSystem']['constellationName'])) ? $intelData['dscanDataSystem']['constellationName'] : null;
+$regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData['dscanDataSystem']['regionName'] : null;
 ?>
 
 <header class="page-title">
@@ -42,9 +32,9 @@ $regionName = (!empty($dscanDataSystem['regionName'])) ? $dscanDataSystem['regio
 	</h1>
 
 	<?php
-	if(!empty($dscanDataTime)) {
-		echo '<small>' . \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $dscanDataTime . '</small>';
-	} // END if(!empty($dscanDataTime))
+	if(!empty($intelData['eveTime'])) {
+		echo '<small>' . \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $intelData['eveTime'] . '</small>';
+	} // END if(!empty($intelData['eveTime']))
 
 	\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('extra/buttons');
 	?>
@@ -62,7 +52,7 @@ $regionName = (!empty($dscanDataSystem['regionName'])) ? $dscanDataSystem['regio
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/ship-classes',[
 						'title' => \__('All', 'eve-online-intel-tool'),
 						'count' => $countAll,
-						'shipClassList' => (!empty($dscanDataAll['data'])) ? $dscanDataAll['data'] : null
+						'shipClassList' => (!empty($intelData['dscanDataAll']['data'])) ? $intelData['dscanDataAll']['data'] : null
 					]);
 					?>
 				</div>
@@ -75,7 +65,7 @@ $regionName = (!empty($dscanDataSystem['regionName'])) ? $dscanDataSystem['regio
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/ship-classes',[
 						'title' => \__('On Grid', 'eve-online-intel-tool'),
 						'count' => $countOnGrid,
-						'shipClassList' => (!empty($dscanDataOnGrid['data'])) ? $dscanDataOnGrid['data'] : null
+						'shipClassList' => (!empty($intelData['dscanDataOnGrid']['data'])) ? $intelData['dscanDataOnGrid']['data'] : null
 					]);
 					?>
 				</div>
@@ -88,7 +78,7 @@ $regionName = (!empty($dscanDataSystem['regionName'])) ? $dscanDataSystem['regio
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/ship-classes',[
 						'title' => \__('Off Grid', 'eve-online-intel-tool'),
 						'count' => $countOffGrid,
-						'shipClassList' => (!empty($dscanDataOffGrid['data'])) ? $dscanDataOffGrid['data'] : null
+						'shipClassList' => (!empty($intelData['dscanDataOffGrid']['data'])) ? $intelData['dscanDataOffGrid']['data'] : null
 					]);
 					?>
 				</div>
@@ -100,7 +90,7 @@ $regionName = (!empty($dscanDataSystem['regionName'])) ? $dscanDataSystem['regio
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/ship-types',[
 						'title' => \__('Ship Types', 'eve-online-intel-tool'),
-						'shipTypeList' => $dscanDataShipTypes
+						'shipTypeList' => $intelData['dscanDataShipTypes']
 					]);
 					?>
 				</div>
