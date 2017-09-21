@@ -57,20 +57,68 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	private $imageserverEndpoints = null;
 
 	/**
+	 * Plugin Helper
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper
+	 */
+	public $imageHelper = null;
+
+	/**
+	 * Plugin Helper
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper
+	 */
+	public $pluginHelper = null;
+
+	/**
+	 * Plugin Settings
+	 *
+	 * @var array
+	 */
+	public $pluginSettings = null;
+
+	/**
 	 * The Constructor
 	 */
 	protected function __construct() {
 		parent::__construct();
 
-		$this->esiUrl = 'https://esi.tech.ccp.is/latest/';
-		$this->imageserverUrl = 'https://image.eveonline.com/';
+		if(!$this->pluginHelper instanceof \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper) {
+			$this->pluginHelper = PluginHelper::getInstance();
+			$this->pluginSettings = $this->pluginHelper->getPluginSettings();
+		}
 
+		if(!$this->imageHelper instanceof \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper) {
+			$this->imageHelper = ImageHelper::getInstance();
+			$this->imageserverEndpoints = $this->imageHelper->getImageserverEndpoints();
+			$this->imageserverUrl = $this->imageHelper->getImageServerUrl();
+		}
+
+		$this->esiUrl = $this->getEsiUrl();
+		$this->esiEndpoints = $this->getEsiEndpoints();
+	} // END public function __construct()
+
+	/**
+	 * Return the ESI API Url
+	 *
+	 * @return string
+	 */
+	public function getEsiUrl() {
+		return 'https://esi.tech.ccp.is/latest/';
+	}
+
+	/**
+	 * Return the ESI API endpoints
+	 *
+	 * @return array
+	 */
+	public function getEsiEndpoints() {
 		/**
 		 * Assigning ESI Endpoints
 		 *
 		 * @see https://esi.tech.ccp.is/latest/
 		 */
-		$this->esiEndpoints = [
+		return [
 			'alliance-information' => 'alliances/', // getting alliance information by ID - https://esi.tech.ccp.is/latest/alliances/99000102/
 			'character-information' => 'characters/', // getting character information by ID - https://esi.tech.ccp.is/latest/characters/90607580/
 			'corporation-information' => 'corporations/', // getting corporation information by ID - https://esi.tech.ccp.is/latest/corporations/98000030/
@@ -81,27 +129,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 			'region-information' => 'universe/regions/', // getting constellation information by ID - https://esi.tech.ccp.is/latest/universe/regions/10000025/
 			'type-information' => 'universe/types/', // getting types information by ID - https://esi.tech.ccp.is/latest/universe/types/670/
 		];
-
-		/**
-		 * Assigning Imagesever Endpoints
-		 */
-		$this->imageserverEndpoints = [
-			'alliance' => 'Alliance/',
-			'corporation' => 'Corporation/',
-			'character' => 'Character/',
-			'item' => 'Type/',
-			'inventory' => 'InventoryType/' // Ships and all the other stuff
-		];
-	} // END public function __construct()
-
-	/**
-	 * Returning the url to CCP's image server
-	 *
-	 * @return string
-	 */
-	public function getImageServerUrl() {
-		return $this->imageserverUrl;
-	} // END public function getImageServerUrl()
+	}
 
 	/**
 	 * Getting all the needed ship information from the ESI
@@ -127,7 +155,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	} // END public function getShipClassData($shipID)
 
 	public function getCharacterData($characterID) {
-		$characterData = $this->getEsiData($this->esiEndpoints['character-information'] . $characterID . '/');
+		$characterData = $this->getEsiData($this->esiEndpoints['character-information'] . $characterID . '/', $this->pluginSettings['pilot-data-cache-time']);
 
 		return [
 			'data' => $characterData
@@ -135,7 +163,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	} // END public function getCharacterData($characterID)
 
 	public function getCorporationData($corporationID) {
-		$corporationData = $this->getEsiData($this->esiEndpoints['corporation-information'] . $corporationID . '/');
+		$corporationData = $this->getEsiData($this->esiEndpoints['corporation-information'] . $corporationID . '/', $this->pluginSettings['corp-data-cache-time']);
 
 		return [
 			'data' => $corporationData
@@ -143,7 +171,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	} // END public function getCorporationData($corporationID)
 
 	public function getAllianceData($allianceID) {
-		$allianceData = $this->getEsiData($this->esiEndpoints['alliance-information'] . $allianceID . '/', 3600);
+		$allianceData = $this->getEsiData($this->esiEndpoints['alliance-information'] . $allianceID . '/', $this->pluginSettings['alliance-data-cache-time']);
 
 		return [
 			'data' => $allianceData

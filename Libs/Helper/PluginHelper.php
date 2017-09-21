@@ -22,6 +22,8 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Helper;
 \defined('ABSPATH') or die();
 
 class PluginHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+	public $optionFieldName = 'eve-online-intel-tool-options';
+
 	/**
 	 * Getting the Plugin Path
 	 *
@@ -41,4 +43,22 @@ class PluginHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 	public function getPluginUri($file = '') {
 		return \WP_PLUGIN_URL . '/eve-online-intel-tool/' . $file;
 	} // END public function getPluginUri()
+
+	public function getPluginDefaultSettings() {
+		return [
+			'image-cache' => '',
+			'image-cache-time' => '120',
+			'pilot-data-cache-time' => '120',
+			'corp-data-cache-time' => '360',
+			'alliance-data-cache-time' => '2400'
+		];
+	}
+
+	public function getPluginSettings() {
+		return \get_option($this->getOptionFieldName(), $this->getPluginDefaultSettings());
+	}
+
+	public function getOptionFieldName() {
+		return $this->optionFieldName;
+	}
 } // END class PluginHelper

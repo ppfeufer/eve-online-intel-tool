@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EVE Online Intel Tool for WordPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-13 13:17+0000\n"
-"PO-Revision-Date: 2017-09-16 07:49+0000\n"
-"Last-Translator: Rounon Dax <dev@ppfeufer.de>\n"
+"POT-Creation-Date: 2017-09-21 13:01+0000\n"
+"PO-Revision-Date: 2017-09-21 13:11+0000\n"
+"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German\n"
 "Language: de-DE\n"
 "Plural-Forms: nplurals=2; plural=n != 1\n"
@@ -13,26 +13,118 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco - https://localise.biz/"
 
-#: templates/page-intel.php:42
-msgid "The provided data could not be parsed. Please check and try again."
-msgstr ""
-"Die Daten konnten nicht verarbeitet werden. Bitte prüfe diese und versuche "
-"es noch einmal."
+#: Libs/Admin/PluginSettings.php:78 Libs/Admin/PluginSettings.php:79
+msgid "EVE Online Intel Tool"
+msgstr "EVE Online Intel Tool"
 
-#: templates/page-intel.php:58
-#, php-format
+#: Libs/Admin/PluginSettings.php:99
+msgid "General Settings"
+msgstr "Generelle Einstellungen"
+
+#: Libs/Admin/PluginSettings.php:100
+msgid "General Settings for EVE Online Intel Tool"
+msgstr "Generelle Einstellungen für das EVE Online Intel Tool"
+
+#: Libs/Admin/PluginSettings.php:114
+msgid "Image Cache"
+msgstr "Bild Cache"
+
+#: Libs/Admin/PluginSettings.php:115
 msgid ""
-"This tool is still in its testing phase, so it might have some hiccups and "
-"rough edges here and there. If you experience any odd behaviour, please let "
-"me know about it in the %1$s."
+"Select this if you want to use a local image cache for all images used by "
+"this plugin (pilot avatars, corp- and alliance logos, ship images and so on)."
+" Images will be downloaded on demand from CCP's image server and than stored "
+"locally."
 msgstr ""
-"Dieses Tool ist in der Testphase, es kann also ein paar kleinere Stolperer "
-"haben. Solltest Du ungewöhnliches Verhalten bemerken, so lass es mich bitte "
-"im %1$s wissen."
+"Wähle dies wenn Du Bilder zwischenspeichern möchtest (Piloten-Avatare, Corp- "
+"und Allianzlogos, Schiffsbilder und so weiter). Die Bilder werden dann von "
+"CCP's Imagesverer heruntergeladen und auf Deinem Server abgelegt und von "
+"dort aus in die Webseite eingebunden, wenn benötigt."
 
-#: templates/page-intel.php:75
-msgid "Waiting for the system to authenticate the form ..."
-msgstr "Warte auf die Authentifizierung des Formulars durch das System ..."
+#: Libs/Admin/PluginSettings.php:118
+msgid "Use a serverside cache for images fetched from CCP's image server."
+msgstr ""
+"Nutze einen serverseitigen Cache für Bilder die sonst von CCP's Imageserver "
+"geladen werden."
+
+#: Libs/Admin/PluginSettings.php:122 Libs/Admin/PluginSettings.php:144
+#: Libs/Admin/PluginSettings.php:157
+msgid "Image Cache Time"
+msgstr "Bild Cache Zeit"
+
+#: Libs/Admin/PluginSettings.php:123
+msgid "Set the time in days a cached image is valid."
+msgstr "Setze die Zeit in Tagen die das Bild gecached wird."
+
+#: Libs/Admin/PluginSettings.php:126 Libs/Admin/PluginSettings.php:137
+#: Libs/Admin/PluginSettings.php:148 Libs/Admin/PluginSettings.php:161
+msgid "5 days"
+msgstr "5 Tage"
+
+#: Libs/Admin/PluginSettings.php:127 Libs/Admin/PluginSettings.php:138
+#: Libs/Admin/PluginSettings.php:149 Libs/Admin/PluginSettings.php:162
+msgid "10 days"
+msgstr "10 Tage"
+
+#: Libs/Admin/PluginSettings.php:128 Libs/Admin/PluginSettings.php:139
+#: Libs/Admin/PluginSettings.php:150 Libs/Admin/PluginSettings.php:163
+msgid "15 days"
+msgstr "15 Tage"
+
+#: Libs/Admin/PluginSettings.php:129 Libs/Admin/PluginSettings.php:140
+#: Libs/Admin/PluginSettings.php:151 Libs/Admin/PluginSettings.php:164
+msgid "20 days"
+msgstr "20 Tage"
+
+#: Libs/Admin/PluginSettings.php:133
+msgid "Pilot Data Cache Time"
+msgstr "Piloten Daten Cache Zeit"
+
+#: Libs/Admin/PluginSettings.php:134
+msgid ""
+"Set the time in days the pilots API information is cached. Since a pilot can "
+"change corporation, a smaller cache time is appropriate."
+msgstr ""
+"Setze die Zeit in Tagen die Piloten-Daten von der API zwischengespeichert "
+"werden sollen. Da Piloten öfter mal die Corp wechseln, empfiehlt sich hier "
+"eine geringere Zeitspanne."
+
+#: Libs/Admin/PluginSettings.php:145
+msgid ""
+"Set the time in days the corporations API information is cached. For this, a "
+"medium cache time is appropriate."
+msgstr ""
+"Setze die Zeit in Tagen die Corp-Daten von der API zwischengespeichert "
+"werden sollen. Hier ist eine mittlere Zeitspanne empfohlen."
+
+#: Libs/Admin/PluginSettings.php:152 Libs/Admin/PluginSettings.php:165
+msgid "25 days"
+msgstr "25 Tage"
+
+#: Libs/Admin/PluginSettings.php:153 Libs/Admin/PluginSettings.php:166
+msgid "50 days"
+msgstr "50 Tage"
+
+#: Libs/Admin/PluginSettings.php:158
+msgid ""
+"Set the time in days the corporations API information is cached. Since this "
+"information doesn't change to often, a large cache time is appropriate."
+msgstr ""
+"Setze die Zeit in Tagen die Allianz-Daten von der API zwischengespeichert "
+"werden sollen. Allianzinformationen ändern sich nicht so häufig, daher darf "
+"hier ruhig großzügig gecached werden."
+
+#: Libs/Admin/PluginSettings.php:167
+msgid "100 days"
+msgstr "100 Tage"
+
+#: Libs/Admin/PluginSettings.php:168
+msgid "200 days"
+msgstr "200 Tage"
+
+#: Libs/Admin/PluginSettings.php:169
+msgid "1 year"
+msgstr "1 Jahr"
 
 #: Libs/GithubUpdater.php:466
 msgid ""
@@ -67,11 +159,17 @@ msgstr ""
 "Anspruch nehmen. Bitte hab etwas Geduld, CCP's API ist nicht die Schnellste ."
 ".."
 
+#: templates/page-intel.php:42
+msgid "The provided data could not be parsed. Please check and try again."
+msgstr ""
+"Die Daten konnten nicht verarbeitet werden. Bitte prüfe diese und versuche "
+"es noch einmal."
+
 #: templates/page-intel.php:49
 msgid "What can I paste?"
 msgstr "Was kann ich parsen?"
 
-#: templates/page-intel.php:51 templates/single-dscan.php:28
+#: templates/page-intel.php:51 templates/single-dscan.php:18
 msgid "D-Scan"
 msgstr "D-Scan"
 
@@ -83,9 +181,20 @@ msgstr "Chat Liste"
 msgid "(takes some time to parse)"
 msgstr "(benötigt einige Zeit zum parsen)"
 
-#: templates/page-intel.php:53 templates/single-fleetcomposition.php:25
+#: templates/page-intel.php:53 templates/single-fleetcomposition.php:7
 msgid "Fleet Composition"
 msgstr "Flottenzusammenstellung"
+
+#: templates/page-intel.php:58
+#, php-format
+msgid ""
+"This tool is still in its testing phase, so it might have some hiccups and "
+"rough edges here and there. If you experience any odd behaviour, please let "
+"me know about it in the %1$s."
+msgstr ""
+"Dieses Tool ist in der Testphase, es kann also ein paar kleinere Stolperer "
+"haben. Solltest Du ungewöhnliches Verhalten bemerken, so lass es mich bitte "
+"im %1$s wissen."
 
 #: templates/page-intel.php:59
 msgid "Thank you!"
@@ -99,36 +208,40 @@ msgstr "Hier einfügen ..."
 msgid "Submit"
 msgstr "Absenden"
 
-#: templates/single-dscan.php:31
+#: templates/page-intel.php:75
+msgid "Waiting for the system to authenticate the form ..."
+msgstr "Warte auf die Authentifizierung des Formulars durch das System ..."
+
+#: templates/single-dscan.php:21
 msgid "Solar System:"
 msgstr "System:"
 
-#: templates/single-dscan.php:46 templates/single-fleetcomposition.php:30
-#: templates/single-local.php:25
+#: templates/single-dscan.php:36 templates/single-fleetcomposition.php:12
+#: templates/single-local.php:12
 msgid "EVE Time:"
 msgstr "EVE Zeit:"
 
-#: templates/single-dscan.php:63
+#: templates/single-dscan.php:53
 msgid "All"
 msgstr "Alle"
 
-#: templates/single-dscan.php:76
+#: templates/single-dscan.php:66
 msgid "On Grid"
 msgstr "On Grid"
 
-#: templates/single-dscan.php:89
+#: templates/single-dscan.php:79
 msgid "Off Grid"
 msgstr "Off Grid"
 
-#: templates/single-dscan.php:102 templates/single-fleetcomposition.php:76
+#: templates/single-dscan.php:92 templates/single-fleetcomposition.php:58
 msgid "Ship Types"
 msgstr "Schiffstypen"
 
-#: templates/single-fleetcomposition.php:62
+#: templates/single-fleetcomposition.php:44
 msgid "Ship Classes"
 msgstr "Schiffsklassen"
 
-#: templates/single-local.php:19
+#: templates/single-local.php:7
 msgid "Chat Scan"
 msgstr "Chat Scan"
 

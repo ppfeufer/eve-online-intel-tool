@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-13 13:17+0000\n"
+"POT-Creation-Date: 2017-09-21 13:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -50,7 +50,7 @@ msgstr ""
 msgid "What can I paste?"
 msgstr ""
 
-#: templates/page-intel.php:51 templates/single-dscan.php:28
+#: templates/page-intel.php:51 templates/single-dscan.php:18
 msgid "D-Scan"
 msgstr ""
 
@@ -62,7 +62,7 @@ msgstr ""
 msgid "(takes some time to parse)"
 msgstr ""
 
-#: templates/page-intel.php:53 templates/single-fleetcomposition.php:25
+#: templates/page-intel.php:53 templates/single-fleetcomposition.php:7
 msgid "Fleet Composition"
 msgstr ""
 
@@ -90,36 +90,36 @@ msgstr ""
 msgid "Waiting for the system to authenticate the form ..."
 msgstr ""
 
-#: templates/single-dscan.php:31
+#: templates/single-dscan.php:21
 msgid "Solar System:"
 msgstr ""
 
-#: templates/single-dscan.php:46 templates/single-fleetcomposition.php:30
-#: templates/single-local.php:25
+#: templates/single-dscan.php:36 templates/single-fleetcomposition.php:12
+#: templates/single-local.php:12
 msgid "EVE Time:"
 msgstr ""
 
-#: templates/single-dscan.php:63
+#: templates/single-dscan.php:53
 msgid "All"
 msgstr ""
 
-#: templates/single-dscan.php:76
+#: templates/single-dscan.php:66
 msgid "On Grid"
 msgstr ""
 
-#: templates/single-dscan.php:89
+#: templates/single-dscan.php:79
 msgid "Off Grid"
 msgstr ""
 
-#: templates/single-dscan.php:102 templates/single-fleetcomposition.php:76
+#: templates/single-dscan.php:92 templates/single-fleetcomposition.php:58
 msgid "Ship Types"
 msgstr ""
 
-#: templates/single-fleetcomposition.php:62
+#: templates/single-fleetcomposition.php:44
 msgid "Ship Classes"
 msgstr ""
 
-#: templates/single-local.php:19
+#: templates/single-local.php:7
 msgid "Chat Scan"
 msgstr ""
 
@@ -129,6 +129,105 @@ msgstr ""
 
 #: templates/single-unknown.php:15
 msgid "You provided an unknown type of data, so it could not be parsed. Sorry!"
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:78 Libs/Admin/PluginSettings.php:79
+msgid "EVE Online Intel Tool"
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:99
+msgid "General Settings"
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:100
+msgid "General Settings for EVE Online Intel Tool"
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:114
+msgid "Image Cache"
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:115
+msgid ""
+"Select this if you want to use a local image cache for all images used by "
+"this plugin (pilot avatars, corp- and alliance logos, ship images and so on)."
+" Images will be downloaded on demand from CCP's image server and than stored "
+"locally."
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:118
+msgid "Use a serverside cache for images fetched from CCP's image server."
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:122 Libs/Admin/PluginSettings.php:144
+#: Libs/Admin/PluginSettings.php:157
+msgid "Image Cache Time"
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:123
+msgid "Set the time in days a cached image is valid."
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:126 Libs/Admin/PluginSettings.php:137
+#: Libs/Admin/PluginSettings.php:148 Libs/Admin/PluginSettings.php:161
+msgid "5 days"
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:127 Libs/Admin/PluginSettings.php:138
+#: Libs/Admin/PluginSettings.php:149 Libs/Admin/PluginSettings.php:162
+msgid "10 days"
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:128 Libs/Admin/PluginSettings.php:139
+#: Libs/Admin/PluginSettings.php:150 Libs/Admin/PluginSettings.php:163
+msgid "15 days"
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:129 Libs/Admin/PluginSettings.php:140
+#: Libs/Admin/PluginSettings.php:151 Libs/Admin/PluginSettings.php:164
+msgid "20 days"
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:133
+msgid "Pilot Data Cache Time"
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:134
+msgid ""
+"Set the time in days the pilots API information is cached. Since a pilot can "
+"change corporation, a smaller cache time is appropriate."
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:145
+msgid ""
+"Set the time in days the corporations API information is cached. For this, a "
+"medium cache time is appropriate."
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:152 Libs/Admin/PluginSettings.php:165
+msgid "25 days"
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:153 Libs/Admin/PluginSettings.php:166
+msgid "50 days"
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:158
+msgid ""
+"Set the time in days the corporations API information is cached. Since this "
+"information doesn't change to often, a large cache time is appropriate."
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:167
+msgid "100 days"
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:168
+msgid "200 days"
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:169
+msgid "1 year"
 msgstr ""
 
 #: Libs/ResourceLoader/JavascriptLoader.php:69
