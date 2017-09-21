@@ -2,7 +2,7 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.2.2...HEAD)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.2.2...development)
 ### Added
 - Settings for cache (Image and API cache)
 
