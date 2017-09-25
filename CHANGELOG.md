@@ -2,7 +2,11 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.2.2...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.3.0...development)
+- in development
+
+## [v0.3.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.3.0) - 2017-09-25
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.2.2...v0.3.0)
 ### Added
 - Settings for cache (Image and API cache)
 
