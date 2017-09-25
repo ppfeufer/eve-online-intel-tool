@@ -36,10 +36,29 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 	private $cacheDirectoryBase;
 
 	/**
+	 * Plugin Helper
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper
+	 */
+	public $pluginHelper = null;
+
+	/**
+	 * Plugin Settings
+	 *
+	 * @var array
+	 */
+	public $pluginSettings = null;
+
+	/**
 	 * Constructor
 	 */
 	protected function __construct() {
 		parent::__construct();
+
+		if(!$this->pluginHelper instanceof \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper) {
+			$this->pluginHelper = PluginHelper::getInstance();
+			$this->pluginSettings = $this->pluginHelper->getPluginSettings();
+		}
 
 		$this->cacheDirectoryBase = $this->getPluginCacheDir();
 
@@ -126,13 +145,8 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		$cacheDir = \trailingslashit($this->getImageCacheDir() . $cacheType);
 
 		if(\file_exists($cacheDir . $imageName)) {
-			/**
-			 * Check if the file is older than 24 hrs
-			 * If so, time to renew it
-			 *
-			 * This is just in case our cronjob doesn't run for whetever reason
-			 */
-			if(\time() - \filemtime($cacheDir . $imageName) > 120 * 3600) {
+//			if(\time() - \filemtime($cacheDir . $imageName) > 120 * 3600) {
+			if(\time() - \filemtime($cacheDir . $imageName) > $this->pluginSettings['image-cache-time'] * 3600) {
 				\unlink($cacheDir . $imageName);
 
 				$returnValue = false;
