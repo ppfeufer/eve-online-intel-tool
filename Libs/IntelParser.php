@@ -109,14 +109,24 @@ class IntelParser {
 				$intelType = null;
 				break;
 
+			/**
+			 * First: Fleet Comp
+			 */
+			case (\preg_match('/^([a-zA-Z0-9 -_]{3,37})[\t](.*)[\t](.* \/ .*) ?$/m', $cleanedScanData) ? true : false):
+//				 ^([a-zA-Z0-9 -_]{3,37})[\t](.*)[\t](.*)[\t](.*)[\t](.*)[\t](.*)[\t](.* \/ .*) ?$
+				$intelType = 'fleetcomposition';
+				break;
+
+			/**
+			 * Second: D-Scan
+			 */
 			case (\preg_match('/^\d+[\t](.*)[\t](-|\d(.*)) ?$/m', $cleanedScanData) ? true : false):
 				$intelType = 'dscan';
 				break;
 
-			case (\preg_match('/^([a-zA-Z0-9 -_]{3,37})[\t](.*)[\t](.* \/ .*) ?$/m', $cleanedScanData) ? true : false):
-				$intelType = 'fleetcomposition';
-				break;
-
+			/**
+			 * Third: Chat Scan
+			 */
 			case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
 				$intelType = 'local';
 				break;
