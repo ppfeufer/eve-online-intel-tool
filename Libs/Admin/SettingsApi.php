@@ -257,6 +257,9 @@ class SettingsApi {
 
 		foreach($this->settingsArray as $menu => $page) {
 			$menus[] = $menu;
+
+			// we don't need this one here
+			unset($page);
 		} // END foreach($this->settingsArray as $menu => $page)
 
 		if(\in_array($getPage, $menus)) {
@@ -386,6 +389,9 @@ class SettingsApi {
 		if(!empty($terms)) {
 			foreach($terms as $key => $term) {
 				$items[$term->term_id] = $term->name;
+
+				// we don't need this one here
+				unset($key);
 			} // END foreach($terms as $key => $term)
 		} // END if(!empty($terms))
 
@@ -562,6 +568,9 @@ class SettingsApi {
 	 * @return string|array
 	 */
 	public function value($key = null) {
+		// we don't need trhis one here currently
+		unset($key);
+
 		$value = '';
 
 		if($this->valueType() === 'array') {
