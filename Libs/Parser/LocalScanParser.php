@@ -94,14 +94,14 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 					'characterName' => $line
 				];
 
-				$characterData = $characterSheet['data'];
 				/**
 				 * Grabbing corporation information
 				 */
-				if(isset($characterData->corporation_id)) {
-					$corporationSheet = $this->esi->getCorporationData($characterData->corporation_id);
+				if(isset($characterSheet['data']->corporation_id)) {
+					$corporationSheet = $this->esi->getCorporationData($characterSheet['data']->corporation_id);
+
 					if(!empty($corporationSheet['data']) && !isset($corporationSheet['data']->error)) {
-						$pilotDetails[$characterID]['corporationID'] = $characterData->corporation_id;
+						$pilotDetails[$characterID]['corporationID'] = $characterSheet['data']->corporation_id;
 						$pilotDetails[$characterID]['corporationName'] = $corporationSheet['data']->corporation_name;
 						$pilotDetails[$characterID]['corporationTicker'] = $corporationSheet['data']->ticker;
 					} // END if(!empty($corporationSheet['data']) && !isset($corporationSheet['data']->error))
@@ -110,8 +110,8 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 				/**
 				 * Grabbing alliance information
 				 */
-				if(isset($corporationSheet['data']->alliance_id)) {
-					$allianceSheet = $this->esi->getAllianceData($corporationSheet['data']->alliance_id);
+				if(isset($characterSheet['data']->alliance_id)) {
+					$allianceSheet = $this->esi->getAllianceData($characterSheet['data']->alliance_id);
 
 					if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error)) {
 						$pilotDetails[$characterID]['allianceID'] = $corporationSheet['data']->alliance_id;

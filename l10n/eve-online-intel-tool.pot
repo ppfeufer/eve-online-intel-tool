@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-21 13:00+0000\n"
+"POT-Creation-Date: 2017-10-04 08:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -159,8 +159,7 @@ msgstr ""
 msgid "Use a serverside cache for images fetched from CCP's image server."
 msgstr ""
 
-#: Libs/Admin/PluginSettings.php:122 Libs/Admin/PluginSettings.php:144
-#: Libs/Admin/PluginSettings.php:157
+#: Libs/Admin/PluginSettings.php:122
 msgid "Image Cache Time"
 msgstr ""
 
@@ -198,6 +197,10 @@ msgid ""
 "change corporation, a smaller cache time is appropriate."
 msgstr ""
 
+#: Libs/Admin/PluginSettings.php:144
+msgid "Corp Data Cache Time"
+msgstr ""
+
 #: Libs/Admin/PluginSettings.php:145
 msgid ""
 "Set the time in days the corporations API information is cached. For this, a "
@@ -210,6 +213,10 @@ msgstr ""
 
 #: Libs/Admin/PluginSettings.php:153 Libs/Admin/PluginSettings.php:166
 msgid "50 days"
+msgstr ""
+
+#: Libs/Admin/PluginSettings.php:157
+msgid "Alliance Data Cache Time"
 msgstr ""
 
 #: Libs/Admin/PluginSettings.php:158

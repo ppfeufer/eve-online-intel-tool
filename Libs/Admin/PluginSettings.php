@@ -141,7 +141,7 @@ class PluginSettings {
 				]
 			],
 			'corp-data-cache-time' => [
-				'title' => \__('Image Cache Time', 'eve-online-intel-tool'),
+				'title' => \__('Corp Data Cache Time', 'eve-online-intel-tool'),
 				'description' => \__('Set the time in days the corporations API information is cached. For this, a medium cache time is appropriate.', 'eve-online-intel-tool'),
 				'type' => 'select',
 				'choices' => [
@@ -154,7 +154,7 @@ class PluginSettings {
 				]
 			],
 			'alliance-data-cache-time' => [
-				'title' => \__('Image Cache Time', 'eve-online-intel-tool'),
+				'title' => \__('Alliance Data Cache Time', 'eve-online-intel-tool'),
 				'description' => \__('Set the time in days the corporations API information is cached. Since this information doesn\'t change to often, a large cache time is appropriate.', 'eve-online-intel-tool'),
 				'type' => 'select',
 				'choices' => [

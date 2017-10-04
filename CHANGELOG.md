@@ -2,8 +2,21 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.3.0...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.3.1...development)
 - in development
+
+## [v0.3.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.3.1) - 2017-10-04
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.3.0...v0.3.1)
+### Fixed
+- RegEx again to detect fleetcomp and not being a d-scan in some rare cases
+- Settings headlines now reflect what the settings actually do
+
+### Changed
+- Getting alliance information from character data instead of corp data. It's more reliable since character data has a shorter cache time.
+- Deactivated sticky highlight on click, doesn't work with the pagination of our data tables. Need to sort this out first.
+
+### Updated
+- German translation
 
 ## [v0.3.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.3.0) - 2017-09-25
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.2.2...v0.3.0)
