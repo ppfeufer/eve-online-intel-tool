@@ -5,6 +5,13 @@
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.3.0...development)
 ### Fixed
 - RegEx again to detect fleetcomp and not being a d-scan in some rare cases
+- Settings headlines now reflect what the settings actually do
+
+### Changed
+- Getting alliance information from character data instead of corp data. It's more reliable since character data has a shorter cache time.
+
+### Updated
+- German translation
 
 ## [v0.3.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.3.0) - 2017-09-25
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.2.2...v0.3.0)
