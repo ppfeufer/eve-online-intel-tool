@@ -9,6 +9,7 @@
 
 ### Changed
 - Getting alliance information from character data instead of corp data. It's more reliable since character data has a shorter cache time.
+- Deactivated sticky highlight on click, doesn't work with the pagination of our data tables. Need to sort this out first.
 
 ### Updated
 - German translation
