@@ -37,8 +37,6 @@ class RemoteHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 					$params = '?' . \http_build_query($parameter);
 				} // END if(\count($parameter > 0))
 
-//				$remoteUrl = $url . $params;
-
 				$remoteData = \wp_remote_get($url . $params);
 				break;
 
