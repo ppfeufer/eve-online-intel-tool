@@ -27,17 +27,29 @@ class RemoteHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 	 * @param array $parameter
 	 * @return mixed
 	 */
-	public function getRemoteData($url, array $parameter = []) {
+	public function getRemoteData($url, $parameter = [], $method = 'get') {
 		$params = '';
 
-		if(\count($parameter) > 0) {
-			$params = '?' . \http_build_query($parameter);
-		} // END if(\count($parameter > 0))
 
-		$remoteUrl = $url . $params;
+		switch($method) {
+			case 'get':
+				if(\count($parameter) > 0) {
+					$params = '?' . \http_build_query($parameter);
+				} // END if(\count($parameter > 0))
 
-		$get = \wp_remote_get($remoteUrl);
-		$data = \wp_remote_retrieve_body($get);
+				$remoteData = \wp_remote_get($url . $params);
+				break;
+
+			case 'post':
+				$remoteData = \wp_remote_post($url, [
+					'headers' => ['Content-Type' => 'application/json; charset=utf-8'],
+					'body'  => \json_encode($parameter),
+					'method' => 'POST'
+				]);
+				break;
+		}
+
+		$data = \wp_remote_retrieve_body($remoteData);
 
 		return $data;
 	} // END private function getRemoteData($url, array $parameter)

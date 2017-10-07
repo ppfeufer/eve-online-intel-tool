@@ -2,8 +2,14 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.3.1...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.3.2...development)
 - in development
+
+## [v0.3.2](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.3.2) - 2017-10-07
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.3.1...v0.3.2)
+### Changed
+- Optimized how the data is written into the database
+- ESI handling for pilot data (this should speed things a bit up)
 
 ## [v0.3.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.3.1) - 2017-10-04
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.3.0...v0.3.1)
