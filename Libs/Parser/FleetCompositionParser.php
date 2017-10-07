@@ -88,7 +88,7 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 			// get count of docked pilots
 			if(!isset($fleetInformation['pilots']['docked'])) {
 				$fleetInformation['pilots']['docked'] = 0;
-			} // END if(!isset($fleetInformation['pilots']['docked'])) 
+			} // END if(!isset($fleetInformation['pilots']['docked']))
 
 			if(\preg_match('/.* \(Docked\)/', $lineDetailsArray['1'])) {
 				$fleetInformation['pilots']['docked']++;
@@ -122,6 +122,7 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 			if(!isset($counter['class'][\sanitize_title($lineDetailsArray['2'])])) {
 				$counter['class'][\sanitize_title($lineDetailsArray['2'])] = 0;
 			} // END if(!isset($counter[\sanitize_title($pilotSheet['corporationName'])]))
+
 			$counter['class'][\sanitize_title($lineDetailsArray['2'])]++;
 			$shipClassBreakdown[\sanitize_title($lineDetailsArray['2'])] = [
 				'shipName' => $lineDetailsArray['2'],
@@ -134,6 +135,7 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 			if(!isset($counter['type'][\sanitize_title($lineDetailsArray['3'])])) {
 				$counter['type'][\sanitize_title($lineDetailsArray['3'])] = 0;
 			} // END if(!isset($counter[\sanitize_title($pilotSheet['corporationName'])]))
+
 			$counter['type'][\sanitize_title($lineDetailsArray['3'])]++;
 			$shipTypeBreakdown[\sanitize_title($lineDetailsArray['3'])] = [
 				'type' => $lineDetailsArray['3'],

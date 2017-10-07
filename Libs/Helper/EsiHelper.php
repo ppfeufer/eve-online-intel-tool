@@ -121,6 +121,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		return [
 			'alliance-information' => 'alliances/', // getting alliance information by ID - https://esi.tech.ccp.is/latest/alliances/99000102/
 			'character-information' => 'characters/', // getting character information by ID - https://esi.tech.ccp.is/latest/characters/90607580/
+			'character-affiliation' => 'characters/affiliation/', // getting character information by IDs - https://esi.tech.ccp.is/latest/characters/affiliation/ (POST request)
 			'corporation-information' => 'corporations/', // getting corporation information by ID - https://esi.tech.ccp.is/latest/corporations/98000030/
 			'search' => 'search/', // Search for entities that match a given sub-string. - https://esi.tech.ccp.is/latest/search/?search=Yulai%20Federation&strict=true&categories=alliance
 			'group-information' => 'universe/groups/', // getting types information by ID - https://esi.tech.ccp.is/latest/universe/groups/1305/
@@ -161,6 +162,14 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 			'data' => $characterData
 		];
 	} // END public function getCharacterData($characterID)
+
+	public function getCharacterAffiliation(array $characterIds) {
+		$characterAffiliationData = $this->getEsiData($this->esiEndpoints['character-affiliation'], 0, $characterIds, 'post');
+
+		return [
+			'data' => $characterAffiliationData
+		];
+	}
 
 	public function getCorporationData($corporationID) {
 		$corporationData = $this->getEsiData($this->esiEndpoints['corporation-information'] . $corporationID . '/', $this->pluginSettings['corp-data-cache-time']);
@@ -336,21 +345,30 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @param int $cacheTime Caching time in hours (Default: 120)
 	 * @return object
 	 */
-	private function getEsiData($route, $cacheTime = 120) {
+	private function getEsiData($route, $cacheTime = 120, $parameter = [], $method = 'get') {
 		$returnValue = null;
-		$transientName = \sanitize_title('eve-esi-data_' . $route);
-		$data = CacheHelper::getInstance()->getTransientCache($transientName);
 
-		if($data === false || empty($data)) {
-			$data = RemoteHelper::getInstance()->getRemoteData($this->esiUrl . $route);
+		switch($method) {
+			case 'get':
+				$transientName = \sanitize_title('eve-esi-data_' . $route);
+				$data = CacheHelper::getInstance()->getTransientCache($transientName);
 
-			/**
-			 * setting the transient caches
-			 */
-			if(!isset($data->error) && !empty($data)) {
-				CacheHelper::getInstance()->setTransientCache($transientName, $data, $cacheTime);
-			} // END if(!isset($data->error))
-		} // END if($data === false)
+				if($data === false || empty($data)) {
+					$data = RemoteHelper::getInstance()->getRemoteData($this->esiUrl . $route);
+
+					/**
+					 * setting the transient caches
+					 */
+					if(!isset($data->error) && !empty($data)) {
+						CacheHelper::getInstance()->setTransientCache($transientName, $data, $cacheTime);
+					} // END if(!isset($data->error))
+				} // END if($data === false)
+				break;
+
+			case 'post':
+				$data = RemoteHelper::getInstance()->getRemoteData($this->esiUrl . $route, $parameter, $method);
+				break;
+		}
 
 		if(!empty($data) && !isset($data->error)) {
 			$returnValue = \json_decode($data);

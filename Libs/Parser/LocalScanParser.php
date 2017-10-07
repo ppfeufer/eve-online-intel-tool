@@ -78,49 +78,54 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 
 		$pilotList = [];
 		$pilotDetails = [];
+		$arrayCharacterIds = [];
 
 		foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
 			/**
 			 * Grabbing character information
 			 */
 			$characterID = $this->esi->getEveIdFromName($line, 'character');
-			$characterSheet = $this->esi->getCharacterData($characterID);
 
-			if(!empty($characterSheet['data']) && !isset($characterSheet['data']->error)) {
+			if(!\is_null($characterID)) {
+				$arrayCharacterIds[] = $characterID;
 				$pilotList[$characterID] = $line;
-
-				$pilotDetails[$characterID] = [
-					'characterID' => $characterID,
-					'characterName' => $line
-				];
-
-				/**
-				 * Grabbing corporation information
-				 */
-				if(isset($characterSheet['data']->corporation_id)) {
-					$corporationSheet = $this->esi->getCorporationData($characterSheet['data']->corporation_id);
-
-					if(!empty($corporationSheet['data']) && !isset($corporationSheet['data']->error)) {
-						$pilotDetails[$characterID]['corporationID'] = $characterSheet['data']->corporation_id;
-						$pilotDetails[$characterID]['corporationName'] = $corporationSheet['data']->corporation_name;
-						$pilotDetails[$characterID]['corporationTicker'] = $corporationSheet['data']->ticker;
-					} // END if(!empty($corporationSheet['data']) && !isset($corporationSheet['data']->error))
-				} // END if(isset($characterData->corporation_id))
-
-				/**
-				 * Grabbing alliance information
-				 */
-				if(isset($characterSheet['data']->alliance_id)) {
-					$allianceSheet = $this->esi->getAllianceData($characterSheet['data']->alliance_id);
-
-					if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error)) {
-						$pilotDetails[$characterID]['allianceID'] = $corporationSheet['data']->alliance_id;
-						$pilotDetails[$characterID]['allianceName'] = $allianceSheet['data']->alliance_name;
-						$pilotDetails[$characterID]['allianceTicker'] = $allianceSheet['data']->ticker;
-					} // END if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error))
-				} // END if(isset($characterData->alliance_id))
-			} // END if(!empty($characterSheet['data']) && !isset($characterSheet['data']->error))
+			} // END if(!\is_null($characterID))
 		} // END foreach(\explode("\n", \trim($cleanedScanData)) as $line)
+
+		$characterData = $this->esi->getCharacterAffiliation($arrayCharacterIds);
+
+		foreach($characterData['data'] as $affiliatedIds) {
+			$pilotDetails[$affiliatedIds->character_id] = [
+				'characterID' => $affiliatedIds->character_id,
+				'characterName' => $pilotList[$affiliatedIds->character_id]
+			];
+
+			/**
+			 * Grabbing corporation information
+			 */
+			if(isset($affiliatedIds->corporation_id)) {
+				$corporationSheet = $this->esi->getCorporationData($affiliatedIds->corporation_id);
+
+				if(!empty($corporationSheet['data']) && !isset($corporationSheet['data']->error)) {
+					$pilotDetails[$affiliatedIds->character_id]['corporationID'] = $affiliatedIds->corporation_id;
+					$pilotDetails[$affiliatedIds->character_id]['corporationName'] = $corporationSheet['data']->corporation_name;
+					$pilotDetails[$affiliatedIds->character_id]['corporationTicker'] = $corporationSheet['data']->ticker;
+				} // END if(!empty($corporationSheet['data']) && !isset($corporationSheet['data']->error))
+			} // END if(isset($affiliatedIds->corporation_id))
+
+			/**
+			 * Grabbing alliance information
+			 */
+			if(isset($affiliatedIds->alliance_id)) {
+				$allianceSheet = $this->esi->getAllianceData($affiliatedIds->alliance_id);
+
+				if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error)) {
+					$pilotDetails[$affiliatedIds->character_id]['allianceID'] = $affiliatedIds->alliance_id;
+					$pilotDetails[$affiliatedIds->character_id]['allianceName'] = $allianceSheet['data']->alliance_name;
+					$pilotDetails[$affiliatedIds->character_id]['allianceTicker'] = $allianceSheet['data']->ticker;
+				} // END if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error))
+			} // END if(isset($affiliatedIds->alliance_id))
+		} // END foreach($characterData['data'] as $affiliatedIds)
 
 		if(\count($pilotDetails) > 0) {
 			$returnValue = [
