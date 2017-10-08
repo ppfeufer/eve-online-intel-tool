@@ -22,6 +22,11 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Helper;
 \defined('ABSPATH') or die();
 
 class PluginHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+	/**
+	 * Option field name for plugin options
+	 *
+	 * @var string
+	 */
 	public $optionFieldName = 'eve-online-intel-tool-options';
 
 	/**
@@ -44,6 +49,11 @@ class PluginHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 		return \WP_PLUGIN_URL . '/eve-online-intel-tool/' . $file;
 	} // END public function getPluginUri()
 
+	/**
+	 * Returning the plugins default settings
+	 *
+	 * @return array
+	 */
 	public function getPluginDefaultSettings() {
 		return [
 			'image-cache' => '',
@@ -54,10 +64,20 @@ class PluginHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 		];
 	}
 
+	/**
+	 * Getting the plugin settings
+	 *
+	 * @return array
+	 */
 	public function getPluginSettings() {
 		return \get_option($this->getOptionFieldName(), $this->getPluginDefaultSettings());
 	}
 
+	/**
+	 * Returning the options field name
+	 *
+	 * @return string
+	 */
 	public function getOptionFieldName() {
 		return $this->optionFieldName;
 	}
