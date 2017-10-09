@@ -82,7 +82,7 @@ class GithubUpdater {
 
 		$this->setDefaults();
 		$this->init();
-	} // END public function __construct($config = array())
+	} // END public function __construct($config = [])
 
 	/**
 	 * Fire all WordPress actions
