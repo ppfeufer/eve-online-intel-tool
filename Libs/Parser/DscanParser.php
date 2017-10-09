@@ -61,13 +61,12 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 			$lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
 
 			$shipData = $this->esi->getShipData($lineDetailsArray['0']);
-			$shipClass = $this->esi->getShipClassData($lineDetailsArray['0']);
 
-			if($shipData !== null && $shipClass !== null) {
+			if($shipData['data']['shipData'] !== null && $shipData['data']['shipTypeData'] !== null) {
 				$dscanDetailShipsAll[] = [
 					'dscanData' => $lineDetailsArray,
-					'shipData' => $shipData['data'],
-					'shipClass' => $shipClass['data']
+					'shipData' => $shipData['data']['shipData'],
+					'shipClass' => $shipData['data']['shipTypeData']
 				];
 
 				/**
@@ -76,14 +75,14 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 				if($lineDetailsArray['3'] === '-') {
 					$dscanDetailShipsOffGrid[] = [
 						'dscanData' => $lineDetailsArray,
-						'shipData' => $shipData['data'],
-						'shipClass' => $shipClass['data']
+						'shipData' => $shipData['data']['shipData'],
+						'shipClass' => $shipData['data']['shipTypeData']
 					];
 				} else {
 					$dscanDetailShipsOnGrid[] = [
 						'dscanData' => $lineDetailsArray,
-						'shipData' => $shipData['data'],
-						'shipClass' => $shipClass['data']
+						'shipData' => $shipData['data']['shipData'],
+						'shipClass' => $shipData['data']['shipTypeData']
 					];
 				} // END if($lineDetailsArray['3'] === '-')
 			} // END if($shipData !== null && $shipClass !== null)
@@ -300,7 +299,6 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 	 */
 	public function getShipTypesArray(array $dscanArray) {
 		$shipTypeArray = [];
-
 		foreach($dscanArray as $scanResult) {
 			// Ships only ...
 			if($scanResult['shipClass']->category_id === 6) {

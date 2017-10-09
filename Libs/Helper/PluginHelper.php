@@ -57,10 +57,10 @@ class PluginHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 	public function getPluginDefaultSettings() {
 		return [
 			'image-cache' => '',
-			'image-cache-time' => '120',
-			'pilot-data-cache-time' => '120',
-			'corp-data-cache-time' => '360',
-			'alliance-data-cache-time' => '2400'
+			'image-cache-time' => '120'
+//			'pilot-data-cache-time' => '120',
+//			'corp-data-cache-time' => '360',
+//			'alliance-data-cache-time' => '2400'
 		];
 	}
 

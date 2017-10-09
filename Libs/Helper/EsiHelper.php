@@ -139,39 +139,55 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return array
 	 */
 	public function getShipData($shipID) {
-		$shipData = $this->getEsiData($this->esiEndpoints['type-information'] . $shipID . '/', 3600);
+		$returnData = null;
 
-		return [
-			'data' => $shipData
+		$resultDB = DatabaseHelper::getInstance()->getShipDataFromDb($shipID);
+
+		if(!\is_null($resultDB)) {
+			$shipData = new \stdClass();
+			$shipData->type_id = $resultDB->ship_id;
+			$shipData->name = $resultDB->class;
+
+			$shipClassData = new \stdClass();
+			$shipClassData->name = $resultDB->type;
+			$shipClassData->category_id = (int) $resultDB->category_id;
+		} // if(!\is_null($resultDB))
+
+		if(\is_null($resultDB)) {
+			$shipData = $this->getEsiData($this->esiEndpoints['type-information'] . $shipID . '/', null);
+			$shipClassData = $this->getEsiData($this->esiEndpoints['group-information'] . $shipData->group_id . '/', null);
+
+			DatabaseHelper::getInstance()->writeShipDataToDb([
+				$shipData->type_id,
+				$shipData->name,
+				$shipClassData->name,
+				$shipClassData->category_id,
+				\date('Y-m-d H:m:s', time())
+			]);
+		} // if(\is_null($resultDB))
+
+		$returnData = [
+			'data' => [
+				'shipData' => $shipData,
+				'shipTypeData' => $shipClassData
+			]
 		];
+
+		return $returnData;
 	} // END public function getShipData($shipID)
-
-	public function getShipClassData($shipID) {
-		$shipData = $this->getShipData($shipID);
-		$shipClassData = $this->getEsiData($this->esiEndpoints['group-information'] . $shipData['data']->group_id . '/', 3600);
-
-		return [
-			'data' => $shipClassData
-		];
-	} // END public function getShipClassData($shipID)
 
 	public function getCharacterData($characterID) {
 		$characterData = DatabaseHelper::getInstance()->getCharacterDataFromDb($characterID);
 
 		if(\is_null($characterData)) {
-			$characterData = $this->getEsiData($this->esiEndpoints['character-information'] . $characterID . '/', $this->pluginSettings['pilot-data-cache-time']);
+			$characterData = $this->getEsiData($this->esiEndpoints['character-information'] . $characterID . '/', null);
 
-			global $wpdb;
-
-			$wpdb->query($wpdb->prepare(
-				'REPLACE INTO ' . $wpdb->prefix . 'eveIntelPilots' . ' (character_id, name, lastUpdated) VALUES (%s, %s, %s)',
-				[
-					$characterID,
-					$characterData->name,
-					\date('Y-m-d H:m:s', time())
-				]
-			));
-		}
+			DatabaseHelper::getInstance()->writeCharacterDataToDb([
+				$characterID,
+				$characterData->name,
+				\date('Y-m-d H:m:s', time())
+			]);
+		} // if(\is_null($characterData))
 
 		return [
 			'data' => $characterData
@@ -179,7 +195,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	} // END public function getCharacterData($characterID)
 
 	public function getCharacterAffiliation(array $characterIds) {
-		$characterAffiliationData = $this->getEsiData($this->esiEndpoints['character-affiliation'], 0, $characterIds, 'post');
+		$characterAffiliationData = $this->getEsiData($this->esiEndpoints['character-affiliation'], null, $characterIds, 'post');
 
 		return [
 			'data' => $characterAffiliationData
@@ -197,20 +213,15 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		$corporationData = DatabaseHelper::getInstance()->getCorporationDataFromDb($corporationID);
 
 		if(\is_null($corporationData)) {
-			global $wpdb;
+			$corporationData = $this->getEsiData($this->esiEndpoints['corporation-information'] . $corporationID . '/', null);
 
-			$corporationData = $this->getEsiData($this->esiEndpoints['corporation-information'] . $corporationID . '/', $this->pluginSettings['corp-data-cache-time']);
-
-			$wpdb->query($wpdb->prepare(
-				'REPLACE INTO ' . $wpdb->prefix . 'eveIntelCorporations' . ' (corporation_id, corporation_name, ticker, lastUpdated) VALUES (%s, %s, %s, %s)',
-				[
-					$corporationID,
-					$corporationData->corporation_name,
-					$corporationData->ticker,
-					\date('Y-m-d H:m:s', time())
-				]
-			));
-		}
+			DatabaseHelper::getInstance()->writeCorporationDataToDb([
+				$corporationID,
+				$corporationData->corporation_name,
+				$corporationData->ticker,
+				\date('Y-m-d H:m:s', time())
+			]);
+		} // if(\is_null($corporationData))
 
 		return [
 			'data' => $corporationData
@@ -228,20 +239,15 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		$allianceData = DatabaseHelper::getInstance()->getAllianceDataFromDb($allianceID);
 
 		if(\is_null($allianceData)) {
-			global $wpdb;
+			$allianceData = $this->getEsiData($this->esiEndpoints['alliance-information'] . $allianceID . '/', null);
 
-			$allianceData = $this->getEsiData($this->esiEndpoints['alliance-information'] . $allianceID . '/', $this->pluginSettings['alliance-data-cache-time']);
-
-			$wpdb->query($wpdb->prepare(
-				'REPLACE INTO ' . $wpdb->prefix . 'eveIntelAlliances' . ' (alliance_id, alliance_name, ticker, lastUpdated) VALUES (%s, %s, %s, %s)',
-				[
-					$allianceID,
-					$allianceData->alliance_name,
-					$allianceData->ticker,
-					\date('Y-m-d H:m:s', time())
-				]
-			));
-		}
+			DatabaseHelper::getInstance()->writeAllianceDataToDb([
+				$allianceID,
+				$allianceData->alliance_name,
+				$allianceData->ticker,
+				\date('Y-m-d H:m:s', time())
+			]);
+		} // if(\is_null($allianceData))
 
 		return [
 			'data' => $allianceData
@@ -379,7 +385,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 			if(isset($arrayNotInApi[\sanitize_title($name)])) {
 				$returnData = $arrayNotInApi[\sanitize_title($name)]['id'];
 			} else {
-				$data = $this->getEsiData($this->esiEndpoints['search'] . '?search=' . \urlencode(\wp_specialchars_decode($name, \ENT_QUOTES)) . '&strict=true&categories=' . $type, 3600);
+				$data = $this->getEsiData($this->esiEndpoints['search'] . '?search=' . \urlencode(\wp_specialchars_decode($name, \ENT_QUOTES)) . '&strict=true&categories=' . $type, null);
 
 				if(!isset($data->error) && !empty((array) $data) && isset($data->{$type})) {
 					/**
@@ -422,7 +428,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 							case 'inventorytype':
 								$shipSheet = $this->getShipData($entityID);
 
-								if($this->isValidEsiData($shipSheet) === true && \strtolower($shipSheet['data']->name) === \strtolower($name)) {
+								if(!\is_null($shipSheet)) {
 									$returnData = $entityID;
 
 									break;
@@ -456,11 +462,15 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 */
 	private function getEsiData($route, $cacheTime = 120, $parameter = [], $method = 'get') {
 		$returnValue = null;
+		$data = false;
 
 		switch($method) {
 			case 'get':
 				$transientName = \sanitize_title('eve-esi-data_' . $route);
-				$data = CacheHelper::getInstance()->getTransientCache($transientName);
+
+				if(!\is_null($cacheTime)) {
+					$data = CacheHelper::getInstance()->getTransientCache($transientName);
+				} // if(!\is_null($cacheTime))
 
 				if($data === false || empty($data)) {
 					$data = RemoteHelper::getInstance()->getRemoteData($this->esiUrl . $route);
@@ -468,9 +478,9 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 					/**
 					 * setting the transient caches
 					 */
-					if(!isset($data->error) && !empty($data)) {
+					if(!isset($data->error) && !empty($data) && !\is_null($cacheTime)) {
 						CacheHelper::getInstance()->setTransientCache($transientName, $data, $cacheTime);
-					} // END if(!isset($data->error))
+					} // END if(!isset($data->error) && !empty($data) && !\is_null($cacheTime))
 				} // END if($data === false)
 				break;
 
