@@ -101,5 +101,5 @@ class TemplateHelper {
 		} // END if(!\file_exists($template_file))
 
 		include $template_file;
-	} // END function getTemplate($template_name, $args = array(), $tempate_path = '', $default_path = '')
+	} // END function getTemplate($template_name, $args = [], $tempate_path = '', $default_path = '')
 }

@@ -139,24 +139,55 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return array
 	 */
 	public function getShipData($shipID) {
-		$shipData = $this->getEsiData($this->esiEndpoints['type-information'] . $shipID . '/', 3600);
+		$returnData = null;
 
-		return [
-			'data' => $shipData
+		$resultDB = DatabaseHelper::getInstance()->getShipDataFromDb($shipID);
+
+		if(!\is_null($resultDB)) {
+			$shipData = new \stdClass();
+			$shipData->type_id = $resultDB->ship_id;
+			$shipData->name = $resultDB->class;
+
+			$shipClassData = new \stdClass();
+			$shipClassData->name = $resultDB->type;
+			$shipClassData->category_id = (int) $resultDB->category_id;
+		} // if(!\is_null($resultDB))
+
+		if(\is_null($resultDB)) {
+			$shipData = $this->getEsiData($this->esiEndpoints['type-information'] . $shipID . '/', null);
+			$shipClassData = $this->getEsiData($this->esiEndpoints['group-information'] . $shipData->group_id . '/', null);
+
+			DatabaseHelper::getInstance()->writeShipDataToDb([
+				$shipData->type_id,
+				$shipData->name,
+				$shipClassData->name,
+				$shipClassData->category_id,
+				\date('Y-m-d H:m:s', time())
+			]);
+		} // if(\is_null($resultDB))
+
+		$returnData = [
+			'data' => [
+				'shipData' => $shipData,
+				'shipTypeData' => $shipClassData
+			]
 		];
+
+		return $returnData;
 	} // END public function getShipData($shipID)
 
-	public function getShipClassData($shipID) {
-		$shipData = $this->getShipData($shipID);
-		$shipClassData = $this->getEsiData($this->esiEndpoints['group-information'] . $shipData['data']->group_id . '/', 3600);
-
-		return [
-			'data' => $shipClassData
-		];
-	} // END public function getShipClassData($shipID)
-
 	public function getCharacterData($characterID) {
-		$characterData = $this->getEsiData($this->esiEndpoints['character-information'] . $characterID . '/', $this->pluginSettings['pilot-data-cache-time']);
+		$characterData = DatabaseHelper::getInstance()->getCharacterDataFromDb($characterID);
+
+		if(\is_null($characterData)) {
+			$characterData = $this->getEsiData($this->esiEndpoints['character-information'] . $characterID . '/', null);
+
+			DatabaseHelper::getInstance()->writeCharacterDataToDb([
+				$characterID,
+				$characterData->name,
+				\date('Y-m-d H:m:s', time())
+			]);
+		} // if(\is_null($characterData))
 
 		return [
 			'data' => $characterData
@@ -164,23 +195,59 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	} // END public function getCharacterData($characterID)
 
 	public function getCharacterAffiliation(array $characterIds) {
-		$characterAffiliationData = $this->getEsiData($this->esiEndpoints['character-affiliation'], 0, $characterIds, 'post');
+		$characterAffiliationData = $this->getEsiData($this->esiEndpoints['character-affiliation'], null, $characterIds, 'post');
 
 		return [
 			'data' => $characterAffiliationData
 		];
 	}
 
+	/**
+	 * Get corporation data by ID
+	 *
+	 * @global object $wpdb
+	 * @param string $corporationID
+	 * @return object
+	 */
 	public function getCorporationData($corporationID) {
-		$corporationData = $this->getEsiData($this->esiEndpoints['corporation-information'] . $corporationID . '/', $this->pluginSettings['corp-data-cache-time']);
+		$corporationData = DatabaseHelper::getInstance()->getCorporationDataFromDb($corporationID);
+
+		if(\is_null($corporationData)) {
+			$corporationData = $this->getEsiData($this->esiEndpoints['corporation-information'] . $corporationID . '/', null);
+
+			DatabaseHelper::getInstance()->writeCorporationDataToDb([
+				$corporationID,
+				$corporationData->corporation_name,
+				$corporationData->ticker,
+				\date('Y-m-d H:m:s', time())
+			]);
+		} // if(\is_null($corporationData))
 
 		return [
 			'data' => $corporationData
 		];
 	} // END public function getCorporationData($corporationID)
 
+	/**
+	 * Get alliance data by ID
+	 *
+	 * @global object $wpdb
+	 * @param string $allianceID
+	 * @return object
+	 */
 	public function getAllianceData($allianceID) {
-		$allianceData = $this->getEsiData($this->esiEndpoints['alliance-information'] . $allianceID . '/', $this->pluginSettings['alliance-data-cache-time']);
+		$allianceData = DatabaseHelper::getInstance()->getAllianceDataFromDb($allianceID);
+
+		if(\is_null($allianceData)) {
+			$allianceData = $this->getEsiData($this->esiEndpoints['alliance-information'] . $allianceID . '/', null);
+
+			DatabaseHelper::getInstance()->writeAllianceDataToDb([
+				$allianceID,
+				$allianceData->alliance_name,
+				$allianceData->ticker,
+				\date('Y-m-d H:m:s', time())
+			]);
+		} // if(\is_null($allianceData))
 
 		return [
 			'data' => $allianceData
@@ -273,67 +340,113 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 			]
 		];
 
-		if(isset($arrayNotInApi[\sanitize_title($name)])) {
-			$returnData = $arrayNotInApi[\sanitize_title($name)]['id'];
-		} else {
-			$data = $this->getEsiData($this->esiEndpoints['search'] . '?search=' . \urlencode(\wp_specialchars_decode($name, \ENT_QUOTES)) . '&strict=true&categories=' . $type, 3600);
+		// Check DB first
+		switch($type) {
+			// Pilot
+			case 'character':
+				$characterData = DatabaseHelper::getInstance()->getCharacterDataFromDbByName($name);
 
-			if(!isset($data->error) && !empty((array) $data) && isset($data->{$type})) {
-				/**
-				 * -= FIX =-
-				 * CCPs strict mode is not really strict, so we have to check manually ....
-				 * Please CCP, get your shit sorted ...
-				 */
-				foreach($data->{$type} as $entityID) {
-					switch($type) {
-						case 'character':
-							$characterSheet = $this->getCharacterData($entityID);
+				if(isset($characterData->character_id)) {
+					$returnData = $characterData->character_id;
+				}
+				break;
 
-							if($this->isValidEsiData($characterSheet) === true && \strtolower($characterSheet['data']->name) === \strtolower($name)) {
-								$returnData = $entityID;
-								break;
-							} // END if($characterSheet['data']->name === $name)
-							break;
+			// Corporation
+			case 'corporation':
+				$corporationData = DatabaseHelper::getInstance()->getCorporationDataFromDbByName($name);
 
-						case 'corporation':
-							$corporationSheet = $this->getCorporationData($entityID);
+				if(isset($corporationData->corporation_id)) {
+					$returnData = $corporationData->corporation_id;
+				}
+				break;
 
-							if($this->isValidEsiData($corporationSheet) === true && \strtolower($corporationSheet['data']->corporation_name) === \strtolower($name)) {
-								$returnData = $entityID;
-								break;
-							} // END if($corporationSheet['data']->name === $name)
-							break;
+			// Alliance
+			case 'alliance':
+				$allianceData = DatabaseHelper::getInstance()->getAllianceDataFromDbByName($name);
 
-						case 'alliance':
-							$allianceSheet = $this->getAllianceData($entityID);
+				if(isset($allianceData->alliance_id)) {
+					$returnData = $allianceData->alliance_id;
+				}
+				break;
 
-							if($this->isValidEsiData($allianceSheet) === true && \strtolower($allianceSheet['data']->alliance_name) === \strtolower($name)) {
-								$returnData = $entityID;
-								break;
-							} // END if($allianceSheet['data']->name === $name)
-							break;
+			// Ship
+			case 'inventorytype':
+				break;
 
-						case 'inventorytype':
-							$shipSheet = $this->getShipData($entityID);
-
-							if($this->isValidEsiData($shipSheet) === true && \strtolower($shipSheet['data']->name) === \strtolower($name)) {
-								$returnData = $entityID;
-								break;
-							} // END if($allianceSheet['data']->name === $name)
-							break;
-
-						case 'solarsystem':
-							$systemSheet = $this->getSystemData($entityID);
-
-							if($this->isValidEsiData($systemSheet) === true && \strtolower($systemSheet['data']->name) === \strtolower($name)) {
-								$returnData = $entityID;
-								break;
-							} // END if($allianceSheet['data']->name === $name)
-							break;
-					} // END switch($type)
-				} // END foreach($data->{$type} as $entityID)
-			} // END if(!isset($data->error) && !empty($data))
+			// System
+			case 'solarsystem':
+				break;
 		}
+
+		// No data in our DB, let's get it from the ESI
+		if(\is_null($returnData)) {
+			if(isset($arrayNotInApi[\sanitize_title($name)])) {
+				$returnData = $arrayNotInApi[\sanitize_title($name)]['id'];
+			} else {
+				$data = $this->getEsiData($this->esiEndpoints['search'] . '?search=' . \urlencode(\wp_specialchars_decode($name, \ENT_QUOTES)) . '&strict=true&categories=' . $type, null);
+
+				if(!isset($data->error) && !empty((array) $data) && isset($data->{$type})) {
+					/**
+					 * -= FIX =-
+					 * CCPs strict mode is not really strict, so we have to check manually ....
+					 * Please CCP, get your shit sorted ...
+					 */
+					foreach($data->{$type} as $entityID) {
+						switch($type) {
+							case 'character':
+								$characterSheet = $this->getCharacterData($entityID);
+
+								if($this->isValidEsiData($characterSheet) === true && \strtolower($characterSheet['data']->name) === \strtolower($name)) {
+									$returnData = $entityID;
+
+									break;
+								} // END if($characterSheet['data']->name === $name)
+								break;
+
+							case 'corporation':
+								$corporationSheet = $this->getCorporationData($entityID);
+
+								if($this->isValidEsiData($corporationSheet) === true && \strtolower($corporationSheet['data']->corporation_name) === \strtolower($name)) {
+									$returnData = $entityID;
+
+									break;
+								} // END if($corporationSheet['data']->name === $name)
+								break;
+
+							case 'alliance':
+								$allianceSheet = $this->getAllianceData($entityID);
+
+								if($this->isValidEsiData($allianceSheet) === true && \strtolower($allianceSheet['data']->alliance_name) === \strtolower($name)) {
+									$returnData = $entityID;
+
+									break;
+								} // END if($allianceSheet['data']->name === $name)
+								break;
+
+							case 'inventorytype':
+								$shipSheet = $this->getShipData($entityID);
+
+								if(!\is_null($shipSheet)) {
+									$returnData = $entityID;
+
+									break;
+								} // END if($allianceSheet['data']->name === $name)
+								break;
+
+							case 'solarsystem':
+								$systemSheet = $this->getSystemData($entityID);
+
+								if($this->isValidEsiData($systemSheet) === true && \strtolower($systemSheet['data']->name) === \strtolower($name)) {
+									$returnData = $entityID;
+
+									break;
+								} // END if($allianceSheet['data']->name === $name)
+								break;
+						} // END switch($type)
+					} // END foreach($data->{$type} as $entityID)
+				} // END if(!isset($data->error) && !empty($data))
+			} // if(isset($arrayNotInApi[\sanitize_title($name)]))
+		} // if(\is_null($returnData))
 
 		return $returnData;
 	} // END public function getEveIdFromName($name, $type)
@@ -347,11 +460,15 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 */
 	private function getEsiData($route, $cacheTime = 120, $parameter = [], $method = 'get') {
 		$returnValue = null;
+		$data = false;
 
 		switch($method) {
 			case 'get':
 				$transientName = \sanitize_title('eve-esi-data_' . $route);
-				$data = CacheHelper::getInstance()->getTransientCache($transientName);
+
+				if(!\is_null($cacheTime)) {
+					$data = CacheHelper::getInstance()->getTransientCache($transientName);
+				} // if(!\is_null($cacheTime))
 
 				if($data === false || empty($data)) {
 					$data = RemoteHelper::getInstance()->getRemoteData($this->esiUrl . $route);
@@ -359,9 +476,9 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 					/**
 					 * setting the transient caches
 					 */
-					if(!isset($data->error) && !empty($data)) {
+					if(!isset($data->error) && !empty($data) && !\is_null($cacheTime)) {
 						CacheHelper::getInstance()->setTransientCache($transientName, $data, $cacheTime);
-					} // END if(!isset($data->error))
+					} // END if(!isset($data->error) && !empty($data) && !\is_null($cacheTime))
 				} // END if($data === false)
 				break;
 

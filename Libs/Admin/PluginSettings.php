@@ -129,46 +129,46 @@ class PluginSettings {
 					'480' => \__('20 days', 'eve-online-intel-tool'),
 				]
 			],
-			'pilot-data-cache-time' => [
-				'title' => \__('Pilot Data Cache Time', 'eve-online-intel-tool'),
-				'description' => \__('Set the time in days the pilots API information is cached. Since a pilot can change corporation, a smaller cache time is appropriate.', 'eve-online-intel-tool'),
-				'type' => 'select',
-				'choices' => [
-					'120' => \__('5 days', 'eve-online-intel-tool'),
-					'240' => \__('10 days', 'eve-online-intel-tool'),
-					'360' => \__('15 days', 'eve-online-intel-tool'),
-					'480' => \__('20 days', 'eve-online-intel-tool'),
-				]
-			],
-			'corp-data-cache-time' => [
-				'title' => \__('Corp Data Cache Time', 'eve-online-intel-tool'),
-				'description' => \__('Set the time in days the corporations API information is cached. For this, a medium cache time is appropriate.', 'eve-online-intel-tool'),
-				'type' => 'select',
-				'choices' => [
-					'120' => \__('5 days', 'eve-online-intel-tool'),
-					'240' => \__('10 days', 'eve-online-intel-tool'),
-					'360' => \__('15 days', 'eve-online-intel-tool'),
-					'480' => \__('20 days', 'eve-online-intel-tool'),
-					'600' => \__('25 days', 'eve-online-intel-tool'),
-					'1200' => \__('50 days', 'eve-online-intel-tool'),
-				]
-			],
-			'alliance-data-cache-time' => [
-				'title' => \__('Alliance Data Cache Time', 'eve-online-intel-tool'),
-				'description' => \__('Set the time in days the corporations API information is cached. Since this information doesn\'t change to often, a large cache time is appropriate.', 'eve-online-intel-tool'),
-				'type' => 'select',
-				'choices' => [
-					'120' => \__('5 days', 'eve-online-intel-tool'),
-					'240' => \__('10 days', 'eve-online-intel-tool'),
-					'360' => \__('15 days', 'eve-online-intel-tool'),
-					'480' => \__('20 days', 'eve-online-intel-tool'),
-					'600' => \__('25 days', 'eve-online-intel-tool'),
-					'1200' => \__('50 days', 'eve-online-intel-tool'),
-					'2400' => \__('100 days', 'eve-online-intel-tool'),
-					'4800' => \__('200 days', 'eve-online-intel-tool'),
-					'5110' => \__('1 year', 'eve-online-intel-tool'),
-				]
-			],
+//			'pilot-data-cache-time' => [
+//				'title' => \__('Pilot Data Cache Time', 'eve-online-intel-tool'),
+//				'description' => \__('Set the time in days the pilots API information is cached. Since a pilot can change corporation, a smaller cache time is appropriate.', 'eve-online-intel-tool'),
+//				'type' => 'select',
+//				'choices' => [
+//					'120' => \__('5 days', 'eve-online-intel-tool'),
+//					'240' => \__('10 days', 'eve-online-intel-tool'),
+//					'360' => \__('15 days', 'eve-online-intel-tool'),
+//					'480' => \__('20 days', 'eve-online-intel-tool'),
+//				]
+//			],
+//			'corp-data-cache-time' => [
+//				'title' => \__('Corp Data Cache Time', 'eve-online-intel-tool'),
+//				'description' => \__('Set the time in days the corporations API information is cached. For this, a medium cache time is appropriate.', 'eve-online-intel-tool'),
+//				'type' => 'select',
+//				'choices' => [
+//					'120' => \__('5 days', 'eve-online-intel-tool'),
+//					'240' => \__('10 days', 'eve-online-intel-tool'),
+//					'360' => \__('15 days', 'eve-online-intel-tool'),
+//					'480' => \__('20 days', 'eve-online-intel-tool'),
+//					'600' => \__('25 days', 'eve-online-intel-tool'),
+//					'1200' => \__('50 days', 'eve-online-intel-tool'),
+//				]
+//			],
+//			'alliance-data-cache-time' => [
+//				'title' => \__('Alliance Data Cache Time', 'eve-online-intel-tool'),
+//				'description' => \__('Set the time in days the corporations API information is cached. Since this information doesn\'t change to often, a large cache time is appropriate.', 'eve-online-intel-tool'),
+//				'type' => 'select',
+//				'choices' => [
+//					'120' => \__('5 days', 'eve-online-intel-tool'),
+//					'240' => \__('10 days', 'eve-online-intel-tool'),
+//					'360' => \__('15 days', 'eve-online-intel-tool'),
+//					'480' => \__('20 days', 'eve-online-intel-tool'),
+//					'600' => \__('25 days', 'eve-online-intel-tool'),
+//					'1200' => \__('50 days', 'eve-online-intel-tool'),
+//					'2400' => \__('100 days', 'eve-online-intel-tool'),
+//					'4800' => \__('200 days', 'eve-online-intel-tool'),
+//					'5110' => \__('1 year', 'eve-online-intel-tool'),
+//				]
+//			],
 		];
 
 		return $settingsFields;
