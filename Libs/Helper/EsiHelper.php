@@ -327,8 +327,6 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return type
 	 */
 	public function getEveIdFromName($name, $type) {
-		global $wpdb;
-
 		$returnData = null;
 
 		$arrayNotInApi = [
