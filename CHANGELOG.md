@@ -2,8 +2,13 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.0...development)
-- in devlopment
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.1...development)
+- in development
+
+## [v0.4.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.1) - 2017-10-09
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.0...v0.4.1)
+### Fixed
+- Time for database entries. Using the month as hour doesn't really work great in the long run ...
 
 ## [v0.4.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.0) - 2017-10-09
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.3.2...v0.4.0)
