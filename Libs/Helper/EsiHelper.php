@@ -162,7 +162,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 				$shipData->name,
 				$shipClassData->name,
 				$shipClassData->category_id,
-				\date('Y-m-d H:m:s', time())
+				\gmdate('Y-m-d H:i:s', time())
 			]);
 		} // if(\is_null($resultDB))
 
@@ -185,7 +185,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 			DatabaseHelper::getInstance()->writeCharacterDataToDb([
 				$characterID,
 				$characterData->name,
-				\date('Y-m-d H:m:s', time())
+				\gmdate('Y-m-d H:i:s', time())
 			]);
 		} // if(\is_null($characterData))
 
@@ -219,7 +219,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 				$corporationID,
 				$corporationData->corporation_name,
 				$corporationData->ticker,
-				\date('Y-m-d H:m:s', time())
+				\gmdate('Y-m-d H:i:s', time())
 			]);
 		} // if(\is_null($corporationData))
 
@@ -245,7 +245,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 				$allianceID,
 				$allianceData->alliance_name,
 				$allianceData->ticker,
-				\date('Y-m-d H:m:s', time())
+				\gmdate('Y-m-d H:i:s', time())
 			]);
 		} // if(\is_null($allianceData))
 

@@ -264,7 +264,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		));
 
 		if($characterResult) {
-			$now = \time();
+			$now = \strtotime(\gmdate('Y-m-d H:i:s', time()));
 			$lastUpdated = \strtotime($characterResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update
@@ -293,7 +293,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		));
 
 		if($characterResult) {
-			$now = \time();
+			$now = \strtotime(\gmdate('Y-m-d H:i:s', time()));
 			$lastUpdated = \strtotime($characterResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update
@@ -334,7 +334,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		));
 
 		if($corporationResult) {
-			$now = \time();
+			$now = \strtotime(\gmdate('Y-m-d H:i:s', time()));
 			$lastUpdated = \strtotime($corporationResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update
@@ -363,7 +363,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		));
 
 		if($corporationResult) {
-			$now = \time();
+			$now = \strtotime(\gmdate('Y-m-d H:i:s', time()));
 			$lastUpdated = \strtotime($corporationResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update
@@ -404,7 +404,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		));
 
 		if($allianceResult) {
-			$now = \time();
+			$now = \strtotime(\gmdate('Y-m-d H:i:s', time()));
 			$lastUpdated = \strtotime($allianceResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update
@@ -427,7 +427,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		));
 
 		if($allianceResult) {
-			$now = \time();
+			$now = \strtotime(\gmdate('Y-m-d H:i:s', time()));
 			$lastUpdated = \strtotime($allianceResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update

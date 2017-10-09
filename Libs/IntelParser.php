@@ -177,7 +177,7 @@ class IntelParser {
 				'eve-intel-tool_dscan-offGrid' => \maybe_serialize($parsedDscanData['offGrid']),
 				'eve-intel-tool_dscan-shipTypes' => \maybe_serialize($parsedDscanData['shipTypes']),
 				'eve-intel-tool_dscan-system' => \maybe_serialize($parsedDscanData['system']),
-				'eve-intel-tool_dscan-time' => \maybe_serialize(\gmdate("Y-m-d H:i:s", time())),
+				'eve-intel-tool_dscan-time' => \maybe_serialize(\gmdate('Y-m-d H:i:s', time())),
 			];
 
 			$returnData = $this->savePostdata($postName, $metaData, 'dscan');
@@ -210,7 +210,7 @@ class IntelParser {
 				'eve-intel-tool_fleetcomposition-allianceList' => \maybe_serialize($parsedFleetComposition['participationData']['allianceList']),
 				'eve-intel-tool_fleetcomposition-corporationParticipation' => \maybe_serialize($parsedFleetComposition['participationData']['corporationParticipation']),
 				'eve-intel-tool_fleetcomposition-allianceParticipation' => \maybe_serialize($parsedFleetComposition['participationData']['allianceParticipation']),
-				'eve-intel-tool_fleetcomposition-time' => \maybe_serialize(\gmdate("Y-m-d H:i:s", time())),
+				'eve-intel-tool_fleetcomposition-time' => \maybe_serialize(\gmdate('Y-m-d H:i:s', time())),
 			];
 
 			$returnData = $this->savePostdata($postName, $metaData, 'fleetcomposition');
@@ -240,7 +240,7 @@ class IntelParser {
 				'eve-intel-tool_local-allianceList' => \maybe_serialize($parsedLocalData['allianceList']),
 				'eve-intel-tool_local-corporationParticipation' => \maybe_serialize($parsedLocalData['corporationParticipation']),
 				'eve-intel-tool_local-allianceParticipation' => \maybe_serialize($parsedLocalData['allianceParticipation']),
-				'eve-intel-tool_local-time' => \maybe_serialize(\gmdate("Y-m-d H:i:s", time())),
+				'eve-intel-tool_local-time' => \maybe_serialize(\gmdate('Y-m-d H:i:s', time())),
 			];
 
 			$returnData = $this->savePostdata($postName, $metaData, 'local');
