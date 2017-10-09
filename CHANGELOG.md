@@ -2,8 +2,13 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.1...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.2...development)
 - in development
+
+## [v0.4.2](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.2) - 2017-10-09
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.1...v0.4.2)
+### Fixed
+- Comparing cache time with current time for alliance cache
 
 ## [v0.4.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.1) - 2017-10-09
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.0...v0.4.1)
