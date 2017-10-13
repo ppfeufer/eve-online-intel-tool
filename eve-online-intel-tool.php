@@ -32,6 +32,11 @@ class EveOnlineIntelTool {
 	 */
 	private $localizationDirectory = null;
 
+	/**
+	 * Database version
+	 *
+	 * @var string
+	 */
 	private $databaseVersion = null;
 
 	/**
@@ -46,7 +51,7 @@ class EveOnlineIntelTool {
 		$this->textDomain = 'eve-online-intel-tool';
 		$this->localizationDirectory = \basename(\dirname(__FILE__)) . '/l10n/';
 
-		$this->databaseVersion = '20171009';
+		$this->databaseVersion = '20171010';
 	} // END public function __construct()
 
 	/**
@@ -55,13 +60,15 @@ class EveOnlineIntelTool {
 	public function init() {
 		$this->loadTextDomain();
 
+		new Libs\WpHooks([
+			'newDatabaseVersion' => $this->databaseVersion
+		]);
+
 		$jsLoader = new Libs\ResourceLoader\JavascriptLoader;
 		$jsLoader->init();
 
 		$cssLoader = new Libs\ResourceLoader\CssLoader;
 		$cssLoader->init();
-
-		Libs\Helper\DatabaseHelper::getInstance()->checkDatabase($this->databaseVersion);
 
 		new Libs\PostType;
 		new Libs\Ajax\FormNonce;
@@ -124,4 +131,4 @@ function initializePlugin() {
 } // END function initializePlugin()
 
 // Start the show
-\add_action('plugins_loaded', 'WordPress\Plugin\EveOnlineIntelTool\initializePlugin');
+initializePlugin();
