@@ -72,6 +72,7 @@ class EveOnlineIntelTool {
 
 		new Libs\PostType;
 		new Libs\Ajax\FormNonce;
+		new Libs\Ajax\ImageLazyLoad;
 
 		if(\is_admin()) {
 			new Libs\Admin\PluginSettings;
