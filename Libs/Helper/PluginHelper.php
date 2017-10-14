@@ -36,7 +36,7 @@ class PluginHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 	 * @return string
 	 */
 	public function getPluginPath($file = '') {
-		return \WP_PLUGIN_DIR . '/eve-online-intel-tool/' . $file;
+		return \WP_PLUGIN_DIR . '/' . \dirname(\dirname(\dirname(\plugin_basename(__FILE__)))) . '/' . $file;
 	} // END public function getPluginPath($file = '')
 
 	/**
@@ -46,7 +46,7 @@ class PluginHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 	 * @return string
 	 */
 	public function getPluginUri($file = '') {
-		return \WP_PLUGIN_URL . '/eve-online-intel-tool/' . $file;
+		return \WP_PLUGIN_URL . '/' . \dirname(\dirname(\dirname(\plugin_basename(__FILE__)))) . '/' . $file;
 	} // END public function getPluginUri()
 
 	/**
