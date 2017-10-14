@@ -215,7 +215,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return array
 	 */
 	public function getCharacterAffiliation(array $characterIds) {
-		$characterAffiliationData = $this->getEsiData($this->esiEndpoints['character-affiliation'], null, $characterIds, 'post');
+		$characterAffiliationData = $this->getEsiData($this->esiEndpoints['character-affiliation'], null, \array_values($characterIds), 'post');
 
 		return [
 			'data' => $characterAffiliationData
@@ -368,7 +368,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		switch($type) {
 			// Pilot
 			case 'character':
-				$characterData = DatabaseHelper::getInstance()->getCharacterDataFromDbByName($name);
+//				$characterData = DatabaseHelper::getInstance()->getCharacterDataFromDbByName($name);
 
 				if(isset($characterData->character_id)) {
 					$returnData = $characterData->character_id;
@@ -407,7 +407,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 			if(isset($arrayNotInApi[\sanitize_title($name)])) {
 				$returnData = $arrayNotInApi[\sanitize_title($name)]['id'];
 			} else {
-				$data = $this->getEsiData($this->esiEndpoints['search'] . '?search=' . \urlencode(\wp_specialchars_decode($name, \ENT_QUOTES)) . '&strict=true&categories=' . $type, null);
+				$data = $this->getEsiData($this->esiEndpoints['search'] . '?search=' . \urlencode(\wp_specialchars_decode(\trim($name), \ENT_QUOTES)) . '&strict=true&categories=' . $type, null);
 
 				if(!isset($data->error) && !empty((array) $data) && isset($data->{$type})) {
 					/**
@@ -420,7 +420,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 							case 'character':
 								$characterSheet = $this->getCharacterData($entityID);
 
-								if($this->isValidEsiData($characterSheet) === true && \strtolower($characterSheet['data']->name) === \strtolower($name)) {
+								if($this->isValidEsiData($characterSheet) === true && \strtolower(\trim($characterSheet['data']->name)) === \strtolower(\trim($name))) {
 									$returnData = $entityID;
 
 									break;
@@ -430,7 +430,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 							case 'corporation':
 								$corporationSheet = $this->getCorporationData($entityID);
 
-								if($this->isValidEsiData($corporationSheet) === true && \strtolower($corporationSheet['data']->corporation_name) === \strtolower($name)) {
+								if($this->isValidEsiData($corporationSheet) === true && \strtolower(\trim($corporationSheet['data']->corporation_name)) === \strtolower(\trim($name))) {
 									$returnData = $entityID;
 
 									break;
@@ -440,7 +440,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 							case 'alliance':
 								$allianceSheet = $this->getAllianceData($entityID);
 
-								if($this->isValidEsiData($allianceSheet) === true && \strtolower($allianceSheet['data']->alliance_name) === \strtolower($name)) {
+								if($this->isValidEsiData($allianceSheet) === true && \strtolower(\trim($allianceSheet['data']->alliance_name)) === \strtolower(\trim($name))) {
 									$returnData = $entityID;
 
 									break;
