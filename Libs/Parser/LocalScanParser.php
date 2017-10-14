@@ -94,9 +94,7 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 					$arrayCharacterIds[\trim($line)] = $characterID;
 					$pilotList[$characterID] = $line;
 				} // END if(!\is_null($characterID))
-
-				$checkDuplicates[\trim($line)] = \trim($line);
-			} // if(!isset($checkDuplicates[\trim($line)]))
+			} // if(!isset($arrayCharacterIds[\trim($line)]))
 		} // END foreach(\explode("\n", \trim($cleanedScanData)) as $line)
 
 		$characterData = $this->esi->getCharacterAffiliation($arrayCharacterIds);
