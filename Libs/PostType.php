@@ -29,7 +29,7 @@ class PostType {
 	 * Constructor
 	 */
 	public function __construct() {
-		\add_action('init', [$this, 'customPostType']);
+		\add_action('init', [$this, 'registerCustomPostType']);
 
 		\add_filter('template_include', [$this, 'templateLoader']);
 		\add_filter('page_template', [$this, 'registerPageTemplate']);
@@ -40,7 +40,7 @@ class PostType {
 	/**
 	 * Registering the custom post type
 	 */
-	public function customPostType() {
+	public static function registerCustomPostType() {
 		$cptSlug = self::getPosttypeSlug('intel');
 
 		$argsTaxonomyCategory = [
