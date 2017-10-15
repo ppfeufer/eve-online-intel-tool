@@ -60,6 +60,10 @@ class EveOnlineIntelTool {
 	public function init() {
 		$this->loadTextDomain();
 
+		new Libs\PostType;
+		new Libs\Ajax\FormNonce;
+		new Libs\Ajax\ImageLazyLoad;
+
 		new Libs\WpHooks([
 			'newDatabaseVersion' => $this->databaseVersion
 		]);
@@ -69,9 +73,6 @@ class EveOnlineIntelTool {
 
 		$cssLoader = new Libs\ResourceLoader\CssLoader;
 		$cssLoader->init();
-
-		new Libs\PostType;
-		new Libs\Ajax\FormNonce;
 
 		if(\is_admin()) {
 			new Libs\Admin\PluginSettings;

@@ -21,22 +21,22 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Ajax;
 
 \defined('ABSPATH') or die();
 
-class FormNonce implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface {
+class ImageLazyLoad implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface {
 	public function __construct() {
 		$this->initActions();
 	} // END public function __construct()
 
 	public function ajaxAction() {
-		$nonce = \wp_create_nonce('eve-online-intel-tool-new-intel-form');
+		$imageUri = \filter_input(INPUT_POST, 'imageUri');
+		$entityType = \filter_input(INPUT_POST, 'entityType');
 
-		\wp_send_json($nonce);
+		$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage($entityType, $imageUri);
 
-		// always exit this API function
-		exit;
-	} // END public function ajaxAction()
+		\wp_send_json($image);
+	}
 
 	public function initActions() {
-		\add_action('wp_ajax_nopriv_get-eve-intel-form-nonce', [$this, 'ajaxAction']);
-		\add_action('wp_ajax_get-eve-intel-form-nonce', [$this, 'ajaxAction']);
-	} // END public function initActions()
-} // END class FormNonce
+		\add_action('wp_ajax_nopriv_get-eve-intel-entity-image', [$this, 'ajaxAction']);
+		\add_action('wp_ajax_get-eve-intel-entity-image', [$this, 'ajaxAction']);
+	}
+}

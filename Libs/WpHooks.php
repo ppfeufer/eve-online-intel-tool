@@ -23,6 +23,13 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs;
 
 class WpHooks {
 	/**
+	 * Path to the plugin main file
+	 *
+	 * @var string
+	 */
+	private $pluginFile = null;
+
+	/**
 	 * New database version
 	 *
 	 * @var string
@@ -35,6 +42,7 @@ class WpHooks {
 	 * @param array $parameter array with parameters
 	 */
 	public function __construct(array $parameter) {
+		$this->pluginFile = Helper\PluginHelper::getInstance()->getPluginPath('eve-online-intel-tool.php');
 		$this->newDatabaseVersion = (isset($parameter['newDatabaseVersion'])) ? $parameter['newDatabaseVersion'] : null;
 
 		$this->init();
@@ -51,7 +59,10 @@ class WpHooks {
 	 * Initialize our hooks
 	 */
 	public function initHooks() {
-		\register_activation_hook(Helper\PluginHelper::getInstance()->getPluginPath('eve-online-intel-tool.php'), [$this, 'checkDatabaseForUpdates']);
+		\register_activation_hook($this->pluginFile, [$this, 'checkDatabaseForUpdates']);
+		\register_activation_hook($this->pluginFile, [$this, 'flushRewriteRulesOnActivation']);
+
+		\register_deactivation_hook($this->pluginFile, '\flush_rewrite_rules');
 	} // public function initHook()
 
 	/**
@@ -61,4 +72,14 @@ class WpHooks {
 	public function checkDatabaseForUpdates() {
 		Helper\DatabaseHelper::getInstance()->checkDatabase($this->newDatabaseVersion);
 	} // public function checkDatabaseForUpdates()
+
+	/**
+	 * Hook: flushRewriteRulesOnActivation
+	 * Fired on: register_activation_hook
+	 */
+	public function flushRewriteRulesOnActivation() {
+		PostType::registerCustomPostType();
+
+		\flush_rewrite_rules();
+	} // public function flushRewriteRulesOnActivation()
 } // class WpHooks
