@@ -153,6 +153,8 @@ if(isset($getData) && $getData = 'json') {
 	]);
 } // END if(isset($getData) && $getData = 'json')
 
+$pluginSettings = \get_option(\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getOptionFieldName(), \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginDefaultSettings());
+
 \get_header();
 ?>
 
@@ -162,7 +164,8 @@ if(isset($getData) && $getData = 'json') {
 		<div class="col-lg-12 col-md-12 col-sm-12 col-12 content-wrapper">
 			<div class="content content-inner content-archive eve-intel-result">
 				<?php \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('single-' . $intelType, [
-					'intelData' => $intelData
+					'intelData' => $intelData,
+					'pluginSettings' => $pluginSettings
 				]); ?>
 			</div> <!-- /.content -->
 		</div> <!-- /.col -->

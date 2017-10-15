@@ -6,7 +6,7 @@ jQuery(document).ready(function($) {
 	 */
 	if(!Clipboard.isSupported()) {
 		$('.eve-intel-copy-to-clipboard').remove();
-	} // END if(!Clipboard.isSupported())
+	} // if(!Clipboard.isSupported())
 
 	/**
 	 * Closing the message
@@ -23,7 +23,7 @@ jQuery(document).ready(function($) {
 				$(this).remove();
 			});
 		});
-	} // END function closeCopyMessageElement(element)
+	} // function closeCopyMessageElement(element)
 
 	/**
 	 * Show message when copy action was successfull
@@ -38,7 +38,7 @@ jQuery(document).ready(function($) {
 		closeCopyMessageElement('.alert-copy-success');
 
 		return;
-	} // END function showSuccess(message, element)
+	} // function showSuccess(message, element)
 
 	/**
 	 * Show message when copy action was not successfull
@@ -53,7 +53,7 @@ jQuery(document).ready(function($) {
 		closeCopyMessageElement('.alert-copy-error');
 
 		return;
-	} // END function showError(message, element)
+	} // function showError(message, element)
 
 	/**
 	 * Copy permalink to clipboard
@@ -108,7 +108,7 @@ jQuery(document).ready(function($) {
 			$($(this)).DataTable({
 				language: eveIntelToolL10n.dataTables.translation
 			});
-		} // END if(typeof($(this).data('haspaging')) !== 'undefined' && $(this).data('haspaging') === 'no')
+		} // if(typeof($(this).data('haspaging')) !== 'undefined' && $(this).data('haspaging') === 'no')
 	});
 
 	/**
@@ -166,7 +166,7 @@ jQuery(document).ready(function($) {
 		 * Call the ajax to get the nonce
 		 */
 		getEveIntelFormNonce.ajaxCall();
-	} // END if($('form#new_intel').length)
+	} // if($('form#new_intel').length)
 
 
 	/**
@@ -198,10 +198,12 @@ jQuery(document).ready(function($) {
 		/**
 		 * Call the ajax to get the entity image
 		 */
-		$(eveImages).each(function() {
-			getEveIntelEntityImage.ajaxCall($(this)[0]);
-		});
-	} // END if($('.eve-intel-result').length)
+		if(typeof eveImages !== 'undefined') {
+			$(eveImages).each(function() {
+				getEveIntelEntityImage.ajaxCall($(this)[0]);
+			});
+		} // if(typeof eveImages !== 'undefined')
+	} // if($('.eve-intel-result').length)
 
 	var cSpeed = 5;
 	var cWidth = 127;
@@ -237,11 +239,11 @@ jQuery(document).ready(function($) {
 		if(cIndex >= cTotalFrames) {
 			cXpos = 0;
 			cIndex = 0;
-		}
+		} // if(cIndex >= cTotalFrames)
 
 		if($('#new_intel .loaderImage')) {
 			$('#new_intel .loaderImage').css('backgroundPosition', (-cXpos) + 'px 0');
-		}
+		} // if($('#new_intel .loaderImage'))
 
 		cPreloaderTimeout = setTimeout(continueAnimation, SECONDS_BETWEEN_FRAMES * 1000);
 	};
@@ -285,9 +287,11 @@ jQuery(document).ready(function($) {
 		cImageTimeout = 0;
 
 		var genImage = new Image();
+
 		genImage.onload = function() {
 			cImageTimeout = setTimeout(fun, 0);
 		};
+
 		genImage.onerror = new Function('alert(\'Could not load the image\')');
 		genImage.src = s;
 	};
@@ -297,3 +301,15 @@ jQuery(document).ready(function($) {
 	 */
 	imageLoader(cImageSrc, startAnimation);
 });
+
+/* Common functions
+ * -------------------------------------------------------------------------- */
+function inArray(needle, haystack) {
+	var length = haystack.length;
+
+	for(var i = 0; i < length; i++) {
+		if(haystack[i] === needle) return true;
+	} // for(var i = 0; i < length; i++)
+
+	return false;
+} // function inArray(needle, haystack)
