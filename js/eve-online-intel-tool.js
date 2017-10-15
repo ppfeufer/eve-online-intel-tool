@@ -169,6 +169,9 @@ jQuery(document).ready(function($) {
 	} // END if($('form#new_intel').length)
 
 
+	/**
+	 * If lazy loading for EVE images is activated ....
+	 */
 	if($('.eve-intel-result').length) {
 		/**
 		 * Ajax Call: get-eve-intel-entity-image
