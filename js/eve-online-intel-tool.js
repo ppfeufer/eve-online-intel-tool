@@ -301,15 +301,3 @@ jQuery(document).ready(function($) {
 	 */
 	imageLoader(cImageSrc, startAnimation);
 });
-
-/* Common functions
- * -------------------------------------------------------------------------- */
-function inArray(needle, haystack) {
-	var length = haystack.length;
-
-	for(var i = 0; i < length; i++) {
-		if(haystack[i] === needle) return true;
-	} // for(var i = 0; i < length; i++)
-
-	return false;
-} // function inArray(needle, haystack)

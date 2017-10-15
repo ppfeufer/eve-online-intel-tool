@@ -9,6 +9,9 @@
 - An issue with the templates that wouldn't load when no intel data is available
 - Rewriting the permalinks on activation and deactivation
 
+### Added
+- Optional lazy loading for EVE related images on chat scan pages, when image cache is used
+
 ## [v0.4.2](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.2) - 2017-10-09
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.1...v0.4.2)
 ### Fixed
