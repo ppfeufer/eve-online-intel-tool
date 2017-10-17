@@ -2,12 +2,17 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.2...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.3...development)
+- in development
+
+## [v0.4.3](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.3) - 2017-10-17
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.2...v0.4.3)
 ### Fixed
 - Tackled emtpy response from character-affiliation end point / Issue: #27
 - Error while parsing duplicate names
 - An issue with the templates that wouldn't load when no intel data is available
 - Rewriting the permalinks on activation and deactivation
+- Image API end point for ships (To many end point that do te same here ...), and this time we have the right images for T2 ships :-)
 
 ### Added
 - Optional lazy loading for EVE related images on chat scan pages, when image cache is used
