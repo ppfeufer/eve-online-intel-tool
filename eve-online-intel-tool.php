@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
  * GitHub Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
  * Description: An EVE Online Intel Tool for WordPress. Parsing D-Scans, Local and Fleet Compositions. (Best with a theme running with <a href="http://getbootstrap.com/">Bootstrap</a>)
- * Version: 0.4.2
+ * Version: 0.4.3
  * Author: Rounon Dax
  * Author URI: https://yulaifederation.net
  * Text Domain: eve-online-intel-tool
@@ -32,6 +32,11 @@ class EveOnlineIntelTool {
 	 */
 	private $localizationDirectory = null;
 
+	/**
+	 * Database version
+	 *
+	 * @var string
+	 */
 	private $databaseVersion = null;
 
 	/**
@@ -46,7 +51,7 @@ class EveOnlineIntelTool {
 		$this->textDomain = 'eve-online-intel-tool';
 		$this->localizationDirectory = \basename(\dirname(__FILE__)) . '/l10n/';
 
-		$this->databaseVersion = '20171009';
+		$this->databaseVersion = '20171010';
 	} // END public function __construct()
 
 	/**
@@ -55,16 +60,19 @@ class EveOnlineIntelTool {
 	public function init() {
 		$this->loadTextDomain();
 
+		new Libs\PostType;
+		new Libs\Ajax\FormNonce;
+		new Libs\Ajax\ImageLazyLoad;
+
+		new Libs\WpHooks([
+			'newDatabaseVersion' => $this->databaseVersion
+		]);
+
 		$jsLoader = new Libs\ResourceLoader\JavascriptLoader;
 		$jsLoader->init();
 
 		$cssLoader = new Libs\ResourceLoader\CssLoader;
 		$cssLoader->init();
-
-		Libs\Helper\DatabaseHelper::getInstance()->checkDatabase($this->databaseVersion);
-
-		new Libs\PostType;
-		new Libs\Ajax\FormNonce;
 
 		if(\is_admin()) {
 			new Libs\Admin\PluginSettings;
@@ -124,4 +132,4 @@ function initializePlugin() {
 } // END function initializePlugin()
 
 // Start the show
-\add_action('plugins_loaded', 'WordPress\Plugin\EveOnlineIntelTool\initializePlugin');
+initializePlugin();

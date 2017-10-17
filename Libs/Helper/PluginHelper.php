@@ -36,8 +36,8 @@ class PluginHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 	 * @return string
 	 */
 	public function getPluginPath($file = '') {
-		return \WP_PLUGIN_DIR . '/eve-online-intel-tool/' . $file;
-	} // END public function getPluginPath($file = '')
+		return \WP_PLUGIN_DIR . '/' . \dirname(\dirname(\dirname(\plugin_basename(__FILE__)))) . '/' . $file;
+	} // public function getPluginPath($file = '')
 
 	/**
 	 * Getting the Plugin URI
@@ -46,8 +46,8 @@ class PluginHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 	 * @return string
 	 */
 	public function getPluginUri($file = '') {
-		return \WP_PLUGIN_URL . '/eve-online-intel-tool/' . $file;
-	} // END public function getPluginUri()
+		return \WP_PLUGIN_URL . '/' . \dirname(\dirname(\dirname(\plugin_basename(__FILE__)))) . '/' . $file;
+	} // public function getPluginUri()
 
 	/**
 	 * Returning the plugins default settings
@@ -57,12 +57,13 @@ class PluginHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 	public function getPluginDefaultSettings() {
 		return [
 			'image-cache' => '',
+			'image-lazy-load' => '',
 			'image-cache-time' => '120'
 //			'pilot-data-cache-time' => '120',
 //			'corp-data-cache-time' => '360',
 //			'alliance-data-cache-time' => '2400'
 		];
-	}
+	} // public function getPluginDefaultSettings()
 
 	/**
 	 * Getting the plugin settings
@@ -71,7 +72,7 @@ class PluginHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 	 */
 	public function getPluginSettings() {
 		return \get_option($this->getOptionFieldName(), $this->getPluginDefaultSettings());
-	}
+	} // public function getPluginSettings()
 
 	/**
 	 * Returning the options field name
@@ -80,5 +81,5 @@ class PluginHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 	 */
 	public function getOptionFieldName() {
 		return $this->optionFieldName;
-	}
-} // END class PluginHelper
+	} // public function getOptionFieldName()
+} // class PluginHelper

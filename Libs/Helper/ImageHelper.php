@@ -74,7 +74,7 @@ class ImageHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 			'corporation' => 'Corporation/',
 			'character' => 'Character/',
 			'item' => 'Type/',
-			'ship' => 'Render/',
+			'ship' => 'Type/',
 			'inventory' => 'InventoryType/' // all the other stuff
 		];
 	} // END private function setImageserverEndpoints()

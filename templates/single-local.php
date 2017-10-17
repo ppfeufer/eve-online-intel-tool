@@ -24,7 +24,8 @@ defined('ABSPATH') or die();
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/alliance-participation',[
 						'allianceCount' => \count($intelData['localDataAllianceList']),
-						'allianceParticipation' => $intelData['localDataAllianceParticipation']
+						'allianceParticipation' => $intelData['localDataAllianceParticipation'],
+						'pluginSettings' => $pluginSettings
 					]);
 					?>
 				</div>
@@ -33,7 +34,8 @@ defined('ABSPATH') or die();
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/corporation-participation',[
 						'corporationCount' => \count($intelData['localDataCorporationList']),
-						'corporationParticipation' => $intelData['localDataCorporationParticipation']
+						'corporationParticipation' => $intelData['localDataCorporationParticipation'],
+						'pluginSettings' => $pluginSettings
 					]);
 					?>
 				</div>
@@ -42,7 +44,8 @@ defined('ABSPATH') or die();
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/pilot-participation',[
 						'pilotCount' => \count($intelData['localDataPilotList']),
-						'pilotParticipation' => $intelData['localDataPilotDetails']
+						'pilotParticipation' => $intelData['localDataPilotDetails'],
+						'pluginSettings' => $pluginSettings
 					]);
 					?>
 				</div>
