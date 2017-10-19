@@ -14,10 +14,13 @@ if(\is_array($shipClassList) && \count($shipClassList) > 0) {
 				<tr data-highlight="shiptype-<?php echo $data['shipTypeSanitized']; ?>">
 					<td>
 						<?php
-						$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('ship', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('ship') . $data['shipID'] . '_32.png');
+						\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/ship-image',[
+							'data' => $data,
+							'pluginSettings' => $pluginSettings
+						]);
+
+						echo $data['shipName'];
 						?>
-						<img src="<?php echo $image; ?>" alt="<?php echo $data['shipName']; ?>" width="32" heigh="32">
-						<?php echo $data['shipName']; ?>
 					</td>
 					<td class="table-data-count">
 						<?php echo $data['count']; ?>
