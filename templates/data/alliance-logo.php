@@ -40,4 +40,4 @@ if(isset($pluginSettings['image-cache']['yes']) && $pluginSettings['image-cache'
 } // if(isset($pluginSettings['image-cache']['yes']) && $pluginSettings['image-cache']['yes'] === 'yes')
 ?>
 
-<img data-eveid="<?php echo $data['allianceID']; ?>" data-alliancename="<?php echo $data['allianceName']; ?>" src="<?php echo $imageAlliance; ?>" alt="<?php echo $data['allianceName']; ?>" title="<?php echo $data['allianceName']; ?>" width="32" heigh="32">
+<img class="eve-image" data-eveid="<?php echo $data['allianceID']; ?>" data-alliancename="<?php echo $data['allianceName']; ?>" src="<?php echo $imageAlliance; ?>" alt="<?php echo $data['allianceName']; ?>" title="<?php echo $data['allianceName']; ?>" width="32" heigh="32">

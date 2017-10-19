@@ -40,4 +40,4 @@ if(isset($pluginSettings['image-cache']['yes']) && $pluginSettings['image-cache'
 } // if(isset($pluginSettings['image-cache']['yes']) && $pluginSettings['image-cache']['yes'] === 'yes')
 ?>
 
-<img data-eveid="<?php echo $data['corporationID']; ?>" data-corporationname="<?php echo $data['corporationName']; ?>" src="<?php echo $imageCorporation; ?>" alt="<?php echo $data['corporationName']; ?>" title="<?php echo $data['corporationName']; ?>" width="32" heigh="32">
+<img class="eve-image" data-eveid="<?php echo $data['corporationID']; ?>" data-corporationname="<?php echo $data['corporationName']; ?>" src="<?php echo $imageCorporation; ?>" alt="<?php echo $data['corporationName']; ?>" title="<?php echo $data['corporationName']; ?>" width="32" heigh="32">
