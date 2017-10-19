@@ -14,9 +14,17 @@ if(\is_array($fleetOverview) && \count($fleetOverview)) {
 				?>
 				<tr data-highlight="shiptype-<?php echo \sanitize_title($data['shipType']); ?>">
 					<td>
-						<?php $imagePilot = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('character', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('character') . $data['pilotID'] . '_32.jpg'); ?>
-						<img src="<?php echo $imagePilot; ?>" alt="<?php echo $data['pilotName']; ?>" width="32" heigh="32">
-						<?php echo $data['pilotName']; ?>
+						<?php
+						\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/pilot-avatar', [
+							'data' => [
+								'characterID' => $data['pilotID'],
+								'characterName' => $data['pilotName']
+							],
+							'pluginSettings' => $pluginSettings
+						]);
+
+						echo $data['pilotName'];
+						?>
 					</td>
 					<td>
 						<?php echo $data['shipClass']; ?>
