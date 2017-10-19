@@ -293,7 +293,7 @@ class SettingsApi {
 	 */
 	public function get() {
 		if(!empty($this->args['get'])) {
-			$itemArray = \call_user_func_array([$this, 'get' . ucfirst($this->stringHelper->camelCase($this->args['get']))], [$this->args]);
+			$itemArray = \call_user_func_array([$this, 'get' . \ucfirst($this->stringHelper->camelCase($this->args['get']))], [$this->args]);
 		} elseif(!empty($this->args['choices'])) {
 			$itemArray = $this->selectChoices($this->args);
 		} else {
@@ -949,7 +949,7 @@ class SettingsApi {
 					} // END if($tab_count > 1)
 
 					$i = 0;
-					$pageFiltered = \filter_input(INPUT_GET, 'page');
+					$pageFiltered = \filter_input(\INPUT_GET, 'page');
 					foreach($settings['tabs'] as $settingsId => $section) {
 						$sanitizedId = \sanitize_title($settingsId);
 						$pageId = $pageFiltered . '_' . $sanitizedId;

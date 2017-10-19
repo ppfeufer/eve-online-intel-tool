@@ -143,10 +143,10 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		 * Trying to find the system by one of the structure IDs
 		 */
 		foreach(\explode("\n", trim($cleanedScanData)) as $line) {
-			$lineDetailsArray = explode("\t", \str_replace('*', '', \trim($line)));
+			$lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
 
 			if(\in_array($lineDetailsArray['0'], $arraySystemIds)) {
-				$parts = explode(' - ', $lineDetailsArray['1']);
+				$parts = \explode(' - ', $lineDetailsArray['1']);
 				$systemName = \trim($parts['0']);
 
 				$systemFound = true;
@@ -158,7 +158,7 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		 */
 		if($systemFound === false) {
 			foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
-				$lineDetailsArray = explode("\t", \str_replace('*', '', \trim($line)));
+				$lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
 				if(\preg_match('/(.*) - Star/', $lineDetailsArray['1']) && \preg_match('/Sun (.*)/', $lineDetailsArray['2'])) {
 					$systemName = \trim(\str_replace(' - Star', '', $lineDetailsArray['1']));
 				} // END if(\preg_match('/(.*) - Star/', $line['0']) && preg_match('/Sun (.*)/', $line['1']))

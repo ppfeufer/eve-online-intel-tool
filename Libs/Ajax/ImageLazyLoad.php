@@ -27,8 +27,8 @@ class ImageLazyLoad implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfa
 	} // END public function __construct()
 
 	public function ajaxAction() {
-		$imageUri = \filter_input(INPUT_POST, 'imageUri');
-		$entityType = \filter_input(INPUT_POST, 'entityType');
+		$imageUri = \filter_input(\INPUT_POST, 'imageUri');
+		$entityType = \filter_input(\INPUT_POST, 'entityType');
 
 		$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage($entityType, $imageUri);
 

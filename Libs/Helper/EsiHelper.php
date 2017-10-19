@@ -329,19 +329,19 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @param int $size
 	 * @return string
 	 */
-	public function getShipImageById($shipTypeID, $imageOnly = true, $size = 128) {
-		$ship = $this->getShipData($shipTypeID);
-
-		$imagePath = ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('ship', $this->imageserverUrl . $this->imageserverEndpoints['inventory'] . $shipTypeID . '_' . $size. '.png');
-
-		if($imageOnly === true) {
-			return $imagePath;
-		} // END if($imageOnly === true)
-
-		$html = '<img src="' . $imagePath . '" class="eve-character-image eve-ship-id-' . $shipTypeID . '" alt="' . \esc_html($ship['data']->name) . '" data-title="' . \esc_html($ship['data']->name) . '" data-toggle="eve-killboard-tooltip">';
-
-		return $html;
-	} // END public function getCorporationImageById($corporationID, $imageOnly = true, $size = 128)
+//	public function getShipImageById($shipTypeID, $imageOnly = true, $size = 128) {
+//		$ship = $this->getShipData($shipTypeID);
+//
+//		$imagePath = ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('ship', $this->imageserverUrl . $this->imageserverEndpoints['inventory'] . $shipTypeID . '_' . $size. '.png');
+//
+//		if($imageOnly === true) {
+//			return $imagePath;
+//		} // END if($imageOnly === true)
+//
+//		$html = '<img src="' . $imagePath . '" class="eve-character-image eve-ship-id-' . $shipTypeID . '" alt="' . \esc_html($ship['data']->name) . '" data-title="' . \esc_html($ship['data']->name) . '" data-toggle="eve-killboard-tooltip">';
+//
+//		return $html;
+//	} // END public function getCorporationImageById($corporationID, $imageOnly = true, $size = 128)
 
 	/**
 	 * Get the EVE ID by it's name
@@ -368,7 +368,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		switch($type) {
 			// Pilot
 			case 'character':
-//				$characterData = DatabaseHelper::getInstance()->getCharacterDataFromDbByName($name);
+				$characterData = DatabaseHelper::getInstance()->getCharacterDataFromDbByName($name);
 
 				if(isset($characterData->character_id)) {
 					$returnData = $characterData->character_id;
