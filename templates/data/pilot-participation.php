@@ -3,7 +3,7 @@
 if(!empty($pilotParticipation)) {
 	?>
 	<div class="table-responsive table-local-scan table-local-scan-pilots table-eve-intel">
-		<table class="table table-sortable table-condensed table-pilot-participation">
+		<table class="table table-sortable table-condensed table-pilot-participation" data-haspaging="no">
 			<thead>
 				<th><?php echo \__('Name', 'eve-online-intel-tool'); ?></th>
 				<th><?php echo \__('Alliance', 'eve-online-intel-tool'); ?></th>
