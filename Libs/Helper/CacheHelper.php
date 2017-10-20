@@ -142,18 +142,17 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 	 * @return boolean true or false
 	 */
 	public function checkCachedImage($cacheType = null, $imageName = null) {
+		$returnValue = false;
 		$cacheDir = \trailingslashit($this->getImageCacheDir() . $cacheType);
 
 		if(\file_exists($cacheDir . $imageName)) {
-			if(\time() - \filemtime($cacheDir . $imageName) > $this->pluginSettings['image-cache-time'] * 3600) {
+			$returnValue = true;
+
+			if(((\time() - \filemtime($cacheDir . $imageName)) > $this->pluginSettings['image-cache-time'] * 3600) || (\filesize($cacheDir . $imageName) === 0)) {
 				\unlink($cacheDir . $imageName);
 
 				$returnValue = false;
-			} else {
-				$returnValue = true;
-			} // if(\time() - \filemtime($cacheDir . $imageName) > 2 * 3600)
-		} else {
-			$returnValue = false;
+			} // if(((\time() - \filemtime($cacheDir . $imageName)) > $this->pluginSettings['image-cache-time'] * 3600) || (\filesize($cacheDir . $imageName) === 0))
 		} // if(\file_exists($cacheDir . $imageName))
 
 		return $returnValue;

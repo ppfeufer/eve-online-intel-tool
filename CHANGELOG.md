@@ -3,6 +3,9 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.3...development)
+### Fixed
+- Cached images will be renewed when file size is 0 (broken images)
+
 ### Added
 - Warning to the image lazy load option to not use it when using a static page cache, can add some very heavy load to your server.
 
