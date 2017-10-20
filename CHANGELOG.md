@@ -14,6 +14,9 @@
 - Reintroduced sticky highlight
 - Dropped pagination on data tables (use the filter it's a better way)
 
+### Removed
+- Call for non needed java script
+
 ## [v0.4.3](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.3) - 2017-10-17
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.2...v0.4.3)
 ### Fixed
