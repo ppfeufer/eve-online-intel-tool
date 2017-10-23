@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EVE Online Intel Tool for WordPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-04 08:45+0000\n"
-"PO-Revision-Date: 2017-10-04 08:46+0000\n"
+"POT-Creation-Date: 2017-10-23 09:23+0000\n"
+"PO-Revision-Date: 2017-10-23 09:27+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German\n"
 "Language: de-DE\n"
@@ -13,13 +13,37 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco - https://localise.biz/"
 
-#: Libs/Admin/PluginSettings.php:144
-msgid "Corp Data Cache Time"
-msgstr "Corp Daten Cache Zeit"
+#: Libs/Admin/PluginSettings.php:122
+msgid "Lazy-Load images"
+msgstr "Bilder verzögert laden"
 
-#: Libs/Admin/PluginSettings.php:157
-msgid "Alliance Data Cache Time"
-msgstr "Allianz  Daten Cache Zeit"
+#: Libs/Admin/PluginSettings.php:123
+msgid ""
+"Start loading EVE related images (Pilot-Avatars, Corp-Logos and Alliance-"
+"Logos) after the result page has been loaded. This might speed things a bit "
+"up, especially when using the image cache and new images have to be "
+"downloaded and cached first. <small><strong>(Only works when using the image "
+"cache.)</strong></small><br><strong>!!! DO NOT USE IT WHEN YOU HAVE A STATIC "
+"PAGE CACHE !!!</strong>"
+msgstr ""
+"Lader Bilder (Piloten Avatare, Corporation und Allianz Logos) verzögert, "
+"nachdem die Ergebnisseite geladen ist. Dies mag einiges etwas beschleunigen, "
+"besondern wenn der Bild Cache genutzt wird. <small><strong>(Funktioniert "
+"wirklich nur mit dem Bild Cache.)</strong></small><br><strong>!!! NICHT "
+"VERWENDEN WENN BEREITS EIN STATISCHER CACHE FÜR DIE SEITE GENUTZT WIRD !!!"
+"</strong>"
+
+#: Libs/Admin/PluginSettings.php:126
+msgid "Use a lazy loading mechanism for EVE related images."
+msgstr "Nutze einen Mechanismus der das Laden der Bilder verzögert."
+
+#: Libs/ResourceLoader/JavascriptLoader.php:78
+msgid "Showing _END_ entries"
+msgstr "Zeige _END_ Einträge"
+
+#: Libs/ResourceLoader/JavascriptLoader.php:80
+msgid "(filtered from _MAX_ total entries)"
+msgstr "(Gefiltert aus _MAX_ Einträgen)"
 
 #: Libs/GithubUpdater.php:466
 msgid ""
@@ -120,19 +144,19 @@ msgstr "EVE Zeit:"
 msgid "All"
 msgstr "Alle"
 
-#: templates/single-dscan.php:66
+#: templates/single-dscan.php:67
 msgid "On Grid"
 msgstr "On Grid"
 
-#: templates/single-dscan.php:79
+#: templates/single-dscan.php:81
 msgid "Off Grid"
 msgstr "Off Grid"
 
-#: templates/single-dscan.php:92 templates/single-fleetcomposition.php:58
+#: templates/single-dscan.php:95 templates/single-fleetcomposition.php:60
 msgid "Ship Types"
 msgstr "Schiffstypen"
 
-#: templates/single-fleetcomposition.php:44
+#: templates/single-fleetcomposition.php:45
 msgid "Ship Classes"
 msgstr "Schiffsklassen"
 
@@ -184,89 +208,35 @@ msgstr ""
 "Nutze einen serverseitigen Cache für Bilder die sonst von CCP's Imageserver "
 "geladen werden."
 
-#: Libs/Admin/PluginSettings.php:122
+#: Libs/Admin/PluginSettings.php:130
 msgid "Image Cache Time"
 msgstr "Bild Cache Zeit"
 
-#: Libs/Admin/PluginSettings.php:123
+#: Libs/Admin/PluginSettings.php:131
 msgid "Set the time in days a cached image is valid."
 msgstr "Setze die Zeit in Tagen die das Bild gecached wird."
 
-#: Libs/Admin/PluginSettings.php:126 Libs/Admin/PluginSettings.php:137
-#: Libs/Admin/PluginSettings.php:148 Libs/Admin/PluginSettings.php:161
+#: Libs/Admin/PluginSettings.php:134
 msgid "5 days"
 msgstr "5 Tage"
 
-#: Libs/Admin/PluginSettings.php:127 Libs/Admin/PluginSettings.php:138
-#: Libs/Admin/PluginSettings.php:149 Libs/Admin/PluginSettings.php:162
+#: Libs/Admin/PluginSettings.php:135
 msgid "10 days"
 msgstr "10 Tage"
 
-#: Libs/Admin/PluginSettings.php:128 Libs/Admin/PluginSettings.php:139
-#: Libs/Admin/PluginSettings.php:150 Libs/Admin/PluginSettings.php:163
+#: Libs/Admin/PluginSettings.php:136
 msgid "15 days"
 msgstr "15 Tage"
 
-#: Libs/Admin/PluginSettings.php:129 Libs/Admin/PluginSettings.php:140
-#: Libs/Admin/PluginSettings.php:151 Libs/Admin/PluginSettings.php:164
+#: Libs/Admin/PluginSettings.php:137
 msgid "20 days"
 msgstr "20 Tage"
 
-#: Libs/Admin/PluginSettings.php:133
-msgid "Pilot Data Cache Time"
-msgstr "Piloten Daten Cache Zeit"
-
-#: Libs/Admin/PluginSettings.php:134
-msgid ""
-"Set the time in days the pilots API information is cached. Since a pilot can "
-"change corporation, a smaller cache time is appropriate."
-msgstr ""
-"Setze die Zeit in Tagen die Piloten-Daten von der API zwischengespeichert "
-"werden sollen. Da Piloten öfter mal die Corp wechseln, empfiehlt sich hier "
-"eine geringere Zeitspanne."
-
-#: Libs/Admin/PluginSettings.php:145
-msgid ""
-"Set the time in days the corporations API information is cached. For this, a "
-"medium cache time is appropriate."
-msgstr ""
-"Setze die Zeit in Tagen die Corp-Daten von der API zwischengespeichert "
-"werden sollen. Hier ist eine mittlere Zeitspanne empfohlen."
-
-#: Libs/Admin/PluginSettings.php:152 Libs/Admin/PluginSettings.php:165
-msgid "25 days"
-msgstr "25 Tage"
-
-#: Libs/Admin/PluginSettings.php:153 Libs/Admin/PluginSettings.php:166
-msgid "50 days"
-msgstr "50 Tage"
-
-#: Libs/Admin/PluginSettings.php:158
-msgid ""
-"Set the time in days the corporations API information is cached. Since this "
-"information doesn't change to often, a large cache time is appropriate."
-msgstr ""
-"Setze die Zeit in Tagen die Allianz-Daten von der API zwischengespeichert "
-"werden sollen. Allianzinformationen ändern sich nicht so häufig, daher darf "
-"hier ruhig großzügig gecached werden."
-
-#: Libs/Admin/PluginSettings.php:167
-msgid "100 days"
-msgstr "100 Tage"
-
-#: Libs/Admin/PluginSettings.php:168
-msgid "200 days"
-msgstr "200 Tage"
-
-#: Libs/Admin/PluginSettings.php:169
-msgid "1 year"
-msgstr "1 Jahr"
-
-#: Libs/ResourceLoader/JavascriptLoader.php:69
+#: Libs/ResourceLoader/JavascriptLoader.php:68
 msgid "Permalink successfully copied"
 msgstr "Link erfolgreich kopiert"
 
-#: Libs/ResourceLoader/JavascriptLoader.php:70
+#: Libs/ResourceLoader/JavascriptLoader.php:69
 msgid ""
 "Something went wrong. Nothing copied. Maybe your browser doesn't support "
 "this function."
@@ -274,75 +244,67 @@ msgstr ""
 "Etwas ist schief gelaufen, nichts in die Zwischenablage kopiert. Vielleicht "
 "unterstützt Dein Browser diese Funktion nicht."
 
-#: Libs/ResourceLoader/JavascriptLoader.php:76
+#: Libs/ResourceLoader/JavascriptLoader.php:75
 msgid ","
 msgstr ","
 
-#: Libs/ResourceLoader/JavascriptLoader.php:77
+#: Libs/ResourceLoader/JavascriptLoader.php:76
 msgid "."
 msgstr "."
 
-#: Libs/ResourceLoader/JavascriptLoader.php:78
+#: Libs/ResourceLoader/JavascriptLoader.php:77
 msgid "No data available in table"
 msgstr "Keine daten in dieser Tabelle"
 
 #: Libs/ResourceLoader/JavascriptLoader.php:79
-msgid "Showing page _PAGE_ of _PAGES_"
-msgstr "Zeige Seite _PAGE_ von _PAGES_"
-
-#: Libs/ResourceLoader/JavascriptLoader.php:80
 msgid "No records available"
 msgstr "Keine Daten verfügbar"
 
-#: Libs/ResourceLoader/JavascriptLoader.php:81
-msgid "(filtered from _MAX_ total records)"
-msgstr "(gefilter von _MAX_ Einträgen gesamt)"
-
-#: Libs/ResourceLoader/JavascriptLoader.php:83
+#: Libs/ResourceLoader/JavascriptLoader.php:82
 msgid "Show _MENU_"
 msgstr "Zeige _MENU_"
 
-#: Libs/ResourceLoader/JavascriptLoader.php:84
+#: Libs/ResourceLoader/JavascriptLoader.php:83
 msgid "Loading..."
 msgstr "Lade ..."
 
-#: Libs/ResourceLoader/JavascriptLoader.php:85
+#: Libs/ResourceLoader/JavascriptLoader.php:84
 msgid "Processing..."
 msgstr "Verarbeite ..."
 
-#: Libs/ResourceLoader/JavascriptLoader.php:86
+#: Libs/ResourceLoader/JavascriptLoader.php:85
 msgid "Nothing found - sorry"
 msgstr "Nichts gefunden"
 
-#: Libs/ResourceLoader/JavascriptLoader.php:87
+#: Libs/ResourceLoader/JavascriptLoader.php:86
 msgid "_INPUT_"
 msgstr "_INPUT_"
 
-#: Libs/ResourceLoader/JavascriptLoader.php:88
+#: Libs/ResourceLoader/JavascriptLoader.php:87
 msgid "Search..."
 msgstr "Suche ..."
 
-#: Libs/ResourceLoader/JavascriptLoader.php:90
+#: Libs/ResourceLoader/JavascriptLoader.php:89
 msgid "First"
 msgstr "Erste"
 
-#: Libs/ResourceLoader/JavascriptLoader.php:91
+#: Libs/ResourceLoader/JavascriptLoader.php:90
 msgid "Last"
 msgstr "Letzte"
 
-#: Libs/ResourceLoader/JavascriptLoader.php:92
+#: Libs/ResourceLoader/JavascriptLoader.php:91
 msgid "Next"
 msgstr "Nächste"
 
-#: Libs/ResourceLoader/JavascriptLoader.php:93
+#: Libs/ResourceLoader/JavascriptLoader.php:92
 msgid "Previous"
 msgstr "Vorherige"
 
-#: Libs/ResourceLoader/JavascriptLoader.php:96
+#: Libs/ResourceLoader/JavascriptLoader.php:95
 msgid ": activate to sort column ascending"
 msgstr ": Aktiviere aufsteigende Sortierung"
 
-#: Libs/ResourceLoader/JavascriptLoader.php:97
+#: Libs/ResourceLoader/JavascriptLoader.php:96
 msgid ": activate to sort column descending"
 msgstr ": Aktiviere absteigende Sortierung"
 
