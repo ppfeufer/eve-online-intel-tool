@@ -63,7 +63,7 @@ class GithubUpdater {
 	public function __construct($config = []) {
 		$defaults = [
 			'slug' => \plugin_basename(__FILE__),
-			'proper_folder_name' => \dirname(\plugin_basename(__FILE__)),
+			'proper_folder_name' => \dirname(\dirname(\plugin_basename(__FILE__))),
 			'sslverify' => true,
 			'access_token' => '',
 		];
@@ -359,7 +359,7 @@ class GithubUpdater {
 	 * @return object $data the data
 	 */
 	public function getPluginData() {
-		include_once(ABSPATH . '/wp-admin/includes/plugin.php');
+		include_once(\ABSPATH . '/wp-admin/includes/plugin.php');
 
 		$data = \get_plugin_data(\WP_PLUGIN_DIR . '/' . $this->config['slug']);
 

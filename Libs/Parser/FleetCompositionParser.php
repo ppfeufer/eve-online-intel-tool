@@ -113,9 +113,9 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 				'system' => $lineDetailsArray['1'],
 				'shipClass' => $lineDetailsArray['2'],
 				'shipType' => $lineDetailsArray['3'],
-				'positionInFleet' => $lineDetailsArray['4'],
-				'skills' => $lineDetailsArray['5'],
-				'fleetHirarchy' => $lineDetailsArray['6']
+//				'positionInFleet' => $lineDetailsArray['4'],
+//				'skills' => $lineDetailsArray['5'],
+//				'fleetHirarchy' => $lineDetailsArray['6']
 			];
 
 			// Ship Classes

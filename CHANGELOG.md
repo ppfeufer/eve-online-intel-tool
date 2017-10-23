@@ -2,17 +2,37 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.3...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.4...development)
 - in development
+
+## [v0.4.4](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.4) - 2017-10-23
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.3...v0.4.4)
+### Fixed
+- Cached images will be renewed when file size is 0 (broken images)
+
+### Added
+- Warning to the image lazy load option to not use it when using a static page cache, can add some very heavy load to your server.
+
+### Removed
+- Call for non needed java script
+- Unused information from the fleet scan
+
+### Changed
+- Templates reworked
+- Reintroduced sticky highlight
+- Dropped pagination on data tables (use the filter it's a better way)
+
+### Updated
+- German translation
 
 ## [v0.4.3](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.3) - 2017-10-17
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.2...v0.4.3)
 ### Fixed
-- Tackled emtpy response from character-affiliation end point / Issue: #27
+- Tackled emtpy response from character-affiliation end point / [Issue: #27](https://github.com/ppfeufer/eve-online-intel-tool/issues/27)
 - Error while parsing duplicate names
 - An issue with the templates that wouldn't load when no intel data is available
 - Rewriting the permalinks on activation and deactivation
-- Image API end point for ships (To many end point that do te same here ...), and this time we have the right images for T2 ships :-)
+- Image API end point for ships (To many end points that do the same here ...), and this time we have the right images for T2 ships :-)
 
 ### Added
 - Optional lazy loading for EVE related images on chat scan pages, when image cache is used

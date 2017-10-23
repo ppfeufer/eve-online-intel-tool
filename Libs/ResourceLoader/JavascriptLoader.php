@@ -43,7 +43,6 @@ class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Inte
 			if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('intel')) || \get_post_type() === 'intel' || \is_post_type_archive('intel') === true) {
 				\wp_enqueue_script('bootstrap-js', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('bootstrap/js/bootstrap.min.js'), ['jquery'], '', true);
 				\wp_enqueue_script('bootstrap-toolkit-js', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('bootstrap/bootstrap-toolkit/bootstrap-toolkit.min.js'), ['jquery', 'bootstrap-js'], '', true);
-				\wp_enqueue_script('bootstrap-gallery-js', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('js/jquery.bootstrap-gallery.min.js'), ['jquery', 'bootstrap-js'], '', true);
 
 				\wp_enqueue_script('copy-to-clipboard-js', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('js/copy-to-clipboard.min.js'), ['jquery'], '', true);
 
@@ -76,9 +75,9 @@ class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Inte
 					'decimal' => \__(',', 'eve-online-intel-tool'),
 					'thousands' => \__('.', 'eve-online-intel-tool'),
 					'emptyTable' => \__('No data available in table', 'eve-online-intel-tool'),
-					'info' => \__('Showing page _PAGE_ of _PAGES_', 'eve-online-intel-tool'),
+					'info' => \__('Showing _END_ entries', 'eve-online-intel-tool'),
 					'infoEmpty' => \__('No records available', 'eve-online-intel-tool'),
-					'infoFiltered' => \__('(filtered from _MAX_ total records)', 'eve-online-intel-tool'),
+					'infoFiltered' => \__('(filtered from _MAX_ total entries)', 'eve-online-intel-tool'),
 					'infoPostFix'  => \__('', 'eve-online-intel-tool'),
 					'lengthMenu' => \__('Show _MENU_', 'eve-online-intel-tool'),
 					'loadingRecords' => \__('Loading...', 'eve-online-intel-tool'),

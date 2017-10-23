@@ -124,9 +124,9 @@ jQuery(document).ready(function($) {
 	 * todo:
 	 * Get this to work with data tables pagination, so it's deactivated for now
 	 */
-//	$('tr[data-highlight]').click(function() {
-//		$('tr[data-highlight="' + $(this).data('highlight') + '"]').toggleClass('dataHighlightSticky');
-//	});
+	$('tr[data-highlight]').click(function() {
+		$('tr[data-highlight="' + $(this).data('highlight') + '"]').toggleClass('dataHighlightSticky');
+	});
 
 	/**
 	 * Getting the nonce for the form

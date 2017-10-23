@@ -120,7 +120,7 @@ class PluginSettings {
 			],
 			'image-lazy-load' => [
 				'title' => \__('Lazy-Load images', 'eve-online-intel-tool'),
-				'description' => \__('Start loading EVE related images (Pilot-Avatars, Corp-Logos and Alliance-Logos) after the result page has been loaded. This might speed things a bit up, especially when using the image cache and new images have to be downloaded and cached first.<br><strong>(Only works when using the image cache.)</strong>', 'eve-online-intel-tool'),
+				'description' => \__('Start loading EVE related images (Pilot-Avatars, Corp-Logos and Alliance-Logos) after the result page has been loaded. This might speed things a bit up, especially when using the image cache and new images have to be downloaded and cached first. <small><strong>(Only works when using the image cache.)</strong></small><br><strong>!!! DO NOT USE IT WHEN YOU HAVE A STATIC PAGE CACHE !!!</strong>', 'eve-online-intel-tool'),
 				'type' => 'checkbox',
 				'choices' => [
 					'yes' => \__('Use a lazy loading mechanism for EVE related images.', 'eve-online-intel-tool')
