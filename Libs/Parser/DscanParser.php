@@ -136,7 +136,13 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 			 */
 			'35825', // Raitaru
 			'35826', // Azbel
-			'35827' // Sotiyo
+			'35827', // Sotiyo
+
+			/**
+			 * Refineries
+			 */
+			'35835', // Athanor
+			'35836', // Tatara
 		];
 
 		/**

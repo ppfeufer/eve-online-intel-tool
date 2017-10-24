@@ -2,8 +2,16 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.4...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.5...development)
 - in development
+
+## [v0.4.5](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.5) - 2017-10-24
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.4...v0.4.5)
+### Added
+- Athanor and Tatara as structures that hold the systems name
+
+### Changed
+- Plugin dir base name detection simplified
 
 ## [v0.4.4](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.4) - 2017-10-23
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.3...v0.4.4)
