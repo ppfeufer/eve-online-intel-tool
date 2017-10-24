@@ -92,7 +92,8 @@ class EveOnlineIntelTool {
 		 */
 		$githubConfig = [
 			'slug' => \plugin_basename(__FILE__),
-			'proper_folder_name' => \dirname(\plugin_basename(__FILE__)),
+//			'proper_folder_name' => \dirname(\plugin_basename(__FILE__)),
+			'proper_folder_name' => Libs\Helper\PluginHelper::getInstance()->getPluginDirName(),
 			'api_url' => 'https://api.github.com/repos/ppfeufer/eve-online-intel-tool',
 			'raw_url' => 'https://raw.github.com/ppfeufer/eve-online-intel-tool/master',
 			'github_url' => 'https://github.com/ppfeufer/eve-online-intel-tool',
