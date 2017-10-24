@@ -17,6 +17,10 @@ An easy way to parse D-Scans, fleet compositions and your local, and get all the
 This plugin works best with WordPress themes utilizing the Bootstrap Framework. If your Theme doesn't use it, you might end up having to tweak it here and there a bit.
 Works best with the [EVE Online WordPress Theme](https://github.com/ppfeufer/eve-online-wordpress-theme)
 
+### Requirements
+- WordPress 4.7 or newer
+- PHP 7
+
 ### Installation
 - Simply [download the archive](https://github.com/ppfeufer/eve-online-intel-tool/archive/master.zip) or one of the [releases](https://github.com/ppfeufer/eve-online-intel-tool/releases)
 - Unzip it
