@@ -153,7 +153,7 @@ jQuery(document).ready(function($) {
 
 							// Removing loader animation
 							$('.authenticating-form').remove();
-						} // END if(result !== null)
+						} // if(result !== null)
 					},
 					error: function(jqXHR, textStatus, errorThrow) {
 						console.log('Ajax request - ' + textStatus + ': ' + errorThrow);
@@ -186,7 +186,7 @@ jQuery(document).ready(function($) {
 					success: function(result) {
 						if(result !== null) {
 							$('img[data-eveid="' + data.eveID + '"]').attr('src', result);
-						} // END if(result !== null)
+						} // if(result !== null)
 					},
 					error: function(jqXHR, textStatus, errorThrow) {
 						console.log('Ajax request - ' + textStatus + ': ' + errorThrow);

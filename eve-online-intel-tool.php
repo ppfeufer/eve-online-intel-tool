@@ -52,7 +52,7 @@ class EveOnlineIntelTool {
 		$this->localizationDirectory = \basename(\dirname(__FILE__)) . '/l10n/';
 
 		$this->databaseVersion = '20171010';
-	} // END public function __construct()
+	} // public function __construct()
 
 	/**
 	 * Initialize the plugin
@@ -78,8 +78,8 @@ class EveOnlineIntelTool {
 			new Libs\Admin\PluginSettings;
 
 			$this->initGitHubUpdater();
-		} // END if(\is_admin())
-	} // END public function init()
+		} // if(\is_admin())
+	} // public function init()
 
 	/**
 	 * Initializing the GitHub Updater
@@ -106,7 +106,7 @@ class EveOnlineIntelTool {
 		];
 
 		new Libs\GithubUpdater($githubConfig);
-	} // END private function initGitHubUpdater()
+	} // private function initGitHubUpdater()
 
 	/**
 	 * Setting up our text domain for translations
@@ -114,9 +114,9 @@ class EveOnlineIntelTool {
 	public function loadTextDomain() {
 		if(\function_exists('\load_plugin_textdomain')) {
 			\load_plugin_textdomain($this->textDomain, false, $this->localizationDirectory);
-		} // END if(function_exists('\load_plugin_textdomain'))
-	} // END public function addTextDomain()
-} // END class EveOnlineIntelTool
+		} // if(function_exists('\load_plugin_textdomain'))
+	} // public function addTextDomain()
+} // class EveOnlineIntelTool
 
 /**
  * Start the show ....
@@ -130,7 +130,7 @@ function initializePlugin() {
 	 * @todo https://premium.wpmudev.org/blog/activate-deactivate-uninstall-hooks/
 	 */
 	$eveIntelTool->init();
-} // END function initializePlugin()
+} // function initializePlugin()
 
 // Start the show
 initializePlugin();

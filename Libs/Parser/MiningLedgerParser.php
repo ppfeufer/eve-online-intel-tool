@@ -17,16 +17,28 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces;
+namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Parser;
 
 \defined('ABSPATH') or die();
 
-/**
- * Defines a common set of functions that any class responsible for loading
- * stylesheets, JavaScript, or other assets should implement.
- */
-interface AssetsInterface {
-	public function init();
+class MiningLedgerParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+	/**
+	 * EVE Swagger Interface
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper
+	 */
+	private $esi = null;
 
-	public function enqueue();
-} // interface AssetsInterface
+	/**
+	 * Constructor
+	 */
+	protected function __construct() {
+		parent::__construct();
+
+		$this->esi = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
+	} // END protected function __construct()
+
+	public function parseLedgerData($scanData, $ledgerType) {
+		;
+	}
+}

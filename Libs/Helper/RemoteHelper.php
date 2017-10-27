@@ -32,7 +32,6 @@ class RemoteHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 	public function getRemoteData($url, $parameter = [], $method = 'get') {
 		$params = '';
 
-
 		switch($method) {
 			case 'get':
 				if(\count($parameter) > 0) {
@@ -54,5 +53,5 @@ class RemoteHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 		$data = \wp_remote_retrieve_body($remoteData);
 
 		return $data;
-	} // END private function getRemoteData($url, array $parameter)
-} // END class RemoteHelper extends \WordPress\Plugin\EveOnlineTranquilityStatus\Singletons\AbstractSingleton
+	} // private function getRemoteData($url, array $parameter)
+} // class RemoteHelper extends \WordPress\Plugin\EveOnlineTranquilityStatus\Singletons\AbstractSingleton

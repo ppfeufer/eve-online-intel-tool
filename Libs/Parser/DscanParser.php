@@ -36,7 +36,7 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		parent::__construct();
 
 		$this->esi = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
-	} // END protected function __construct()
+	} // protected function __construct()
 
 	/**
 	 * Breaking down the D-Scan into arrays
@@ -84,9 +84,9 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 						'shipData' => $shipData['data']['shipData'],
 						'shipClass' => $shipData['data']['shipTypeData']
 					];
-				} // END if($lineDetailsArray['3'] === '-')
-			} // END if($shipData !== null && $shipClass !== null)
-		} // END foreach(\explode("\n", trim($cleanedScanData)) as $line)
+				} // if($lineDetailsArray['3'] === '-')
+			} // if($shipData !== null && $shipClass !== null)
+		} // foreach(\explode("\n", trim($cleanedScanData)) as $line)
 
 		// Let's see if we can find out in what system we are ....
 		$system = $this->detectSystem($cleanedScanData);
@@ -108,7 +108,7 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		];
 
 		return $dscanArray;
-	} // END public function parseDscan($scanData)
+	} // public function parseDscan($scanData)
 
 	/**
 	 * Try and detect the system the scan was made in
@@ -156,8 +156,8 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 				$systemName = \trim($parts['0']);
 
 				$systemFound = true;
-			} // END if(\in_array($line['0'], $arraySystemIds))
-		} // END foreach(\explode("\n", trim($cleanedScanData)) as $line)
+			} // if(\in_array($line['0'], $arraySystemIds))
+		} // foreach(\explode("\n", trim($cleanedScanData)) as $line)
 
 		/**
 		 * Determine system by its sun
@@ -165,15 +165,17 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		if($systemFound === false) {
 			foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
 				$lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
+
 				if(\preg_match('/(.*) - Star/', $lineDetailsArray['1']) && \preg_match('/Sun (.*)/', $lineDetailsArray['2'])) {
 					$systemName = \trim(\str_replace(' - Star', '', $lineDetailsArray['1']));
-				} // END if(\preg_match('/(.*) - Star/', $line['0']) && preg_match('/Sun (.*)/', $line['1']))
-			} // END foreach(\explode("\n", trim($cleanedScanData)) as $line)
-		} // END if($systemFound === false)
+				} // if(\preg_match('/(.*) - Star/', $line['0']) && preg_match('/Sun (.*)/', $line['1']))
+			} // foreach(\explode("\n", trim($cleanedScanData)) as $line)
+		} // if($systemFound === false)
 
 		if($systemName !== null) {
 			$systemID = $this->esi->getEveIdFromName(\trim($systemName), 'solarsystem');
 			$systemData = $this->esi->getSystemData($systemID);
+
 			$constellationData = null;
 			$regionData = null;
 
@@ -183,29 +185,29 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 			// Get the constellation data
 			if($this->esi->isValidEsiData($systemData) === true) {
 				$constellationData = $this->esi->getConstellationData($systemData['data']->constellation_id);
-			} // END if($this->esi->isValidEsiData($systemData) === true)
+			} // if($this->esi->isValidEsiData($systemData) === true)
 
 			// Get the region data
 			if($this->esi->isValidEsiData($constellationData) === true) {
 				// Set the constellation name
 				$constellationName = $constellationData['data']->name;
 				$regionData = $this->esi->getRegionData($constellationData['data']->region_id);
-			} // END if($this->esi->isValidEsiData($constellationData) === true)
+			} // if($this->esi->isValidEsiData($constellationData) === true)
 
 			// Set the region name
 			if($this->esi->isValidEsiData($regionData) === true) {
 				$regionName = $regionData['data']->name;
-			} // END if($this->esi->isValidEsiData($regionData) === true)
+			} // if($this->esi->isValidEsiData($regionData) === true)
 
 			$returnValue = [
 				'systemName' => $systemName,
 				'constellationName' => $constellationName,
 				'regionName' => $regionName
 			];
-		} // END if($system !== null)
+		} // if($system !== null)
 
 		return $returnValue;
-	} // END public function detectSystem($cleanedScanData)
+	} // public function detectSystem($cleanedScanData)
 
 	/**
 	 * Parsing the D-Scan arrays
@@ -249,14 +251,15 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 
 				default:
 					break;
-			} // END switch($item['shipClass']->category_id)
-		} // END foreach($dscanArray['data'] as $item)
+			} // switch($item['shipClass']->category_id)
+		} // foreach($dscanArray['data'] as $item)
 
 		if(!empty($dscanDetails['data'])) {
 			\ksort($dscanDetails['data']);
-		}
 
-		$returnData = $dscanDetails;
+			$returnData = $dscanDetails;
+		} // if(!empty($dscanDetails['data']))
+
 
 		return $returnData;
 	} // END public function parseScanArray(array $dscanArray)
@@ -280,17 +283,17 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 			$returnData['all'] = $dscanAll;
 
 			$returnData['shipTypes'] = DscanParser::getInstance()->getShipTypesArray($dscanArray['all']['data']);
-		} // END if($dscanArray['all']['count'] !== 0)
+		} // if($dscanArray['all']['count'] !== 0)
 
 		if($dscanArray['onGrid']['count'] !== 0) {
 			$dscanOnGrid = $this->parseScanArray($dscanArray['onGrid']);
 			$returnData['onGrid'] = $dscanOnGrid;
-		} // END if($dscanArray['onGrid']['count'] !== 0)
+		} // if($dscanArray['onGrid']['count'] !== 0)
 
 		if($dscanArray['offGrid']['count'] !== 0) {
 			$dscanOffGrid = $this->parseScanArray($dscanArray['offGrid']);
 			$returnData['offGrid'] = $dscanOffGrid;
-		} // END if($dscanArray['onGrid']['count'] !== 0)
+		} // if($dscanArray['onGrid']['count'] !== 0)
 
 		$returnData['system'] = $dscanArray['system'];
 
@@ -305,6 +308,8 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 	 */
 	public function getShipTypesArray(array $dscanArray) {
 		$shipTypeArray = [];
+		$count = [];
+
 		foreach($dscanArray as $scanResult) {
 			// Ships only ...
 			if($scanResult['shipClass']->category_id === 6) {
@@ -314,8 +319,8 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 					'shipTypeSanitized' => \sanitize_title($scanResult['shipClass']->name),
 					'count' => \count($count[\sanitize_title($scanResult['shipClass']->name)])
 				];
-			} // END if($scanResult['shipClass']->category_id === 6)
-		} // END foreach($dscanArray as $scanResult)
+			} // if($scanResult['shipClass']->category_id === 6)
+		} // foreach($dscanArray as $scanResult)
 
 		\ksort($shipTypeArray);
 

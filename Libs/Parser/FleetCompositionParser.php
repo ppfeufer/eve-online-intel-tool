@@ -36,7 +36,7 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 		parent::__construct();
 
 		$this->esi = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
-	} // END protected function __construct()
+	} // protected function __construct()
 
 	public function parseFleetCompositionScan($scanData) {
 		$returnData = null;
@@ -44,10 +44,10 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 
 		if(!\is_null($fleetCompArray)) {
 			$returnData = $fleetCompArray;
-		}
+		} // if(!\is_null($fleetCompArray))
 
 		return $returnData;
-	}
+	} // public function parseFleetCompositionScan($scanData)
 
 	public function getFleetCompositionArray($scanData) {
 		/**
@@ -59,7 +59,6 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 		$cleanedScanData = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\IntelHelper::getInstance()->fixLineBreaks($scanData);
 
 		$pilotListRaw = null;
-		$fleetComposition = [];
 		$fleetInformation = [];
 		$counter = [];
 
@@ -83,25 +82,25 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 			// get the fleet boss
 			if(\preg_match('/.* \(Boss\)/', $lineDetailsArray['4'])) {
 				$fleetInformation['fleetBoss'] = $lineDetailsArray['0'];
-			} // END if(\preg_match('/* \(Boss\)/', $lineDetailsArray['0']))
+			} // if(\preg_match('/* \(Boss\)/', $lineDetailsArray['0']))
 
 			// get count of docked pilots
 			if(!isset($fleetInformation['pilots']['docked'])) {
 				$fleetInformation['pilots']['docked'] = 0;
-			} // END if(!isset($fleetInformation['pilots']['docked']))
+			} // if(!isset($fleetInformation['pilots']['docked']))
 
 			if(\preg_match('/.* \(Docked\)/', $lineDetailsArray['1'])) {
 				$fleetInformation['pilots']['docked']++;
-			}
+			} // if(\preg_match('/.* \(Docked\)/', $lineDetailsArray['1']))
 
 			// get count of pilots in space
 			if(!isset($fleetInformation['pilots']['inSpace'])) {
 				$fleetInformation['pilots']['inSpace'] = 0;
-			} // END if(!isset($fleetInformation['pilots']['inSpace']))
+			} // if(!isset($fleetInformation['pilots']['inSpace']))
 
 			if(!\preg_match('/.* \(Docked\)/', $lineDetailsArray['1'])) {
 				$fleetInformation['pilots']['inSpace']++;
-			}
+			} // if(!\preg_match('/.* \(Docked\)/', $lineDetailsArray['1']))
 
 			// build a list of pilot names
 			$pilotListRaw .= $lineDetailsArray['0'] . "\n";
@@ -121,7 +120,7 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 			// Ship Classes
 			if(!isset($counter['class'][\sanitize_title($lineDetailsArray['2'])])) {
 				$counter['class'][\sanitize_title($lineDetailsArray['2'])] = 0;
-			} // END if(!isset($counter[\sanitize_title($pilotSheet['corporationName'])]))
+			} // if(!isset($counter[\sanitize_title($pilotSheet['corporationName'])]))
 
 			$counter['class'][\sanitize_title($lineDetailsArray['2'])]++;
 			$shipClassBreakdown[\sanitize_title($lineDetailsArray['2'])] = [
@@ -134,7 +133,7 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 			// Ship Types
 			if(!isset($counter['type'][\sanitize_title($lineDetailsArray['3'])])) {
 				$counter['type'][\sanitize_title($lineDetailsArray['3'])] = 0;
-			} // END if(!isset($counter[\sanitize_title($pilotSheet['corporationName'])]))
+			} // if(!isset($counter[\sanitize_title($pilotSheet['corporationName'])]))
 
 			$counter['type'][\sanitize_title($lineDetailsArray['3'])]++;
 			$shipTypeBreakdown[\sanitize_title($lineDetailsArray['3'])] = [
@@ -142,7 +141,7 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 				'shipTypeSanitized' => \sanitize_title($lineDetailsArray['3']),
 				'count' => $counter['type'][\sanitize_title($lineDetailsArray['3'])]
 			];
-		} // END foreach(\explode("\n", \trim($cleanedScanData)) as $line)
+		} // foreach(\explode("\n", \trim($cleanedScanData)) as $line)
 
 		$fleetComposition = [
 			'overview' => $pilotOverview,
@@ -160,5 +159,5 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 		];
 
 		return $returnData;
-	}
-} // END class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton
+	} // public function getFleetCompositionArray($scanData)
+} // class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton

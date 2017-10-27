@@ -42,17 +42,17 @@ class TemplateHelper {
 		// Set variable to search in templates folder of theme.
 		if(!$template_path) {
 			$template_path = 'templates/';
-		} // END if(!$template_path)
+		} // if(!$template_path)
 
 		// fail safe
 		if(\substr($template_name, -4) !== '.php') {
 			$template_name .= '.php';
-		} // END if(\substr($template_name, -4) !== '.php')
+		} // if(\substr($template_name, -4) !== '.php')
 
 		// Set default plugin templates path.
 		if(!$default_path) {
 			$default_path = PluginHelper::getInstance()->getPluginPath('templates/'); // Path to the template folder
-		} // END if(!$default_path)
+		} // if(!$default_path)
 
 		// Search template file in theme folder.
 		$template = \locate_template([
@@ -63,7 +63,7 @@ class TemplateHelper {
 		// Get plugins template file.
 		if(!$template) {
 			$template = $default_path . $template_name;
-		} // END if(!$template)
+		} // if(!$template)
 
 		return \apply_filters('eve-online-intel-tool_locate_template', $template, $template_name, $template_path, $default_path);
 	}
@@ -85,12 +85,12 @@ class TemplateHelper {
 	public static function getTemplate($template_name, $args = [], $tempate_path = '', $default_path = '') {
 		if(\is_array($args) && isset($args)) {
 			\extract($args);
-		} // END if(\is_array($args) && isset($args))
+		} // if(\is_array($args) && isset($args))
 
 		// fail safe
 		if(\substr($template_name, -4) !== '.php') {
 			$template_name .= '.php';
-		} // END if(\substr($template_name, -4) !== '.php')
+		} // if(\substr($template_name, -4) !== '.php')
 
 		$template_file = self::locateTemplate($template_name, $tempate_path, $default_path);
 
@@ -98,8 +98,8 @@ class TemplateHelper {
 			\_doing_it_wrong(__FUNCTION__, \sprintf('<code>%s</code> does not exist.', $template_file), '1.0.0');
 
 			return;
-		} // END if(!\file_exists($template_file))
+		} // if(!\file_exists($template_file))
 
 		include $template_file;
-	} // END function getTemplate($template_name, $args = [], $tempate_path = '', $default_path = '')
+	} // function getTemplate($template_name, $args = [], $tempate_path = '', $default_path = '')
 }

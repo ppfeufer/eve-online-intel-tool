@@ -47,8 +47,8 @@ class StringHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 
 		if($ucFirst === false) {
 			$string = \lcfirst($string);
-		} // END if($ucFirst === false)
+		} // if($ucFirst === false)
 
 		return $string;
-	} // END public static function camelCase($string, $ucFirst = false, $noStrip = [])
-} // END class StringHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton
+	} // public static function camelCase($string, $ucFirst = false, $noStrip = [])
+} // class StringHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton

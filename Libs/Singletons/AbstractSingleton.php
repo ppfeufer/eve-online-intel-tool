@@ -7,7 +7,7 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons;
 abstract class AbstractSingleton {
 	protected function __construct() {
 		;
-	} // END protected function __construct()
+	} // protected function __construct()
 
 	final public static function getInstance() {
 		static $instances = [];
@@ -16,12 +16,12 @@ abstract class AbstractSingleton {
 
 		if(!isset($instances[$calledClass])) {
 			$instances[$calledClass] = new $calledClass();
-		} // END if(!isset($instances[$calledClass]))
+		} // if(!isset($instances[$calledClass]))
 
 		return $instances[$calledClass];
-	} // END final public static function getInstance()
+	} // final public static function getInstance()
 
 	final private function __clone() {
 		;
-	} // END final private function __clone()
-} // END abstract class AbstractSingleton
+	} // final private function __clone()
+} // abstract class AbstractSingleton

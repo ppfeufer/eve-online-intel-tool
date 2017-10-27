@@ -96,7 +96,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 
 		$this->esiUrl = $this->getEsiUrl();
 		$this->esiEndpoints = $this->getEsiEndpoints();
-	} // END public function __construct()
+	} // public function __construct()
 
 	/**
 	 * Return the ESI API Url
@@ -180,7 +180,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		} // if(!\is_null($shipData) && !\is_null($shipClassData))
 
 		return $returnData;
-	} // END public function getShipData($shipID)
+	} // public function getShipData($shipID)
 
 	/**
 	 * Get the character data for a characterID
@@ -206,7 +206,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		return [
 			'data' => $characterData
 		];
-	} // END public function getCharacterData($characterID)
+	} // public function getCharacterData($characterID)
 
 	/**
 	 * Get the affiliation for a set of characterIDs
@@ -248,7 +248,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		return [
 			'data' => $corporationData
 		];
-	} // END public function getCorporationData($corporationID)
+	} // public function getCorporationData($corporationID)
 
 	/**
 	 * Get alliance data by ID
@@ -276,7 +276,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		return [
 			'data' => $allianceData
 		];
-	} // END public function getAllianceData($allianceID)
+	} // public function getAllianceData($allianceID)
 
 	/**
 	 * Getting all the needed system information from the ESI
@@ -290,7 +290,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		return [
 			'data' => $systemData
 		];
-	} // END public function getSystemData($systemID)
+	} // public function getSystemData($systemID)
 
 	/**
 	 * Getting all the needed constellation information from the ESI
@@ -304,7 +304,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		return [
 			'data' => $constellationData
 		];
-	} // END public function getConstellationData($constellationID)
+	} // public function getConstellationData($constellationID)
 
 	/**
 	 * Getting all the needed constellation information from the ESI
@@ -318,30 +318,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		return [
 			'data' => $regionData
 		];
-	} // END public function getRegionData($regionID)
-
-	/**
-	 * Get the ship image by ship ID
-	 *
-	 * @param int $shipTypeID
-	 * @param string $shiptype
-	 * @param boolean $imageOnly
-	 * @param int $size
-	 * @return string
-	 */
-//	public function getShipImageById($shipTypeID, $imageOnly = true, $size = 128) {
-//		$ship = $this->getShipData($shipTypeID);
-//
-//		$imagePath = ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('ship', $this->imageserverUrl . $this->imageserverEndpoints['inventory'] . $shipTypeID . '_' . $size. '.png');
-//
-//		if($imageOnly === true) {
-//			return $imagePath;
-//		} // END if($imageOnly === true)
-//
-//		$html = '<img src="' . $imagePath . '" class="eve-character-image eve-ship-id-' . $shipTypeID . '" alt="' . \esc_html($ship['data']->name) . '" data-title="' . \esc_html($ship['data']->name) . '" data-toggle="eve-killboard-tooltip">';
-//
-//		return $html;
-//	} // END public function getCorporationImageById($corporationID, $imageOnly = true, $size = 128)
+	} // public function getRegionData($regionID)
 
 	/**
 	 * Get the EVE ID by it's name
