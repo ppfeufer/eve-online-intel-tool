@@ -119,16 +119,16 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		 * @see https://esi.tech.ccp.is/latest/
 		 */
 		return [
-			'alliance-information' => 'alliances/', // getting alliance information by ID - https://esi.tech.ccp.is/latest/alliances/99000102/
-			'character-information' => 'characters/', // getting character information by ID - https://esi.tech.ccp.is/latest/characters/90607580/
+			'alliance-information-by-id' => 'alliances/{alliance_id}/', // getting alliance information by ID - https://esi.tech.ccp.is/latest/alliances/99000102/
+			'character-information-by-id' => 'characters/{character_id}/', // getting character information by ID - https://esi.tech.ccp.is/latest/characters/90607580/
 			'character-affiliation' => 'characters/affiliation/', // getting character information by IDs - https://esi.tech.ccp.is/latest/characters/affiliation/ (POST request)
-			'corporation-information' => 'corporations/', // getting corporation information by ID - https://esi.tech.ccp.is/latest/corporations/98000030/
-			'search' => 'search/', // Search for entities that match a given sub-string. - https://esi.tech.ccp.is/latest/search/?search=Yulai%20Federation&strict=true&categories=alliance
-			'group-information' => 'universe/groups/', // getting types information by ID - https://esi.tech.ccp.is/latest/universe/groups/1305/
-			'system-information' => 'universe/systems/', // getting system information by ID - https://esi.tech.ccp.is/latest/universe/systems/30000003/
-			'constellation-information' => 'universe/constellations/', // getting constellation information by ID - https://esi.tech.ccp.is/latest/universe/constellations/20000315/
-			'region-information' => 'universe/regions/', // getting constellation information by ID - https://esi.tech.ccp.is/latest/universe/regions/10000025/
-			'type-information' => 'universe/types/', // getting types information by ID - https://esi.tech.ccp.is/latest/universe/types/670/
+			'corporation-information-by-id' => 'corporations/{corporation_id}/', // getting corporation information by ID - https://esi.tech.ccp.is/latest/corporations/98000030/
+			'search' => 'search/?search={name}&categories={category}&strict=true', // Search for entities that match a given sub-string. - https://esi.tech.ccp.is/latest/search/?search=Yulai%20Federation&strict=true&categories=alliance
+			'group-information-by-id' => 'universe/groups/{group_id}/', // getting types information by ID - https://esi.tech.ccp.is/latest/universe/groups/1305/
+			'system-information-by-id' => 'universe/systems/{system_id}/', // getting system information by ID - https://esi.tech.ccp.is/latest/universe/systems/30000003/
+			'constellation-information-by-id' => 'universe/constellations/{constellation_id}/', // getting constellation information by ID - https://esi.tech.ccp.is/latest/universe/constellations/20000315/
+			'region-information-by-id' => 'universe/regions/{region_id}/', // getting constellation information by ID - https://esi.tech.ccp.is/latest/universe/regions/10000025/
+			'type-information-by-id' => 'universe/types/{type_id}/', // getting types information by ID - https://esi.tech.ccp.is/latest/universe/types/670/
 		];
 	}
 
@@ -156,8 +156,8 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		} // if(!\is_null($resultDB))
 
 		if(\is_null($resultDB)) {
-			$shipData = $this->getEsiData($this->esiEndpoints['type-information'] . $shipID . '/', null);
-			$shipClassData = $this->getEsiData($this->esiEndpoints['group-information'] . $shipData->group_id . '/', null);
+			$shipData = $this->getEsiData(\str_replace('{type_id}', $shipID, $this->esiEndpoints['type-information-by-id']), null);
+			$shipClassData = $this->getEsiData(\str_replace('{group_id}', $shipData->group_id, $this->esiEndpoints['group-information-by-id']), null);
 
 			if(!\is_null($shipData) && !\is_null($shipClassData)) {
 				DatabaseHelper::getInstance()->writeShipDataToDb([
@@ -192,7 +192,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		$characterData = DatabaseHelper::getInstance()->getCharacterDataFromDb($characterID);
 
 		if(\is_null($characterData) || empty($characterData->name)) {
-			$characterData = $this->getEsiData($this->esiEndpoints['character-information'] . $characterID . '/', null);
+			$characterData = $this->getEsiData(\str_replace('{character_id}', $characterID, $this->esiEndpoints['character-information-by-id']), null);
 
 			if(!\is_null($characterData)) {
 				DatabaseHelper::getInstance()->writeCharacterDataToDb([
@@ -233,7 +233,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		$corporationData = DatabaseHelper::getInstance()->getCorporationDataFromDb($corporationID);
 
 		if(\is_null($corporationData) || empty($corporationData->corporation_name)) {
-			$corporationData = $this->getEsiData($this->esiEndpoints['corporation-information'] . $corporationID . '/', null);
+			$corporationData = $this->getEsiData(\str_replace('{corporation_id}', $corporationID, $this->esiEndpoints['corporation-information-by-id']), null);
 
 			if(!\is_null($corporationData)) {
 				DatabaseHelper::getInstance()->writeCorporationDataToDb([
@@ -261,7 +261,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		$allianceData = DatabaseHelper::getInstance()->getAllianceDataFromDb($allianceID);
 
 		if(\is_null($allianceData) || empty($allianceData->alliance_name)) {
-			$allianceData = $this->getEsiData($this->esiEndpoints['alliance-information'] . $allianceID . '/', null);
+			$allianceData = $this->getEsiData(\str_replace('{alliance_id}', $allianceID, $this->esiEndpoints['alliance-information-by-id']), null);
 
 			if(!\is_null($allianceData)) {
 				DatabaseHelper::getInstance()->writeAllianceDataToDb([
@@ -285,7 +285,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return array
 	 */
 	public function getSystemData($systemID) {
-		$systemData = $this->getEsiData($this->esiEndpoints['system-information'] . $systemID . '/', 3600);
+		$systemData = $this->getEsiData(\str_replace('{system_id}', $systemID, $this->esiEndpoints['system-information-by-id']), 3600);
 
 		return [
 			'data' => $systemData
@@ -299,7 +299,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return array
 	 */
 	public function getConstellationData($constellationID) {
-		$constellationData = $this->getEsiData($this->esiEndpoints['constellation-information'] . $constellationID . '/', 3600);
+		$constellationData = $this->getEsiData(\str_replace('{constellation_id}', $constellationID, $this->esiEndpoints['constellation-information-by-id']), 3600);
 
 		return [
 			'data' => $constellationData
@@ -313,7 +313,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return array
 	 */
 	public function getRegionData($regionID) {
-		$regionData = $this->getEsiData($this->esiEndpoints['region-information'] . $regionID . '/', 3600);
+		$regionData = $this->getEsiData(\str_replace('{region_id}'. $regionID, $this->esiEndpoints['region-information-by-id']), 3600);
 
 		return [
 			'data' => $regionData
@@ -384,7 +384,8 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 			if(isset($arrayNotInApi[\sanitize_title($name)])) {
 				$returnData = $arrayNotInApi[\sanitize_title($name)]['id'];
 			} else {
-				$data = $this->getEsiData($this->esiEndpoints['search'] . '?search=' . \urlencode(\wp_specialchars_decode(\trim($name), \ENT_QUOTES)) . '&strict=true&categories=' . $type, null);
+				$searchUri = \str_replace('{name}', \urlencode(\wp_specialchars_decode(\trim($name), \ENT_QUOTES)), \str_replace('{category}', $type, $this->esiEndpoints['search']));
+				$data = $this->getEsiData($searchUri, null);
 
 				if(!isset($data->error) && !empty((array) $data) && isset($data->{$type})) {
 					/**
