@@ -3,7 +3,8 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.5...development)
-- in development
+### Changed
+- ESI end points now use their full path instead of adding the rest later ...
 
 ## [v0.4.5](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.5) - 2017-10-24
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.4...v0.4.5)
@@ -28,7 +29,7 @@
 ### Changed
 - Templates reworked
 - Reintroduced sticky highlight
-- Dropped pagination on data tables (use the filter it's a better way)
+- Dropped pagination on data tables (use the filter, it's a better way)
 
 ### Updated
 - German translation
