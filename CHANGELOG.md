@@ -2,7 +2,11 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.5...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.6...development)
+- in development
+
+## [v0.4.6](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.6) - 2017-10-31
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.5...v0.4.6)
 ### Fixed
 - ESI :: End points now use their full path instead of adding the rest later ...
 - ESI :: Affiliation end point now able to handle large numbers of pilots for chat scans. So even Jita local should be doable now, still might take a half an hour ...
