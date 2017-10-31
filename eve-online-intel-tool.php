@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
  * GitHub Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
  * Description: An EVE Online Intel Tool for WordPress. Parsing D-Scans, Local and Fleet Compositions. (Best with a theme running with <a href="http://getbootstrap.com/">Bootstrap</a>)
- * Version: 0.4.5
+ * Version: 0.4.6
  * Author: Rounon Dax
  * Author URI: https://yulaifederation.net
  * Text Domain: eve-online-intel-tool
@@ -78,8 +78,8 @@ class EveOnlineIntelTool {
 			new Libs\Admin\PluginSettings;
 
 			$this->initGitHubUpdater();
-		} // END if(\is_admin())
-	} // END public function init()
+		} // if(\is_admin())
+	} // public function init()
 
 	/**
 	 * Initializing the GitHub Updater
@@ -106,7 +106,7 @@ class EveOnlineIntelTool {
 		];
 
 		new Libs\GithubUpdater($githubConfig);
-	} // END private function initGitHubUpdater()
+	} // private function initGitHubUpdater()
 
 	/**
 	 * Setting up our text domain for translations
@@ -114,9 +114,9 @@ class EveOnlineIntelTool {
 	public function loadTextDomain() {
 		if(\function_exists('\load_plugin_textdomain')) {
 			\load_plugin_textdomain($this->textDomain, false, $this->localizationDirectory);
-		} // END if(function_exists('\load_plugin_textdomain'))
-	} // END public function addTextDomain()
-} // END class EveOnlineIntelTool
+		} // if(function_exists('\load_plugin_textdomain'))
+	} // public function addTextDomain()
+} // class EveOnlineIntelTool
 
 /**
  * Start the show ....
@@ -130,7 +130,7 @@ function initializePlugin() {
 	 * @todo https://premium.wpmudev.org/blog/activate-deactivate-uninstall-hooks/
 	 */
 	$eveIntelTool->init();
-} // END function initializePlugin()
+} // function initializePlugin()
 
 // Start the show
 initializePlugin();
