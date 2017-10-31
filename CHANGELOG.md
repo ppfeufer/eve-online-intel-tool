@@ -3,7 +3,8 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.6...development)
-- in development
+### Fixed
+- Database prefix for multisite installations
 
 ## [v0.4.6](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.6) - 2017-10-31
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.5...v0.4.6)
