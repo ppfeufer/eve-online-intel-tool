@@ -1,5 +1,5 @@
 @media all {
-	#eve-intel-tool-dashboard-widget-cache-statistics span {
+	#eve-intel-tool-dashboard-widget-cache-statistics .inside span {
 		display: inline-block;
 		width: 50%;
 	}
