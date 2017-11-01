@@ -50,5 +50,5 @@ class StringHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 		} // END if($ucFirst === false)
 
 		return $string;
-	} // END public static function camelCase($string, $ucFirst = false, $noStrip = array())
+	} // END public static function camelCase($string, $ucFirst = false, $noStrip = [])
 } // END class StringHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton

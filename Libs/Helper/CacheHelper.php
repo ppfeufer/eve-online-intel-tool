@@ -24,8 +24,8 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Helper;
 /**
  * WP Filesystem API
  */
-require_once(ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php');
-require_once(ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php');
+require_once(\ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php');
+require_once(\ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php');
 
 class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
 	/**
@@ -58,12 +58,12 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		if(!$this->pluginHelper instanceof \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper) {
 			$this->pluginHelper = PluginHelper::getInstance();
 			$this->pluginSettings = $this->pluginHelper->getPluginSettings();
-		}
+		} // if(!$this->pluginHelper instanceof \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper)
 
 		$this->cacheDirectoryBase = $this->getPluginCacheDir();
 
 		$this->checkOrCreateCacheDirectories();
-	} // END protected function __construct()
+	} // protected function __construct()
 
 	/**
 	 * Check if cache directories exist, otherwise try to create them
@@ -75,7 +75,7 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		$this->createCacheDirectory('images/character');
 		$this->createCacheDirectory('images/corporation');
 		$this->createCacheDirectory('images/alliance');
-	} // END public function checkOrCreateCacheDirectories()
+	} // public function checkOrCreateCacheDirectories()
 
 	/**
 	 * Getting the absolute path for the cache directory
@@ -84,7 +84,7 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 	 */
 	public function getPluginCacheDir() {
 		return \trailingslashit(\WP_CONTENT_DIR) . 'cache/eve-online/';
-	} // END public static function getThemeCacheDir()
+	} // public static function getThemeCacheDir()
 
 	/**
 	 * Getting the URI for the cache directory
@@ -93,7 +93,7 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 	 */
 	public function getPluginCacheUri() {
 		return \trailingslashit(\WP_CONTENT_URL) . 'cache/eve-online/';
-	} // END public function getThemeCacheUri()
+	} // public function getThemeCacheUri()
 
 	/**
 	 * Getting the local image cache directory
@@ -102,7 +102,7 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 	 */
 	public function getImageCacheDir() {
 		return \trailingslashit($this->getPluginCacheDir() . 'images/');
-	} // END public function getImageCacheDir()
+	} // public function getImageCacheDir()
 
 	/**
 	 * Getting the local image cache URI
@@ -111,7 +111,7 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 	 */
 	public function getImageCacheUri() {
 		return \trailingslashit($this->getPluginCacheUri() . 'images/');
-	} // END public static function getImageCacheUri()
+	} // public static function getImageCacheUri()
 
 	/**
 	 * creating our needed cache directories under:
@@ -131,8 +131,8 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 				'',
 				0644
 			);
-		} // END if(!$wpFileSystem->is_file(\trailingslashit($this->getPluginCacheDir()) . $directory . '/index.php'))
-	} // END public function createCacheDirectories()
+		} // if(!$wpFileSystem->is_file(\trailingslashit($this->getPluginCacheDir()) . $directory . '/index.php'))
+	} // public function createCacheDirectories()
 
 	/**
 	 * Chek if a remote image has been cached locally
@@ -142,23 +142,21 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 	 * @return boolean true or false
 	 */
 	public function checkCachedImage($cacheType = null, $imageName = null) {
+		$returnValue = false;
 		$cacheDir = \trailingslashit($this->getImageCacheDir() . $cacheType);
 
 		if(\file_exists($cacheDir . $imageName)) {
-//			if(\time() - \filemtime($cacheDir . $imageName) > 120 * 3600) {
-			if(\time() - \filemtime($cacheDir . $imageName) > $this->pluginSettings['image-cache-time'] * 3600) {
+			$returnValue = true;
+
+			if(((\time() - \filemtime($cacheDir . $imageName)) > $this->pluginSettings['image-cache-time'] * 3600) || (\filesize($cacheDir . $imageName) === 0)) {
 				\unlink($cacheDir . $imageName);
 
 				$returnValue = false;
-			} else {
-				$returnValue = true;
-			} // END if(\time() - \filemtime($cacheDir . $imageName) > 2 * 3600)
-		} else {
-			$returnValue = false;
-		} // END if(\file_exists($cacheDir . $imageName))
+			} // if(((\time() - \filemtime($cacheDir . $imageName)) > $this->pluginSettings['image-cache-time'] * 3600) || (\filesize($cacheDir . $imageName) === 0))
+		} // if(\file_exists($cacheDir . $imageName))
 
 		return $returnValue;
-	} // END static function checkCachedImage($cacheType = null, $imageName = null)
+	} // static function checkCachedImage($cacheType = null, $imageName = null)
 
 	/**
 	 * Cachng a remote image locally
@@ -183,11 +181,11 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 
 			if($wpFileSystem->put_contents($cacheDir . $imageFilename, $imageToFetch, 0755)) {
 				$returnValue = ImageHelper::getInstance()->compressImage($cacheDir . $imageFilename);
-			} // END if($wpFileSystem->put_contents($cacheDir . $imageFilename, $imageToFetch, 0755))
-		} // END if($extension === 'gif' || $extension === 'jpg' || $extension === 'jpeg' || $extension === 'png')
+			} // if($wpFileSystem->put_contents($cacheDir . $imageFilename, $imageToFetch, 0755))
+		} // if($extension === 'gif' || $extension === 'jpg' || $extension === 'jpeg' || $extension === 'png')
 
 		return $returnValue;
-	} // END public function cacheRemoteImageFile($cacheType = null, $remoteImageUrl = null)
+	} // public function cacheRemoteImageFile($cacheType = null, $remoteImageUrl = null)
 
 	/**
 	 * Getting transient cache information / data
@@ -199,7 +197,7 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		$data = \get_transient($transientName);
 
 		return $data;
-	} // END public function checkApiCache($transientName)
+	} // public function checkApiCache($transientName)
 
 	/**
 	 * Setting the transient cahe
@@ -210,5 +208,5 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 	 */
 	public function setTransientCache($transientName, $data, $time = 2) {
 		\set_transient($transientName, $data, $time * \HOUR_IN_SECONDS);
-	} // END public function setApiCache($transientName, $data)
-} // END class CacheHelper
+	} // public function setApiCache($transientName, $data)
+} // class CacheHelper

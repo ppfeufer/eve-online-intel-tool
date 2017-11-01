@@ -19,6 +19,8 @@
 
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Helper;
 
+\defined('ABSPATH') or die();
+
 class RemoteHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
 	/**
 	 * Getting data from a remote source

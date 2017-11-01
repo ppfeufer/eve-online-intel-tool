@@ -29,7 +29,7 @@ class FormNonce implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\
 	public function ajaxAction() {
 		$nonce = \wp_create_nonce('eve-online-intel-tool-new-intel-form');
 
-		echo \json_encode($nonce);
+		\wp_send_json($nonce);
 
 		// always exit this API function
 		exit;

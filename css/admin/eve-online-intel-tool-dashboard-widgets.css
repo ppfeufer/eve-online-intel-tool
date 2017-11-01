@@ -1,0 +1,14 @@
+@media all {
+	.eve-intel-widget-column {
+		display: inline-block;
+	}
+
+	.eve-intel-column-2 {
+		width: 50%;
+	}
+
+	.eve-intel-widget-row {
+		display: block;
+		width: 100%;
+	}
+}

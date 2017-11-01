@@ -65,9 +65,11 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	public function checkDatabase($newVersion) {
 		$currentVersion = $this->getCurrentDatabaseVersion();
 
-		if(\version_compare($currentVersion, $newVersion, '<')) {
-			$this->updateDatabase($newVersion);
-		} // if(\version_compare($currentVersion, $newVersion, '<'))
+		if(!\is_null($newVersion)) {
+			if(\version_compare($currentVersion, $newVersion) < 0) {
+				$this->updateDatabase($newVersion);
+			} // if(\version_compare($currentVersion, $newVersion, '<'))
+		} // if(!\is_null($newVersion))
 	} // public function checkDatabase($newVersion)
 
 	/**
@@ -80,8 +82,6 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		$this->createCorporationTable();
 		$this->createAllianceTable();
 		$this->createShipTable();
-//		$this->createItemTable();
-//		$this->createSolarsystemTable();
 
 		/**
 		 * Update database version
@@ -94,14 +94,14 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	 */
 	private function createPilotTable() {
 		$charsetCollate = $this->wpdb->get_charset_collate();
-		$tableName = $this->wpdb->prefix . 'eveIntelPilots';
+		$tableName = $this->wpdb->base_prefix . 'eveIntelPilots';
 
-		$sql = 'CREATE TABLE IF NOT EXISTS ' . $tableName . ' ('
-			. 'character_id bigint(11),'
-			. 'name varchar(255),'
-			. 'lastUpdated varchar(255),'
-			. 'PRIMARY KEY id (character_id)'
-			. ') ' . $charsetCollate;
+		$sql = "CREATE TABLE $tableName (
+			character_id bigint(11),
+			name varchar(255),
+			lastUpdated varchar(255),
+			PRIMARY KEY id (character_id)
+		) $charsetCollate;";
 
 		require_once(\ABSPATH . 'wp-admin/includes/upgrade.php');
 
@@ -113,15 +113,15 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	 */
 	private function createCorporationTable() {
 		$charsetCollate = $this->wpdb->get_charset_collate();
-		$tableName = $this->wpdb->prefix . 'eveIntelCorporations';
+		$tableName = $this->wpdb->base_prefix . 'eveIntelCorporations';
 
-		$sql = 'CREATE TABLE IF NOT EXISTS ' . $tableName . ' ('
-			. 'corporation_id bigint(11),'
-			. 'corporation_name varchar(255),'
-			. 'ticker varchar(255),'
-			. 'lastUpdated varchar(255),'
-			. 'PRIMARY KEY id (corporation_id)'
-			. ') ' . $charsetCollate;
+		$sql = "CREATE TABLE $tableName (
+			corporation_id bigint(11),
+			corporation_name varchar(255),
+			ticker varchar(255),
+			lastUpdated varchar(255),
+			PRIMARY KEY id (corporation_id)
+		) $charsetCollate;";
 
 		require_once(\ABSPATH . 'wp-admin/includes/upgrade.php');
 
@@ -133,15 +133,15 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	 */
 	private function createAllianceTable() {
 		$charsetCollate = $this->wpdb->get_charset_collate();
-		$tableName = $this->wpdb->prefix . 'eveIntelAlliances';
+		$tableName = $this->wpdb->base_prefix . 'eveIntelAlliances';
 
-		$sql = 'CREATE TABLE IF NOT EXISTS ' . $tableName . ' ('
-			. 'alliance_id bigint(11),'
-			. 'alliance_name varchar(255),'
-			. 'ticker varchar(255),'
-			. 'lastUpdated varchar(255),'
-			. 'PRIMARY KEY id (alliance_id)'
-			. ') ' . $charsetCollate;
+		$sql = "CREATE TABLE $tableName (
+			alliance_id bigint(11),
+			alliance_name varchar(255),
+			ticker varchar(255),
+			lastUpdated varchar(255),
+			PRIMARY KEY id (alliance_id)
+		) $charsetCollate;";
 
 		require_once(\ABSPATH . 'wp-admin/includes/upgrade.php');
 
@@ -153,16 +153,16 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	 */
 	private function createShipTable() {
 		$charsetCollate = $this->wpdb->get_charset_collate();
-		$tableName = $this->wpdb->prefix . 'eveIntelShips';
+		$tableName = $this->wpdb->base_prefix . 'eveIntelShips';
 
-		$sql = 'CREATE TABLE IF NOT EXISTS ' . $tableName . ' ('
-			. 'ship_id bigint(11),'
-			. 'class varchar(255),'
-			. 'type varchar(255),'
-			. 'category_id bigint(11),'
-			. 'lastUpdated varchar(255),'
-			. 'PRIMARY KEY id (ship_id)'
-			. ') ' . $charsetCollate;
+		$sql = "CREATE TABLE $tableName (
+			ship_id bigint(11),
+			class varchar(255),
+			type varchar(255),
+			category_id bigint(11),
+			lastUpdated varchar(255),
+			PRIMARY KEY id (ship_id)
+		) $charsetCollate;";
 
 		require_once(\ABSPATH . 'wp-admin/includes/upgrade.php');
 
@@ -175,7 +175,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	 * Adding some ships that are not in the ESI to our database
 	 */
 	private function addMissingEsiShipData() {
-		$tableName = $this->wpdb->prefix . 'eveIntelShips';
+		$tableName = $this->wpdb->base_prefix . 'eveIntelShips';
 
 		// Capsule - Genolution 'Auroral' 197-variant
 		if($this->wpdb->query('SELECT * FROM ' . $tableName . ' WHERE ship_id = 670;') === 0) {
@@ -207,47 +207,6 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	}
 
 	/**
-	 * Creating the items table
-	 */
-//	private function createItemTable() {
-//		$charsetCollate = $this->wpdb->get_charset_collate();
-//		$tableName = $this->wpdb->prefix . 'eveIntelItems';
-//
-//		$sql = 'CREATE TABLE IF NOT EXISTS ' . $tableName . ' ('
-//			. 'eveID bigint(11),'
-//			. 'name varchar(255),'
-//			. 'type varchar(255),'
-//			. 'lastUpdated varchar(255),'
-//			. 'PRIMARY KEY id (eveID)'
-//			. ') ' . $charsetCollate;
-//
-//		require_once(\ABSPATH . 'wp-admin/includes/upgrade.php');
-//
-//		\dbDelta($sql);
-//	} // private function createItemTable()
-
-	/**
-	 * Creating the items table
-	 */
-//	private function createSolarsystemTable() {
-//		$charsetCollate = $this->wpdb->get_charset_collate();
-//		$tableName = $this->wpdb->prefix . 'eveIntelSolarsystems';
-//
-//		$sql = 'CREATE TABLE IF NOT EXISTS ' . $tableName . ' ('
-//			. 'eveID bigint(11),'
-//			. 'name varchar(255),'
-//			. 'constellation varchar(255),'
-//			. 'region varchar(255),'
-//			. 'lastUpdated varchar(255),'
-//			. 'PRIMARY KEY id (eveID)'
-//			. ') ' . $charsetCollate;
-//
-//		require_once(\ABSPATH . 'wp-admin/includes/upgrade.php');
-//
-//		\dbDelta($sql);
-//	} // private function createItemTable()
-
-	/**
 	 * Get Character data from the DB (by character ID)
 	 *
 	 * @param string $characterID
@@ -257,14 +216,14 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		$returnValue = null;
 
 		$characterResult = $this->wpdb->get_results($this->wpdb->prepare(
-			'SELECT * FROM ' . $this->wpdb->prefix . 'eveIntelPilots' . ' WHERE character_id = %s',
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelPilots' . ' WHERE character_id = %s',
 			[
 				$characterID
 			]
 		));
 
 		if($characterResult) {
-			$now = \time();
+			$now = \strtotime(\gmdate('Y-m-d H:i:s', \time()));
 			$lastUpdated = \strtotime($characterResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update
@@ -286,14 +245,14 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		$returnValue = null;
 
 		$characterResult = $this->wpdb->get_results($this->wpdb->prepare(
-			'SELECT * FROM ' . $this->wpdb->prefix . 'eveIntelPilots' . ' WHERE name = %s',
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelPilots' . ' WHERE name = %s',
 			[
 				$characterName
 			]
 		));
 
 		if($characterResult) {
-			$now = \time();
+			$now = \strtotime(\gmdate('Y-m-d H:i:s', \time()));
 			$lastUpdated = \strtotime($characterResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update
@@ -312,7 +271,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	 */
 	public function writeCharacterDataToDb(array $characterData) {
 		$this->wpdb->query($this->wpdb->prepare(
-			'REPLACE INTO ' . $this->wpdb->prefix . 'eveIntelPilots' . ' (character_id, name, lastUpdated) VALUES (%s, %s, %s)',
+			'REPLACE INTO ' . $this->wpdb->base_prefix . 'eveIntelPilots' . ' (character_id, name, lastUpdated) VALUES (%s, %s, %s)',
 			$characterData
 		));
 	} // public function writeCharacterdataToDb(array $characterData)
@@ -327,14 +286,14 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		$returnValue = null;
 
 		$corporationResult = $this->wpdb->get_results($this->wpdb->prepare(
-			'SELECT * FROM ' . $this->wpdb->prefix . 'eveIntelCorporations' . ' WHERE corporation_id = %s',
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelCorporations' . ' WHERE corporation_id = %s',
 			[
 				$corporationID
 			]
 		));
 
 		if($corporationResult) {
-			$now = \time();
+			$now = \strtotime(\gmdate('Y-m-d H:i:s', \time()));
 			$lastUpdated = \strtotime($corporationResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update
@@ -356,14 +315,14 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		$returnValue = null;
 
 		$corporationResult = $this->wpdb->get_results($this->wpdb->prepare(
-			'SELECT * FROM ' . $this->wpdb->prefix . 'eveIntelCorporations' . ' WHERE corporation_name = %s',
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelCorporations' . ' WHERE corporation_name = %s',
 			[
 				$corporationName
 			]
 		));
 
 		if($corporationResult) {
-			$now = \time();
+			$now = \strtotime(\gmdate('Y-m-d H:i:s', \time()));
 			$lastUpdated = \strtotime($corporationResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update
@@ -382,7 +341,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	 */
 	public function writeCorporationDataToDb(array $corporationData) {
 		$this->wpdb->query($this->wpdb->prepare(
-			'REPLACE INTO ' . $this->wpdb->prefix . 'eveIntelCorporations' . ' (corporation_id, corporation_name, ticker, lastUpdated) VALUES (%s, %s, %s, %s)',
+			'REPLACE INTO ' . $this->wpdb->base_prefix . 'eveIntelCorporations' . ' (corporation_id, corporation_name, ticker, lastUpdated) VALUES (%s, %s, %s, %s)',
 			$corporationData
 		));
 	} // public function writeCorporationDataToDb(array $corporationData)
@@ -397,18 +356,18 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		$returnValue = null;
 
 		$allianceResult = $this->wpdb->get_results($this->wpdb->prepare(
-			'SELECT * FROM ' . $this->wpdb->prefix . 'eveIntelAlliances' . ' WHERE alliance_id = %s',
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelAlliances' . ' WHERE alliance_id = %s',
 			[
 				$allianceID
 			]
 		));
 
 		if($allianceResult) {
-			$now = \time();
+			$now = \strtotime(\gmdate('Y-m-d H:i:s', \time()));
 			$lastUpdated = \strtotime($allianceResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update
-			if($now - $lastUpdated > 2592000) {
+			if($now - $lastUpdated < 2592000) {
 				$returnValue = $allianceResult['0'];
 			}
 		}
@@ -420,18 +379,18 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		$returnValue = null;
 
 		$allianceResult = $this->wpdb->get_results($this->wpdb->prepare(
-			'SELECT * FROM ' . $this->wpdb->prefix . 'eveIntelAlliances' . ' WHERE alliance_name = %s',
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelAlliances' . ' WHERE alliance_name = %s',
 			[
 				$allianceName
 			]
 		));
 
 		if($allianceResult) {
-			$now = \time();
+			$now = \strtotime(\gmdate('Y-m-d H:i:s', \time()));
 			$lastUpdated = \strtotime($allianceResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update
-			if($now - $lastUpdated > 2592000) {
+			if($now - $lastUpdated < 2592000) {
 				$returnValue = $allianceResult['0'];
 			}
 		}
@@ -446,7 +405,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	 */
 	public function writeAllianceDataToDb(array $allianceData) {
 		$this->wpdb->query($this->wpdb->prepare(
-			'REPLACE INTO ' . $this->wpdb->prefix . 'eveIntelAlliances' . ' (alliance_id, alliance_name, ticker, lastUpdated) VALUES (%s, %s, %s, %s)',
+			'REPLACE INTO ' . $this->wpdb->base_prefix . 'eveIntelAlliances' . ' (alliance_id, alliance_name, ticker, lastUpdated) VALUES (%s, %s, %s, %s)',
 			$allianceData
 		));
 	} // END public function writeAllianceDataToDb(array $allianceData)
@@ -461,7 +420,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		$returnValue = null;
 
 		$shipResult = $this->wpdb->get_results($this->wpdb->prepare(
-			'SELECT * FROM ' . $this->wpdb->prefix . 'eveIntelShips' . ' WHERE ship_id = %s',
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelShips' . ' WHERE ship_id = %s',
 			[
 				$shipID
 			]
@@ -476,8 +435,24 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 
 	public function writeShipDataToDb(array $shipData) {
 		$this->wpdb->query($this->wpdb->prepare(
-			'REPLACE INTO ' . $this->wpdb->prefix . 'eveIntelShips' . ' (ship_id, class, type, category_id, lastUpdated) VALUES (%s, %s, %s, %d, %s)',
+			'REPLACE INTO ' . $this->wpdb->base_prefix . 'eveIntelShips' . ' (ship_id, class, type, category_id, lastUpdated) VALUES (%s, %s, %s, %d, %s)',
 			$shipData
 		));
+	}
+
+	public function getNumberOfPilotsInDatabase() {
+		return $this->wpdb->get_var('SELECT COUNT(*) FROM ' . $this->wpdb->base_prefix . 'eveIntelPilots');
+	}
+
+	public function getNumberOfCorporationsInDatabase() {
+		return $this->wpdb->get_var('SELECT COUNT(*) FROM ' . $this->wpdb->base_prefix . 'eveIntelCorporations');
+	}
+
+	public function getNumberOfAlliancesInDatabase() {
+		return $this->wpdb->get_var('SELECT COUNT(*) FROM ' . $this->wpdb->base_prefix . 'eveIntelAlliances');
+	}
+
+	public function getNumberOfShipsInDatabase() {
+		return $this->wpdb->get_var('SELECT COUNT(*) FROM ' . $this->wpdb->base_prefix . 'eveIntelShips');
 	}
 } // class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton

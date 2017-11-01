@@ -55,7 +55,7 @@ class PluginSettings {
 		$this->defaultOptions = $this->pluginHelper->getPluginDefaultSettings();
 
 		$this->fireSettingsApi();
-	} // END public function __construct()
+	} // public function __construct()
 
 	/**
 	 * Fire the Settings API
@@ -65,7 +65,7 @@ class PluginSettings {
 		$settingsApi->init();
 
 		\add_filter($this->settingsFilter, [$this, 'getSettings']);
-	} // END function fireSettingsApi()
+	} // function fireSettingsApi()
 
 	/**
 	 * Getting the Settings for the Plugin Options Page
@@ -87,7 +87,7 @@ class PluginSettings {
 		];
 
 		return $pluginOptionsPage;
-	} // END function renderSettingsPage()
+	} // function renderSettingsPage()
 
 	/**
 	 * Getting the Killboard Databse Settings
@@ -102,7 +102,7 @@ class PluginSettings {
 		];
 
 		return $settings;
-	} // END private function getGeneralSettings()
+	} // private function getGeneralSettings()
 
 	/**
 	 * Get the settings fields for the Killboard settings
@@ -116,6 +116,14 @@ class PluginSettings {
 				'type' => 'checkbox',
 				'choices' => [
 					'yes' => \__('Use a serverside cache for images fetched from CCP\'s image server.', 'eve-online-intel-tool')
+				]
+			],
+			'image-lazy-load' => [
+				'title' => \__('Lazy-Load images', 'eve-online-intel-tool'),
+				'description' => \__('Start loading EVE related images (Pilot-Avatars, Corp-Logos and Alliance-Logos) after the result page has been loaded. This might speed things a bit up, especially when using the image cache and new images have to be downloaded and cached first. <small><strong>(Only works when using the image cache.)</strong></small><br><strong>!!! DO NOT USE IT WHEN YOU HAVE A STATIC PAGE CACHE !!!</strong>', 'eve-online-intel-tool'),
+				'type' => 'checkbox',
+				'choices' => [
+					'yes' => \__('Use a lazy loading mechanism for EVE related images.', 'eve-online-intel-tool')
 				]
 			],
 			'image-cache-time' => [
@@ -172,5 +180,5 @@ class PluginSettings {
 		];
 
 		return $settingsFields;
-	} // END private function getGeneralSettingsFields()
-} // END class PluginSettings
+	} // private function getGeneralSettingsFields()
+} // class PluginSettings

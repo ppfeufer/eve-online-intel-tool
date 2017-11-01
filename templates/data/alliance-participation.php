@@ -15,10 +15,13 @@ if(!empty($allianceParticipation)) {
 					<tr data-highlight="alliance-<?php echo $alliance['allianceID']; ?>">
 						<td>
 							<?php
-							$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('alliance', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('alliance') . $alliance['allianceID'] . '_32.png');
+							\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/alliance-logo', [
+								'data' => $alliance,
+								'pluginSettings' => $pluginSettings
+							]);
+
+							echo $alliance['allianceName'];
 							?>
-							<img src="<?php echo $image; ?>" alt="<?php echo $alliance['allianceName']; ?>" width="32" heigh="32">
-							<?php echo $alliance['allianceName']; ?>
 						</td>
 						<td class="table-data-count">
 							<?php echo $alliance['count']; ?>

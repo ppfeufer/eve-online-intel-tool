@@ -27,7 +27,8 @@ defined('ABSPATH') or die();
 				if(\is_array($intelData['shipTypes']) && \count($intelData['shipTypes'])) {
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/fleet-information',[
 						'pilotCount' => \count($intelData['pilotList']),
-						'fleetInformation' => $intelData['fleetInformation']
+						'fleetInformation' => $intelData['fleetInformation'],
+						'pluginSettings' => $pluginSettings
 					]);
 				} // END if(\is_array($intelData['shipTypes']) && \count($intelData['shipTypes']))
 				?>
@@ -42,7 +43,8 @@ defined('ABSPATH') or die();
 					if(\is_array($intelData['shipClasses']) && \count($intelData['shipClasses'])) {
 						\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/ship-classes',[
 							'title' => \__('Ship Classes', 'eve-online-intel-tool'),
-							'shipClassList' => $intelData['shipClasses']
+							'shipClassList' => $intelData['shipClasses'],
+							'pluginSettings' => $pluginSettings
 						]);
 					} // END if(\is_array($intelData['shipClasses']) && \count($intelData['shipClasses']))
 					?>
@@ -56,7 +58,8 @@ defined('ABSPATH') or die();
 					if(\is_array($intelData['shipTypes']) && \count($intelData['shipTypes'])) {
 						\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/ship-types',[
 							'title' => \__('Ship Types', 'eve-online-intel-tool'),
-							'shipTypeList' => $intelData['shipTypes']
+							'shipTypeList' => $intelData['shipTypes'],
+							'pluginSettings' => $pluginSettings
 						]);
 					} // END if(\is_array($intelData['shipTypes']) && \count($intelData['shipTypes']))
 					?>
@@ -68,7 +71,8 @@ defined('ABSPATH') or die();
 				<div class="col-md-12 col-lg-6">
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/fleet-composition',[
-						'fleetOverview' => $intelData['fleetOverview']
+						'fleetOverview' => $intelData['fleetOverview'],
+						'pluginSettings' => $pluginSettings
 					]);
 					?>
 				</div>
@@ -82,7 +86,8 @@ defined('ABSPATH') or die();
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/alliance-participation',[
 						'allianceCount' => \count($intelData['allianceList']),
-						'allianceParticipation' => $intelData['allianceParticipation']
+						'allianceParticipation' => $intelData['allianceParticipation'],
+						'pluginSettings' => $pluginSettings
 					]);
 					?>
 				</div>
@@ -94,7 +99,8 @@ defined('ABSPATH') or die();
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/corporation-participation',[
 						'corporationCount' => \count($intelData['corporationList']),
-						'corporationParticipation' => $intelData['corporationParticipation']
+						'corporationParticipation' => $intelData['corporationParticipation'],
+						'pluginSettings' => $pluginSettings
 					]);
 					?>
 				</div>
@@ -106,7 +112,8 @@ defined('ABSPATH') or die();
 					<?php
 					\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/pilot-participation',[
 						'pilotCount' => \count($intelData['pilotList']),
-						'pilotParticipation' => $intelData['pilotParticipation']
+						'pilotParticipation' => $intelData['pilotParticipation'],
+						'pluginSettings' => $pluginSettings
 					]);
 					?>
 				</div>

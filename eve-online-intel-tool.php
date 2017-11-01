@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
  * GitHub Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
  * Description: An EVE Online Intel Tool for WordPress. Parsing D-Scans, Local and Fleet Compositions. (Best with a theme running with <a href="http://getbootstrap.com/">Bootstrap</a>)
- * Version: 0.3.3-dev
+ * Version: 0.4.7
  * Author: Rounon Dax
  * Author URI: https://yulaifederation.net
  * Text Domain: eve-online-intel-tool
@@ -32,6 +32,11 @@ class EveOnlineIntelTool {
 	 */
 	private $localizationDirectory = null;
 
+	/**
+	 * Database version
+	 *
+	 * @var string
+	 */
 	private $databaseVersion = null;
 
 	/**
@@ -46,7 +51,7 @@ class EveOnlineIntelTool {
 		$this->textDomain = 'eve-online-intel-tool';
 		$this->localizationDirectory = \basename(\dirname(__FILE__)) . '/l10n/';
 
-		$this->databaseVersion = '20171009';
+		$this->databaseVersion = '20171010';
 	} // END public function __construct()
 
 	/**
@@ -55,23 +60,27 @@ class EveOnlineIntelTool {
 	public function init() {
 		$this->loadTextDomain();
 
+		new Libs\PostType;
+		new Libs\Ajax\FormNonce;
+		new Libs\Ajax\ImageLazyLoad;
+
+		new Libs\WpHooks([
+			'newDatabaseVersion' => $this->databaseVersion
+		]);
+
 		$jsLoader = new Libs\ResourceLoader\JavascriptLoader;
 		$jsLoader->init();
 
 		$cssLoader = new Libs\ResourceLoader\CssLoader;
 		$cssLoader->init();
 
-		Libs\Helper\DatabaseHelper::getInstance()->checkDatabase($this->databaseVersion);
-
-		new Libs\PostType;
-		new Libs\Ajax\FormNonce;
-
 		if(\is_admin()) {
 			new Libs\Admin\PluginSettings;
+			new Libs\Widgets\Dashboard\CacheStatisticsWidget;
 
 			$this->initGitHubUpdater();
-		} // END if(\is_admin())
-	} // END public function init()
+		} // if(\is_admin())
+	} // public function init()
 
 	/**
 	 * Initializing the GitHub Updater
@@ -84,7 +93,8 @@ class EveOnlineIntelTool {
 		 */
 		$githubConfig = [
 			'slug' => \plugin_basename(__FILE__),
-			'proper_folder_name' => \dirname(\plugin_basename(__FILE__)),
+//			'proper_folder_name' => \dirname(\plugin_basename(__FILE__)),
+			'proper_folder_name' => Libs\Helper\PluginHelper::getInstance()->getPluginDirName(),
 			'api_url' => 'https://api.github.com/repos/ppfeufer/eve-online-intel-tool',
 			'raw_url' => 'https://raw.github.com/ppfeufer/eve-online-intel-tool/master',
 			'github_url' => 'https://github.com/ppfeufer/eve-online-intel-tool',
@@ -97,7 +107,7 @@ class EveOnlineIntelTool {
 		];
 
 		new Libs\GithubUpdater($githubConfig);
-	} // END private function initGitHubUpdater()
+	} // private function initGitHubUpdater()
 
 	/**
 	 * Setting up our text domain for translations
@@ -105,9 +115,9 @@ class EveOnlineIntelTool {
 	public function loadTextDomain() {
 		if(\function_exists('\load_plugin_textdomain')) {
 			\load_plugin_textdomain($this->textDomain, false, $this->localizationDirectory);
-		} // END if(function_exists('\load_plugin_textdomain'))
-	} // END public function addTextDomain()
-} // END class EveOnlineIntelTool
+		} // if(function_exists('\load_plugin_textdomain'))
+	} // public function addTextDomain()
+} // class EveOnlineIntelTool
 
 /**
  * Start the show ....
@@ -121,7 +131,7 @@ function initializePlugin() {
 	 * @todo https://premium.wpmudev.org/blog/activate-deactivate-uninstall-hooks/
 	 */
 	$eveIntelTool->init();
-} // END function initializePlugin()
+} // function initializePlugin()
 
 // Start the show
-\add_action('plugins_loaded', 'WordPress\Plugin\EveOnlineIntelTool\initializePlugin');
+initializePlugin();

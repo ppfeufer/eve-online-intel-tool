@@ -2,7 +2,73 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.3.2...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.7...development)
+### Added
+- Dashboard widget - Cache Statisctics
+
+## [v0.4.7](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.7) - 2017-11-01
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.6...v0.4.7)
+### Fixed
+- Database prefix for multisite installations, we need only one cache database ...
+
+## [v0.4.6](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.6) - 2017-10-31
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.5...v0.4.6)
+### Fixed
+- ESI :: End points now use their full path instead of adding the rest later ...
+- ESI :: Affiliation end point now able to handle large numbers of pilots for chat scans. So even Jita local should be doable now, still might take a half an hour ...
+
+## [v0.4.5](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.5) - 2017-10-24
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.4...v0.4.5)
+### Added
+- Athanor and Tatara as structures that hold the systems name
+
+### Changed
+- Plugin dir base name detection simplified
+
+## [v0.4.4](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.4) - 2017-10-23
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.3...v0.4.4)
+### Fixed
+- Cached images will be renewed when file size is 0 (broken images)
+
+### Added
+- Warning to the image lazy load option to not use it when using a static page cache, can add some very heavy load to your server.
+
+### Removed
+- Call for non needed java script
+- Unused information from the fleet scan
+
+### Changed
+- Templates reworked
+- Reintroduced sticky highlight
+- Dropped pagination on data tables (use the filter, it's a better way)
+
+### Updated
+- German translation
+
+## [v0.4.3](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.3) - 2017-10-17
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.2...v0.4.3)
+### Fixed
+- Tackled emtpy response from character-affiliation end point / [Issue: #27](https://github.com/ppfeufer/eve-online-intel-tool/issues/27)
+- Error while parsing duplicate names
+- An issue with the templates that wouldn't load when no intel data is available
+- Rewriting the permalinks on activation and deactivation
+- Image API end point for ships (To many end points that do the same here ...), and this time we have the right images for T2 ships :-)
+
+### Added
+- Optional lazy loading for EVE related images on chat scan pages, when image cache is used
+
+## [v0.4.2](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.2) - 2017-10-09
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.1...v0.4.2)
+### Fixed
+- Comparing cache time with current time for alliance cache
+
+## [v0.4.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.1) - 2017-10-09
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.0...v0.4.1)
+### Fixed
+- Time for database entries. Using the month as hour doesn't really work great in the long run ...
+
+## [v0.4.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.0) - 2017-10-09
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.3.2...v0.4.0)
 ### Changed
 - Now using own database tables to cache entity ID for pilots, corporations, alliances and ship information. This should speed things up quite a bit after some time and drop the amount of API calls needed significantly.
 
