@@ -313,7 +313,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return array
 	 */
 	public function getRegionData($regionID) {
-		$regionData = $this->getEsiData(\str_replace('{region_id}'. $regionID, $this->esiEndpoints['region-information-by-id']), 3600);
+		$regionData = $this->getEsiData(\str_replace('{region_id}', $regionID, $this->esiEndpoints['region-information-by-id']), 3600);
 
 		return [
 			'data' => $regionData
