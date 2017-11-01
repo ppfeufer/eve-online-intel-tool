@@ -439,4 +439,20 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			$shipData
 		));
 	}
+
+	public function getNumberOfPilotsInDatabase() {
+		return $this->wpdb->get_var('SELECT COUNT(*) FROM ' . $this->wpdb->base_prefix . 'eveIntelPilots');
+	}
+
+	public function getNumberOfCorporationsInDatabase() {
+		return $this->wpdb->get_var('SELECT COUNT(*) FROM ' . $this->wpdb->base_prefix . 'eveIntelCorporations');
+	}
+
+	public function getNumberOfAlliancesInDatabase() {
+		return $this->wpdb->get_var('SELECT COUNT(*) FROM ' . $this->wpdb->base_prefix . 'eveIntelAlliances');
+	}
+
+	public function getNumberOfShipsInDatabase() {
+		return $this->wpdb->get_var('SELECT COUNT(*) FROM ' . $this->wpdb->base_prefix . 'eveIntelShips');
+	}
 } // class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton
