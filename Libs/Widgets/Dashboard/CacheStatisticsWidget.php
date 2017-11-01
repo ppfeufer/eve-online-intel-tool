@@ -47,15 +47,15 @@ class CacheStatisticsWidget {
 	} // public function addDashboardWidget()
 
 	public function renderDashboardWidget() {
-		$numberOfPilots = $this->dbHelper->getNumberOfPilotsInDatabase();
-		$numberOfCorporations = $this->dbHelper->getNumberOfCorporationsInDatabase();
-		$numberOfAlliances = $this->dbHelper->getNumberOfAlliancesInDatabase();
-		$numberOfShips = $this->dbHelper->getNumberOfShipsInDatabase();
+		$numberOfPilots = \number_format($this->dbHelper->getNumberOfPilotsInDatabase(), 0, ',', '.');
+		$numberOfCorporations = \number_format($this->dbHelper->getNumberOfCorporationsInDatabase(), 0, ',', '.');
+		$numberOfAlliances = \number_format($this->dbHelper->getNumberOfAlliancesInDatabase(), 0, ',', '.');
+		$numberOfShips = \number_format($this->dbHelper->getNumberOfShipsInDatabase(), 0, ',', '.');
 
 		echo '<p>' . \__('Your EVE intel database cache', 'eve-online-intel-tool') . '</p>';
 		echo '<p>';
-		echo '<span><strong>' . \__('Pilots', 'eve-online-intel-tool') . ':</strong> ' .  $numberOfPilots . '<br><strong>' . \__('Corporations', 'eve-online-intel-tool') . ':</strong> ' . $numberOfCorporations . '</span>';
-		echo '<span><strong>' . \__('Alliances', 'eve-online-intel-tool') . ':</strong> ' .  $numberOfAlliances . '<br><strong>' . \__('Ships', 'eve-online-intel-tool') . ':</strong> ' . $numberOfShips . '</span>';
+		echo '<span class="eve-intel-widget-column eve-intel-column-2"><span class="eve-intel-widget-row"><strong>' . \__('Pilots', 'eve-online-intel-tool') . ':</strong> ' .  $numberOfPilots . '</span><span class="eve-intel-widget-row"><strong>' . \__('Corporations', 'eve-online-intel-tool') . ':</strong> ' . $numberOfCorporations . '</span></span>';
+		echo '<span class="eve-intel-widget-column eve-intel-column-2"><span class="eve-intel-widget-row"><strong>' . \__('Alliances', 'eve-online-intel-tool') . ':</strong> ' .  $numberOfAlliances . '</span><span class="eve-intel-widget-row"><strong>' . \__('Ships', 'eve-online-intel-tool') . ':</strong> ' . $numberOfShips . '</span></span>';
 		echo '<p>';
 	} // public function renderDashboardWidget()
 } // class CacheStatisticsWidget
