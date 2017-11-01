@@ -94,7 +94,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	 */
 	private function createPilotTable() {
 		$charsetCollate = $this->wpdb->get_charset_collate();
-		$tableName = $this->wpdb->prefix . 'eveIntelPilots';
+		$tableName = $this->wpdb->base_prefix . 'eveIntelPilots';
 
 		$sql = "CREATE TABLE $tableName (
 			character_id bigint(11),
@@ -113,7 +113,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	 */
 	private function createCorporationTable() {
 		$charsetCollate = $this->wpdb->get_charset_collate();
-		$tableName = $this->wpdb->prefix . 'eveIntelCorporations';
+		$tableName = $this->wpdb->base_prefix . 'eveIntelCorporations';
 
 		$sql = "CREATE TABLE $tableName (
 			corporation_id bigint(11),
@@ -133,7 +133,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	 */
 	private function createAllianceTable() {
 		$charsetCollate = $this->wpdb->get_charset_collate();
-		$tableName = $this->wpdb->prefix . 'eveIntelAlliances';
+		$tableName = $this->wpdb->base_prefix . 'eveIntelAlliances';
 
 		$sql = "CREATE TABLE $tableName (
 			alliance_id bigint(11),
@@ -153,7 +153,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	 */
 	private function createShipTable() {
 		$charsetCollate = $this->wpdb->get_charset_collate();
-		$tableName = $this->wpdb->prefix . 'eveIntelShips';
+		$tableName = $this->wpdb->base_prefix . 'eveIntelShips';
 
 		$sql = "CREATE TABLE $tableName (
 			ship_id bigint(11),
@@ -175,7 +175,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	 * Adding some ships that are not in the ESI to our database
 	 */
 	private function addMissingEsiShipData() {
-		$tableName = $this->wpdb->prefix . 'eveIntelShips';
+		$tableName = $this->wpdb->base_prefix . 'eveIntelShips';
 
 		// Capsule - Genolution 'Auroral' 197-variant
 		if($this->wpdb->query('SELECT * FROM ' . $tableName . ' WHERE ship_id = 670;') === 0) {
@@ -216,7 +216,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		$returnValue = null;
 
 		$characterResult = $this->wpdb->get_results($this->wpdb->prepare(
-			'SELECT * FROM ' . $this->wpdb->prefix . 'eveIntelPilots' . ' WHERE character_id = %s',
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelPilots' . ' WHERE character_id = %s',
 			[
 				$characterID
 			]
@@ -245,7 +245,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		$returnValue = null;
 
 		$characterResult = $this->wpdb->get_results($this->wpdb->prepare(
-			'SELECT * FROM ' . $this->wpdb->prefix . 'eveIntelPilots' . ' WHERE name = %s',
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelPilots' . ' WHERE name = %s',
 			[
 				$characterName
 			]
@@ -271,7 +271,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	 */
 	public function writeCharacterDataToDb(array $characterData) {
 		$this->wpdb->query($this->wpdb->prepare(
-			'REPLACE INTO ' . $this->wpdb->prefix . 'eveIntelPilots' . ' (character_id, name, lastUpdated) VALUES (%s, %s, %s)',
+			'REPLACE INTO ' . $this->wpdb->base_prefix . 'eveIntelPilots' . ' (character_id, name, lastUpdated) VALUES (%s, %s, %s)',
 			$characterData
 		));
 	} // public function writeCharacterdataToDb(array $characterData)
@@ -286,7 +286,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		$returnValue = null;
 
 		$corporationResult = $this->wpdb->get_results($this->wpdb->prepare(
-			'SELECT * FROM ' . $this->wpdb->prefix . 'eveIntelCorporations' . ' WHERE corporation_id = %s',
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelCorporations' . ' WHERE corporation_id = %s',
 			[
 				$corporationID
 			]
@@ -315,7 +315,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		$returnValue = null;
 
 		$corporationResult = $this->wpdb->get_results($this->wpdb->prepare(
-			'SELECT * FROM ' . $this->wpdb->prefix . 'eveIntelCorporations' . ' WHERE corporation_name = %s',
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelCorporations' . ' WHERE corporation_name = %s',
 			[
 				$corporationName
 			]
@@ -341,7 +341,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	 */
 	public function writeCorporationDataToDb(array $corporationData) {
 		$this->wpdb->query($this->wpdb->prepare(
-			'REPLACE INTO ' . $this->wpdb->prefix . 'eveIntelCorporations' . ' (corporation_id, corporation_name, ticker, lastUpdated) VALUES (%s, %s, %s, %s)',
+			'REPLACE INTO ' . $this->wpdb->base_prefix . 'eveIntelCorporations' . ' (corporation_id, corporation_name, ticker, lastUpdated) VALUES (%s, %s, %s, %s)',
 			$corporationData
 		));
 	} // public function writeCorporationDataToDb(array $corporationData)
@@ -356,7 +356,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		$returnValue = null;
 
 		$allianceResult = $this->wpdb->get_results($this->wpdb->prepare(
-			'SELECT * FROM ' . $this->wpdb->prefix . 'eveIntelAlliances' . ' WHERE alliance_id = %s',
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelAlliances' . ' WHERE alliance_id = %s',
 			[
 				$allianceID
 			]
@@ -379,7 +379,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		$returnValue = null;
 
 		$allianceResult = $this->wpdb->get_results($this->wpdb->prepare(
-			'SELECT * FROM ' . $this->wpdb->prefix . 'eveIntelAlliances' . ' WHERE alliance_name = %s',
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelAlliances' . ' WHERE alliance_name = %s',
 			[
 				$allianceName
 			]
@@ -405,7 +405,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	 */
 	public function writeAllianceDataToDb(array $allianceData) {
 		$this->wpdb->query($this->wpdb->prepare(
-			'REPLACE INTO ' . $this->wpdb->prefix . 'eveIntelAlliances' . ' (alliance_id, alliance_name, ticker, lastUpdated) VALUES (%s, %s, %s, %s)',
+			'REPLACE INTO ' . $this->wpdb->base_prefix . 'eveIntelAlliances' . ' (alliance_id, alliance_name, ticker, lastUpdated) VALUES (%s, %s, %s, %s)',
 			$allianceData
 		));
 	} // END public function writeAllianceDataToDb(array $allianceData)
@@ -420,7 +420,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		$returnValue = null;
 
 		$shipResult = $this->wpdb->get_results($this->wpdb->prepare(
-			'SELECT * FROM ' . $this->wpdb->prefix . 'eveIntelShips' . ' WHERE ship_id = %s',
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelShips' . ' WHERE ship_id = %s',
 			[
 				$shipID
 			]
@@ -435,7 +435,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 
 	public function writeShipDataToDb(array $shipData) {
 		$this->wpdb->query($this->wpdb->prepare(
-			'REPLACE INTO ' . $this->wpdb->prefix . 'eveIntelShips' . ' (ship_id, class, type, category_id, lastUpdated) VALUES (%s, %s, %s, %d, %s)',
+			'REPLACE INTO ' . $this->wpdb->base_prefix . 'eveIntelShips' . ' (ship_id, class, type, category_id, lastUpdated) VALUES (%s, %s, %s, %d, %s)',
 			$shipData
 		));
 	}
