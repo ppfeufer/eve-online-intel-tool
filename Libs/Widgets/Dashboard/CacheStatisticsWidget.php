@@ -54,8 +54,25 @@ class CacheStatisticsWidget {
 
 		echo '<p>' . \__('Your EVE intel database cache', 'eve-online-intel-tool') . '</p>';
 		echo '<p>';
-		echo '<span class="eve-intel-widget-column eve-intel-column-2"><span class="eve-intel-widget-row"><strong>' . \__('Pilots', 'eve-online-intel-tool') . ':</strong> ' .  $numberOfPilots . '</span><span class="eve-intel-widget-row"><strong>' . \__('Corporations', 'eve-online-intel-tool') . ':</strong> ' . $numberOfCorporations . '</span></span>';
-		echo '<span class="eve-intel-widget-column eve-intel-column-2"><span class="eve-intel-widget-row"><strong>' . \__('Alliances', 'eve-online-intel-tool') . ':</strong> ' .  $numberOfAlliances . '</span><span class="eve-intel-widget-row"><strong>' . \__('Ships', 'eve-online-intel-tool') . ':</strong> ' . $numberOfShips . '</span></span>';
+		echo '<span class="eve-intel-widget-column eve-intel-column-2">'
+				. '<span class="eve-intel-widget-row">'
+					. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Pilots', 'eve-online-intel-tool') . ':</strong></span>'
+					. '<span class="eve-intel-widget-column eve-intel-widget-number eve-intel-widget-align-right eve-intel-column-3-1">' .  $numberOfPilots . '</span>'
+				. '</span>'
+				. '<span class="eve-intel-widget-row">'
+					. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Corporations', 'eve-online-intel-tool') . ':</strong></span>'
+					. '<span class="eve-intel-widget-column eve-intel-widget-number eve-intel-widget-align-right eve-intel-column-3-1">' . $numberOfCorporations . '</span>'
+				. '</span>'
+			. '</span>';
+		echo '<span class="eve-intel-widget-column eve-intel-column-2">'
+			. '<span class="eve-intel-widget-row">'
+				. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Alliances', 'eve-online-intel-tool') . ':</strong></span>'
+				. '<span class="eve-intel-widget-column eve-intel-widget-number eve-intel-widget-align-right eve-intel-column-3-1">' .  $numberOfAlliances . '</span>'
+			. '</span>'
+			. '<span class="eve-intel-widget-row">'
+				. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Ships', 'eve-online-intel-tool') . ':</strong></span>'
+				. '<span class="eve-intel-widget-column eve-intel-widget-number eve-intel-widget-align-right eve-intel-column-3-1">' . $numberOfShips . '</span>'
+			. '</span>';
 		echo '<p>';
 	} // public function renderDashboardWidget()
 } // class CacheStatisticsWidget
