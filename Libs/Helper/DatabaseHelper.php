@@ -29,15 +29,25 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	 */
 	public $optionDatabaseFieldName = 'eve-online-intel-tool-database-version';
 
+	/**
+	 * WordPress Database Instance
+	 *
+	 * @var \WPDB
+	 */
 	private $wpdb = null;
 
+	/**
+	 * Constructor
+	 *
+	 * @global \WPDB $wpdb
+	 */
 	protected function __construct() {
 		parent::__construct();
 
 		global $wpdb;
 
 		$this->wpdb = $wpdb;
-	}
+	} // protected function __construct()
 
 	/**
 	 * Returniong the database version field name
@@ -82,6 +92,9 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 		$this->createCorporationTable();
 		$this->createAllianceTable();
 		$this->createShipTable();
+		$this->createSystemTable();
+		$this->createConstellationTable();
+		$this->createRegionTable();
 
 		/**
 		 * Update database version
@@ -189,7 +202,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 					'lastUpdated' => '-1',
 				]
 			);
-		}
+		} // if($this->wpdb->query('SELECT * FROM ' . $tableName . ' WHERE ship_id = 670;') === 0)
 
 		// Capsule
 		if($this->wpdb->query('SELECT * FROM ' . $tableName . ' WHERE ship_id = 33328;') === 0) {
@@ -203,8 +216,62 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 					'lastUpdated' => '-1',
 				]
 			);
-		}
-	}
+		} // if($this->wpdb->query('SELECT * FROM ' . $tableName . ' WHERE ship_id = 33328;') === 0)
+	} // private function addMissingEsiShipData()
+
+	/**
+	 * Creating the system table
+	 */
+	private function createSystemTable() {
+		$charsetCollate = $this->wpdb->get_charset_collate();
+		$tableName = $this->wpdb->base_prefix . 'eveIntelSystems';
+
+		$sql = "CREATE TABLE $tableName (
+			system_id bigint(11),
+			name varchar(255),
+			constellation_id bigint(11),
+			star_id bigint(11),
+			lastUpdated varchar(255),
+			PRIMARY KEY id (system_id)
+		) $charsetCollate;";
+
+		require_once(\ABSPATH . 'wp-admin/includes/upgrade.php');
+
+		\dbDelta($sql);
+	} // private function createSystemTable()
+
+	private function createConstellationTable() {
+		$charsetCollate = $this->wpdb->get_charset_collate();
+		$tableName = $this->wpdb->base_prefix . 'eveIntelConstellations';
+
+		$sql = "CREATE TABLE $tableName (
+			constellation_id bigint(11),
+			name varchar(255),
+			region_id bigint(11),
+			lastUpdated varchar(255),
+			PRIMARY KEY id (constellation_id)
+		) $charsetCollate;";
+
+		require_once(\ABSPATH . 'wp-admin/includes/upgrade.php');
+
+		\dbDelta($sql);
+	} // private function createConstellationTable()
+
+	private function createRegionTable() {
+		$charsetCollate = $this->wpdb->get_charset_collate();
+		$tableName = $this->wpdb->base_prefix . 'eveIntelRegions';
+
+		$sql = "CREATE TABLE $tableName (
+			region_id bigint(11),
+			name varchar(255),
+			lastUpdated varchar(255),
+			PRIMARY KEY id (region_id)
+		) $charsetCollate;";
+
+		require_once(\ABSPATH . 'wp-admin/includes/upgrade.php');
+
+		\dbDelta($sql);
+	} // private function createConstellationTable()
 
 	/**
 	 * Get Character data from the DB (by character ID)
@@ -229,8 +296,8 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			// Older than 30 days? Force an update
 			if($now - $lastUpdated < 2592000) {
 				$returnValue = $characterResult['0'];
-			}
-		}
+			} // if($now - $lastUpdated < 2592000)
+		} // if($characterResult)
 
 		return $returnValue;
 	} // public function getCharacterDataFromDb($characterID)
@@ -258,8 +325,8 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			// Older than 30 days? Force an update
 			if($now - $lastUpdated < 2592000) {
 				$returnValue = $characterResult['0'];
-			}
-		}
+			} // if($now - $lastUpdated < 2592000)
+		} // if($characterResult)
 
 		return $returnValue;
 	} // public function getCharacterDataFromDbByName($characterName)
@@ -299,8 +366,8 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			// Older than 30 days? Force an update
 			if($now - $lastUpdated < 2592000) {
 				$returnValue = $corporationResult['0'];
-			}
-		}
+			} // if($now - $lastUpdated < 2592000)
+		} // if($corporationResult)
 
 		return $returnValue;
 	} // public function getCorporationDataFromDb($corporationID)
@@ -328,11 +395,11 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			// Older than 30 days? Force an update
 			if($now - $lastUpdated < 2592000) {
 				$returnValue = $corporationResult['0'];
-			}
-		}
+			} // if($now - $lastUpdated < 2592000)
+		} // if($corporationResult)
 
 		return $returnValue;
-	}
+	} // public function getCorporationDataFromDbByName($corporationName)
 
 	/**
 	 * Writing corporation data into our database
@@ -369,12 +436,18 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			// Older than 30 days? Force an update
 			if($now - $lastUpdated < 2592000) {
 				$returnValue = $allianceResult['0'];
-			}
-		}
+			} // if($now - $lastUpdated < 2592000)
+		} // if($allianceResult)
 
 		return $returnValue;
-	}
+	} // public function getAllianceDataFromDb($allianceID)
 
+	/**
+	 * Get alliance data from cache database by alliance name
+	 *
+	 * @param string $allianceName
+	 * @return object
+	 */
 	public function getAllianceDataFromDbByName($allianceName) {
 		$returnValue = null;
 
@@ -392,11 +465,11 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			// Older than 30 days? Force an update
 			if($now - $lastUpdated < 2592000) {
 				$returnValue = $allianceResult['0'];
-			}
-		}
+			} // if($now - $lastUpdated < 2592000)
+		} // if($allianceResult)
 
 		return $returnValue;
-	}
+	} // public function getAllianceDataFromDbByName($allianceName)
 
 	/**
 	 * Writing corporation data into our database
@@ -409,6 +482,134 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			$allianceData
 		));
 	} // END public function writeAllianceDataToDb(array $allianceData)
+
+	/**
+	 * Get system data from cache database by system ID
+	 *
+	 * @param int $systemID
+	 * @return object
+	 */
+	public function getSystemDataFromDb($systemID) {
+		$returnValue = null;
+
+		$systemResult = $this->wpdb->get_results($this->wpdb->prepare(
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelSystems' . ' WHERE system_id = %s',
+			[
+				$systemID
+			]
+		));
+
+		if($systemResult) {
+			$returnValue = $systemResult['0'];
+		} // if($systemResult)
+
+		return $returnValue;
+	} // public function getSystemDataFromDb($systemID)
+
+	/**
+	 * Get system data from cache database by system Name
+	 *
+	 * @param string $systemName
+	 * @return object
+	 */
+	public function getSystemDataFromDbByName($systemName) {
+		$returnValue = null;
+
+		$systemResult = $this->wpdb->get_results($this->wpdb->prepare(
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelSystems' . ' WHERE name = %s',
+			[
+				$systemName
+			]
+		));
+
+		if($systemResult) {
+			$returnValue = $systemResult['0'];
+		} // if($systemResult)
+
+		return $returnValue;
+	} // public function getSystemDataFromDbByName($systemName)
+
+	/**
+	 * Write system data to the cache database
+	 *
+	 * @param array $systemData (system_id, name, constellation_id, star_id, lastUpdated)
+	 */
+	public function writeSystemDataToDb(array $systemData) {
+		$this->wpdb->query($this->wpdb->prepare(
+			'REPLACE INTO ' . $this->wpdb->base_prefix . 'eveIntelSystems' . ' (system_id, name, constellation_id, star_id, lastUpdated) VALUES (%s, %s, %s, %s, %s)',
+			$systemData
+		));
+	} // public function writeSystemDataToDb(array $systemData)
+
+	/**
+	 * Get the constellation data from the cache database by constellation ID
+	 *
+	 * @param int $constellationID
+	 * @return object
+	 */
+	public function getConstellationDataFromDb($constellationID) {
+		$returnValue = null;
+
+		$constellationResult = $this->wpdb->get_results($this->wpdb->prepare(
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelConstellations' . ' WHERE constellation_id = %s',
+			[
+				$constellationID
+			]
+		));
+
+		if($constellationResult) {
+			$returnValue = $constellationResult['0'];
+		} // if($constellationResult)
+
+		return $returnValue;
+	} // public function getConstellationDataFromDb($constellationID)
+
+	/**
+	 * Write constellation data to cache database
+	 *
+	 * @param array $constellationData (constellation_id, name, region_id, lastUpdated)
+	 */
+	public function writeConstellationDataToDb(array $constellationData) {
+		$this->wpdb->query($this->wpdb->prepare(
+			'REPLACE INTO ' . $this->wpdb->base_prefix . 'eveIntelConstellations' . ' (constellation_id, name, region_id, lastUpdated) VALUES (%s, %s, %s, %s)',
+			$constellationData
+		));
+	} // public function writeConstellationDataToDb(array $constellationData)
+
+	/**
+	 * Get region data from cache database by region ID
+	 *
+	 * @param int $regionID
+	 * @return object
+	 */
+	public function getRegionDataFromDb($regionID) {
+		$returnValue = null;
+
+		$regionResult = $this->wpdb->get_results($this->wpdb->prepare(
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelRegions' . ' WHERE region_id = %s',
+			[
+				$regionID
+			]
+		));
+
+		if($regionResult) {
+			$returnValue = $regionResult['0'];
+		} // if($regionResult)
+
+		return $returnValue;
+	} // public function getRegionDataFromDb($regionID)
+
+	/**
+	 * Write region data to cache database
+	 *
+	 * @param array $regionData (region_id, name, lastUpdated)
+	 */
+	public function writeRegionDataToDb(array $regionData) {
+		$this->wpdb->query($this->wpdb->prepare(
+			'REPLACE INTO ' . $this->wpdb->base_prefix . 'eveIntelRegions' . ' (region_id, name, lastUpdated) VALUES (%s, %s, %s)',
+			$regionData
+		));
+	} // public function writeConstellationDataToDb(array $regionData)
 
 	/**
 	 * Get ship data from DB (by ship ID)
@@ -428,15 +629,83 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 
 		if($shipResult) {
 			$returnValue = $shipResult['0'];
-		}
+		} // if($shipResult)
 
 		return $returnValue;
-	}
+	} // public function getShipDataFromDb($shipID)
 
+	/**
+	 * Write ship data to cache database
+	 *
+	 * @param array $shipData (ship_id, class, type, category_id, lastUpdated)
+	 */
 	public function writeShipDataToDb(array $shipData) {
 		$this->wpdb->query($this->wpdb->prepare(
 			'REPLACE INTO ' . $this->wpdb->base_prefix . 'eveIntelShips' . ' (ship_id, class, type, category_id, lastUpdated) VALUES (%s, %s, %s, %d, %s)',
 			$shipData
 		));
-	}
+	} // public function writeShipDataToDb(array $shipData)
+
+	/**
+	 * Get the number of cached pilots
+	 *
+	 * @return string
+	 */
+	public function getNumberOfPilotsInDatabase() {
+		return $this->wpdb->get_var('SELECT COUNT(*) FROM ' . $this->wpdb->base_prefix . 'eveIntelPilots');
+	} // public function getNumberOfPilotsInDatabase()
+
+	/**
+	 * Get the number of cached corporations
+	 *
+	 * @return string
+	 */
+	public function getNumberOfCorporationsInDatabase() {
+		return $this->wpdb->get_var('SELECT COUNT(*) FROM ' . $this->wpdb->base_prefix . 'eveIntelCorporations');
+	} // public function getNumberOfCorporationsInDatabase()
+
+	/**
+	 * Get the number of cached alliances
+	 *
+	 * @return string
+	 */
+	public function getNumberOfAlliancesInDatabase() {
+		return $this->wpdb->get_var('SELECT COUNT(*) FROM ' . $this->wpdb->base_prefix . 'eveIntelAlliances');
+	} // public function getNumberOfAlliancesInDatabase()
+
+	/**
+	 * Get the number of cached ships
+	 *
+	 * @return string
+	 */
+	public function getNumberOfShipsInDatabase() {
+		return $this->wpdb->get_var('SELECT COUNT(*) FROM ' . $this->wpdb->base_prefix . 'eveIntelShips');
+	} // public function getNumberOfShipsInDatabase()
+
+	/**
+	 * Get the number of cached systems
+	 *
+	 * @return string
+	 */
+	public function getNumberOfSystemsInDatabase() {
+		return $this->wpdb->get_var('SELECT COUNT(*) FROM ' . $this->wpdb->base_prefix . 'eveIntelSystems');
+	} // public function getNumberOfSystemsInDatabase()
+
+	/**
+	 * Get the number of cached constellations
+	 *
+	 * @return string
+	 */
+	public function getNumberOfConstellationsInDatabase() {
+		return $this->wpdb->get_var('SELECT COUNT(*) FROM ' . $this->wpdb->base_prefix . 'eveIntelConstellations');
+	} // public function getNumberOfConstellationsInDatabase()
+
+	/**
+	 * Get the number of cached regions
+	 *
+	 * @return string
+	 */
+	public function getNumberOfRegionsInDatabase() {
+		return $this->wpdb->get_var('SELECT COUNT(*) FROM ' . $this->wpdb->base_prefix . 'eveIntelRegions');
+	} // public function getNumberOfRegionsInDatabase()
 } // class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton
