@@ -47,32 +47,131 @@ class CacheStatisticsWidget {
 	} // public function addDashboardWidget()
 
 	public function renderDashboardWidget() {
-		$numberOfPilots = \number_format($this->dbHelper->getNumberOfPilotsInDatabase(), 0, ',', '.');
-		$numberOfCorporations = \number_format($this->dbHelper->getNumberOfCorporationsInDatabase(), 0, ',', '.');
-		$numberOfAlliances = \number_format($this->dbHelper->getNumberOfAlliancesInDatabase(), 0, ',', '.');
-		$numberOfShips = \number_format($this->dbHelper->getNumberOfShipsInDatabase(), 0, ',', '.');
+
+
+
+
 
 		echo '<p>' . \__('Your EVE intel database cache', 'eve-online-intel-tool') . '</p>';
 		echo '<p>';
+		echo '<span class="eve-intel-widget-row">';
 		echo '<span class="eve-intel-widget-column eve-intel-column-2">'
-				. '<span class="eve-intel-widget-row">'
-					. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Pilots', 'eve-online-intel-tool') . ':</strong></span>'
-					. '<span class="eve-intel-widget-column eve-intel-widget-number eve-intel-widget-align-right eve-intel-column-3-1">' .  $numberOfPilots . '</span>'
-				. '</span>'
-				. '<span class="eve-intel-widget-row">'
-					. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Corporations', 'eve-online-intel-tool') . ':</strong></span>'
-					. '<span class="eve-intel-widget-column eve-intel-widget-number eve-intel-widget-align-right eve-intel-column-3-1">' . $numberOfCorporations . '</span>'
-				. '</span>'
+				. $this->renderPilotsRowHtml()
+				. $this->renderCorporationsRowHtml()
 			. '</span>';
 		echo '<span class="eve-intel-widget-column eve-intel-column-2">'
-			. '<span class="eve-intel-widget-row">'
+			. $this->renderAlliancesRowHtml()
+			. $this->renderShipsRowHtml()
+			. '</span>';
+		echo '</span>';
+
+		echo '<span class="eve-intel-widget-row">';
+		echo '<span class="eve-intel-widget-column eve-intel-column-2">'
+				. $this->renderSystemsRowHtml()
+				. $this->renderConstellationsRowHtml()
+			. '</span>';
+		echo '<span class="eve-intel-widget-column eve-intel-column-2">'
+			. $this->renderRegionsRowHtml()
+			. '</span>';
+		echo '</span>';
+		echo '<p>';
+	} // public function renderDashboardWidget()
+
+	/**
+	 * Render the HTML part for the pilots row
+	 *
+	 * @return string
+	 */
+	private function renderPilotsRowHtml() {
+		$numberOfPilots = \number_format($this->dbHelper->getNumberOfPilotsInDatabase(), 0, ',', '.');
+
+		return '<span class="eve-intel-widget-row">'
+					. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Pilots', 'eve-online-intel-tool') . ':</strong></span>'
+					. '<span class="eve-intel-widget-column eve-intel-widget-number eve-intel-widget-align-right eve-intel-column-3-1">' .  $numberOfPilots . '</span>'
+				. '</span>';
+	} // private function renderPilotsRowHtml()
+
+	/**
+	 * Render the HTML part for the corporation row
+	 *
+	 * @return string
+	 */
+	private function renderCorporationsRowHtml() {
+		$numberOfCorporations = \number_format($this->dbHelper->getNumberOfCorporationsInDatabase(), 0, ',', '.');
+
+		return '<span class="eve-intel-widget-row">'
+					. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Corporations', 'eve-online-intel-tool') . ':</strong></span>'
+					. '<span class="eve-intel-widget-column eve-intel-widget-number eve-intel-widget-align-right eve-intel-column-3-1">' . $numberOfCorporations . '</span>'
+				. '</span>';
+	} // private function renderCorporationsRowHtml()
+
+	/**
+	 * Render the HTML part for the alliance row
+	 *
+	 * @return string
+	 */
+	private function renderAlliancesRowHtml() {
+		$numberOfAlliances = \number_format($this->dbHelper->getNumberOfAlliancesInDatabase(), 0, ',', '.');
+
+		return '<span class="eve-intel-widget-row">'
 				. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Alliances', 'eve-online-intel-tool') . ':</strong></span>'
 				. '<span class="eve-intel-widget-column eve-intel-widget-number eve-intel-widget-align-right eve-intel-column-3-1">' .  $numberOfAlliances . '</span>'
-			. '</span>'
-			. '<span class="eve-intel-widget-row">'
+			. '</span>';
+	} // private function renderAlliancesRowHtml()
+
+	/**
+	 * Render the HTML part for the ships row
+	 *
+	 * @return string
+	 */
+	private function renderShipsRowHtml() {
+		$numberOfShips = \number_format($this->dbHelper->getNumberOfShipsInDatabase(), 0, ',', '.');
+
+		return '<span class="eve-intel-widget-row">'
 				. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Ships', 'eve-online-intel-tool') . ':</strong></span>'
 				. '<span class="eve-intel-widget-column eve-intel-widget-number eve-intel-widget-align-right eve-intel-column-3-1">' . $numberOfShips . '</span>'
 			. '</span>';
-		echo '<p>';
-	} // public function renderDashboardWidget()
+	} // private function renderShipsRowHtml()
+
+	/**
+	 * Render the HTML part for the systems row
+	 *
+	 * @return string
+	 */
+	private function renderSystemsRowHtml() {
+		$numberOfSystems = \number_format($this->dbHelper->getNumberOfSystemsInDatabase(), 0, ',', '.');
+
+		return '<span class="eve-intel-widget-row">'
+				. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Systems', 'eve-online-intel-tool') . ':</strong></span>'
+				. '<span class="eve-intel-widget-column eve-intel-widget-number eve-intel-widget-align-right eve-intel-column-3-1">' . $numberOfSystems . '</span>'
+			. '</span>';
+	} // private function renderSystemsRowHtml()
+
+	/**
+	 * Render the HTML part for the constellations row
+	 *
+	 * @return string
+	 */
+	private function renderConstellationsRowHtml() {
+		$numberOfConstellations = \number_format($this->dbHelper->getNumberOfConstellationsInDatabase(), 0, ',', '.');
+
+		return '<span class="eve-intel-widget-row">'
+				. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Constellations', 'eve-online-intel-tool') . ':</strong></span>'
+				. '<span class="eve-intel-widget-column eve-intel-widget-number eve-intel-widget-align-right eve-intel-column-3-1">' . $numberOfConstellations . '</span>'
+			. '</span>';
+	} // private function renderConstellationsRowHtml()
+
+	/**
+	 * Render the HTML part for the regions row
+	 *
+	 * @return string
+	 */
+	private function renderRegionsRowHtml() {
+		$numberOfRegions = \number_format($this->dbHelper->getNumberOfRegionsInDatabase(), 0, ',', '.');
+
+		return '<span class="eve-intel-widget-row">'
+				. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Regions', 'eve-online-intel-tool') . ':</strong></span>'
+				. '<span class="eve-intel-widget-column eve-intel-widget-number eve-intel-widget-align-right eve-intel-column-3-1">' . $numberOfRegions . '</span>'
+			. '</span>';
+	} // private function renderRegionsRowHtml()
 } // class CacheStatisticsWidget
