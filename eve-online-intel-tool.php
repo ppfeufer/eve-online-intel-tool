@@ -41,8 +41,6 @@ class EveOnlineIntelTool {
 
 	/**
 	 * Plugin constructor
-	 *
-	 * @param boolean $init
 	 */
 	public function __construct() {
 		/**
@@ -51,7 +49,7 @@ class EveOnlineIntelTool {
 		$this->textDomain = 'eve-online-intel-tool';
 		$this->localizationDirectory = \basename(\dirname(__FILE__)) . '/l10n/';
 
-		$this->databaseVersion = '20171010';
+		$this->databaseVersion = '20171104';
 	} // END public function __construct()
 
 	/**

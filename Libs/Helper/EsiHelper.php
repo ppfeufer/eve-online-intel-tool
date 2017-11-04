@@ -285,7 +285,21 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return array
 	 */
 	public function getSystemData($systemID) {
-		$systemData = $this->getEsiData(\str_replace('{system_id}', $systemID, $this->esiEndpoints['system-information-by-id']), 3600);
+		$systemData = DatabaseHelper::getInstance()->getSystemDataFromDb($systemID);
+
+		if(\is_null($systemData) || empty($systemData->name)) {
+			$systemData = $this->getEsiData(\str_replace('{system_id}', $systemID, $this->esiEndpoints['system-information-by-id']), null);
+
+			if(!\is_null($systemData)) {
+				DatabaseHelper::getInstance()->writeSystemDataToDb([
+					$systemID,
+					$systemData->name,
+					$systemData->constellation_id,
+					$systemData->star_id,
+					\gmdate('Y-m-d H:i:s', \time())
+				]);
+			} // if(!\is_null($systemData))
+		} // if(\is_null($systemData) || empty($systemData->system_name))
 
 		return [
 			'data' => $systemData
@@ -299,7 +313,20 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return array
 	 */
 	public function getConstellationData($constellationID) {
-		$constellationData = $this->getEsiData(\str_replace('{constellation_id}', $constellationID, $this->esiEndpoints['constellation-information-by-id']), 3600);
+		$constellationData = DatabaseHelper::getInstance()->getConstellationDataFromDb($constellationID);
+
+		if(\is_null($constellationData) || empty($constellationData->name)) {
+			$constellationData = $this->getEsiData(\str_replace('{constellation_id}', $constellationID, $this->esiEndpoints['constellation-information-by-id']), null);
+
+			if(!\is_null($constellationData)) {
+				DatabaseHelper::getInstance()->writeConstellationDataToDb([
+					$constellationID,
+					$constellationData->name,
+					$constellationData->region_id,
+					\gmdate('Y-m-d H:i:s', \time())
+				]);
+			} // if(!\is_null($constellationData))
+		} // if(\is_null($constellationData) || empty($constellationData->name))
 
 		return [
 			'data' => $constellationData
@@ -313,7 +340,19 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return array
 	 */
 	public function getRegionData($regionID) {
-		$regionData = $this->getEsiData(\str_replace('{region_id}', $regionID, $this->esiEndpoints['region-information-by-id']), 3600);
+		$regionData = DatabaseHelper::getInstance()->getRegionDataFromDb($regionID);
+
+		if(\is_null($regionData) || empty($regionData->name)) {
+			$regionData = $this->getEsiData(\str_replace('{region_id}', $regionID, $this->esiEndpoints['region-information-by-id']), null);
+
+			if(!\is_null($regionData)) {
+				DatabaseHelper::getInstance()->writeRegionDataToDb([
+					$regionID,
+					$regionData->name,
+					\gmdate('Y-m-d H:i:s', \time())
+				]);
+			} // if(!\is_null($regionData))
+		} // if(\is_null($regionData) || empty($regionData->name))
 
 		return [
 			'data' => $regionData
@@ -376,6 +415,11 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 
 			// System
 			case 'solarsystem':
+				$systemData = DatabaseHelper::getInstance()->getSystemDataFromDbByName($name);
+
+				if(isset($systemData->system_id)) {
+					$returnData = $systemData->system_id;
+				} // if(isset($systemData->system_id))
 				break;
 		} // switch($type)
 
