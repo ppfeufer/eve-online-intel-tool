@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EVE Online Intel Tool for WordPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-23 09:23+0000\n"
-"PO-Revision-Date: 2017-10-23 09:27+0000\n"
-"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
+"POT-Creation-Date: 2017-11-05 10:19+0000\n"
+"PO-Revision-Date: 2017-11-05 10:29+0000\n"
+"Last-Translator: Rounon Dax <dev@ppfeufer.de>\n"
 "Language-Team: German\n"
 "Language: de-DE\n"
 "Plural-Forms: nplurals=2; plural=n != 1\n"
@@ -13,57 +13,45 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco - https://localise.biz/"
 
-#: Libs/Admin/PluginSettings.php:122
-msgid "Lazy-Load images"
-msgstr "Bilder verzögert laden"
+#: Libs/Parser/LocalScanParser.php:244 Libs/Parser/LocalScanParser.php:251
+msgid "Unaffiliated / No Alliance"
+msgstr "Keine Allianzzugehörigkeit"
 
-#: Libs/Admin/PluginSettings.php:123
-msgid ""
-"Start loading EVE related images (Pilot-Avatars, Corp-Logos and Alliance-"
-"Logos) after the result page has been loaded. This might speed things a bit "
-"up, especially when using the image cache and new images have to be "
-"downloaded and cached first. <small><strong>(Only works when using the image "
-"cache.)</strong></small><br><strong>!!! DO NOT USE IT WHEN YOU HAVE A STATIC "
-"PAGE CACHE !!!</strong>"
-msgstr ""
-"Lader Bilder (Piloten Avatare, Corporation und Allianz Logos) verzögert, "
-"nachdem die Ergebnisseite geladen ist. Dies mag einiges etwas beschleunigen, "
-"besondern wenn der Bild Cache genutzt wird. <small><strong>(Funktioniert "
-"wirklich nur mit dem Bild Cache.)</strong></small><br><strong>!!! NICHT "
-"VERWENDEN WENN BEREITS EIN STATISCHER CACHE FÜR DIE SEITE GENUTZT WIRD !!!"
-"</strong>"
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:46
+msgid "EVE Intel Tool :: Cache Statistics"
+msgstr "EVE Intel Tool :: Cache Statistiken"
 
-#: Libs/Admin/PluginSettings.php:126
-msgid "Use a lazy loading mechanism for EVE related images."
-msgstr "Nutze einen Mechanismus der das Laden der Bilder verzögert."
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:55
+msgid "Your EVE intel database cache"
+msgstr "EVE Intel Tool Datenbank Cache"
 
-#: Libs/ResourceLoader/JavascriptLoader.php:78
-msgid "Showing _END_ entries"
-msgstr "Zeige _END_ Einträge"
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:89
+msgid "Pilots"
+msgstr "Piloten"
 
-#: Libs/ResourceLoader/JavascriptLoader.php:80
-msgid "(filtered from _MAX_ total entries)"
-msgstr "(Gefiltert aus _MAX_ Einträgen)"
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:103
+msgid "Corporations"
+msgstr "Corporationen"
 
-#: Libs/GithubUpdater.php:466
-msgid ""
-"The plugin has been updated, but could not be reactivated. Please reactivate "
-"it manually."
-msgstr ""
-"Dieses Plugin wurde aktualisiert, konnte jedoch nicht reaktiviert werden. "
-"Bitte aktiviere es manuell."
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:117
+msgid "Alliances"
+msgstr "Allianzen"
 
-#: Libs/GithubUpdater.php:467
-msgid "Plugin reactivated successfully."
-msgstr "Plugin erfolgreich reaktiviert."
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:131
+msgid "Ships"
+msgstr "Schiffe"
 
-#: Libs/PostType.php:47
-msgid "Category"
-msgstr "Kategorie"
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:145
+msgid "Systems"
+msgstr "Systeme"
 
-#: Libs/PostType.php:68 Libs/PostType.php:69
-msgid "Intel"
-msgstr "Intel"
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:159
+msgid "Constellations"
+msgstr "Konstellationen"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:173
+msgid "Regions"
+msgstr "Regionen"
 
 #: templates/page-intel.php:30
 msgid "Intel Parser"
@@ -131,14 +119,18 @@ msgstr "Absenden"
 msgid "Waiting for the system to authenticate the form ..."
 msgstr "Warte auf die Authentifizierung des Formulars durch das System ..."
 
+#: templates/single-local.php:7
+msgid "Chat Scan"
+msgstr "Chat Scan"
+
+#: templates/single-local.php:12 templates/single-dscan.php:36
+#: templates/single-fleetcomposition.php:12
+msgid "EVE Time:"
+msgstr "EVE Zeit:"
+
 #: templates/single-dscan.php:21
 msgid "Solar System:"
 msgstr "System:"
-
-#: templates/single-dscan.php:36 templates/single-fleetcomposition.php:12
-#: templates/single-local.php:12
-msgid "EVE Time:"
-msgstr "EVE Zeit:"
 
 #: templates/single-dscan.php:53
 msgid "All"
@@ -160,10 +152,6 @@ msgstr "Schiffstypen"
 msgid "Ship Classes"
 msgstr "Schiffsklassen"
 
-#: templates/single-local.php:7
-msgid "Chat Scan"
-msgstr "Chat Scan"
-
 #: templates/single-unknown.php:7
 msgid "Unknown Data Provided"
 msgstr "Unbekannte Daten übermittelt."
@@ -173,6 +161,115 @@ msgid "You provided an unknown type of data, so it could not be parsed. Sorry!"
 msgstr ""
 "Du hast unbekannte Daten übermittelt, diese können nicht verarbeitet werden. "
 "Entschuldigung!"
+
+#: Libs/PostType.php:47
+msgid "Category"
+msgstr "Kategorie"
+
+#: Libs/PostType.php:68 Libs/PostType.php:69
+msgid "Intel"
+msgstr "Intel"
+
+#: Libs/GithubUpdater.php:466
+msgid ""
+"The plugin has been updated, but could not be reactivated. Please reactivate "
+"it manually."
+msgstr ""
+"Dieses Plugin wurde aktualisiert, konnte jedoch nicht reaktiviert werden. "
+"Bitte aktiviere es manuell."
+
+#: Libs/GithubUpdater.php:467
+msgid "Plugin reactivated successfully."
+msgstr "Plugin erfolgreich reaktiviert."
+
+#: templates/extra/buttons.php:4
+msgid "New Scan"
+msgstr "Neuer Scan"
+
+#: templates/extra/buttons.php:7
+msgid "Copy Permalink"
+msgstr "Link kopieren"
+
+#: templates/data/fleet-composition.php:1
+msgid "Who is flying what"
+msgstr "Wer fliegt was"
+
+#: templates/data/fleet-composition.php:8
+#: templates/data/pilot-participation.php:8
+msgid "Name"
+msgstr "Name"
+
+#: templates/data/fleet-composition.php:9 templates/data/ship-classes.php:8
+msgid "Ship Class"
+msgstr "Schiffsklasse"
+
+#: templates/data/fleet-composition.php:10
+msgid "Where"
+msgstr "Wo"
+
+#: templates/data/ship-classes.php:9
+#: templates/data/alliance-participation.php:9 templates/data/ship-types.php:9
+#: templates/data/corporation-participation.php:9
+msgid "Count"
+msgstr "Anzahl"
+
+#: templates/data/alliance-participation.php:1
+msgid "Alliances Breakdown"
+msgstr "Allianz Übersicht"
+
+#: templates/data/alliance-participation.php:8
+msgid "Alliance Name"
+msgstr "Allianz Name"
+
+#: templates/data/ship-types.php:8
+msgid "Ship Type"
+msgstr "Schiffstyp"
+
+#: templates/data/corporation-participation.php:1
+msgid "Corporations Breakdown"
+msgstr "Corporation Übersicht"
+
+#: templates/data/corporation-participation.php:8
+msgid "Corporation Name"
+msgstr "Corporation Name"
+
+#: templates/data/fleet-information.php:2
+msgid "General Information"
+msgstr "Generelle Informationen"
+
+#: templates/data/fleet-information.php:8
+msgid "Fleetboss"
+msgstr "Flottenboss"
+
+#: templates/data/fleet-information.php:9
+#: templates/data/fleet-information.php:24
+#: templates/data/fleet-information.php:28
+msgid "Unknown"
+msgstr "Unbekannt"
+
+#: templates/data/fleet-information.php:12
+msgid "Pilots seen"
+msgstr "Piloten in der Flotte"
+
+#: templates/data/fleet-information.php:23
+msgid "Pilots docked"
+msgstr "Piloten gedockt"
+
+#: templates/data/fleet-information.php:27
+msgid "Pilots in space"
+msgstr "Piloten im Weltraum"
+
+#: templates/data/pilot-participation.php:1
+msgid "Pilots Breakdown"
+msgstr "Piloten Übersicht"
+
+#: templates/data/pilot-participation.php:9
+msgid "Alliance"
+msgstr "Allianz"
+
+#: templates/data/pilot-participation.php:10
+msgid "Corporation"
+msgstr "Corporation"
 
 #: Libs/Admin/PluginSettings.php:78 Libs/Admin/PluginSettings.php:79
 msgid "EVE Online Intel Tool"
@@ -199,7 +296,7 @@ msgid ""
 msgstr ""
 "Wähle dies wenn Du Bilder zwischenspeichern möchtest (Piloten-Avatare, Corp- "
 "und Allianzlogos, Schiffsbilder und so weiter). Die Bilder werden dann von "
-"CCP's Imagesverer heruntergeladen und auf Deinem Server abgelegt und von "
+"CCP's Imageserver heruntergeladen und auf Deinem Server abgelegt und von "
 "dort aus in die Webseite eingebunden, wenn benötigt."
 
 #: Libs/Admin/PluginSettings.php:118
@@ -207,6 +304,30 @@ msgid "Use a serverside cache for images fetched from CCP's image server."
 msgstr ""
 "Nutze einen serverseitigen Cache für Bilder die sonst von CCP's Imageserver "
 "geladen werden."
+
+#: Libs/Admin/PluginSettings.php:122
+msgid "Lazy-Load images"
+msgstr "Bilder verzögert laden"
+
+#: Libs/Admin/PluginSettings.php:123
+msgid ""
+"Start loading EVE related images (Pilot-Avatars, Corp-Logos and Alliance-"
+"Logos) after the result page has been loaded. This might speed things a bit "
+"up, especially when using the image cache and new images have to be "
+"downloaded and cached first. <small><strong>(Only works when using the image "
+"cache.)</strong></small><br><strong>!!! DO NOT USE IT WHEN YOU HAVE A STATIC "
+"PAGE CACHE !!!</strong>"
+msgstr ""
+"Lader Bilder (Piloten Avatare, Corporation und Allianz Logos) verzögert, "
+"nachdem die Ergebnisseite geladen ist. Dies mag einiges etwas beschleunigen, "
+"besondern wenn der Bild Cache genutzt wird. <small><strong>(Funktioniert "
+"wirklich nur mit dem Bild Cache.)</strong></small><br><strong>!!! NICHT "
+"VERWENDEN WENN BEREITS EIN STATISCHER CACHE FÜR DIE SEITE GENUTZT WIRD !!!"
+"</strong>"
+
+#: Libs/Admin/PluginSettings.php:126
+msgid "Use a lazy loading mechanism for EVE related images."
+msgstr "Nutze einen Mechanismus der das Laden der Bilder verzögert."
 
 #: Libs/Admin/PluginSettings.php:130
 msgid "Image Cache Time"
@@ -254,11 +375,19 @@ msgstr "."
 
 #: Libs/ResourceLoader/JavascriptLoader.php:77
 msgid "No data available in table"
-msgstr "Keine daten in dieser Tabelle"
+msgstr "Keine Daten in dieser Tabelle"
+
+#: Libs/ResourceLoader/JavascriptLoader.php:78
+msgid "Showing _END_ entries"
+msgstr "Zeige _END_ Einträge"
 
 #: Libs/ResourceLoader/JavascriptLoader.php:79
 msgid "No records available"
 msgstr "Keine Daten verfügbar"
+
+#: Libs/ResourceLoader/JavascriptLoader.php:80
+msgid "(filtered from _MAX_ total entries)"
+msgstr "(Gefiltert aus _MAX_ Einträgen)"
 
 #: Libs/ResourceLoader/JavascriptLoader.php:82
 msgid "Show _MENU_"
@@ -307,95 +436,6 @@ msgstr ": Aktiviere aufsteigende Sortierung"
 #: Libs/ResourceLoader/JavascriptLoader.php:96
 msgid ": activate to sort column descending"
 msgstr ": Aktiviere absteigende Sortierung"
-
-#: templates/data/alliance-participation.php:1
-msgid "Alliances Breakdown"
-msgstr "Allianz Übersicht"
-
-#: templates/data/alliance-participation.php:8
-msgid "Alliance Name"
-msgstr "Allianz Name"
-
-#: templates/data/alliance-participation.php:9
-#: templates/data/corporation-participation.php:9
-#: templates/data/ship-classes.php:9 templates/data/ship-types.php:9
-msgid "Count"
-msgstr "Anzahl"
-
-#: templates/data/corporation-participation.php:1
-msgid "Corporations Breakdown"
-msgstr "Corporation Übersicht"
-
-#: templates/data/corporation-participation.php:8
-msgid "Corporation Name"
-msgstr "Corporation Name"
-
-#: templates/data/fleet-composition.php:1
-msgid "Who is flying what"
-msgstr "Wer fliegt was"
-
-#: templates/data/fleet-composition.php:8
-#: templates/data/pilot-participation.php:8
-msgid "Name"
-msgstr "Name"
-
-#: templates/data/fleet-composition.php:9 templates/data/ship-classes.php:8
-msgid "Ship Class"
-msgstr "Schiffsklasse"
-
-#: templates/data/fleet-composition.php:10
-msgid "Where"
-msgstr "Wo"
-
-#: templates/data/fleet-information.php:2
-msgid "General Information"
-msgstr "Generelle Informationen"
-
-#: templates/data/fleet-information.php:8
-msgid "Fleetboss"
-msgstr "Flottenboss"
-
-#: templates/data/fleet-information.php:9
-#: templates/data/fleet-information.php:24
-#: templates/data/fleet-information.php:28
-msgid "Unknown"
-msgstr "Unbekannt"
-
-#: templates/data/fleet-information.php:12
-msgid "Pilots seen"
-msgstr "Piloten in der Flotte"
-
-#: templates/data/fleet-information.php:23
-msgid "Pilots docked"
-msgstr "Piloten gedockt"
-
-#: templates/data/fleet-information.php:27
-msgid "Pilots in space"
-msgstr "Piloten im Weltraum"
-
-#: templates/data/pilot-participation.php:1
-msgid "Pilots Breakdown"
-msgstr "Piloten Übersicht"
-
-#: templates/data/pilot-participation.php:9
-msgid "Alliance"
-msgstr "Allianz"
-
-#: templates/data/pilot-participation.php:10
-msgid "Corporation"
-msgstr "Corporation"
-
-#: templates/data/ship-types.php:8
-msgid "Ship Type"
-msgstr "Schiffstyp"
-
-#: templates/extra/buttons.php:4
-msgid "New Scan"
-msgstr "Neuer Scan"
-
-#: templates/extra/buttons.php:7
-msgid "Copy Permalink"
-msgstr "Link kopieren"
 
 #. Name of the plugin
 msgid "EVE Online Intel Tool for WordPress"
