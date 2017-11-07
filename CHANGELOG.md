@@ -177,7 +177,7 @@
 ## [v0.1.5](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.5) - 2017-09-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.4...v0.1.5)
 ### Added
-- General Fleet information to teh fleet scan, as in how many pilots in total, how many are docked, how many are in space.
+- General Fleet information to the fleet scan, as in how many pilots in total, how many are docked, how many are in space.
 
 ### Fixed
 - Regular Expression for detecting fleet scans. I really hate this stuff ...
