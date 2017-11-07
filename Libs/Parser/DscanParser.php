@@ -279,7 +279,9 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 			$dscanAll = $this->parseScanArray($dscanArray['all']);
 			$returnData['all'] = $dscanAll;
 
-			$returnData['shipTypes'] = DscanParser::getInstance()->getShipTypesArray($dscanArray['all']['data']);
+			$returnData['shipTypes'] = $this->getShipTypesArray($dscanArray['all']['data']);
+			$returnData['upwellStructures'] = $this->getUpwellStructuresArray($dscanArray['all']['data']);
+			$returnData['deployables'] = $this->getDeployablesArray($dscanArray['all']['data']);
 		} // END if($dscanArray['all']['count'] !== 0)
 
 		if($dscanArray['onGrid']['count'] !== 0) {
@@ -305,6 +307,7 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 	 */
 	public function getShipTypesArray(array $dscanArray) {
 		$shipTypeArray = [];
+
 		foreach($dscanArray as $scanResult) {
 			// Ships only ...
 			if($scanResult['shipClass']->category_id === 6) {
@@ -321,4 +324,46 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 
 		return $shipTypeArray;
 	} // END public function getShipTypesArray(array $dscanArray)
+
+	public function getUpwellStructuresArray(array $dscanArray) {
+		$shipTypeArray = [];
+
+		foreach($dscanArray as $scanResult) {
+			// Upwell structures on grid only ...
+			if($scanResult['shipClass']->category_id === 65 && $scanResult['dscanData']['3'] !== '-') {
+				$count[\sanitize_title($scanResult['shipData']->name)][] = '';
+				$shipTypeArray[\sanitize_title($scanResult['shipData']->name)] = [
+					'type' => $scanResult['shipData']->name,
+					'type_id' => $scanResult['shipData']->type_id,
+					'shipTypeSanitized' => \sanitize_title($scanResult['shipData']->name),
+					'count' => \count($count[\sanitize_title($scanResult['shipData']->name)])
+				];
+			} // if($scanResult['shipClass']->category_id === 65 && $scanResult['dscanData']['3'] !== '-')
+		} // END foreach($dscanArray as $scanResult)
+
+		\ksort($shipTypeArray);
+
+		return $shipTypeArray;
+	} // public function getUpwellStructuresArray(array $dscanArray)
+
+	public function getDeployablesArray(array $dscanArray) {
+		$shipTypeArray = [];
+
+		foreach($dscanArray as $scanResult) {
+			// Deployable structures on grid only ...
+			if($scanResult['shipClass']->category_id === 22 && $scanResult['dscanData']['3'] !== '-') {
+				$count[\sanitize_title($scanResult['shipData']->name)][] = '';
+				$shipTypeArray[\sanitize_title($scanResult['shipData']->name)] = [
+					'type' => $scanResult['shipData']->name,
+					'type_id' => $scanResult['shipData']->type_id,
+					'shipTypeSanitized' => \sanitize_title($scanResult['shipData']->name),
+					'count' => \count($count[\sanitize_title($scanResult['shipData']->name)])
+				];
+			} // if($scanResult['shipClass']->category_id === 65 && $scanResult['dscanData']['3'] !== '-')
+		} // END foreach($dscanArray as $scanResult)
+
+		\ksort($shipTypeArray);
+
+		return $shipTypeArray;
+	} // public function getUpwellStructuresArray(array $dscanArray)
 } // END class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton

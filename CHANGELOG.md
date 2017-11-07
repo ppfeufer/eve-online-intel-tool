@@ -3,7 +3,9 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.9...development)
-- in development
+### Added
+- Upwell structures to D-Scan when on grid
+- Deployable structures to D-Scan when on grid
 
 ## [v0.4.9](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.9) - 2017-11-07
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.8...v0.4.9)
