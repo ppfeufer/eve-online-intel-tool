@@ -12,7 +12,7 @@ if(!empty($pilotParticipation)) {
 			<?php
 			foreach($pilotParticipation as $pilot) {
 				if(!isset($pilot['allianceID'])) {
-					$pilot['allianceID'] = null;
+					$pilot['allianceID'] = 0;
 				} // END if(!isset($pilot['allianceID']))
 				?>
 				<tr data-highlight="alliance-<?php echo $pilot['allianceID']; ?>">
@@ -29,7 +29,7 @@ if(!empty($pilotParticipation)) {
 
 					<td>
 						<?php
-						if(isset($pilot['allianceID'])) {
+						if(!\is_null($pilot['allianceID']) && $pilot['allianceID'] !== 0) {
 							\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/alliance-logo', [
 								'data' => $pilot,
 								'pluginSettings' => $pluginSettings

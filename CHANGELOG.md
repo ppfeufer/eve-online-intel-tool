@@ -2,11 +2,23 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.8...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.9...development)
 - in development
+
+## [v0.4.9](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.9) - 2017-11-07
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.8...v0.4.9)
+### Added
+- Count of unaffiliated pilots (pilots who are not in any alliance) in alliance breakdown for chat scans
+- Issue template for GitHub
+
+### Updated
+- German translation
 
 ## [v0.4.8](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.8) - 2017-11-04
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.7...v0.4.8)
+### Fixed
+- Region names in D-Scans
+
 ### Added
 - Dashboard Widget - Cache Statistics
 - Database cache for systems, constellations and regions to reduce the number of ESI calls for D-Scans over time
