@@ -1,12 +1,12 @@
-### Some general information:
+#### Some general informations:
 - WordPress Version:
 - PHP Version:
 - Plugin Version:
 - URL to your website:
 
-### Issue:
+#### Issue:
 
-### Steps to reproduce:
+#### Steps to reproduce:
 
-### Screenshots (if possible):
+#### Screenshots (if possible):
 
