@@ -165,6 +165,7 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		if($systemFound === false) {
 			foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
 				$lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
+
 				if(\preg_match('/(.*) - Star/', $lineDetailsArray['1']) && \preg_match('/Sun (.*)/', $lineDetailsArray['2'])) {
 					$systemName = \trim(\str_replace(' - Star', '', $lineDetailsArray['1']));
 				} // END if(\preg_match('/(.*) - Star/', $line['0']) && preg_match('/Sun (.*)/', $line['1']))
@@ -307,15 +308,21 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 	 */
 	public function getShipTypesArray(array $dscanArray) {
 		$shipTypeArray = [];
+		$count = [];
 
 		foreach($dscanArray as $scanResult) {
 			// Ships only ...
 			if($scanResult['shipClass']->category_id === 6) {
-				$count[\sanitize_title($scanResult['shipClass']->name)][] = '';
+				if(!isset($count[\sanitize_title($scanResult['shipClass']->name)])) {
+					$count[\sanitize_title($scanResult['shipClass']->name)] = 0;
+				} // if(!isset($count[\sanitize_title($scanResult['shipClass']->name)]))
+
+				$count[\sanitize_title($scanResult['shipClass']->name)]++;
+
 				$shipTypeArray[\sanitize_title($scanResult['shipClass']->name)] = [
 					'type' => $scanResult['shipClass']->name,
 					'shipTypeSanitized' => \sanitize_title($scanResult['shipClass']->name),
-					'count' => \count($count[\sanitize_title($scanResult['shipClass']->name)])
+					'count' => $count[\sanitize_title($scanResult['shipClass']->name)]
 				];
 			} // END if($scanResult['shipClass']->category_id === 6)
 		} // END foreach($dscanArray as $scanResult)
@@ -325,19 +332,45 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		return $shipTypeArray;
 	} // END public function getShipTypesArray(array $dscanArray)
 
+	/**
+	 * Getting Upwell structures that are on grid
+	 *
+	 * @param array $dscanArray
+	 * @return array
+	 */
 	public function getUpwellStructuresArray(array $dscanArray) {
 		$shipTypeArray = [];
+		$count = [];
+		$gridSize = 10000; // our defined grid size in km
+
 
 		foreach($dscanArray as $scanResult) {
 			// Upwell structures on grid only ...
 			if($scanResult['shipClass']->category_id === 65 && $scanResult['dscanData']['3'] !== '-') {
-				$count[\sanitize_title($scanResult['shipData']->name)][] = '';
-				$shipTypeArray[\sanitize_title($scanResult['shipData']->name)] = [
-					'type' => $scanResult['shipData']->name,
-					'type_id' => $scanResult['shipData']->type_id,
-					'shipTypeSanitized' => \sanitize_title($scanResult['shipData']->name),
-					'count' => \count($count[\sanitize_title($scanResult['shipData']->name)])
-				];
+				$dscanRangeArray = \explode(' ', $scanResult['dscanData']['3']);
+				$range = (int) \number_format((float) \str_replace(',', '.', $dscanRangeArray['0']), 0, '', '');
+
+				/**
+				 * Only if the Upwell structure is actually within our defined grid range
+				 * Since Upwell structures that are accessable by the pilot
+				 * always have a range on d-scans, we need to do it this way ...
+				 *
+				 * @todo: localized strings for 'km' via preg_match
+				 */
+				if($range <= $gridSize && $dscanRangeArray['1'] === 'km') {
+					if(!isset($count[\sanitize_title($scanResult['shipData']->name)])) {
+						$count[\sanitize_title($scanResult['shipData']->name)] = 0;
+					} // if(!isset($count[\sanitize_title($scanResult['shipData']->name)]))
+
+					$count[\sanitize_title($scanResult['shipData']->name)]++;
+
+					$shipTypeArray[\sanitize_title($scanResult['shipData']->name)] = [
+						'type' => $scanResult['shipData']->name,
+						'type_id' => $scanResult['shipData']->type_id,
+						'shipTypeSanitized' => \sanitize_title($scanResult['shipData']->name),
+						'count' => $count[\sanitize_title($scanResult['shipData']->name)]
+					];
+				} // if($range <= $gridSize && $dscanRangeArray['1'] === 'km')
 			} // if($scanResult['shipClass']->category_id === 65 && $scanResult['dscanData']['3'] !== '-')
 		} // END foreach($dscanArray as $scanResult)
 
@@ -346,13 +379,25 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		return $shipTypeArray;
 	} // public function getUpwellStructuresArray(array $dscanArray)
 
+	/**
+	 * Getting deployables that are on grid
+	 *
+	 * @param array $dscanArray
+	 * @return array
+	 */
 	public function getDeployablesArray(array $dscanArray) {
 		$shipTypeArray = [];
+		$count = [];
 
 		foreach($dscanArray as $scanResult) {
 			// Deployable structures on grid only ...
 			if($scanResult['shipClass']->category_id === 22 && $scanResult['dscanData']['3'] !== '-') {
-				$count[\sanitize_title($scanResult['shipData']->name)][] = '';
+				if(!isset($count[\sanitize_title($scanResult['shipData']->name)])) {
+					$count[\sanitize_title($scanResult['shipData']->name)] = 0;
+				} // if(!isset($count[\sanitize_title($scanResult['shipData']->name)]))
+
+				$count[\sanitize_title($scanResult['shipData']->name)]++;
+
 				$shipTypeArray[\sanitize_title($scanResult['shipData']->name)] = [
 					'type' => $scanResult['shipData']->name,
 					'type_id' => $scanResult['shipData']->type_id,
