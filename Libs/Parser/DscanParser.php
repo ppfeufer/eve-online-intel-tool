@@ -348,16 +348,15 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 			// Upwell structures on grid only ...
 			if($scanResult['shipClass']->category_id === 65 && $scanResult['dscanData']['3'] !== '-') {
 				$dscanRangeArray = \explode(' ', $scanResult['dscanData']['3']);
-				$range = (int) \number_format((float) \str_replace(',', '.', $dscanRangeArray['0']), 0, '', '');
-
+				$range = (int) \number_format((float) \str_replace('.', '', $dscanRangeArray['0']), 0, '', '');
 				/**
 				 * Only if the Upwell structure is actually within our defined grid range
 				 * Since Upwell structures that are accessable by the pilot
 				 * always have a range on d-scans, we need to do it this way ...
 				 *
-				 * @todo: localized strings for 'km' via preg_match
+				 * @todo: localized strings for 'km' or 'm'
 				 */
-				if($range <= $gridSize && $dscanRangeArray['1'] === 'km') {
+				if($range <= $gridSize && \preg_match('/km|m/', $dscanRangeArray['1'])) {
 					if(!isset($count[\sanitize_title($scanResult['shipData']->name)])) {
 						$count[\sanitize_title($scanResult['shipData']->name)] = 0;
 					} // if(!isset($count[\sanitize_title($scanResult['shipData']->name)]))
