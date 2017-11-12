@@ -401,7 +401,7 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 					'type' => $scanResult['shipData']->name,
 					'type_id' => $scanResult['shipData']->type_id,
 					'shipTypeSanitized' => \sanitize_title($scanResult['shipData']->name),
-					'count' => \count($count[\sanitize_title($scanResult['shipData']->name)])
+					'count' => $count[\sanitize_title($scanResult['shipData']->name)]
 				];
 			} // if($scanResult['shipClass']->category_id === 65 && $scanResult['dscanData']['3'] !== '-')
 		} // END foreach($dscanArray as $scanResult)
