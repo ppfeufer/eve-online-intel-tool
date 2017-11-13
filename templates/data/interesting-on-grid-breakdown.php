@@ -37,10 +37,11 @@
 	-->
 	<div class="col-md-4 col-sm-6 col-lg-3">
 		<?php
-//		\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/starbases',[
-//			'title' => \__('POS / POS Modules', 'eve-online-intel-tool'),
-//			'pluginSettings' => $pluginSettings
-//		]);
+		\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/structures-on-grid',[
+			'title' => \__('POS / POS Modules', 'eve-online-intel-tool'),
+			'structures' => $intelData['dscanStarbaseModules'],
+			'pluginSettings' => $pluginSettings
+		]);
 		?>
 	</div>
 
@@ -49,10 +50,11 @@
 	-->
 	<div class="col-md-4 col-sm-6 col-lg-3">
 		<?php
-//		\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/loot-salvage',[
-//			'title' => \__('Loot / Salvage', 'eve-online-intel-tool'),
-//			'pluginSettings' => $pluginSettings
-//		]);
+		\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/structures-on-grid',[
+			'title' => \__('Loot / Salvage', 'eve-online-intel-tool'),
+			'structures' => $intelData['dscanLootsalvage'],
+			'pluginSettings' => $pluginSettings
+		]);
 		?>
 	</div>
 </div>
