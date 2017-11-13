@@ -459,6 +459,13 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		return $starbaseArray;
 	} // public function getStarbaseArray(array $dscanArray)
 
+	/**
+	 * Get the result for one d-scan line
+	 *
+	 * @param array $scanResult
+	 * @param int $count
+	 * @return array
+	 */
 	private function getScanResultDetails(array $scanResult, int $count) {
 		return [
 			'type' => $scanResult['shipData']->name,
