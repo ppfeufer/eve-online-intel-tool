@@ -41,6 +41,13 @@
 	td.data-align-right {
 		text-align: right;
 	}
+
+	.eve-intel-section-header {
+		margin-bottom: 0;
+		margin-top: 32px;
+		margin-top: 2rem;
+		border-bottom: 1px solid #ededed;
+	}
 }
 
 /* Highlighting

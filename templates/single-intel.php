@@ -19,6 +19,10 @@ switch($termObject['0']->slug) {
 		$dscanDataOnGrid = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-onGrid', true));
 		$dscanDataOffGrid = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-offGrid', true));
 		$dscanDataShipTypes = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-shipTypes', true));
+		$dscanUpwellStructures = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-upwellStructures', true));
+		$dscanDeployables = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-deployables', true));
+		$dscanStarbaseModules = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-starbaseModules', true));
+		$dscanLootSalvage = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-lootsalvage', true));
 		$dscanDataSystem = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-system', true));
 		$dscanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-time', true));
 
@@ -28,6 +32,10 @@ switch($termObject['0']->slug) {
 			'dscanDataOffGrid' => $dscanDataOffGrid,
 			'dscanDataShipTypes' => $dscanDataShipTypes,
 			'dscanDataSystem' => $dscanDataSystem,
+			'dscanUpwellStructures' => $dscanUpwellStructures,
+			'dscanStarbaseModules' => $dscanStarbaseModules,
+			'dscanLootsalvage' => $dscanLootSalvage,
+			'dscanDeployables' => $dscanDeployables,
 			'eveTime' => $dscanDataTime,
 		];
 

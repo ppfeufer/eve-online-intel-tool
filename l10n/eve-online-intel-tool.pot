@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-05 10:19+0000\n"
+"POT-Creation-Date: 2017-11-07 13:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -13,6 +13,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco - https://localise.biz/"
+
+#: Libs/GithubUpdater.php:466
+msgid ""
+"The plugin has been updated, but could not be reactivated. Please reactivate "
+"it manually."
+msgstr ""
+
+#: Libs/GithubUpdater.php:467
+msgid "Plugin reactivated successfully."
+msgstr ""
+
+#: Libs/PostType.php:47
+msgid "Category"
+msgstr ""
+
+#: Libs/PostType.php:68 Libs/PostType.php:69
+msgid "Intel"
+msgstr ""
 
 #: templates/page-intel.php:30
 msgid "Intel Parser"
@@ -72,37 +90,26 @@ msgstr ""
 msgid "Waiting for the system to authenticate the form ..."
 msgstr ""
 
-#: templates/single-local.php:7
-msgid "Chat Scan"
-msgstr ""
-
-#: templates/single-local.php:12 templates/single-dscan.php:36
-#: templates/single-fleetcomposition.php:12
-msgid "EVE Time:"
-msgstr ""
-
 #: templates/single-dscan.php:21
 msgid "Solar System:"
 msgstr ""
 
-#: templates/single-dscan.php:53
-msgid "All"
-msgstr ""
-
-#: templates/single-dscan.php:67
-msgid "On Grid"
-msgstr ""
-
-#: templates/single-dscan.php:81
-msgid "Off Grid"
-msgstr ""
-
-#: templates/single-dscan.php:95 templates/single-fleetcomposition.php:60
-msgid "Ship Types"
+#: templates/single-dscan.php:36 templates/single-fleetcomposition.php:12
+#: templates/single-local.php:12
+msgid "EVE Time:"
 msgstr ""
 
 #: templates/single-fleetcomposition.php:45
 msgid "Ship Classes"
+msgstr ""
+
+#: templates/single-fleetcomposition.php:60
+#: templates/data/dscan-breakdown.php:50
+msgid "Ship Types"
+msgstr ""
+
+#: templates/single-local.php:7
+msgid "Chat Scan"
 msgstr ""
 
 #: templates/single-unknown.php:7
@@ -111,117 +118,6 @@ msgstr ""
 
 #: templates/single-unknown.php:15
 msgid "You provided an unknown type of data, so it could not be parsed. Sorry!"
-msgstr ""
-
-#: Libs/PostType.php:47
-msgid "Category"
-msgstr ""
-
-#: Libs/PostType.php:68 Libs/PostType.php:69
-msgid "Intel"
-msgstr ""
-
-#: Libs/GithubUpdater.php:466
-msgid ""
-"The plugin has been updated, but could not be reactivated. Please reactivate "
-"it manually."
-msgstr ""
-
-#: Libs/GithubUpdater.php:467
-msgid "Plugin reactivated successfully."
-msgstr ""
-
-#: templates/extra/buttons.php:4
-msgid "New Scan"
-msgstr ""
-
-#: templates/extra/buttons.php:7
-msgid "Copy Permalink"
-msgstr ""
-
-#: templates/data/fleet-composition.php:1
-msgid "Who is flying what"
-msgstr ""
-
-#: templates/data/fleet-composition.php:8
-#: templates/data/pilot-participation.php:8
-msgid "Name"
-msgstr ""
-
-#: templates/data/fleet-composition.php:9 templates/data/ship-classes.php:8
-msgid "Ship Class"
-msgstr ""
-
-#: templates/data/fleet-composition.php:10
-msgid "Where"
-msgstr ""
-
-#: templates/data/ship-classes.php:9
-#: templates/data/alliance-participation.php:9 templates/data/ship-types.php:9
-#: templates/data/corporation-participation.php:9
-msgid "Count"
-msgstr ""
-
-#: templates/data/alliance-participation.php:1
-msgid "Alliances Breakdown"
-msgstr ""
-
-#: templates/data/alliance-participation.php:8
-msgid "Alliance Name"
-msgstr ""
-
-#: templates/data/ship-types.php:8
-msgid "Ship Type"
-msgstr ""
-
-#: templates/data/corporation-participation.php:1
-msgid "Corporations Breakdown"
-msgstr ""
-
-#: templates/data/corporation-participation.php:8
-msgid "Corporation Name"
-msgstr ""
-
-#: templates/data/fleet-information.php:2
-msgid "General Information"
-msgstr ""
-
-#: templates/data/fleet-information.php:8
-msgid "Fleetboss"
-msgstr ""
-
-#: templates/data/fleet-information.php:9
-#: templates/data/fleet-information.php:24
-#: templates/data/fleet-information.php:28
-msgid "Unknown"
-msgstr ""
-
-#: templates/data/fleet-information.php:12
-msgid "Pilots seen"
-msgstr ""
-
-#: templates/data/fleet-information.php:23
-msgid "Pilots docked"
-msgstr ""
-
-#: templates/data/fleet-information.php:27
-msgid "Pilots in space"
-msgstr ""
-
-#: templates/data/pilot-participation.php:1
-msgid "Pilots Breakdown"
-msgstr ""
-
-#: templates/data/pilot-participation.php:9
-msgid "Alliance"
-msgstr ""
-
-#: templates/data/pilot-participation.php:10
-msgid "Corporation"
-msgstr ""
-
-#: Libs/Parser/LocalScanParser.php:244 Libs/Parser/LocalScanParser.php:251
-msgid "Unaffiliated / No Alliance"
 msgstr ""
 
 #: Libs/Admin/PluginSettings.php:78 Libs/Admin/PluginSettings.php:79
@@ -292,6 +188,10 @@ msgstr ""
 
 #: Libs/Admin/PluginSettings.php:137
 msgid "20 days"
+msgstr ""
+
+#: Libs/Parser/LocalScanParser.php:244 Libs/Parser/LocalScanParser.php:251
+msgid "Unaffiliated / No Alliance"
 msgstr ""
 
 #: Libs/ResourceLoader/JavascriptLoader.php:68
@@ -374,6 +274,124 @@ msgstr ""
 
 #: Libs/ResourceLoader/JavascriptLoader.php:96
 msgid ": activate to sort column descending"
+msgstr ""
+
+#: templates/data/alliance-participation.php:1
+msgid "Alliances Breakdown"
+msgstr ""
+
+#: templates/data/alliance-participation.php:8
+msgid "Alliance Name"
+msgstr ""
+
+#: templates/data/alliance-participation.php:9
+#: templates/data/corporation-participation.php:9
+#: templates/data/ship-classes.php:9 templates/data/ship-types.php:9
+#: templates/data/structures-on-grid.php:10
+msgid "Count"
+msgstr ""
+
+#: templates/data/corporation-participation.php:1
+msgid "Corporations Breakdown"
+msgstr ""
+
+#: templates/data/corporation-participation.php:8
+msgid "Corporation Name"
+msgstr ""
+
+#: templates/data/dscan-breakdown.php:8
+msgid "All"
+msgstr ""
+
+#: templates/data/dscan-breakdown.php:22
+msgid "On Grid"
+msgstr ""
+
+#: templates/data/dscan-breakdown.php:36
+msgid "Off Grid"
+msgstr ""
+
+#: templates/data/fleet-composition.php:1
+msgid "Who is flying what"
+msgstr ""
+
+#: templates/data/fleet-composition.php:8
+#: templates/data/pilot-participation.php:8
+msgid "Name"
+msgstr ""
+
+#: templates/data/fleet-composition.php:9 templates/data/ship-classes.php:8
+msgid "Ship Class"
+msgstr ""
+
+#: templates/data/fleet-composition.php:10
+msgid "Where"
+msgstr ""
+
+#: templates/data/fleet-information.php:2
+msgid "General Information"
+msgstr ""
+
+#: templates/data/fleet-information.php:8
+msgid "Fleetboss"
+msgstr ""
+
+#: templates/data/fleet-information.php:9
+#: templates/data/fleet-information.php:24
+#: templates/data/fleet-information.php:28
+msgid "Unknown"
+msgstr ""
+
+#: templates/data/fleet-information.php:12
+msgid "Pilots seen"
+msgstr ""
+
+#: templates/data/fleet-information.php:23
+msgid "Pilots docked"
+msgstr ""
+
+#: templates/data/fleet-information.php:27
+msgid "Pilots in space"
+msgstr ""
+
+#: templates/data/interesting-on-grid-breakdown.php:5
+msgid "Interesting On Grid"
+msgstr ""
+
+#: templates/data/interesting-on-grid-breakdown.php:15
+msgid "Upwell Structures"
+msgstr ""
+
+#: templates/data/interesting-on-grid-breakdown.php:28
+msgid "Deployables"
+msgstr ""
+
+#: templates/data/pilot-participation.php:1
+msgid "Pilots Breakdown"
+msgstr ""
+
+#: templates/data/pilot-participation.php:9
+msgid "Alliance"
+msgstr ""
+
+#: templates/data/pilot-participation.php:10
+msgid "Corporation"
+msgstr ""
+
+#: templates/data/ship-types.php:8
+msgid "Ship Type"
+msgstr ""
+
+#: templates/data/structures-on-grid.php:9
+msgid "Structure Type"
+msgstr ""
+
+#: templates/extra/buttons.php:4
+msgid "New Scan"
+msgstr ""
+
+#: templates/extra/buttons.php:7
+msgid "Copy Permalink"
 msgstr ""
 
 #: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:46

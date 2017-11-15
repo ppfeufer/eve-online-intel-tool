@@ -177,6 +177,10 @@ class IntelParser {
 				'eve-intel-tool_dscan-offGrid' => \maybe_serialize($parsedDscanData['offGrid']),
 				'eve-intel-tool_dscan-shipTypes' => \maybe_serialize($parsedDscanData['shipTypes']),
 				'eve-intel-tool_dscan-system' => \maybe_serialize($parsedDscanData['system']),
+				'eve-intel-tool_dscan-upwellStructures' => \maybe_serialize($parsedDscanData['upwellStructures']),
+				'eve-intel-tool_dscan-deployables' => \maybe_serialize($parsedDscanData['deployables']),
+				'eve-intel-tool_dscan-starbaseModules' => \maybe_serialize($parsedDscanData['starbaseModules']),
+				'eve-intel-tool_dscan-lootSalvage' => \maybe_serialize($parsedDscanData['lootSalvage']),
 				'eve-intel-tool_dscan-time' => \maybe_serialize(\gmdate('Y-m-d H:i:s', \time())),
 			];
 

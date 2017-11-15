@@ -57,7 +57,7 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 		} // if(!\is_null($localArray))
 
 		return $returnValue;
-	} // END public function parseDscan($scanData)
+	} // END public function parseLocalScan($scanData)
 
 	/**
 	 * Parsing the scan data and get an array with every pilots data

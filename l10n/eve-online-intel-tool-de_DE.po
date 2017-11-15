@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EVE Online Intel Tool for WordPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-05 10:19+0000\n"
-"PO-Revision-Date: 2017-11-05 10:29+0000\n"
-"Last-Translator: Rounon Dax <dev@ppfeufer.de>\n"
+"POT-Creation-Date: 2017-11-07 13:15+0000\n"
+"PO-Revision-Date: 2017-11-07 13:16+0000\n"
+"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German\n"
 "Language: de-DE\n"
 "Plural-Forms: nplurals=2; plural=n != 1\n"
@@ -13,45 +13,41 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco - https://localise.biz/"
 
-#: Libs/Parser/LocalScanParser.php:244 Libs/Parser/LocalScanParser.php:251
-msgid "Unaffiliated / No Alliance"
-msgstr "Keine Allianzzugehörigkeit"
+#: templates/data/interesting-on-grid-breakdown.php:5
+msgid "Interesting On Grid"
+msgstr "Interessantes auf dem Grid"
 
-#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:46
-msgid "EVE Intel Tool :: Cache Statistics"
-msgstr "EVE Intel Tool :: Cache Statistiken"
+#: templates/data/interesting-on-grid-breakdown.php:15
+msgid "Upwell Structures"
+msgstr "Upwell Strukturen"
 
-#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:55
-msgid "Your EVE intel database cache"
-msgstr "EVE Intel Tool Datenbank Cache"
+#: templates/data/interesting-on-grid-breakdown.php:28
+msgid "Deployables"
+msgstr "Mobile Strukturen"
 
-#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:89
-msgid "Pilots"
-msgstr "Piloten"
+#: templates/data/structures-on-grid.php:9
+msgid "Structure Type"
+msgstr "Struktur Typ"
 
-#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:103
-msgid "Corporations"
-msgstr "Corporationen"
+#: Libs/GithubUpdater.php:466
+msgid ""
+"The plugin has been updated, but could not be reactivated. Please reactivate "
+"it manually."
+msgstr ""
+"Dieses Plugin wurde aktualisiert, konnte jedoch nicht reaktiviert werden. "
+"Bitte aktiviere es manuell."
 
-#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:117
-msgid "Alliances"
-msgstr "Allianzen"
+#: Libs/GithubUpdater.php:467
+msgid "Plugin reactivated successfully."
+msgstr "Plugin erfolgreich reaktiviert."
 
-#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:131
-msgid "Ships"
-msgstr "Schiffe"
+#: Libs/PostType.php:47
+msgid "Category"
+msgstr "Kategorie"
 
-#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:145
-msgid "Systems"
-msgstr "Systeme"
-
-#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:159
-msgid "Constellations"
-msgstr "Konstellationen"
-
-#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:173
-msgid "Regions"
-msgstr "Regionen"
+#: Libs/PostType.php:68 Libs/PostType.php:69
+msgid "Intel"
+msgstr "Intel"
 
 #: templates/page-intel.php:30
 msgid "Intel Parser"
@@ -119,38 +115,27 @@ msgstr "Absenden"
 msgid "Waiting for the system to authenticate the form ..."
 msgstr "Warte auf die Authentifizierung des Formulars durch das System ..."
 
-#: templates/single-local.php:7
-msgid "Chat Scan"
-msgstr "Chat Scan"
-
-#: templates/single-local.php:12 templates/single-dscan.php:36
-#: templates/single-fleetcomposition.php:12
-msgid "EVE Time:"
-msgstr "EVE Zeit:"
-
 #: templates/single-dscan.php:21
 msgid "Solar System:"
 msgstr "System:"
 
-#: templates/single-dscan.php:53
-msgid "All"
-msgstr "Alle"
-
-#: templates/single-dscan.php:67
-msgid "On Grid"
-msgstr "On Grid"
-
-#: templates/single-dscan.php:81
-msgid "Off Grid"
-msgstr "Off Grid"
-
-#: templates/single-dscan.php:95 templates/single-fleetcomposition.php:60
-msgid "Ship Types"
-msgstr "Schiffstypen"
+#: templates/single-dscan.php:36 templates/single-fleetcomposition.php:12
+#: templates/single-local.php:12
+msgid "EVE Time:"
+msgstr "EVE Zeit:"
 
 #: templates/single-fleetcomposition.php:45
 msgid "Ship Classes"
 msgstr "Schiffsklassen"
+
+#: templates/single-fleetcomposition.php:60
+#: templates/data/dscan-breakdown.php:50
+msgid "Ship Types"
+msgstr "Schiffstypen"
+
+#: templates/single-local.php:7
+msgid "Chat Scan"
+msgstr "Chat Scan"
 
 #: templates/single-unknown.php:7
 msgid "Unknown Data Provided"
@@ -161,115 +146,6 @@ msgid "You provided an unknown type of data, so it could not be parsed. Sorry!"
 msgstr ""
 "Du hast unbekannte Daten übermittelt, diese können nicht verarbeitet werden. "
 "Entschuldigung!"
-
-#: Libs/PostType.php:47
-msgid "Category"
-msgstr "Kategorie"
-
-#: Libs/PostType.php:68 Libs/PostType.php:69
-msgid "Intel"
-msgstr "Intel"
-
-#: Libs/GithubUpdater.php:466
-msgid ""
-"The plugin has been updated, but could not be reactivated. Please reactivate "
-"it manually."
-msgstr ""
-"Dieses Plugin wurde aktualisiert, konnte jedoch nicht reaktiviert werden. "
-"Bitte aktiviere es manuell."
-
-#: Libs/GithubUpdater.php:467
-msgid "Plugin reactivated successfully."
-msgstr "Plugin erfolgreich reaktiviert."
-
-#: templates/extra/buttons.php:4
-msgid "New Scan"
-msgstr "Neuer Scan"
-
-#: templates/extra/buttons.php:7
-msgid "Copy Permalink"
-msgstr "Link kopieren"
-
-#: templates/data/fleet-composition.php:1
-msgid "Who is flying what"
-msgstr "Wer fliegt was"
-
-#: templates/data/fleet-composition.php:8
-#: templates/data/pilot-participation.php:8
-msgid "Name"
-msgstr "Name"
-
-#: templates/data/fleet-composition.php:9 templates/data/ship-classes.php:8
-msgid "Ship Class"
-msgstr "Schiffsklasse"
-
-#: templates/data/fleet-composition.php:10
-msgid "Where"
-msgstr "Wo"
-
-#: templates/data/ship-classes.php:9
-#: templates/data/alliance-participation.php:9 templates/data/ship-types.php:9
-#: templates/data/corporation-participation.php:9
-msgid "Count"
-msgstr "Anzahl"
-
-#: templates/data/alliance-participation.php:1
-msgid "Alliances Breakdown"
-msgstr "Allianz Übersicht"
-
-#: templates/data/alliance-participation.php:8
-msgid "Alliance Name"
-msgstr "Allianz Name"
-
-#: templates/data/ship-types.php:8
-msgid "Ship Type"
-msgstr "Schiffstyp"
-
-#: templates/data/corporation-participation.php:1
-msgid "Corporations Breakdown"
-msgstr "Corporation Übersicht"
-
-#: templates/data/corporation-participation.php:8
-msgid "Corporation Name"
-msgstr "Corporation Name"
-
-#: templates/data/fleet-information.php:2
-msgid "General Information"
-msgstr "Generelle Informationen"
-
-#: templates/data/fleet-information.php:8
-msgid "Fleetboss"
-msgstr "Flottenboss"
-
-#: templates/data/fleet-information.php:9
-#: templates/data/fleet-information.php:24
-#: templates/data/fleet-information.php:28
-msgid "Unknown"
-msgstr "Unbekannt"
-
-#: templates/data/fleet-information.php:12
-msgid "Pilots seen"
-msgstr "Piloten in der Flotte"
-
-#: templates/data/fleet-information.php:23
-msgid "Pilots docked"
-msgstr "Piloten gedockt"
-
-#: templates/data/fleet-information.php:27
-msgid "Pilots in space"
-msgstr "Piloten im Weltraum"
-
-#: templates/data/pilot-participation.php:1
-msgid "Pilots Breakdown"
-msgstr "Piloten Übersicht"
-
-#: templates/data/pilot-participation.php:9
-msgid "Alliance"
-msgstr "Allianz"
-
-#: templates/data/pilot-participation.php:10
-msgid "Corporation"
-msgstr "Corporation"
 
 #: Libs/Admin/PluginSettings.php:78 Libs/Admin/PluginSettings.php:79
 msgid "EVE Online Intel Tool"
@@ -352,6 +228,10 @@ msgstr "15 Tage"
 #: Libs/Admin/PluginSettings.php:137
 msgid "20 days"
 msgstr "20 Tage"
+
+#: Libs/Parser/LocalScanParser.php:244 Libs/Parser/LocalScanParser.php:251
+msgid "Unaffiliated / No Alliance"
+msgstr "Keine Allianzzugehörigkeit"
 
 #: Libs/ResourceLoader/JavascriptLoader.php:68
 msgid "Permalink successfully copied"
@@ -436,6 +316,144 @@ msgstr ": Aktiviere aufsteigende Sortierung"
 #: Libs/ResourceLoader/JavascriptLoader.php:96
 msgid ": activate to sort column descending"
 msgstr ": Aktiviere absteigende Sortierung"
+
+#: templates/data/alliance-participation.php:1
+msgid "Alliances Breakdown"
+msgstr "Allianz Übersicht"
+
+#: templates/data/alliance-participation.php:8
+msgid "Alliance Name"
+msgstr "Allianz Name"
+
+#: templates/data/alliance-participation.php:9
+#: templates/data/corporation-participation.php:9
+#: templates/data/ship-classes.php:9 templates/data/ship-types.php:9
+#: templates/data/structures-on-grid.php:10
+msgid "Count"
+msgstr "Anzahl"
+
+#: templates/data/corporation-participation.php:1
+msgid "Corporations Breakdown"
+msgstr "Corporation Übersicht"
+
+#: templates/data/corporation-participation.php:8
+msgid "Corporation Name"
+msgstr "Corporation Name"
+
+#: templates/data/dscan-breakdown.php:8
+msgid "All"
+msgstr "Alle"
+
+#: templates/data/dscan-breakdown.php:22
+msgid "On Grid"
+msgstr "On Grid"
+
+#: templates/data/dscan-breakdown.php:36
+msgid "Off Grid"
+msgstr "Off Grid"
+
+#: templates/data/fleet-composition.php:1
+msgid "Who is flying what"
+msgstr "Wer fliegt was"
+
+#: templates/data/fleet-composition.php:8
+#: templates/data/pilot-participation.php:8
+msgid "Name"
+msgstr "Name"
+
+#: templates/data/fleet-composition.php:9 templates/data/ship-classes.php:8
+msgid "Ship Class"
+msgstr "Schiffsklasse"
+
+#: templates/data/fleet-composition.php:10
+msgid "Where"
+msgstr "Wo"
+
+#: templates/data/fleet-information.php:2
+msgid "General Information"
+msgstr "Generelle Informationen"
+
+#: templates/data/fleet-information.php:8
+msgid "Fleetboss"
+msgstr "Flottenboss"
+
+#: templates/data/fleet-information.php:9
+#: templates/data/fleet-information.php:24
+#: templates/data/fleet-information.php:28
+msgid "Unknown"
+msgstr "Unbekannt"
+
+#: templates/data/fleet-information.php:12
+msgid "Pilots seen"
+msgstr "Piloten in der Flotte"
+
+#: templates/data/fleet-information.php:23
+msgid "Pilots docked"
+msgstr "Piloten gedockt"
+
+#: templates/data/fleet-information.php:27
+msgid "Pilots in space"
+msgstr "Piloten im Weltraum"
+
+#: templates/data/pilot-participation.php:1
+msgid "Pilots Breakdown"
+msgstr "Piloten Übersicht"
+
+#: templates/data/pilot-participation.php:9
+msgid "Alliance"
+msgstr "Allianz"
+
+#: templates/data/pilot-participation.php:10
+msgid "Corporation"
+msgstr "Corporation"
+
+#: templates/data/ship-types.php:8
+msgid "Ship Type"
+msgstr "Schiffstyp"
+
+#: templates/extra/buttons.php:4
+msgid "New Scan"
+msgstr "Neuer Scan"
+
+#: templates/extra/buttons.php:7
+msgid "Copy Permalink"
+msgstr "Link kopieren"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:46
+msgid "EVE Intel Tool :: Cache Statistics"
+msgstr "EVE Intel Tool :: Cache Statistiken"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:55
+msgid "Your EVE intel database cache"
+msgstr "EVE Intel Tool Datenbank Cache"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:89
+msgid "Pilots"
+msgstr "Piloten"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:103
+msgid "Corporations"
+msgstr "Corporationen"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:117
+msgid "Alliances"
+msgstr "Allianzen"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:131
+msgid "Ships"
+msgstr "Schiffe"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:145
+msgid "Systems"
+msgstr "Systeme"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:159
+msgid "Constellations"
+msgstr "Konstellationen"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:173
+msgid "Regions"
+msgstr "Regionen"
 
 #. Name of the plugin
 msgid "EVE Online Intel Tool for WordPress"
