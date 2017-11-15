@@ -109,16 +109,18 @@ class PostType {
 		]);
 	} // public function customPostType()
 
-	public function createPermalinks($post_link, $post) {
+	public function createPermalinks($postLink, $post) {
+		$returnValue = $postLink;
+
 		if(\is_object($post) && $post->post_type === 'intel') {
 			$terms = \wp_get_object_terms($post->ID, 'intel_category');
 
 			if($terms) {
-				return \str_replace('%intel_category%' , $terms[0]->slug , $post_link);
+				$returnValue = \str_replace('%intel_category%' , $terms[0]->slug , $postLink);
 			} // if($terms)
 		} // if(\is_object($post) && $post->post_type === 'intel')
 
-		return $post_link;
+		return $returnValue;
 	} // public function createPermalinks($post_link, $post)
 
 	/**
@@ -141,6 +143,7 @@ class PostType {
 			WHERE
 				' . $wpdb->postmeta . '.meta_key = "_wp_page_template"
 				AND ' . $wpdb->postmeta . '.meta_value = "../templates/page-' . $postType . '.php"
+				AND ' . $wpdb->posts . '.post_type = "page"
 				AND ' . $wpdb->posts . '.ID = ' . $wpdb->postmeta . '.post_id;';
 
 		$slugData = $wpdb->get_var($var_qry);
