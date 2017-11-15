@@ -9,6 +9,9 @@
 - Starbases and modules when on grid
 - Loot and salvage when on grid (wrecks and stuff / basically d-scan data Provi style :-P)
 
+### Changed
+- Database cache to 6 months instead of 1
+
 ## [v0.4.9](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.9) - 2017-11-07
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.8...v0.4.9)
 ### Added
