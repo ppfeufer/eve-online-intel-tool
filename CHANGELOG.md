@@ -2,8 +2,44 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.5...development)
-- in development
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.9...development)
+### Added
+- Upwell structures to D-Scan when on grid
+- Deployable structures to D-Scan when on grid
+- Starbases and modules to D-Scan when on grid
+- Loot and salvage to D-Scan when on grid (wrecks and stuff / basically d-scan data Provi style :-P)
+
+### Changed
+- Database cache to 6 months instead of 1
+
+## [v0.4.9](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.9) - 2017-11-07
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.8...v0.4.9)
+### Added
+- Count of unaffiliated pilots (pilots who are not in any alliance) in alliance breakdown for chat scans
+- Issue template for GitHub
+
+### Updated
+- German translation
+
+## [v0.4.8](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.8) - 2017-11-04
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.7...v0.4.8)
+### Fixed
+- Region names in D-Scans
+
+### Added
+- Dashboard Widget - Cache Statistics
+- Database cache for systems, constellations and regions to reduce the number of ESI calls for D-Scans over time
+
+## [v0.4.7](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.7) - 2017-11-01
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.6...v0.4.7)
+### Fixed
+- Database prefix for multisite installations, we need only one cache database ...
+
+## [v0.4.6](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.6) - 2017-10-31
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.5...v0.4.6)
+### Fixed
+- ESI :: End points now use their full path instead of adding the rest later ...
+- ESI :: Affiliation end point now able to handle large numbers of pilots for chat scans. So even Jita local should be doable now, still might take a half an hour ...
 
 ## [v0.4.5](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.5) - 2017-10-24
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.4...v0.4.5)
@@ -28,7 +64,7 @@
 ### Changed
 - Templates reworked
 - Reintroduced sticky highlight
-- Dropped pagination on data tables (use the filter it's a better way)
+- Dropped pagination on data tables (use the filter, it's a better way)
 
 ### Updated
 - German translation
@@ -148,7 +184,7 @@
 ## [v0.1.5](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.5) - 2017-09-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.4...v0.1.5)
 ### Added
-- General Fleet information to teh fleet scan, as in how many pilots in total, how many are docked, how many are in space.
+- General Fleet information to the fleet scan, as in how many pilots in total, how many are docked, how many are in space.
 
 ### Fixed
 - Regular Expression for detecting fleet scans. I really hate this stuff ...

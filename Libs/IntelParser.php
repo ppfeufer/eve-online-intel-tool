@@ -81,16 +81,11 @@ class IntelParser {
 				$this->postID = $this->saveLocalScanData($this->eveIntel);
 				break;
 
-			case 'miningledger':
-			case 'corpminingledger':
-				$this->postID = $this->saveMiningLedgerScanData($this->eveIntel, $intelType);
-				break;
-
 			default:
 				$this->postID = null;
 				break;
-		} // switch($intelType)
-	} // public function __construct()
+		} // END switch($intelType)
+	} // END public function __construct()
 
 	/**
 	 * Determine what type of intel we might have
@@ -135,8 +130,8 @@ class IntelParser {
 			case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
 				$intelType = 'local';
 				break;
-
-			/**
+        
+      /**
 			 * Fourth: Personal Mining Ledger
 			 */
 //			case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
@@ -153,10 +148,10 @@ class IntelParser {
 			default:
 				$intelType = null;
 				break;
-		} // switch($cleanedScanData)
+		} // END switch($cleanedScanData)
 
 		return $intelType;
-	} // private function checkIntelType($scanData)
+	} // END private function checkIntelType($scanData)
 
 	/**
 	 * Saving the D-Scan data
@@ -169,7 +164,7 @@ class IntelParser {
 
 		$parsedDscanData = Parser\DscanParser::getInstance()->parseDscan($scanData);
 
-		if(!\is_null($parsedDscanData)) {
+		if($parsedDscanData !== null) {
 			$postName = $this->uniqueID;
 
 			/**
@@ -180,14 +175,14 @@ class IntelParser {
 
 				if(!empty($parsedDscanData['system']['constellationName'])) {
 					$postName .= ' - ' . $parsedDscanData['system']['constellationName'];
-				} // if(!empty($parsedDscanData['system']['constellationName']))
+				} // END if(!empty($parsedDscanData['system']['constellationName']))
 
 				if(!empty($parsedDscanData['system']['regionName'])) {
 					$postName .= ' - ' . $parsedDscanData['system']['regionName'];
-				} // if(!empty($parsedDscanData['system']['regionName']))
+				} // END if(!empty($parsedDscanData['system']['regionName']))
 
 				$postName .= ' ' . $this->uniqueID;
-			} // if(!empty($parsedDscanData['system']['name']))
+			} // END if(!empty($parsedDscanData['system']['name']))
 
 			$metaData = [
 				'eve-intel-tool_dscan-rawData' => \maybe_serialize(Helper\IntelHelper::getInstance()->fixLineBreaks($scanData)),
@@ -196,14 +191,18 @@ class IntelParser {
 				'eve-intel-tool_dscan-offGrid' => \maybe_serialize($parsedDscanData['offGrid']),
 				'eve-intel-tool_dscan-shipTypes' => \maybe_serialize($parsedDscanData['shipTypes']),
 				'eve-intel-tool_dscan-system' => \maybe_serialize($parsedDscanData['system']),
+				'eve-intel-tool_dscan-upwellStructures' => \maybe_serialize($parsedDscanData['upwellStructures']),
+				'eve-intel-tool_dscan-deployables' => \maybe_serialize($parsedDscanData['deployables']),
+				'eve-intel-tool_dscan-starbaseModules' => \maybe_serialize($parsedDscanData['starbaseModules']),
+				'eve-intel-tool_dscan-lootSalvage' => \maybe_serialize($parsedDscanData['lootSalvage']),
 				'eve-intel-tool_dscan-time' => \maybe_serialize(\gmdate('Y-m-d H:i:s', \time())),
 			];
 
 			$returnData = $this->savePostdata($postName, $metaData, 'dscan');
-		} // if($parsedDscanData !== null)
+		} // END if($parsedDscanData !== null)
 
 		return $returnData;
-	} // private function saveDscanData($scanData)
+	} // END private function saveDscanData($scanData)
 
 	/**
 	 * Saving the fleet composition data
@@ -215,7 +214,7 @@ class IntelParser {
 		$returnData = null;
 		$parsedFleetComposition = Parser\FleetCompositionParser::getInstance()->parseFleetCompositionScan($scanData);
 
-		if(!\is_null($parsedFleetComposition)) {
+		if($parsedFleetComposition !== null) {
 			$postName = $this->uniqueID;
 			$metaData = [
 				'eve-intel-tool_fleetcomposition-rawData' => \maybe_serialize($parsedFleetComposition['rawData']),
@@ -236,7 +235,7 @@ class IntelParser {
 		}
 
 		return $returnData;
-	} // private function saveFleetComositionData($scanData)
+	} // END private function saveFleetComositionData($scanData)
 
 	/**
 	 * Saving the local/chat scan data
@@ -249,7 +248,7 @@ class IntelParser {
 
 		$parsedLocalData = Parser\LocalScanParser::getInstance()->parseLocalScan($scanData);
 
-		if(!\is_null($parsedLocalData)) {
+		if($parsedLocalData !== null) {
 			$postName = $this->uniqueID;
 			$metaData = [
 				'eve-intel-tool_local-rawData' => \maybe_serialize($parsedLocalData['rawData']),
@@ -263,12 +262,12 @@ class IntelParser {
 			];
 
 			$returnData = $this->savePostdata($postName, $metaData, 'local');
-		} // if($parsedDscanData !== null)
+		} // END if($parsedDscanData !== null)
 
 		return $returnData;
-	} // private function saveFleetComositionData($scanData)
-
-	 private function saveMiningLedgerScanData($scanData, $ledgerType) {
+	} // END private function saveFleetComositionData($scanData)
+  
+  private function saveMiningLedgerScanData($scanData, $ledgerType) {
 		$returnData = null;
 
 		/**
@@ -284,9 +283,6 @@ class IntelParser {
 			}
 		}
 
-		return $returnData;
-	 }
-
 	/**
 	 * Save the post data
 	 *
@@ -295,7 +291,7 @@ class IntelParser {
 	 * @param string $category
 	 * @return int
 	 */
-	private function savePostdata($postName, array $metaData, $category) {
+	private function savePostdata($postName, $metaData, $category) {
 		$returnData = null;
 
 		switch($category) {
@@ -336,8 +332,8 @@ class IntelParser {
 			\wp_set_object_terms($newPostID, $category, 'intel_category');
 
 			$returnData = $newPostID;
-		} // if($newPostID)
+		} // END if($newPostID)
 
 		return $returnData;
 	}
-} // class IntelParser
+} // END class IntelParser

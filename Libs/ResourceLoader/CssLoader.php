@@ -30,6 +30,7 @@ class CssLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\
 	 */
 	public function init() {
 		\add_action('wp_enqueue_scripts', [$this, 'enqueue'], 99);
+		\add_action('admin_init', [$this, 'enqueueAdmin'], 99);
 	} // public function init()
 
 	/**
@@ -50,4 +51,10 @@ class CssLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\
 			} // if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('fittings')) || \get_post_type() === 'fitting')
 		} // if(!\is_admin())
 	} // public function enqueue()
+
+	public function enqueueAdmin() {
+		if(\is_admin()) {
+			\wp_enqueue_style('eve-online-intel-tool-dashboard-widgets', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('css/admin/eve-online-intel-tool-dashboard-widgets.min.css'));
+		} // END if(\is_admin())
+	} // END public function enqueueAdmin()
 } // class CssLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AssetsInterface

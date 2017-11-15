@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-23 09:23+0000\n"
+"POT-Creation-Date: 2017-11-07 13:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -99,24 +99,13 @@ msgstr ""
 msgid "EVE Time:"
 msgstr ""
 
-#: templates/single-dscan.php:53
-msgid "All"
-msgstr ""
-
-#: templates/single-dscan.php:67
-msgid "On Grid"
-msgstr ""
-
-#: templates/single-dscan.php:81
-msgid "Off Grid"
-msgstr ""
-
-#: templates/single-dscan.php:95 templates/single-fleetcomposition.php:60
-msgid "Ship Types"
-msgstr ""
-
 #: templates/single-fleetcomposition.php:45
 msgid "Ship Classes"
+msgstr ""
+
+#: templates/single-fleetcomposition.php:60
+#: templates/data/dscan-breakdown.php:50
+msgid "Ship Types"
 msgstr ""
 
 #: templates/single-local.php:7
@@ -199,6 +188,10 @@ msgstr ""
 
 #: Libs/Admin/PluginSettings.php:137
 msgid "20 days"
+msgstr ""
+
+#: Libs/Parser/LocalScanParser.php:244 Libs/Parser/LocalScanParser.php:251
+msgid "Unaffiliated / No Alliance"
 msgstr ""
 
 #: Libs/ResourceLoader/JavascriptLoader.php:68
@@ -294,6 +287,7 @@ msgstr ""
 #: templates/data/alliance-participation.php:9
 #: templates/data/corporation-participation.php:9
 #: templates/data/ship-classes.php:9 templates/data/ship-types.php:9
+#: templates/data/structures-on-grid.php:10
 msgid "Count"
 msgstr ""
 
@@ -303,6 +297,18 @@ msgstr ""
 
 #: templates/data/corporation-participation.php:8
 msgid "Corporation Name"
+msgstr ""
+
+#: templates/data/dscan-breakdown.php:8
+msgid "All"
+msgstr ""
+
+#: templates/data/dscan-breakdown.php:22
+msgid "On Grid"
+msgstr ""
+
+#: templates/data/dscan-breakdown.php:36
+msgid "Off Grid"
 msgstr ""
 
 #: templates/data/fleet-composition.php:1
@@ -348,6 +354,18 @@ msgstr ""
 msgid "Pilots in space"
 msgstr ""
 
+#: templates/data/interesting-on-grid-breakdown.php:5
+msgid "Interesting On Grid"
+msgstr ""
+
+#: templates/data/interesting-on-grid-breakdown.php:15
+msgid "Upwell Structures"
+msgstr ""
+
+#: templates/data/interesting-on-grid-breakdown.php:28
+msgid "Deployables"
+msgstr ""
+
 #: templates/data/pilot-participation.php:1
 msgid "Pilots Breakdown"
 msgstr ""
@@ -364,12 +382,52 @@ msgstr ""
 msgid "Ship Type"
 msgstr ""
 
+#: templates/data/structures-on-grid.php:9
+msgid "Structure Type"
+msgstr ""
+
 #: templates/extra/buttons.php:4
 msgid "New Scan"
 msgstr ""
 
 #: templates/extra/buttons.php:7
 msgid "Copy Permalink"
+msgstr ""
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:46
+msgid "EVE Intel Tool :: Cache Statistics"
+msgstr ""
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:55
+msgid "Your EVE intel database cache"
+msgstr ""
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:89
+msgid "Pilots"
+msgstr ""
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:103
+msgid "Corporations"
+msgstr ""
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:117
+msgid "Alliances"
+msgstr ""
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:131
+msgid "Ships"
+msgstr ""
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:145
+msgid "Systems"
+msgstr ""
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:159
+msgid "Constellations"
+msgstr ""
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:173
+msgid "Regions"
 msgstr ""
 
 #. Name of the plugin

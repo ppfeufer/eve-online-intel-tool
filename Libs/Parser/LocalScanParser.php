@@ -57,7 +57,7 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 		} // if(!\is_null($localArray))
 
 		return $returnValue;
-	} // public function parseDscan($scanData)
+	} // END public function parseLocalScan($scanData)
 
 	/**
 	 * Parsing the scan data and get an array with every pilots data
@@ -79,6 +79,8 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 		$pilotList = [];
 		$pilotDetails = [];
 		$arrayCharacterIds = [];
+		$characterIdSet = 0;
+		$nameIterationCounter = 0;
 
 		foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
 			/**
@@ -91,46 +93,61 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 				$characterID = $this->esi->getEveIdFromName(\trim($line), 'character');
 
 				if(!\is_null($characterID)) {
-					$arrayCharacterIds[\trim($line)] = $characterID;
+					$arrayCharacterIds[$characterIdSet][\trim($line)] = $characterID;
 					$pilotList[$characterID] = $line;
 				} // END if(!\is_null($characterID))
 			} // if(!isset($arrayCharacterIds[\trim($line)]))
+
+			/**
+			 * Determine our ID set
+			 *
+			 * Every ID set is about 500 IDs large
+			 * So, even Jita local should be getting parsed now,
+			 * still takes 20 minutes though ...
+			 */
+			$nameIterationCounter++;
+			if($nameIterationCounter % 500 == 0) {
+				$characterIdSet++;
+			} // if($counter % 4 == 0)
 		} // foreach(\explode("\n", \trim($cleanedScanData)) as $line)
 
-		$characterData = $this->esi->getCharacterAffiliation($arrayCharacterIds);
+		// loop through the ID sets to get the affiliation data
+		foreach($arrayCharacterIds as $idSet) {
+			$characterData = $this->esi->getCharacterAffiliation($idSet);
 
-		foreach($characterData['data'] as $affiliatedIds) {
-			$pilotDetails[$affiliatedIds->character_id] = [
-				'characterID' => $affiliatedIds->character_id,
-				'characterName' => $pilotList[$affiliatedIds->character_id]
-			];
+			foreach($characterData['data'] as $affiliatedIds) {
+				$pilotDetails[$affiliatedIds->character_id] = [
+					'characterID' => $affiliatedIds->character_id,
+					'characterName' => $pilotList[$affiliatedIds->character_id]
+				];
 
-			/**
-			 * Grabbing corporation information
-			 */
-			if(isset($affiliatedIds->corporation_id)) {
-				$corporationSheet = $this->esi->getCorporationData($affiliatedIds->corporation_id);
+				/**
+				 * Grabbing corporation information
+				 */
+				if(isset($affiliatedIds->corporation_id)) {
+					$corporationSheet = $this->esi->getCorporationData($affiliatedIds->corporation_id);
 
-				if(!empty($corporationSheet['data']) && !isset($corporationSheet['data']->error)) {
-					$pilotDetails[$affiliatedIds->character_id]['corporationID'] = $affiliatedIds->corporation_id;
-					$pilotDetails[$affiliatedIds->character_id]['corporationName'] = $corporationSheet['data']->corporation_name;
-					$pilotDetails[$affiliatedIds->character_id]['corporationTicker'] = $corporationSheet['data']->ticker;
-				} // if(!empty($corporationSheet['data']) && !isset($corporationSheet['data']->error))
-			} // if(isset($affiliatedIds->corporation_id))
+					if(!empty($corporationSheet['data']) && !isset($corporationSheet['data']->error)) {
+						$pilotDetails[$affiliatedIds->character_id]['corporationID'] = $affiliatedIds->corporation_id;
+						$pilotDetails[$affiliatedIds->character_id]['corporationName'] = $corporationSheet['data']->corporation_name;
+						$pilotDetails[$affiliatedIds->character_id]['corporationTicker'] = $corporationSheet['data']->ticker;
+					} // if(!empty($corporationSheet['data']) && !isset($corporationSheet['data']->error))
+				} // if(isset($affiliatedIds->corporation_id))
 
-			/**
-			 * Grabbing alliance information
-			 */
-			if(isset($affiliatedIds->alliance_id)) {
-				$allianceSheet = $this->esi->getAllianceData($affiliatedIds->alliance_id);
+				/**
+				 * Grabbing alliance information
+				 */
+				if(isset($affiliatedIds->alliance_id)) {
+					$allianceSheet = $this->esi->getAllianceData($affiliatedIds->alliance_id);
 
-				if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error)) {
-					$pilotDetails[$affiliatedIds->character_id]['allianceID'] = $affiliatedIds->alliance_id;
-					$pilotDetails[$affiliatedIds->character_id]['allianceName'] = $allianceSheet['data']->alliance_name;
-					$pilotDetails[$affiliatedIds->character_id]['allianceTicker'] = $allianceSheet['data']->ticker;
-				} // if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error))
-			} // if(isset($affiliatedIds->alliance_id))
-		} // foreach($characterData['data'] as $affiliatedIds)
+					if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error)) {
+						$pilotDetails[$affiliatedIds->character_id]['allianceID'] = (isset($affiliatedIds->alliance_id)) ? $affiliatedIds->alliance_id : 0;
+						$pilotDetails[$affiliatedIds->character_id]['allianceName'] = $allianceSheet['data']->alliance_name;
+						$pilotDetails[$affiliatedIds->character_id]['allianceTicker'] = $allianceSheet['data']->ticker;
+					} // if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error))
+				} // if(isset($affiliatedIds->alliance_id))
+			} // foreach($characterData['data'] as $affiliatedIds)
+		} // foreach($arrayCharacterIds as $idSet)
 
 		if(\count($pilotDetails) > 0) {
 			$returnValue = [
@@ -172,7 +189,7 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 					'corporationID' => $pilotSheet['corporationID'],
 					'corporationName' => $pilotSheet['corporationName'],
 					'corporationTicker' => $pilotSheet['corporationTicker'],
-					'allianceID' => (isset($pilotSheet['allianceID'])) ? $pilotSheet['allianceID'] : null,
+					'allianceID' => (isset($pilotSheet['allianceID'])) ? $pilotSheet['allianceID'] : 0,
 					'allianceName' => (isset($pilotSheet['allianceName'])) ? $pilotSheet['allianceName'] : null,
 					'allianceTicker' => (isset($pilotSheet['allianceTicker'])) ? $pilotSheet['allianceTicker'] : null
 				];
@@ -182,11 +199,11 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 					'corporationID' => $pilotSheet['corporationID'],
 					'corporationName' => $pilotSheet['corporationName'],
 					'corporationTicker' => $pilotSheet['corporationTicker'],
-					'allianceID' => (isset($pilotSheet['allianceID'])) ? $pilotSheet['allianceID'] : null,
+					'allianceID' => (isset($pilotSheet['allianceID'])) ? $pilotSheet['allianceID'] : 0,
 					'allianceName' => (isset($pilotSheet['allianceName'])) ? $pilotSheet['allianceName'] : null,
 					'allianceTicker' => (isset($pilotSheet['allianceTicker'])) ? $pilotSheet['allianceTicker'] : null
 				];
-			} // if(isset($pilotSheet['corporationID']))
+			} // END if(isset($pilotSheet['corporationID']))
 
 			/**
 			 * Alliance List
@@ -210,7 +227,31 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 					'allianceName' => $pilotSheet['allianceName'],
 					'allianceTicker' => $pilotSheet['allianceTicker']
 				];
-			} // if(isset($pilotSheet['characterData']->corporation_id))
+			} // if(isset($pilotSheet['allianceID']))
+
+			/**
+			 * Unaffiliated pilots with no alliance
+			 */
+			if(!isset($pilotSheet['allianceID'])) {
+				if(!isset($counter[\sanitize_title('Unaffiliated / No Alliance')])) {
+					$counter[\sanitize_title('Unaffiliated / No Alliance')] = 0;
+				} // if(!isset($counter[\sanitize_title($pilotSheet['allianceName'])]))
+
+				$counter[\sanitize_title('Unaffiliated / No Alliance')]++;
+
+				$allianceList[\sanitize_title('Unaffiliated / No Alliance')] = [
+					'allianceID' => 0,
+					'allianceName' => \__('Unaffiliated / No Alliance', 'eve-online-intel-tool'),
+					'allianceTicker' => null
+				];
+
+				$allianceParticipation[\sanitize_title('Unaffiliated / No Alliance')] = [
+					'count' => $counter[\sanitize_title('Unaffiliated / No Alliance')],
+					'allianceID' => 0,
+					'allianceName' => \__('Unaffiliated / No Alliance', 'eve-online-intel-tool'),
+					'allianceTicker' => null
+				];
+			} // if(!isset($pilotSheet['allianceID']))
 		} // foreach($pilotDetails as $pilotSheet)
 
 		\ksort($corporationList);
@@ -222,7 +263,6 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 		 * Sorting corporations
 		 */
 		$employementList['corporationList'] = $corporationList;
-
 		foreach($corporationParticipation as $corporation) {
 			$employementList['corporationParticipation'][$corporation['count']][\sanitize_title($corporation['corporationName'])] = $corporation;
 		} // foreach($corporationParticipation as $corporation)
@@ -231,7 +271,6 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 		 * Sorting alliances
 		 */
 		$employementList['allianceList'] = $allianceList;
-
 		foreach($allianceParticipation as $alliance) {
 			$employementList['allianceParticipation'][$alliance['count']][\sanitize_title($alliance['allianceName'])] = $alliance;
 		} // foreach($allianceParticipation as $alliance)
