@@ -6,8 +6,8 @@
 ### Added
 - Upwell structures to D-Scan when on grid
 - Deployable structures to D-Scan when on grid
-- Starbases and modules when on grid
-- Loot and salvage when on grid (wrecks and stuff / basically d-scan data Provi style :-P)
+- Starbases and modules to D-Scan when on grid
+- Loot and salvage to D-Scan when on grid (wrecks and stuff / basically d-scan data Provi style :-P)
 
 ### Changed
 - Database cache to 6 months instead of 1
