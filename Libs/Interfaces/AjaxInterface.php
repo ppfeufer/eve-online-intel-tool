@@ -31,4 +31,4 @@ interface AjaxInterface {
 	 * Execute the ajax call
 	 */
 	public function ajaxAction();
-} // END interface AjaxInterface
+} // interface AjaxInterface

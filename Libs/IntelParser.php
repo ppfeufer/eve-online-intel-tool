@@ -130,6 +130,20 @@ class IntelParser {
 			case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
 				$intelType = 'local';
 				break;
+        
+      /**
+			 * Fourth: Personal Mining Ledger
+			 */
+//			case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
+//				$intelType = 'miningledger';
+//				break;
+
+			/**
+			 * Fifth: Corporation Mining Ledger
+			 */
+//			case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
+//				$intelType = 'corpminingledger';
+//				break;
 
 			default:
 				$intelType = null;
@@ -252,6 +266,22 @@ class IntelParser {
 
 		return $returnData;
 	} // END private function saveFleetComositionData($scanData)
+  
+  private function saveMiningLedgerScanData($scanData, $ledgerType) {
+		$returnData = null;
+
+		/**
+		 * Only if we have the allowed ledger type, just in case ...
+		 */
+		if(\in_array($ledgerType, ['miningledger', 'corpminingledger'])) {
+			$parsedLedgerData = Parser\MiningLedgerParser::getInstance()->parseLedgerData($scanData, $ledgerType);
+
+			if(!\is_null($parsedLedgerData)) {
+				$postName = $this->uniqueID;
+				$metaData = [];
+				$returnData = $this->savePostdata($postName, $metaData, $ledgerType);
+			}
+		}
 
 	/**
 	 * Save the post data
@@ -275,6 +305,14 @@ class IntelParser {
 
 			case 'local':
 				$postTitle = 'Chat Scan: ' . \wp_filter_kses($postName);
+				break;
+
+			case 'miningledger':
+				$postTitle = 'Personal Mining Ledger: ' . \wp_filter_kses($postName);
+				break;
+
+			case 'corpminingledger':
+				$postTitle = 'Corporation Mining Ledger: ' . \wp_filter_kses($postName);
 				break;
 		}
 

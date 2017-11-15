@@ -30,7 +30,7 @@ class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Inte
 	 */
 	public function init() {
 		\add_action('wp_enqueue_scripts', [$this, 'enqueue'], 99);
-	} // END public function init()
+	} // public function init()
 
 	/**
 	 * Load the JavaScript
@@ -51,9 +51,9 @@ class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Inte
 
 				\wp_enqueue_script('eve-online-intel-tool-js', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('js/eve-online-intel-tool.min.js'), ['jquery'], '', true);
 				\wp_localize_script('eve-online-intel-tool-js', 'eveIntelToolL10n', $this->getJavaScriptTranslations());
-			} // END if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('fittings')) || \get_post_type() === 'fitting')
-		} // END if(!\is_admin())
-	} // END public function enqueue()
+			} // if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('fittings')) || \get_post_type() === 'fitting')
+		} // if(!\is_admin())
+	} // public function enqueue()
 
 	/**
 	 * Getting teh translation array to translate strings in JavaScript
@@ -102,5 +102,5 @@ class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Inte
 				'loaderImage' => \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('images/loader-sprite.gif')
 			]
 		];
-	} // END private function getJavaScriptTranslations()
-} // END class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AssetsInterface
+	} // private function getJavaScriptTranslations()
+} // class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AssetsInterface

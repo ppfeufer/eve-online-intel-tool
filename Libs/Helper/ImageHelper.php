@@ -63,7 +63,7 @@ class ImageHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 
 		$this->imageserverUrl = 'https://image.eveonline.com/';
 		$this->imageserverEndpoints = $this->getImageserverEndpoints();
-	} // END public function __construct()
+	} // public function __construct()
 
 	/**
 	 * Assigning Imagesever Endpoints
@@ -77,7 +77,7 @@ class ImageHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 			'ship' => 'Type/',
 			'inventory' => 'InventoryType/' // all the other stuff
 		];
-	} // END private function setImageserverEndpoints()
+	} // private function setImageserverEndpoints()
 
 	/**
 	 * Getting the EVE API Url
@@ -90,10 +90,10 @@ class ImageHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 
 		if($type !== null) {
 			$endpoint = $this->imageserverEndpoints[$type];
-		} // END if($type !== null)
+		} // if($type !== null)
 
 		return $this->imageserverUrl . $endpoint;
-	} // END public function getImageServerUrl()
+	} // public function getImageServerUrl()
 
 	/**
 	 * Getting the cached URL for a remote image
@@ -121,14 +121,14 @@ class ImageHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 					if(CacheHelper::getInstance()->cacheRemoteImageFile($cacheType, $remoteImageUrl) === true) {
 						$returnValue = $cachedImage;
 					}
-				} // END if(\is_dir(CacheHelper::getImageCacheDir() . $cacheType) && \is_writable(CacheHelper::getImageCacheDir() . $cacheType))
+				} // if(\is_dir(CacheHelper::getImageCacheDir() . $cacheType) && \is_writable(CacheHelper::getImageCacheDir() . $cacheType))
 			} else {
 				$returnValue = $cachedImage;
-			} // END if(CacheHelper::checkCachedImage($cacheType, $imageName) === false)
+			} // if(CacheHelper::checkCachedImage($cacheType, $imageName) === false)
 		}
 
 		return $returnValue;
-	} // END public static function getLocalCacheImageUri($cacheType = null, $remoteImageUrl = null)
+	} // public static function getLocalCacheImageUri($cacheType = null, $remoteImageUrl = null)
 
 	/**
 	 * Compressing an image
@@ -146,7 +146,7 @@ class ImageHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		 */
 		if($destination === null) {
 			$destination = $source;
-		} // END if($destination === null)
+		} // if($destination === null)
 
 		$info = \getimagesize($source);
 
@@ -179,11 +179,11 @@ class ImageHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 
 				$returnValue = \imagePng($image, $destination, $pngQuality);
 				break;
-		} // END switch($info['mime'])
+		} // switch($info['mime'])
 
 		\imagedestroy($image);
 
 		// return destination file
 		return $returnValue;
-	} // END public function compressImage($sourceUrl, $destinationUrl, $quality)
-} // END class ImageHelper
+	} // public function compressImage($sourceUrl, $destinationUrl, $quality)
+} // class ImageHelper

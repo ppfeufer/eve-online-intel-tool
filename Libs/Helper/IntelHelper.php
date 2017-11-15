@@ -35,5 +35,5 @@ class IntelHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		$cleanedScanData = \str_replace("\r", "\n", \str_replace("\r\n", "\n", $scanData)); // mac -> linux
 
 		return $cleanedScanData;
-	} // END private function fixLineBreaks($scanData)
+	}
 }
