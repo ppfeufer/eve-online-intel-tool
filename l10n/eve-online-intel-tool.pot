@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-07 13:14+0000\n"
+"POT-Creation-Date: 2017-11-17 09:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -190,7 +190,7 @@ msgstr ""
 msgid "20 days"
 msgstr ""
 
-#: Libs/Parser/LocalScanParser.php:244 Libs/Parser/LocalScanParser.php:251
+#: Libs/Parser/LocalScanParser.php:233 Libs/Parser/LocalScanParser.php:240
 msgid "Unaffiliated / No Alliance"
 msgstr ""
 
@@ -364,6 +364,14 @@ msgstr ""
 
 #: templates/data/interesting-on-grid-breakdown.php:28
 msgid "Deployables"
+msgstr ""
+
+#: templates/data/interesting-on-grid-breakdown.php:41
+msgid "POS / POS Modules"
+msgstr ""
+
+#: templates/data/interesting-on-grid-breakdown.php:54
+msgid "Loot / Salvage"
 msgstr ""
 
 #: templates/data/pilot-participation.php:1

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EVE Online Intel Tool for WordPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-07 13:15+0000\n"
-"PO-Revision-Date: 2017-11-07 13:16+0000\n"
+"POT-Creation-Date: 2017-11-17 09:28+0000\n"
+"PO-Revision-Date: 2017-11-17 09:28+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German\n"
 "Language: de-DE\n"
@@ -13,21 +13,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco - https://localise.biz/"
 
-#: templates/data/interesting-on-grid-breakdown.php:5
-msgid "Interesting On Grid"
-msgstr "Interessantes auf dem Grid"
+#: templates/data/interesting-on-grid-breakdown.php:41
+msgid "POS / POS Modules"
+msgstr "POS / POS Module"
 
-#: templates/data/interesting-on-grid-breakdown.php:15
-msgid "Upwell Structures"
-msgstr "Upwell Strukturen"
-
-#: templates/data/interesting-on-grid-breakdown.php:28
-msgid "Deployables"
-msgstr "Mobile Strukturen"
-
-#: templates/data/structures-on-grid.php:9
-msgid "Structure Type"
-msgstr "Struktur Typ"
+#: templates/data/interesting-on-grid-breakdown.php:54
+msgid "Loot / Salvage"
+msgstr "Loot / Salvage"
 
 #: Libs/GithubUpdater.php:466
 msgid ""
@@ -229,7 +221,7 @@ msgstr "15 Tage"
 msgid "20 days"
 msgstr "20 Tage"
 
-#: Libs/Parser/LocalScanParser.php:244 Libs/Parser/LocalScanParser.php:251
+#: Libs/Parser/LocalScanParser.php:233 Libs/Parser/LocalScanParser.php:240
 msgid "Unaffiliated / No Alliance"
 msgstr "Keine Allianzzugehörigkeit"
 
@@ -395,6 +387,18 @@ msgstr "Piloten gedockt"
 msgid "Pilots in space"
 msgstr "Piloten im Weltraum"
 
+#: templates/data/interesting-on-grid-breakdown.php:5
+msgid "Interesting On Grid"
+msgstr "Interessantes auf dem Grid"
+
+#: templates/data/interesting-on-grid-breakdown.php:15
+msgid "Upwell Structures"
+msgstr "Upwell Strukturen"
+
+#: templates/data/interesting-on-grid-breakdown.php:28
+msgid "Deployables"
+msgstr "Mobile Strukturen"
+
 #: templates/data/pilot-participation.php:1
 msgid "Pilots Breakdown"
 msgstr "Piloten Übersicht"
@@ -410,6 +414,10 @@ msgstr "Corporation"
 #: templates/data/ship-types.php:8
 msgid "Ship Type"
 msgstr "Schiffstyp"
+
+#: templates/data/structures-on-grid.php:9
+msgid "Structure Type"
+msgstr "Struktur Typ"
 
 #: templates/extra/buttons.php:4
 msgid "New Scan"
