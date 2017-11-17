@@ -24,7 +24,7 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Ajax;
 class ImageLazyLoad implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface {
 	public function __construct() {
 		$this->initActions();
-	} // END public function __construct()
+	}
 
 	public function ajaxAction() {
 		$imageUri = \filter_input(\INPUT_POST, 'imageUri');

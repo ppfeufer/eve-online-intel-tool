@@ -6,8 +6,12 @@
 ### Added
 - Upwell structures to D-Scan when on grid
 - Deployable structures to D-Scan when on grid
-- Starbases and modules when on grid
-- Loot and salvage when on grid (wrecks and stuff / basically d-scan data Provi style :-P)
+- Starbases and modules to D-Scan when on grid
+- Loot and salvage to D-Scan when on grid (wrecks and stuff / basically d-scan data Provi style :-P)
+
+### Changed
+- Database cache to 6 months instead of 1
+- Simplified code to reduce the load on the affiliation endpoint
 
 ## [v0.4.9](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.9) - 2017-11-07
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.8...v0.4.9)

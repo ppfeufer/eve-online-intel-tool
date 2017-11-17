@@ -40,7 +40,7 @@ class TemplateLoader {
 		} else {
 			// Add a filter to the wp 4.7 version attributes metabox
 			\add_filter('theme_page_templates', [$this, 'addNewTemplate']);
-		} // END if(\version_compare(\floatval(\get_bloginfo('version')), '4.7', '<'))
+		} // if(\version_compare(\floatval(\get_bloginfo('version')), '4.7', '<'))
 
 		// Add a filter to the save post to inject out template into the page cache
 		\add_filter('wp_insert_post_data', [$this, 'registerProjectTemplates']);
@@ -54,7 +54,7 @@ class TemplateLoader {
 		$this->templates = [
 			'../templates/page-intel.php' => 'EVE Intel',
 		];
-	} // END private function __construct()
+	} // private function __construct()
 
 	/**
 	 * Adds our template to the page dropdown for v4.7+
@@ -66,7 +66,7 @@ class TemplateLoader {
 		$posts_templates = \array_merge($posts_templates, $this->templates);
 
 		return $posts_templates;
-	} // END public function addNewTemplate($posts_templates)
+	} // public function addNewTemplate($posts_templates)
 
 	/**
 	 * Adds our template to the pages cache in order to trick WordPress
@@ -85,7 +85,7 @@ class TemplateLoader {
 
 		if(empty($templates)) {
 			$templates = [];
-		} // END if(empty($templates))
+		} // if(empty($templates))
 
 		// New cache, therefore remove the old one
 		\wp_cache_delete($cache_key, 'themes');
@@ -99,7 +99,7 @@ class TemplateLoader {
 		\wp_cache_add($cache_key, $templates, 'themes', 1800);
 
 		return $atts;
-	} // END public function registerProjectTemplates($atts)
+	} // public function registerProjectTemplates($atts)
 
 	/**
 	 * Checks if the template is assigned to the page
@@ -115,12 +115,12 @@ class TemplateLoader {
 		// Return template if post is empty
 		if(!$post) {
 			return $template;
-		} // END if(!$post)
+		} // if(!$post)
 
 		// Return default template if we don't have a custom one defined
 		if(!isset($this->templates[\get_post_meta($post->ID, '_wp_page_template', true)])) {
 			return $template;
-		} // END if(!isset($this->templates[\get_post_meta($post->ID, '_wp_page_template', true)]))
+		} // if(!isset($this->templates[\get_post_meta($post->ID, '_wp_page_template', true)]))
 
 		$file = \plugin_dir_path(__FILE__) . \get_post_meta($post->ID, '_wp_page_template', true);
 
@@ -129,9 +129,9 @@ class TemplateLoader {
 			return $file;
 		} else {
 			echo $file;
-		} // END if(\file_exists($file))
+		} // if(\file_exists($file))
 
 		// Return template
 		return $template;
-	} // END public function viewProjectTemplate($template)
-} // END class TemplateLoader
+	} // public function viewProjectTemplate($template)
+} // class TemplateLoader

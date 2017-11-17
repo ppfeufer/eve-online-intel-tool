@@ -35,7 +35,7 @@ class PostType {
 		\add_filter('page_template', [$this, 'registerPageTemplate']);
 
 		\add_filter('post_type_link', [$this, 'createPermalinks'], 1, 2);
-	} // END public function __construct()
+	} // public function __construct()
 
 	/**
 	 * Registering the custom post type
@@ -83,7 +83,15 @@ class PostType {
 			'has_archive' => 'intel'
 		]);
 
-		// Adding our default categories ...
+		/**
+		 * Adding our default categories ...
+		 *
+		 * » D-Scan
+		 * » Fleet Composition
+		 * » Local/Chat Scan
+		 * » Personal Mining Ledger
+		 * » Corporation Mining Ledger
+		 */
 		\wp_insert_term('D-Scan', 'intel_category', [
 			'slug' => 'dscan'
 		]);
@@ -93,19 +101,27 @@ class PostType {
 		\wp_insert_term('Local Scan', 'intel_category', [
 			'slug' => 'local'
 		]);
-	} // END public function customPostType()
+		\wp_insert_term('Personal Mining Ledger', 'intel_category', [
+			'slug' => 'miningledger'
+		]);
+		\wp_insert_term('Corporation Mining Ledger', 'intel_category', [
+			'slug' => 'corpminingledger'
+		]);
+	} // public function customPostType()
 
-	public function createPermalinks($post_link, $post) {
+	public function createPermalinks($postLink, $post) {
+		$returnValue = $postLink;
+
 		if(\is_object($post) && $post->post_type === 'intel') {
 			$terms = \wp_get_object_terms($post->ID, 'intel_category');
 
 			if($terms) {
-				return \str_replace('%intel_category%' , $terms[0]->slug , $post_link);
-			} // END if($terms)
-		} // END if(\is_object($post) && $post->post_type === 'intel')
+				$returnValue = \str_replace('%intel_category%' , $terms[0]->slug , $postLink);
+			} // if($terms)
+		} // if(\is_object($post) && $post->post_type === 'intel')
 
-		return $post_link;
-	} // END public function createPermalinks($post_link, $post)
+		return $returnValue;
+	} // public function createPermalinks($post_link, $post)
 
 	/**
 	 * Getting the slug for the custom post type
@@ -127,6 +143,7 @@ class PostType {
 			WHERE
 				' . $wpdb->postmeta . '.meta_key = "_wp_page_template"
 				AND ' . $wpdb->postmeta . '.meta_value = "../templates/page-' . $postType . '.php"
+				AND ' . $wpdb->posts . '.post_type = "page"
 				AND ' . $wpdb->posts . '.ID = ' . $wpdb->postmeta . '.post_id;';
 
 		$slugData = $wpdb->get_var($var_qry);
@@ -138,8 +155,8 @@ class PostType {
 			return $slugData;
 		} else {
 			return $postType;
-		} // END if(!empty($var_sSlugData))
-	} // END private function _getPosttypeSlug($var_sPosttype)
+		} // if(!empty($var_sSlugData))
+	} // private function _getPosttypeSlug($var_sPosttype)
 
 	/**
 	 * Template loader.
@@ -160,16 +177,16 @@ class PostType {
 			$templateFile = 'single-intel.php';
 		} elseif(\is_archive() && (\get_post_type() === 'intel' || \is_post_type_archive('intel') === true)) {
 			$templateFile = 'page-intel.php';
-		} // END if(\is_singular('fitting'))
+		} // if(\is_singular('fitting'))
 
 		if($templateFile !== null) {
 			if(\file_exists(Helper\TemplateHelper::locateTemplate($templateFile))) {
 				$template = Helper\TemplateHelper::locateTemplate($templateFile);
-			} // END if(\file_exists(Helper\TemplateHelper::locateTemplate($file)))
-		} // END if($templateFile !== null)
+			} // if(\file_exists(Helper\TemplateHelper::locateTemplate($file)))
+		} // if($templateFile !== null)
 
 		return $template;
-	} // END function templateLoader($template)
+	} // function templateLoader($template)
 
 	/**
 	 * Registering a page template
@@ -180,8 +197,8 @@ class PostType {
 	public function registerPageTemplate($pageTemplate) {
 		if(\is_page(self::getPosttypeSlug('intel'))) {
 			$pageTemplate = Helper\PluginHelper::getInstance()->getPluginPath('templates/page-intel.php');
-		} // END if(\is_page($this->getPosttypeSlug('intel')))
+		} // if(\is_page($this->getPosttypeSlug('intel')))
 
 		return $pageTemplate;
-	} // END public function registerPageTemplate($pageTemplate)
-} // END class PostType
+	} // public function registerPageTemplate($pageTemplate)
+} // class PostType
