@@ -79,10 +79,11 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 		$pilotList = [];
 		$pilotDetails = [];
 		$arrayCharacterIds = [];
-		$characterIdSet = 0;
-		$nameIterationCounter = 0;
+		$characterIdChunkSize = 100;
 
-		foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
+		$scanDataArray = \explode("\n", \trim($cleanedScanData));
+
+		foreach($scanDataArray as $line) {
 			/**
 			 * Is this a new character, or do we already have that one in our array?
 			 */
@@ -93,26 +94,14 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 				$characterID = $this->esi->getEveIdFromName(\trim($line), 'character');
 
 				if(!\is_null($characterID)) {
-					$arrayCharacterIds[$characterIdSet][\trim($line)] = $characterID;
+					$arrayCharacterIds[\trim($line)] = $characterID;
 					$pilotList[$characterID] = $line;
 				} // END if(!\is_null($characterID))
 			} // if(!isset($arrayCharacterIds[\trim($line)]))
-
-			/**
-			 * Determine our ID set
-			 *
-			 * Every ID set is about 500 IDs large
-			 * So, even Jita local should be getting parsed now,
-			 * still takes 20 minutes though ...
-			 */
-			$nameIterationCounter++;
-			if($nameIterationCounter % 500 == 0) {
-				$characterIdSet++;
-			} // if($counter % 4 == 0)
-		} // foreach(\explode("\n", \trim($cleanedScanData)) as $line)
+		} // foreach($scanDataArray as $line)
 
 		// loop through the ID sets to get the affiliation data
-		foreach($arrayCharacterIds as $idSet) {
+		foreach(\array_chunk($arrayCharacterIds, $characterIdChunkSize, true) as $idSet) {
 			$characterData = $this->esi->getCharacterAffiliation($idSet);
 
 			foreach($characterData['data'] as $affiliatedIds) {
@@ -147,7 +136,7 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 					} // if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error))
 				} // if(isset($affiliatedIds->alliance_id))
 			} // foreach($characterData['data'] as $affiliatedIds)
-		} // foreach($arrayCharacterIds as $idSet)
+		} // foreach(\array_chunk($arrayCharacterIds, $characterIdChunkSize, true) as $idSet)
 
 		if(\count($pilotDetails) > 0) {
 			$returnValue = [
