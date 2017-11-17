@@ -50,42 +50,64 @@ class IntelParser {
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->eveIntel = \filter_input(\INPUT_POST, 'eveIntel');
-		$this->uniqueID = \uniqid();
-
 		$nonce = \filter_input(\INPUT_POST, '_wpnonce');
 		if(!\wp_verify_nonce($nonce, 'eve-online-intel-tool-new-intel-form')) {
 			die('Busted!');
-		}
+		} // if(!\wp_verify_nonce($nonce, 'eve-online-intel-tool-new-intel-form'))
+
+		$this->eveIntel = \filter_input(\INPUT_POST, 'eveIntel');
+		$this->uniqueID = \uniqid();
 
 		/**
 		 * Let's get the intel type
-		 * dscan / fleetcomposition / local
 		 */
 		$intelType = $this->checkIntelType($this->eveIntel);
 
 		switch($intelType) {
+			/**
+			 * Error / non parsable data
+			 */
 			case null:
 				$this->postID = null;
 				break;
 
+			/**
+			 * D-Scan
+			 */
 			case 'dscan':
 				$this->postID = $this->saveDscanData($this->eveIntel);
 				break;
 
+			/**
+			 * Fleet Composition
+			 */
 			case 'fleetcomposition':
 				$this->postID = $this->saveFleetComositionData($this->eveIntel);
 				break;
 
+			/**
+			 * Chat Scan
+			 */
 			case 'local':
 				$this->postID = $this->saveLocalScanData($this->eveIntel);
 				break;
 
+			/**
+			 * Mining Ledger
+			 */
+			case 'miningledger':
+			case 'corpminingledger':
+				$this->postID = $this->saveMiningLedgerScanData($this->eveIntel, $intelType);
+				break;
+
+			/**
+			 * Default
+			 */
 			default:
 				$this->postID = null;
 				break;
-		} // END switch($intelType)
-	} // END public function __construct()
+		} // switch($intelType)
+	} // public function __construct()
 
 	/**
 	 * Determine what type of intel we might have
@@ -130,8 +152,8 @@ class IntelParser {
 			case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
 				$intelType = 'local';
 				break;
-        
-      /**
+
+			/**
 			 * Fourth: Personal Mining Ledger
 			 */
 //			case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
@@ -148,10 +170,10 @@ class IntelParser {
 			default:
 				$intelType = null;
 				break;
-		} // END switch($cleanedScanData)
+		} // switch($cleanedScanData)
 
 		return $intelType;
-	} // END private function checkIntelType($scanData)
+	} // private function checkIntelType($scanData)
 
 	/**
 	 * Saving the D-Scan data
@@ -175,14 +197,14 @@ class IntelParser {
 
 				if(!empty($parsedDscanData['system']['constellationName'])) {
 					$postName .= ' - ' . $parsedDscanData['system']['constellationName'];
-				} // END if(!empty($parsedDscanData['system']['constellationName']))
+				} // if(!empty($parsedDscanData['system']['constellationName']))
 
 				if(!empty($parsedDscanData['system']['regionName'])) {
 					$postName .= ' - ' . $parsedDscanData['system']['regionName'];
-				} // END if(!empty($parsedDscanData['system']['regionName']))
+				} // if(!empty($parsedDscanData['system']['regionName']))
 
 				$postName .= ' ' . $this->uniqueID;
-			} // END if(!empty($parsedDscanData['system']['name']))
+			} // if(!empty($parsedDscanData['system']['name']))
 
 			$metaData = [
 				'eve-intel-tool_dscan-rawData' => \maybe_serialize(Helper\IntelHelper::getInstance()->fixLineBreaks($scanData)),
@@ -199,10 +221,10 @@ class IntelParser {
 			];
 
 			$returnData = $this->savePostdata($postName, $metaData, 'dscan');
-		} // END if($parsedDscanData !== null)
+		} // if($parsedDscanData !== null)
 
 		return $returnData;
-	} // END private function saveDscanData($scanData)
+	} // private function saveDscanData($scanData)
 
 	/**
 	 * Saving the fleet composition data
@@ -232,10 +254,10 @@ class IntelParser {
 			];
 
 			$returnData = $this->savePostdata($postName, $metaData, 'fleetcomposition');
-		}
+		} // if($parsedFleetComposition !== null)
 
 		return $returnData;
-	} // END private function saveFleetComositionData($scanData)
+	} // private function saveFleetComositionData($scanData)
 
 	/**
 	 * Saving the local/chat scan data
@@ -262,12 +284,12 @@ class IntelParser {
 			];
 
 			$returnData = $this->savePostdata($postName, $metaData, 'local');
-		} // END if($parsedDscanData !== null)
+		} // if($parsedDscanData !== null)
 
 		return $returnData;
-	} // END private function saveFleetComositionData($scanData)
-  
-  private function saveMiningLedgerScanData($scanData, $ledgerType) {
+	} // private function saveFleetComositionData($scanData)
+
+	private function saveMiningLedgerScanData($scanData, $ledgerType) {
 		$returnData = null;
 
 		/**
@@ -282,6 +304,7 @@ class IntelParser {
 				$returnData = $this->savePostdata($postName, $metaData, $ledgerType);
 			}
 		}
+	}
 
 	/**
 	 * Save the post data
@@ -332,8 +355,8 @@ class IntelParser {
 			\wp_set_object_terms($newPostID, $category, 'intel_category');
 
 			$returnData = $newPostID;
-		} // END if($newPostID)
+		} // if($newPostID)
 
 		return $returnData;
 	}
-} // END class IntelParser
+} // class IntelParser
