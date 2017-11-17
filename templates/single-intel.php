@@ -22,7 +22,7 @@ switch($termObject['0']->slug) {
 		$dscanUpwellStructures = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-upwellStructures', true));
 		$dscanDeployables = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-deployables', true));
 		$dscanStarbaseModules = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-starbaseModules', true));
-		$dscanLootSalvage = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-lootsalvage', true));
+		$dscanLootSalvage = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-lootSalvage', true));
 		$dscanDataSystem = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-system', true));
 		$dscanDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-time', true));
 
