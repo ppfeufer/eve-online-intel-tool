@@ -30,12 +30,28 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 	private $esi = null;
 
 	/**
+	 * Intel Helper
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\IntelHelper
+	 */
+	private $intelHelper = null;
+
+	/**
+	 * Local Parser
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Parser\LocalScanParser
+	 */
+	private $localParser = null;
+
+	/**
 	 * Constructor
 	 */
 	protected function __construct() {
 		parent::__construct();
 
 		$this->esi = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
+		$this->intelHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\IntelHelper::getInstance();
+		$this->localParser = LocalScanParser::getInstance();
 	} // protected function __construct()
 
 	public function parseFleetCompositionScan($scanData) {
@@ -56,7 +72,7 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 		 * mac -> linux
 		 * windows -> linux
 		 */
-		$cleanedScanData = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\IntelHelper::getInstance()->fixLineBreaks($scanData);
+		$cleanedScanData = $this->intelHelper->fixLineBreaks($scanData);
 
 		$pilotListRaw = null;
 		$fleetInformation = [];
@@ -149,7 +165,7 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 			'shipTypes' => $shipTypeBreakdown
 		];
 
-		$participationData = LocalScanParser::getInstance()->parseLocalScan($pilotListRaw);
+		$participationData = $this->localParser->parseLocalScan($pilotListRaw);
 
 		$returnData = [
 			'rawData' => $cleanedScanData,

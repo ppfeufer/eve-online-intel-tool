@@ -60,7 +60,7 @@ jQuery(document).ready(function($) {
 	 */
 	$('.btn-copy-permalink-to-clipboard').on('click', function() {
 		/**
-		 * Copy permalink fitting to clipboard
+		 * Copy permalink to clipboard
 		 *
 		 * @type Clipboard
 		 */

@@ -177,7 +177,7 @@ class PostType {
 			$templateFile = 'single-intel.php';
 		} elseif(\is_archive() && (\get_post_type() === 'intel' || \is_post_type_archive('intel') === true)) {
 			$templateFile = 'page-intel.php';
-		} // if(\is_singular('fitting'))
+		} // if(\is_singular('intel'))
 
 		if($templateFile !== null) {
 			if(\file_exists(Helper\TemplateHelper::locateTemplate($templateFile))) {

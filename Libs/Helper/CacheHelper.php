@@ -40,20 +40,39 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 	 *
 	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper
 	 */
-	public $pluginHelper = null;
+	private $pluginHelper = null;
+
+	/**
+	 * Image Helper
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper
+	 */
+	private $imageHelper = null;
+
+	/**
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\RemoteHelper
+	 */
+	private $remoteHelper = null;
 
 	/**
 	 * Plugin Settings
 	 *
 	 * @var array
 	 */
-	public $pluginSettings = null;
+	private $pluginSettings = null;
 
 	/**
 	 * Constructor
 	 */
 	protected function __construct() {
 		parent::__construct();
+
+		if(!$this->imageHelper instanceof \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper) {
+			$this->imageHelper = ImageHelper::getInstance();
+		}
+
+		$this->remoteHelper = RemoteHelper::getInstance();
 
 		if(!$this->pluginHelper instanceof \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper) {
 			$this->pluginHelper = PluginHelper::getInstance();
@@ -175,12 +194,12 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		// make sure its an image
 		if($extension === 'gif' || $extension === 'jpg' || $extension === 'jpeg' || $extension === 'png') {
 			// get the remote image
-			$imageToFetch = RemoteHelper::getInstance()->getRemoteData($remoteImageUrl);
+			$imageToFetch = $this->remoteHelper->getRemoteData($remoteImageUrl);
 
 			$wpFileSystem = new \WP_Filesystem_Direct(null);
 
 			if($wpFileSystem->put_contents($cacheDir . $imageFilename, $imageToFetch, 0755)) {
-				$returnValue = ImageHelper::getInstance()->compressImage($cacheDir . $imageFilename);
+				$returnValue = $this->imageHelper->compressImage($cacheDir . $imageFilename);
 			} // if($wpFileSystem->put_contents($cacheDir . $imageFilename, $imageToFetch, 0755))
 		} // if($extension === 'gif' || $extension === 'jpg' || $extension === 'jpeg' || $extension === 'png')
 

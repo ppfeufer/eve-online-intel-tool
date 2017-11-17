@@ -22,21 +22,39 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Ajax;
 \defined('ABSPATH') or die();
 
 class ImageLazyLoad implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface {
-	public function __construct() {
-		$this->initActions();
-	}
+	/**
+	 * ImageHelper
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper
+	 */
+	private $imageHelper = null;
 
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+		$this->imageHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance();
+
+		$this->initActions();
+	} // public function __construct()
+
+	/**
+	 * Ajax Action
+	 */
 	public function ajaxAction() {
 		$imageUri = \filter_input(\INPUT_POST, 'imageUri');
 		$entityType = \filter_input(\INPUT_POST, 'entityType');
 
-		$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage($entityType, $imageUri);
+		$image = $this->imageHelper->getLocalCacheImageUriForRemoteImage($entityType, $imageUri);
 
 		\wp_send_json($image);
-	}
+	} // public function ajaxAction()
 
+	/**
+	 * Initialize WP Actions
+	 */
 	public function initActions() {
 		\add_action('wp_ajax_nopriv_get-eve-intel-entity-image', [$this, 'ajaxAction']);
 		\add_action('wp_ajax_get-eve-intel-entity-image', [$this, 'ajaxAction']);
-	}
-}
+	} // public function initActions()
+} // class ImageLazyLoad implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface

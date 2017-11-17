@@ -41,4 +41,4 @@ class MiningLedgerParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singl
 	public function parseLedgerData($scanData, $ledgerType) {
 		;
 	}
-}
+} // class MiningLedgerParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton

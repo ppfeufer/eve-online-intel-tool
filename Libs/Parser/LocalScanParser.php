@@ -30,12 +30,20 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 	private $esi = null;
 
 	/**
+	 * Intel Helper
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\IntelHelper
+	 */
+	private $intelHelper = null;
+
+	/**
 	 * Constructor
 	 */
 	protected function __construct() {
 		parent::__construct();
 
 		$this->esi = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
+		$this->intelHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\IntelHelper::getInstance();
 	} // protected function __construct()
 
 	public function parseLocalScan($scanData) {
@@ -74,7 +82,7 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 		 * mac -> linux
 		 * windows -> linux
 		 */
-		$cleanedScanData = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\IntelHelper::getInstance()->fixLineBreaks($scanData);
+		$cleanedScanData = $this->intelHelper->fixLineBreaks($scanData);
 
 		$pilotList = [];
 		$pilotDetails = [];

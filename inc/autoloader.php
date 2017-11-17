@@ -2,6 +2,8 @@
 
 namespace WordPress\Plugin\EveOnlineIntelTool;
 
+\defined('ABSPATH') or die();
+
 \spl_autoload_register('\WordPress\Plugin\EveOnlineIntelTool\autoload');
 
 function autoload($className) {
