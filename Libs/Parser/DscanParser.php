@@ -412,10 +412,13 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 	public function getLootSalvageArray(array $dscanArray) {
 		$lootSalvageArray = [];
 		$count = [];
+		$exclude = [
+			'Biomass'
+		];
 
 		foreach($dscanArray as $scanResult) {
 			// Deployable structures on grid only ...
-			if($scanResult['shipClass']->category_id === 2 && $scanResult['dscanData']['3'] !== '-') {
+			if($scanResult['shipClass']->category_id === 2 && $scanResult['dscanData']['3'] !== '-' && !\in_array($scanResult['shipClass']->name, $exclude)) {
 				if(!isset($count[\sanitize_title($scanResult['shipData']->name)])) {
 					$count[\sanitize_title($scanResult['shipData']->name)] = 0;
 				} // if(!isset($count[\sanitize_title($scanResult['shipData']->name)]))
