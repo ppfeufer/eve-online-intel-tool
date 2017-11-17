@@ -568,10 +568,10 @@ class SettingsApi {
 	 * @return string|array
 	 */
 	public function value($key = null) {
-		// we don't need trhis one here currently
+		// we don't need this one here currently
 		unset($key);
 
-		$value = '';
+		$default = null;
 
 		if($this->valueType() === 'array') {
 			$default = (!empty($this->args['default']) && \is_array($this->args['default'])) ? $this->args['default'] : [];
@@ -618,11 +618,11 @@ class SettingsApi {
 
 		if(\in_array($this->args['type'], $defaultSingle)) {
 			$valueType = 'string';
-		}
+		} // if(\in_array($this->args['type'], $defaultSingle))
 
 		if(\in_array($this->args['type'], $defaultMultiple)) {
 			$valueType = 'array';
-		} // if(in_array($this->args['type'], $default_single))
+		} // if(\in_array($this->args['type'], $default_single))
 
 		return $valueType;
 	} // public function valueType()
@@ -637,7 +637,7 @@ class SettingsApi {
 
 		if(!empty($this->args['choices']) && \is_array($this->args['choices'])) {
 			$returnValue = true;
-		} // if(!empty($this->args['choices']) && is_array($this->args['choices']))
+		} // if(!empty($this->args['choices']) && \is_array($this->args['choices']))
 
 		return $returnValue;
 	} // public function hasItems()
@@ -655,7 +655,7 @@ class SettingsApi {
 
 		if($this->valueType() == 'array') {
 			$returnValue = $optionName . '[' . $this->args['field_id'] . '][' . $slug . ']';
-		}
+		} // if($this->valueType() == 'array')
 
 		return $returnValue;
 	} // public function name($slug = '')
@@ -925,6 +925,7 @@ class SettingsApi {
 						<h2 class="nav-tab-wrapper">
 						<?php
 						$i = 0;
+
 						foreach($settings['tabs'] as $settingsId => $section) {
 							$sanitizedId = \sanitize_title($settingsId);
 							$tabTitle = (!empty($section['tab_title'])) ? $section['tab_title'] : $sanitizedId;
@@ -1031,6 +1032,7 @@ class SettingsApi {
 						foreach($tab['fields'] as $fieldKey => $field) {
 							if($field['type'] == 'datepicker') {
 								$wpDateFormat = \get_option('date_format');
+
 								if(empty($wpDateFormat)) {
 									$wpDateFormat = 'yy-mm-dd';
 								} // if(empty($wpDateFormat))

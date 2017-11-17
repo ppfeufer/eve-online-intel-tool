@@ -61,21 +61,42 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 *
 	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper
 	 */
-	public $imageHelper = null;
+	private $imageHelper = null;
 
 	/**
 	 * Plugin Helper
 	 *
 	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper
 	 */
-	public $pluginHelper = null;
+	private $pluginHelper = null;
 
 	/**
 	 * Plugin Settings
 	 *
 	 * @var array
 	 */
-	public $pluginSettings = null;
+	private $pluginSettings = null;
+
+	/**
+	 * Cache Helper
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\CacheHelper
+	 */
+	private $cacheHelper = null;
+
+	/**
+	 * Remote Helper
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\RemoteHelper
+	 */
+	private $remoteHelper = null;
+
+	/**
+	 * Database Helper
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\DatabaseHelper
+	 */
+	private $databaseHelper = null;
 
 	/**
 	 * The Constructor
@@ -94,6 +115,10 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 			$this->imageserverUrl = $this->imageHelper->getImageServerUrl();
 		} // if(!$this->imageHelper instanceof \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper)
 
+		$this->databaseHelper = DatabaseHelper::getInstance();
+		$this->cacheHelper = CacheHelper::getInstance();
+		$this->remoteHelper = RemoteHelper::getInstance();
+
 		$this->esiUrl = $this->getEsiUrl();
 		$this->esiEndpoints = $this->getEsiEndpoints();
 	} // public function __construct()
@@ -105,7 +130,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 */
 	public function getEsiUrl() {
 		return 'https://esi.tech.ccp.is/latest/';
-	}
+	} // public function getEsiUrl()
 
 	/**
 	 * Return the ESI API endpoints
@@ -130,7 +155,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 			'region-information-by-id' => 'universe/regions/{region_id}/', // getting constellation information by ID - https://esi.tech.ccp.is/latest/universe/regions/10000025/
 			'type-information-by-id' => 'universe/types/{type_id}/', // getting types information by ID - https://esi.tech.ccp.is/latest/universe/types/670/
 		];
-	}
+	} // public function getEsiEndpoints()
 
 	/**
 	 * Getting all the needed ship information from the ESI
@@ -143,7 +168,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		$shipData = null;
 		$shipClassData = null;
 
-		$resultDB = DatabaseHelper::getInstance()->getShipDataFromDb($shipID);
+		$resultDB = $this->databaseHelper->getShipDataFromDb($shipID);
 
 		if(!\is_null($resultDB)) {
 			$shipData = new \stdClass();
@@ -160,7 +185,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 			$shipClassData = $this->getEsiData(\str_replace('{group_id}', $shipData->group_id, $this->esiEndpoints['group-information-by-id']), null);
 
 			if(!\is_null($shipData) && !\is_null($shipClassData)) {
-				DatabaseHelper::getInstance()->writeShipDataToDb([
+				$this->databaseHelper->writeShipDataToDb([
 					$shipData->type_id,
 					$shipData->name,
 					$shipClassData->name,
@@ -189,13 +214,13 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return array
 	 */
 	public function getCharacterData($characterID) {
-		$characterData = DatabaseHelper::getInstance()->getCharacterDataFromDb($characterID);
+		$characterData = $this->databaseHelper->getCharacterDataFromDb($characterID);
 
 		if(\is_null($characterData) || empty($characterData->name)) {
 			$characterData = $this->getEsiData(\str_replace('{character_id}', $characterID, $this->esiEndpoints['character-information-by-id']), null);
 
 			if(!\is_null($characterData)) {
-				DatabaseHelper::getInstance()->writeCharacterDataToDb([
+				$this->databaseHelper->writeCharacterDataToDb([
 					$characterID,
 					$characterData->name,
 					\gmdate('Y-m-d H:i:s', \time())
@@ -230,13 +255,13 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return object
 	 */
 	public function getCorporationData($corporationID) {
-		$corporationData = DatabaseHelper::getInstance()->getCorporationDataFromDb($corporationID);
+		$corporationData = $this->databaseHelper->getCorporationDataFromDb($corporationID);
 
 		if(\is_null($corporationData) || empty($corporationData->corporation_name)) {
 			$corporationData = $this->getEsiData(\str_replace('{corporation_id}', $corporationID, $this->esiEndpoints['corporation-information-by-id']), null);
 
 			if(!\is_null($corporationData)) {
-				DatabaseHelper::getInstance()->writeCorporationDataToDb([
+				$this->databaseHelper->writeCorporationDataToDb([
 					$corporationID,
 					$corporationData->corporation_name,
 					$corporationData->ticker,
@@ -258,13 +283,13 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return object
 	 */
 	public function getAllianceData($allianceID) {
-		$allianceData = DatabaseHelper::getInstance()->getAllianceDataFromDb($allianceID);
+		$allianceData = $this->databaseHelper->getAllianceDataFromDb($allianceID);
 
 		if(\is_null($allianceData) || empty($allianceData->alliance_name)) {
 			$allianceData = $this->getEsiData(\str_replace('{alliance_id}', $allianceID, $this->esiEndpoints['alliance-information-by-id']), null);
 
 			if(!\is_null($allianceData)) {
-				DatabaseHelper::getInstance()->writeAllianceDataToDb([
+				$this->databaseHelper->writeAllianceDataToDb([
 					$allianceID,
 					$allianceData->alliance_name,
 					$allianceData->ticker,
@@ -285,13 +310,13 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return array
 	 */
 	public function getSystemData($systemID) {
-		$systemData = DatabaseHelper::getInstance()->getSystemDataFromDb($systemID);
+		$systemData = $this->databaseHelper->getSystemDataFromDb($systemID);
 
 		if(\is_null($systemData) || empty($systemData->name)) {
 			$systemData = $this->getEsiData(\str_replace('{system_id}', $systemID, $this->esiEndpoints['system-information-by-id']), null);
 
 			if(!\is_null($systemData)) {
-				DatabaseHelper::getInstance()->writeSystemDataToDb([
+				$this->databaseHelper->writeSystemDataToDb([
 					$systemID,
 					$systemData->name,
 					$systemData->constellation_id,
@@ -313,13 +338,13 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return array
 	 */
 	public function getConstellationData($constellationID) {
-		$constellationData = DatabaseHelper::getInstance()->getConstellationDataFromDb($constellationID);
+		$constellationData = $this->databaseHelper->getConstellationDataFromDb($constellationID);
 
 		if(\is_null($constellationData) || empty($constellationData->name)) {
 			$constellationData = $this->getEsiData(\str_replace('{constellation_id}', $constellationID, $this->esiEndpoints['constellation-information-by-id']), null);
 
 			if(!\is_null($constellationData)) {
-				DatabaseHelper::getInstance()->writeConstellationDataToDb([
+				$this->databaseHelper->writeConstellationDataToDb([
 					$constellationID,
 					$constellationData->name,
 					$constellationData->region_id,
@@ -340,13 +365,13 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return array
 	 */
 	public function getRegionData($regionID) {
-		$regionData = DatabaseHelper::getInstance()->getRegionDataFromDb($regionID);
+		$regionData = $this->databaseHelper->getRegionDataFromDb($regionID);
 
 		if(\is_null($regionData) || empty($regionData->name)) {
 			$regionData = $this->getEsiData(\str_replace('{region_id}', $regionID, $this->esiEndpoints['region-information-by-id']), null);
 
 			if(!\is_null($regionData)) {
-				DatabaseHelper::getInstance()->writeRegionDataToDb([
+				$this->databaseHelper->writeRegionDataToDb([
 					$regionID,
 					$regionData->name,
 					\gmdate('Y-m-d H:i:s', \time())
@@ -384,7 +409,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		switch($type) {
 			// Pilot
 			case 'character':
-				$characterData = DatabaseHelper::getInstance()->getCharacterDataFromDbByName($name);
+				$characterData = $this->databaseHelper->getCharacterDataFromDbByName($name);
 
 				if(isset($characterData->character_id)) {
 					$returnData = $characterData->character_id;
@@ -393,7 +418,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 
 			// Corporation
 			case 'corporation':
-				$corporationData = DatabaseHelper::getInstance()->getCorporationDataFromDbByName($name);
+				$corporationData = $this->databaseHelper->getCorporationDataFromDbByName($name);
 
 				if(isset($corporationData->corporation_id)) {
 					$returnData = $corporationData->corporation_id;
@@ -402,7 +427,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 
 			// Alliance
 			case 'alliance':
-				$allianceData = DatabaseHelper::getInstance()->getAllianceDataFromDbByName($name);
+				$allianceData = $this->databaseHelper->getAllianceDataFromDbByName($name);
 
 				if(isset($allianceData->alliance_id)) {
 					$returnData = $allianceData->alliance_id;
@@ -415,7 +440,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 
 			// System
 			case 'solarsystem':
-				$systemData = DatabaseHelper::getInstance()->getSystemDataFromDbByName($name);
+				$systemData = $this->databaseHelper->getSystemDataFromDbByName($name);
 
 				if(isset($systemData->system_id)) {
 					$returnData = $systemData->system_id;
@@ -513,23 +538,23 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 				$transientName = \sanitize_title('eve-esi-data_' . $route);
 
 				if(!\is_null($cacheTime)) {
-					$data = CacheHelper::getInstance()->getTransientCache($transientName);
+					$data = $this->cacheHelper->getTransientCache($transientName);
 				} // if(!\is_null($cacheTime))
 
 				if($data === false || empty($data)) {
-					$data = RemoteHelper::getInstance()->getRemoteData($this->esiUrl . $route);
+					$data = $this->remoteHelper->getRemoteData($this->esiUrl . $route);
 
 					/**
 					 * setting the transient caches
 					 */
 					if(!isset($data->error) && !empty($data) && !\is_null($cacheTime)) {
-						CacheHelper::getInstance()->setTransientCache($transientName, $data, $cacheTime);
+						$this->cacheHelper->setTransientCache($transientName, $data, $cacheTime);
 					} // if(!isset($data->error) && !empty($data) && !\is_null($cacheTime))
 				} // if($data === false)
 				break;
 
 			case 'post':
-				$data = RemoteHelper::getInstance()->getRemoteData($this->esiUrl . $route, $parameter, $method);
+				$data = $this->remoteHelper->getRemoteData($this->esiUrl . $route, $parameter, $method);
 				break;
 		} // switch($method)
 

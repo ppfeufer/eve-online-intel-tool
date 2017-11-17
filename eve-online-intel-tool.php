@@ -12,6 +12,9 @@
  */
 
 namespace WordPress\Plugin\EveOnlineIntelTool;
+
+\defined('ABSPATH') or die();
+
 const WP_GITHUB_FORCE_UPDATE = true;
 
 // Include the autoloader so we can dynamically include the rest of the classes.

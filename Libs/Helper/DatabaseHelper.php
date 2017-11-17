@@ -293,7 +293,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			$now = \strtotime(\gmdate('Y-m-d H:i:s', \time()));
 			$lastUpdated = \strtotime($characterResult['0']->lastUpdated);
 
-			// Older than 30 days? Force an update
+			// Older than 6 months? Force an update
 			if($now - $lastUpdated < 15552000) {
 				$returnValue = $characterResult['0'];
 			} // if($now - $lastUpdated < 15552000)
@@ -322,7 +322,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			$now = \strtotime(\gmdate('Y-m-d H:i:s', \time()));
 			$lastUpdated = \strtotime($characterResult['0']->lastUpdated);
 
-			// Older than 30 days? Force an update
+			// Older than 6 months? Force an update
 			if($now - $lastUpdated < 15552000) {
 				$returnValue = $characterResult['0'];
 			} // if($now - $lastUpdated < 15552000)
@@ -363,7 +363,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			$now = \strtotime(\gmdate('Y-m-d H:i:s', \time()));
 			$lastUpdated = \strtotime($corporationResult['0']->lastUpdated);
 
-			// Older than 30 days? Force an update
+			// Older than 6 months? Force an update
 			if($now - $lastUpdated < 15552000) {
 				$returnValue = $corporationResult['0'];
 			} // if($now - $lastUpdated < 15552000)
@@ -392,7 +392,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			$now = \strtotime(\gmdate('Y-m-d H:i:s', \time()));
 			$lastUpdated = \strtotime($corporationResult['0']->lastUpdated);
 
-			// Older than 30 days? Force an update
+			// Older than 6 months? Force an update
 			if($now - $lastUpdated < 15552000) {
 				$returnValue = $corporationResult['0'];
 			} // if($now - $lastUpdated < 15552000)
@@ -433,7 +433,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			$now = \strtotime(\gmdate('Y-m-d H:i:s', \time()));
 			$lastUpdated = \strtotime($allianceResult['0']->lastUpdated);
 
-			// Older than 30 days? Force an update
+			// Older than 6 months? Force an update
 			if($now - $lastUpdated < 15552000) {
 				$returnValue = $allianceResult['0'];
 			} // if($now - $lastUpdated < 15552000)
@@ -462,7 +462,7 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			$now = \strtotime(\gmdate('Y-m-d H:i:s', \time()));
 			$lastUpdated = \strtotime($allianceResult['0']->lastUpdated);
 
-			// Older than 30 days? Force an update
+			// Older than 6 months? Force an update
 			if($now - $lastUpdated < 15552000) {
 				$returnValue = $allianceResult['0'];
 			} // if($now - $lastUpdated < 15552000)

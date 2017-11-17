@@ -1,5 +1,5 @@
 <?php
-defined('ABSPATH') or die();
+\defined('ABSPATH') or die();
 
 // Counter
 $countAll = (!empty($intelData['dscanDataAll']['count'])) ? $intelData['dscanDataAll']['count'] : 0;

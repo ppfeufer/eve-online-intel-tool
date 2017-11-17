@@ -48,7 +48,7 @@ class RemoteHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 					'method' => 'POST'
 				]);
 				break;
-		}
+		} // switch($method)
 
 		$data = \wp_remote_retrieve_body($remoteData);
 

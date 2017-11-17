@@ -1,4 +1,5 @@
 <?php
+
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs;
 
 \defined('ABSPATH') or die();

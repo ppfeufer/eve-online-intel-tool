@@ -1,5 +1,5 @@
 <?php
-defined('ABSPATH') or die();
+\defined('ABSPATH') or die();
 
 // get the intel type
 $termObject = \get_the_terms(\get_the_ID(), 'intel_category');

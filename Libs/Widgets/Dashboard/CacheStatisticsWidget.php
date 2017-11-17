@@ -30,10 +30,10 @@ class CacheStatisticsWidget {
 	 *
 	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\DatabaseHelper
 	 */
-	private $dbHelper = null;
+	private $databaseHelper = null;
 
 	public function __construct() {
-		$this->dbHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\DatabaseHelper::getInstance();
+		$this->databaseHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\DatabaseHelper::getInstance();
 
 		$this->init();
 	} // public function __construct()
@@ -47,11 +47,6 @@ class CacheStatisticsWidget {
 	} // public function addDashboardWidget()
 
 	public function renderDashboardWidget() {
-
-
-
-
-
 		echo '<p>' . \__('Your EVE intel database cache', 'eve-online-intel-tool') . '</p>';
 		echo '<p>';
 		echo '<span class="eve-intel-widget-row">';
@@ -83,7 +78,7 @@ class CacheStatisticsWidget {
 	 * @return string
 	 */
 	private function renderPilotsRowHtml() {
-		$numberOfPilots = \number_format($this->dbHelper->getNumberOfPilotsInDatabase(), 0, ',', '.');
+		$numberOfPilots = \number_format($this->databaseHelper->getNumberOfPilotsInDatabase(), 0, ',', '.');
 
 		return '<span class="eve-intel-widget-row">'
 					. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Pilots', 'eve-online-intel-tool') . ':</strong></span>'
@@ -97,7 +92,7 @@ class CacheStatisticsWidget {
 	 * @return string
 	 */
 	private function renderCorporationsRowHtml() {
-		$numberOfCorporations = \number_format($this->dbHelper->getNumberOfCorporationsInDatabase(), 0, ',', '.');
+		$numberOfCorporations = \number_format($this->databaseHelper->getNumberOfCorporationsInDatabase(), 0, ',', '.');
 
 		return '<span class="eve-intel-widget-row">'
 					. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Corporations', 'eve-online-intel-tool') . ':</strong></span>'
@@ -111,7 +106,7 @@ class CacheStatisticsWidget {
 	 * @return string
 	 */
 	private function renderAlliancesRowHtml() {
-		$numberOfAlliances = \number_format($this->dbHelper->getNumberOfAlliancesInDatabase(), 0, ',', '.');
+		$numberOfAlliances = \number_format($this->databaseHelper->getNumberOfAlliancesInDatabase(), 0, ',', '.');
 
 		return '<span class="eve-intel-widget-row">'
 				. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Alliances', 'eve-online-intel-tool') . ':</strong></span>'
@@ -125,7 +120,7 @@ class CacheStatisticsWidget {
 	 * @return string
 	 */
 	private function renderShipsRowHtml() {
-		$numberOfShips = \number_format($this->dbHelper->getNumberOfShipsInDatabase(), 0, ',', '.');
+		$numberOfShips = \number_format($this->databaseHelper->getNumberOfShipsInDatabase(), 0, ',', '.');
 
 		return '<span class="eve-intel-widget-row">'
 				. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Ships', 'eve-online-intel-tool') . ':</strong></span>'
@@ -139,7 +134,7 @@ class CacheStatisticsWidget {
 	 * @return string
 	 */
 	private function renderSystemsRowHtml() {
-		$numberOfSystems = \number_format($this->dbHelper->getNumberOfSystemsInDatabase(), 0, ',', '.');
+		$numberOfSystems = \number_format($this->databaseHelper->getNumberOfSystemsInDatabase(), 0, ',', '.');
 
 		return '<span class="eve-intel-widget-row">'
 				. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Systems', 'eve-online-intel-tool') . ':</strong></span>'
@@ -153,7 +148,7 @@ class CacheStatisticsWidget {
 	 * @return string
 	 */
 	private function renderConstellationsRowHtml() {
-		$numberOfConstellations = \number_format($this->dbHelper->getNumberOfConstellationsInDatabase(), 0, ',', '.');
+		$numberOfConstellations = \number_format($this->databaseHelper->getNumberOfConstellationsInDatabase(), 0, ',', '.');
 
 		return '<span class="eve-intel-widget-row">'
 				. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Constellations', 'eve-online-intel-tool') . ':</strong></span>'
@@ -167,7 +162,7 @@ class CacheStatisticsWidget {
 	 * @return string
 	 */
 	private function renderRegionsRowHtml() {
-		$numberOfRegions = \number_format($this->dbHelper->getNumberOfRegionsInDatabase(), 0, ',', '.');
+		$numberOfRegions = \number_format($this->databaseHelper->getNumberOfRegionsInDatabase(), 0, ',', '.');
 
 		return '<span class="eve-intel-widget-row">'
 				. '<span class="eve-intel-widget-column eve-intel-column-3-2"><strong>' . \__('Regions', 'eve-online-intel-tool') . ':</strong></span>'

@@ -30,12 +30,20 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 	private $esi = null;
 
 	/**
+	 * Intel Helper
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\IntelHelper
+	 */
+	private $intelHelper = null;
+
+	/**
 	 * Constructor
 	 */
 	protected function __construct() {
 		parent::__construct();
 
 		$this->esi = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
+		$this->intelHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\IntelHelper::getInstance();
 	} // protected function __construct()
 
 	/**
@@ -51,7 +59,7 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		 * mac -> linux
 		 * windows -> linux
 		 */
-		$cleanedScanData = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\IntelHelper::getInstance()->fixLineBreaks($scanData);
+		$cleanedScanData = $this->intelHelper->fixLineBreaks($scanData);
 
 		$dscanDetailShipsAll = [];
 		$dscanDetailShipsOnGrid = [];
@@ -245,7 +253,6 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 					$dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['count'] = \count($count[$item['dscanData']['0']]['all']);
 					$dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipClass'] = $item['shipClass']->name;
 					$dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipTypeSanitized'] = \sanitize_title((string) $item['shipClass']->name);
-
 					break;
 
 				default:

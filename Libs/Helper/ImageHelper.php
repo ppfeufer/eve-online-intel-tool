@@ -59,7 +59,7 @@ class ImageHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		if(!$this->pluginHelper instanceof \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper) {
 			$this->pluginHelper = PluginHelper::getInstance();
 			$this->pluginSettings = $this->pluginHelper->getPluginSettings();
-		}
+		} // if(!$this->pluginHelper instanceof \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper)
 
 		$this->imageserverUrl = 'https://image.eveonline.com/';
 		$this->imageserverEndpoints = $this->getImageserverEndpoints();

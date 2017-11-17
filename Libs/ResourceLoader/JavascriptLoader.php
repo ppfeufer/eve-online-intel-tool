@@ -26,6 +26,20 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\ResourceLoader;
  */
 class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AssetsInterface {
 	/**
+	 * Plugin Helper
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper
+	 */
+	private $pluginHelper = null;
+
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+		$this->pluginHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance();
+	} // public function __construct()
+
+	/**
 	 * Initialize the loader
 	 */
 	public function init() {
@@ -41,17 +55,17 @@ class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Inte
 		 */
 		if(!\is_admin()) {
 			if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('intel')) || \get_post_type() === 'intel' || \is_post_type_archive('intel') === true) {
-				\wp_enqueue_script('bootstrap-js', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('bootstrap/js/bootstrap.min.js'), ['jquery'], '', true);
-				\wp_enqueue_script('bootstrap-toolkit-js', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('bootstrap/bootstrap-toolkit/bootstrap-toolkit.min.js'), ['jquery', 'bootstrap-js'], '', true);
+				\wp_enqueue_script('bootstrap-js', $this->pluginHelper->getPluginUri('bootstrap/js/bootstrap.min.js'), ['jquery'], '', true);
+				\wp_enqueue_script('bootstrap-toolkit-js', $this->pluginHelper->getPluginUri('bootstrap/bootstrap-toolkit/bootstrap-toolkit.min.js'), ['jquery', 'bootstrap-js'], '', true);
 
-				\wp_enqueue_script('copy-to-clipboard-js', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('js/copy-to-clipboard.min.js'), ['jquery'], '', true);
+				\wp_enqueue_script('copy-to-clipboard-js', $this->pluginHelper->getPluginUri('js/copy-to-clipboard.min.js'), ['jquery'], '', true);
 
-				\wp_enqueue_script('data-tables-js', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('js/data-tables/jquery.dataTables.min.js'), ['jquery'], '', true);
-				\wp_enqueue_script('data-tables-bootstrap-js', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('js/data-tables/dataTables.bootstrap.min.js'), ['jquery', 'data-tables-js'], '', true);
+				\wp_enqueue_script('data-tables-js', $this->pluginHelper->getPluginUri('js/data-tables/jquery.dataTables.min.js'), ['jquery'], '', true);
+				\wp_enqueue_script('data-tables-bootstrap-js', $this->pluginHelper->getPluginUri('js/data-tables/dataTables.bootstrap.min.js'), ['jquery', 'data-tables-js'], '', true);
 
-				\wp_enqueue_script('eve-online-intel-tool-js', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('js/eve-online-intel-tool.min.js'), ['jquery'], '', true);
+				\wp_enqueue_script('eve-online-intel-tool-js', $this->pluginHelper->getPluginUri('js/eve-online-intel-tool.min.js'), ['jquery'], '', true);
 				\wp_localize_script('eve-online-intel-tool-js', 'eveIntelToolL10n', $this->getJavaScriptTranslations());
-			} // if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('fittings')) || \get_post_type() === 'fitting')
+			} // if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('intel')) || \get_post_type() === 'intel')
 		} // if(!\is_admin())
 	} // public function enqueue()
 
@@ -99,7 +113,7 @@ class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Inte
 			],
 			'ajax' => [
 				'url' => \admin_url('admin-ajax.php'),
-				'loaderImage' => \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('images/loader-sprite.gif')
+				'loaderImage' => $this->pluginHelper->getPluginUri('images/loader-sprite.gif')
 			]
 		];
 	} // private function getJavaScriptTranslations()

@@ -26,6 +26,20 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\ResourceLoader;
  */
 class CssLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AssetsInterface {
 	/**
+	 * Plugin Helper
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper
+	 */
+	private $pluginHelper = null;
+
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+		$this->pluginHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance();
+	} // public function __construct()
+
+	/**
 	 * Initialize the loader
 	 */
 	public function init() {
@@ -45,16 +59,16 @@ class CssLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\
 			 * load only when needed
 			 */
 			if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('intel')) || \get_post_type() === 'intel' || \is_post_type_archive('intel') === true) {
-				\wp_enqueue_style('bootstrap', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('bootstrap/css/bootstrap.min.css'));
-				\wp_enqueue_style('data-tables-bootstrap', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('css/data-tables/dataTables.bootstrap.min.css'));
-				\wp_enqueue_style('eve-online-intel-tool', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('css/eve-online-intel-tool.min.css'));
-			} // if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('fittings')) || \get_post_type() === 'fitting')
+				\wp_enqueue_style('bootstrap', $this->pluginHelper->getPluginUri('bootstrap/css/bootstrap.min.css'));
+				\wp_enqueue_style('data-tables-bootstrap', $this->pluginHelper->getPluginUri('css/data-tables/dataTables.bootstrap.min.css'));
+				\wp_enqueue_style('eve-online-intel-tool', $this->pluginHelper->getPluginUri('css/eve-online-intel-tool.min.css'));
+			} // if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('intel')) || \get_post_type() === 'intel')
 		} // if(!\is_admin())
 	} // public function enqueue()
 
 	public function enqueueAdmin() {
 		if(\is_admin()) {
-			\wp_enqueue_style('eve-online-intel-tool-dashboard-widgets', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('css/admin/eve-online-intel-tool-dashboard-widgets.min.css'));
+			\wp_enqueue_style('eve-online-intel-tool-dashboard-widgets', $this->pluginHelper->getPluginUri('css/admin/eve-online-intel-tool-dashboard-widgets.min.css'));
 		} // END if(\is_admin())
 	} // END public function enqueueAdmin()
 } // class CssLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AssetsInterface

@@ -135,7 +135,6 @@ class IntelParser {
 			 * First: Fleet Comp
 			 */
 			case (\preg_match('/^([a-zA-Z0-9 -_]{3,37})[\t](.*)[\t](.* \/ .*) ?$/m', $cleanedScanData) ? true : false):
-//				 ^([a-zA-Z0-9 -_]{3,37})[\t](.*)[\t](.*)[\t](.*)[\t](.*)[\t](.*)[\t](.* \/ .*) ?$
 				$intelType = 'fleetcomposition';
 				break;
 
@@ -289,22 +288,22 @@ class IntelParser {
 		return $returnData;
 	} // private function saveFleetComositionData($scanData)
 
-	private function saveMiningLedgerScanData($scanData, $ledgerType) {
-		$returnData = null;
-
-		/**
-		 * Only if we have the allowed ledger type, just in case ...
-		 */
-		if(\in_array($ledgerType, ['miningledger', 'corpminingledger'])) {
-			$parsedLedgerData = Parser\MiningLedgerParser::getInstance()->parseLedgerData($scanData, $ledgerType);
-
-			if(!\is_null($parsedLedgerData)) {
-				$postName = $this->uniqueID;
-				$metaData = [];
-				$returnData = $this->savePostdata($postName, $metaData, $ledgerType);
-			}
-		}
-	}
+//	private function saveMiningLedgerScanData($scanData, $ledgerType) {
+//		$returnData = null;
+//
+//		/**
+//		 * Only if we have the allowed ledger type, just in case ...
+//		 */
+//		if(\in_array($ledgerType, ['miningledger', 'corpminingledger'])) {
+//			$parsedLedgerData = Parser\MiningLedgerParser::getInstance()->parseLedgerData($scanData, $ledgerType);
+//
+//			if(!\is_null($parsedLedgerData)) {
+//				$postName = $this->uniqueID;
+//				$metaData = [];
+//				$returnData = $this->savePostdata($postName, $metaData, $ledgerType);
+//			}
+//		}
+//	}
 
 	/**
 	 * Save the post data
@@ -337,7 +336,7 @@ class IntelParser {
 			case 'corpminingledger':
 				$postTitle = 'Corporation Mining Ledger: ' . \wp_filter_kses($postName);
 				break;
-		}
+		} // switch($category)
 
 		$newPostID = \wp_insert_post([
 			'post_title' => $postTitle,
@@ -358,5 +357,5 @@ class IntelParser {
 		} // if($newPostID)
 
 		return $returnData;
-	}
+	} // private function savePostdata($postName, $metaData, $category)
 } // class IntelParser
