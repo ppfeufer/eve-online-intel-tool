@@ -6,6 +6,9 @@
 ### Added
 - 30 days as option for image cache
 
+### Removed
+- Loot and salvage to D-Scan when on grid (to much to filter, to many stuff in that category ...)
+
 ## [v0.5.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.5.0) - 2017-11-17
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.9...v0.5.0)
 ### Added
