@@ -2,8 +2,23 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.9...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.5.0...development)
 - in development
+
+## [v0.5.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.5.0) - 2017-11-17
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.9...v0.5.0)
+### Added
+- Upwell structures to D-Scan when on grid
+- Deployable structures to D-Scan when on grid
+- Starbases and modules to D-Scan when on grid
+- Loot and salvage to D-Scan when on grid (wrecks and stuff / basically d-scan data Provi style :-P)
+
+### Changed
+- Database cache to 6 months instead of 1
+- Simplified code to reduce the load on the affiliation endpoint
+
+### Updated
+- German translation
 
 ## [v0.4.9](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.9) - 2017-11-07
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.8...v0.4.9)
@@ -177,7 +192,7 @@
 ## [v0.1.5](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.5) - 2017-09-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.4...v0.1.5)
 ### Added
-- General Fleet information to teh fleet scan, as in how many pilots in total, how many are docked, how many are in space.
+- General Fleet information to the fleet scan, as in how many pilots in total, how many are docked, how many are in space.
 
 ### Fixed
 - Regular Expression for detecting fleet scans. I really hate this stuff ...

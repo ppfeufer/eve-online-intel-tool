@@ -24,7 +24,7 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Ajax;
 class FormNonce implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface {
 	public function __construct() {
 		$this->initActions();
-	} // END public function __construct()
+	} // public function __construct()
 
 	public function ajaxAction() {
 		$nonce = \wp_create_nonce('eve-online-intel-tool-new-intel-form');
@@ -33,10 +33,10 @@ class FormNonce implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\
 
 		// always exit this API function
 		exit;
-	} // END public function ajaxAction()
+	} // public function ajaxAction()
 
 	public function initActions() {
 		\add_action('wp_ajax_nopriv_get-eve-intel-form-nonce', [$this, 'ajaxAction']);
 		\add_action('wp_ajax_get-eve-intel-form-nonce', [$this, 'ajaxAction']);
-	} // END public function initActions()
-} // END class FormNonce
+	} // public function initActions()
+} // class FormNonce

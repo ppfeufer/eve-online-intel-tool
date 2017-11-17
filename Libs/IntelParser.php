@@ -50,42 +50,64 @@ class IntelParser {
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->eveIntel = \filter_input(\INPUT_POST, 'eveIntel');
-		$this->uniqueID = \uniqid();
-
 		$nonce = \filter_input(\INPUT_POST, '_wpnonce');
 		if(!\wp_verify_nonce($nonce, 'eve-online-intel-tool-new-intel-form')) {
 			die('Busted!');
-		}
+		} // if(!\wp_verify_nonce($nonce, 'eve-online-intel-tool-new-intel-form'))
+
+		$this->eveIntel = \filter_input(\INPUT_POST, 'eveIntel');
+		$this->uniqueID = \uniqid();
 
 		/**
 		 * Let's get the intel type
-		 * dscan / fleetcomposition / local
 		 */
 		$intelType = $this->checkIntelType($this->eveIntel);
 
 		switch($intelType) {
+			/**
+			 * Error / non parsable data
+			 */
 			case null:
 				$this->postID = null;
 				break;
 
+			/**
+			 * D-Scan
+			 */
 			case 'dscan':
 				$this->postID = $this->saveDscanData($this->eveIntel);
 				break;
 
+			/**
+			 * Fleet Composition
+			 */
 			case 'fleetcomposition':
 				$this->postID = $this->saveFleetComositionData($this->eveIntel);
 				break;
 
+			/**
+			 * Chat Scan
+			 */
 			case 'local':
 				$this->postID = $this->saveLocalScanData($this->eveIntel);
 				break;
 
+			/**
+			 * Mining Ledger
+			 */
+			case 'miningledger':
+			case 'corpminingledger':
+				$this->postID = $this->saveMiningLedgerScanData($this->eveIntel, $intelType);
+				break;
+
+			/**
+			 * Default
+			 */
 			default:
 				$this->postID = null;
 				break;
-		} // END switch($intelType)
-	} // END public function __construct()
+		} // switch($intelType)
+	} // public function __construct()
 
 	/**
 	 * Determine what type of intel we might have
@@ -131,13 +153,27 @@ class IntelParser {
 				$intelType = 'local';
 				break;
 
+			/**
+			 * Fourth: Personal Mining Ledger
+			 */
+//			case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
+//				$intelType = 'miningledger';
+//				break;
+
+			/**
+			 * Fifth: Corporation Mining Ledger
+			 */
+//			case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
+//				$intelType = 'corpminingledger';
+//				break;
+
 			default:
 				$intelType = null;
 				break;
-		} // END switch($cleanedScanData)
+		} // switch($cleanedScanData)
 
 		return $intelType;
-	} // END private function checkIntelType($scanData)
+	} // private function checkIntelType($scanData)
 
 	/**
 	 * Saving the D-Scan data
@@ -161,14 +197,14 @@ class IntelParser {
 
 				if(!empty($parsedDscanData['system']['constellationName'])) {
 					$postName .= ' - ' . $parsedDscanData['system']['constellationName'];
-				} // END if(!empty($parsedDscanData['system']['constellationName']))
+				} // if(!empty($parsedDscanData['system']['constellationName']))
 
 				if(!empty($parsedDscanData['system']['regionName'])) {
 					$postName .= ' - ' . $parsedDscanData['system']['regionName'];
-				} // END if(!empty($parsedDscanData['system']['regionName']))
+				} // if(!empty($parsedDscanData['system']['regionName']))
 
 				$postName .= ' ' . $this->uniqueID;
-			} // END if(!empty($parsedDscanData['system']['name']))
+			} // if(!empty($parsedDscanData['system']['name']))
 
 			$metaData = [
 				'eve-intel-tool_dscan-rawData' => \maybe_serialize(Helper\IntelHelper::getInstance()->fixLineBreaks($scanData)),
@@ -177,14 +213,18 @@ class IntelParser {
 				'eve-intel-tool_dscan-offGrid' => \maybe_serialize($parsedDscanData['offGrid']),
 				'eve-intel-tool_dscan-shipTypes' => \maybe_serialize($parsedDscanData['shipTypes']),
 				'eve-intel-tool_dscan-system' => \maybe_serialize($parsedDscanData['system']),
+				'eve-intel-tool_dscan-upwellStructures' => \maybe_serialize($parsedDscanData['upwellStructures']),
+				'eve-intel-tool_dscan-deployables' => \maybe_serialize($parsedDscanData['deployables']),
+				'eve-intel-tool_dscan-starbaseModules' => \maybe_serialize($parsedDscanData['starbaseModules']),
+				'eve-intel-tool_dscan-lootSalvage' => \maybe_serialize($parsedDscanData['lootSalvage']),
 				'eve-intel-tool_dscan-time' => \maybe_serialize(\gmdate('Y-m-d H:i:s', \time())),
 			];
 
 			$returnData = $this->savePostdata($postName, $metaData, 'dscan');
-		} // END if($parsedDscanData !== null)
+		} // if($parsedDscanData !== null)
 
 		return $returnData;
-	} // END private function saveDscanData($scanData)
+	} // private function saveDscanData($scanData)
 
 	/**
 	 * Saving the fleet composition data
@@ -214,10 +254,10 @@ class IntelParser {
 			];
 
 			$returnData = $this->savePostdata($postName, $metaData, 'fleetcomposition');
-		}
+		} // if($parsedFleetComposition !== null)
 
 		return $returnData;
-	} // END private function saveFleetComositionData($scanData)
+	} // private function saveFleetComositionData($scanData)
 
 	/**
 	 * Saving the local/chat scan data
@@ -244,10 +284,27 @@ class IntelParser {
 			];
 
 			$returnData = $this->savePostdata($postName, $metaData, 'local');
-		} // END if($parsedDscanData !== null)
+		} // if($parsedDscanData !== null)
 
 		return $returnData;
-	} // END private function saveFleetComositionData($scanData)
+	} // private function saveFleetComositionData($scanData)
+
+	private function saveMiningLedgerScanData($scanData, $ledgerType) {
+		$returnData = null;
+
+		/**
+		 * Only if we have the allowed ledger type, just in case ...
+		 */
+		if(\in_array($ledgerType, ['miningledger', 'corpminingledger'])) {
+			$parsedLedgerData = Parser\MiningLedgerParser::getInstance()->parseLedgerData($scanData, $ledgerType);
+
+			if(!\is_null($parsedLedgerData)) {
+				$postName = $this->uniqueID;
+				$metaData = [];
+				$returnData = $this->savePostdata($postName, $metaData, $ledgerType);
+			}
+		}
+	}
 
 	/**
 	 * Save the post data
@@ -272,6 +329,14 @@ class IntelParser {
 			case 'local':
 				$postTitle = 'Chat Scan: ' . \wp_filter_kses($postName);
 				break;
+
+			case 'miningledger':
+				$postTitle = 'Personal Mining Ledger: ' . \wp_filter_kses($postName);
+				break;
+
+			case 'corpminingledger':
+				$postTitle = 'Corporation Mining Ledger: ' . \wp_filter_kses($postName);
+				break;
 		}
 
 		$newPostID = \wp_insert_post([
@@ -290,8 +355,8 @@ class IntelParser {
 			\wp_set_object_terms($newPostID, $category, 'intel_category');
 
 			$returnData = $newPostID;
-		} // END if($newPostID)
+		} // if($newPostID)
 
 		return $returnData;
 	}
-} // END class IntelParser
+} // class IntelParser

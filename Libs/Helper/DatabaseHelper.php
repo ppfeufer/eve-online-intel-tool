@@ -294,9 +294,9 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			$lastUpdated = \strtotime($characterResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update
-			if($now - $lastUpdated < 2592000) {
+			if($now - $lastUpdated < 15552000) {
 				$returnValue = $characterResult['0'];
-			} // if($now - $lastUpdated < 2592000)
+			} // if($now - $lastUpdated < 15552000)
 		} // if($characterResult)
 
 		return $returnValue;
@@ -323,9 +323,9 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			$lastUpdated = \strtotime($characterResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update
-			if($now - $lastUpdated < 2592000) {
+			if($now - $lastUpdated < 15552000) {
 				$returnValue = $characterResult['0'];
-			} // if($now - $lastUpdated < 2592000)
+			} // if($now - $lastUpdated < 15552000)
 		} // if($characterResult)
 
 		return $returnValue;
@@ -364,9 +364,9 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			$lastUpdated = \strtotime($corporationResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update
-			if($now - $lastUpdated < 2592000) {
+			if($now - $lastUpdated < 15552000) {
 				$returnValue = $corporationResult['0'];
-			} // if($now - $lastUpdated < 2592000)
+			} // if($now - $lastUpdated < 15552000)
 		} // if($corporationResult)
 
 		return $returnValue;
@@ -393,9 +393,9 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			$lastUpdated = \strtotime($corporationResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update
-			if($now - $lastUpdated < 2592000) {
+			if($now - $lastUpdated < 15552000) {
 				$returnValue = $corporationResult['0'];
-			} // if($now - $lastUpdated < 2592000)
+			} // if($now - $lastUpdated < 15552000)
 		} // if($corporationResult)
 
 		return $returnValue;
@@ -434,9 +434,9 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			$lastUpdated = \strtotime($allianceResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update
-			if($now - $lastUpdated < 2592000) {
+			if($now - $lastUpdated < 15552000) {
 				$returnValue = $allianceResult['0'];
-			} // if($now - $lastUpdated < 2592000)
+			} // if($now - $lastUpdated < 15552000)
 		} // if($allianceResult)
 
 		return $returnValue;
@@ -463,9 +463,9 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 			$lastUpdated = \strtotime($allianceResult['0']->lastUpdated);
 
 			// Older than 30 days? Force an update
-			if($now - $lastUpdated < 2592000) {
+			if($now - $lastUpdated < 15552000) {
 				$returnValue = $allianceResult['0'];
-			} // if($now - $lastUpdated < 2592000)
+			} // if($now - $lastUpdated < 15552000)
 		} // if($allianceResult)
 
 		return $returnValue;
