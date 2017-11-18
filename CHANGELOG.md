@@ -3,7 +3,8 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.5.1...development)
-- in development
+### Added
+- noindex and nofollow to the intel pages header. Google doesn't need to index or follow them
 
 ## [v0.5.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.5.1) - 2017-11-17
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.5.0...v0.5.1)
