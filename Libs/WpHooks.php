@@ -53,6 +53,7 @@ class WpHooks {
 	 */
 	public function init() {
 		$this->initHooks();
+		$this->initActions();
 	} // public function init()
 
 	/**
@@ -64,6 +65,22 @@ class WpHooks {
 
 		\register_deactivation_hook($this->pluginFile, '\flush_rewrite_rules');
 	} // public function initHook()
+
+	/**
+	 * Add our actions to WordPress
+	 */
+	public function initActions() {
+		\add_action('wp_head', [$this, 'noindexForIntelPages']);
+	} // public function initActions()
+
+	/**
+	 * Adding noindex and nofollow meta
+	 */
+	public function noindexForIntelPages() {
+		if(PostType::isPostTypePage() === true) {
+			echo '<meta name="robots" content="noindex, nofollow">' . "\n";
+		} // if(PostType::isPostTypePage() === true)
+	} // public function noindexForIntelPages()
 
 	/**
 	 * Hook: checkDatabaseForUpdates
