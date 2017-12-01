@@ -2,7 +2,7 @@
 
 /**
  * Configuration
- * PHP version 5
+ * PHP version 7
  *
  * @category Class
  * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
@@ -29,7 +29,7 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client;
 
 /**
  * Configuration Class Doc Comment
- * PHP version 5
+ * PHP version 7
  *
  * @category Class
  * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client

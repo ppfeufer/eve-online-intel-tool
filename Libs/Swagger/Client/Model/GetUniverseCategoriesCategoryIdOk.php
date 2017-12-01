@@ -2,7 +2,7 @@
 /**
  * GetUniverseCategoriesCategoryIdOk
  *
- * PHP version 5
+ * PHP version 7
  *
  * @category Class
  * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client

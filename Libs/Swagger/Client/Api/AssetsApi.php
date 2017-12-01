@@ -2,7 +2,7 @@
 
 /**
  * AssetsApi
- * PHP version 5
+ * PHP version 7
  *
  * @category Class
  * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
@@ -410,31 +410,32 @@ class AssetsApi {
 
 		try {
 			$options = $this->createHttpClientOption();
+
 			try {
 				$response = $this->client->send($request, $options);
 			} catch(RequestException $e) {
-				throw new ApiException(
-				"[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse()->getBody()->getContents()
-				);
+				throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse()->getBody()->getContents());
 			}
 
 			$statusCode = $response->getStatusCode();
 
 			if($statusCode < 200 || $statusCode > 299) {
 				throw new ApiException(
-				sprintf(
-					'[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()
-				), $statusCode, $response->getHeaders(), $response->getBody()
-				);
+				\sprintf('[%d] Error connecting to the API (%s)',
+					$statusCode,
+					$request->getUri()
+				), $statusCode, $response->getHeaders(), $response->getBody());
 			}
 
 			$responseBody = $response->getBody();
+
 			if($returnType === '\SplFileObject') {
 				$content = $responseBody; //stream goes to serializer
 			} else {
 				$content = $responseBody->getContents();
+
 				if($returnType !== 'string') {
-					$content = json_decode($content);
+					$content = \json_decode($content);
 				}
 			}
 
@@ -447,23 +448,26 @@ class AssetsApi {
 			switch($e->getCode()) {
 				case 200:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetCorporationsCorporationIdAssets200Ok[]', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetCorporationsCorporationIdAssets200Ok[]', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
+
 				case 403:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\Forbidden', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\Forbidden', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
+
 				case 500:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\InternalServerError', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\InternalServerError', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
 			}
+
 			throw $e;
 		}
 	}
@@ -484,12 +488,9 @@ class AssetsApi {
 	 * @return \GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getCorporationsCorporationIdAssetsAsync($corporation_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
-		return $this->getCorporationsCorporationIdAssetsAsyncWithHttpInfo($corporation_id, $datasource, $page, $token, $user_agent, $x_user_agent)
-				->then(
-					function ($response) {
-					return $response[0];
-				}
-		);
+		return $this->getCorporationsCorporationIdAssetsAsyncWithHttpInfo($corporation_id, $datasource, $page, $token, $user_agent, $x_user_agent)->then(function ($response) {
+			return $response[0];
+		});
 	}
 
 	/**
@@ -511,34 +512,34 @@ class AssetsApi {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetCorporationsCorporationIdAssets200Ok[]';
 		$request = $this->getCorporationsCorporationIdAssetsRequest($corporation_id, $datasource, $page, $token, $user_agent, $x_user_agent);
 
-		return $this->client
-				->sendAsync($request, $this->createHttpClientOption())
-				->then(
-					function ($response) use ($returnType) {
-					$responseBody = $response->getBody();
-					if($returnType === '\SplFileObject') {
-						$content = $responseBody; //stream goes to serializer
-					} else {
-						$content = $responseBody->getContents();
-						if($returnType !== 'string') {
-							$content = json_decode($content);
-						}
-					}
+		return $this->client->sendAsync($request, $this->createHttpClientOption())->then(
+			function ($response) use ($returnType) {
+				$responseBody = $response->getBody();
+				if($returnType === '\SplFileObject') {
+					$content = $responseBody; //stream goes to serializer
+				} else {
+					$content = $responseBody->getContents();
 
-					return [
-						ObjectSerializer::deserialize($content, $returnType, []),
-						$response->getStatusCode(),
-						$response->getHeaders()
-					];
-				}, function ($exception) {
-					$response = $exception->getResponse();
-					$statusCode = $response->getStatusCode();
-					throw new ApiException(
-					sprintf(
-						'[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()
-					), $statusCode, $response->getHeaders(), $response->getBody()
-					);
+					if($returnType !== 'string') {
+						$content = \json_decode($content);
+					}
 				}
+
+				return [
+					ObjectSerializer::deserialize($content, $returnType, []),
+					$response->getStatusCode(),
+					$response->getHeaders()
+				];
+			},
+			function ($exception) {
+				$response = $exception->getResponse();
+				$statusCode = $response->getStatusCode();
+
+				throw new ApiException(\sprintf('[%d] Error connecting to the API (%s)',
+					$statusCode,
+					$exception->getRequest()->getUri()
+				), $statusCode, $response->getHeaders(), $response->getBody());
+			}
 		);
 	}
 
@@ -558,9 +559,7 @@ class AssetsApi {
 	protected function getCorporationsCorporationIdAssetsRequest($corporation_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'corporation_id' is set
 		if($corporation_id === null) {
-			throw new \InvalidArgumentException(
-			'Missing the required parameter $corporation_id when calling getCorporationsCorporationIdAssets'
-			);
+			throw new \InvalidArgumentException('Missing the required parameter $corporation_id when calling getCorporationsCorporationIdAssets');
 		}
 
 		$resourcePath = '/latest/corporations/{corporation_id}/assets/';
@@ -574,18 +573,22 @@ class AssetsApi {
 		if($datasource !== null) {
 			$queryParams['datasource'] = ObjectSerializer::toQueryValue($datasource);
 		}
+
 		// query params
 		if($page !== null) {
 			$queryParams['page'] = ObjectSerializer::toQueryValue($page);
 		}
+
 		// query params
 		if($token !== null) {
 			$queryParams['token'] = ObjectSerializer::toQueryValue($token);
 		}
+
 		// query params
 		if($user_agent !== null) {
 			$queryParams['user_agent'] = ObjectSerializer::toQueryValue($user_agent);
 		}
+
 		// header params
 		if($x_user_agent !== null) {
 			$headerParams['X-User-Agent'] = ObjectSerializer::toHeaderValue($x_user_agent);
@@ -593,28 +596,23 @@ class AssetsApi {
 
 		// path params
 		if($corporation_id !== null) {
-			$resourcePath = str_replace(
-				'{' . 'corporation_id' . '}', ObjectSerializer::toPathValue($corporation_id), $resourcePath
-			);
+			$resourcePath = str_replace('{' . 'corporation_id' . '}', ObjectSerializer::toPathValue($corporation_id), $resourcePath);
 		}
 
 		// body params
 		$_tempBody = null;
 
 		if($multipart) {
-			$headers = $this->headerSelector->selectHeadersForMultipart(
-				['application/json']
-			);
+			$headers = $this->headerSelector->selectHeadersForMultipart(['application/json']);
 		} else {
-			$headers = $this->headerSelector->selectHeaders(
-				['application/json'], []
-			);
+			$headers = $this->headerSelector->selectHeaders(['application/json'], []);
 		}
 
 		// for model (json/xml)
 		if(isset($_tempBody)) {
 			// $_tempBody is the method argument, if present
 			$httpBody = $_tempBody;
+
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
 				$httpBody = \GuzzleHttp\json_encode($httpBody);
@@ -622,12 +620,14 @@ class AssetsApi {
 		} elseif(count($formParams) > 0) {
 			if($multipart) {
 				$multipartContents = [];
+
 				foreach($formParams as $formParamName => $formParamValue) {
 					$multipartContents[] = [
 						'name' => $formParamName,
 						'contents' => $formParamValue
 					];
 				}
+
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
@@ -644,18 +644,15 @@ class AssetsApi {
 		}
 
 		$defaultHeaders = [];
+
 		if($this->config->getUserAgent()) {
 			$defaultHeaders['User-Agent'] = $this->config->getUserAgent();
 		}
 
-		$headers = array_merge(
-			$defaultHeaders, $headerParams, $headers
-		);
-
+		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
 		$query = \GuzzleHttp\Psr7\build_query($queryParams);
-		return new Request(
-			'GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody
-		);
+
+		return new Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
 
 	/**
@@ -676,6 +673,7 @@ class AssetsApi {
 	 */
 	public function postCharactersCharacterIdAssetsLocations($character_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		list($response) = $this->postCharactersCharacterIdAssetsLocationsWithHttpInfo($character_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent);
+
 		return $response;
 	}
 
@@ -701,22 +699,20 @@ class AssetsApi {
 
 		try {
 			$options = $this->createHttpClientOption();
+
 			try {
 				$response = $this->client->send($request, $options);
 			} catch(RequestException $e) {
-				throw new ApiException(
-				"[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse()->getBody()->getContents()
-				);
+				throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse()->getBody()->getContents());
 			}
 
 			$statusCode = $response->getStatusCode();
 
 			if($statusCode < 200 || $statusCode > 299) {
-				throw new ApiException(
-				sprintf(
-					'[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()
-				), $statusCode, $response->getHeaders(), $response->getBody()
-				);
+				throw new ApiException(\sprintf('[%d] Error connecting to the API (%s)',
+					$statusCode,
+					$request->getUri()
+				), $statusCode, $response->getHeaders(), $response->getBody());
 			}
 
 			$responseBody = $response->getBody();
@@ -724,8 +720,9 @@ class AssetsApi {
 				$content = $responseBody; //stream goes to serializer
 			} else {
 				$content = $responseBody->getContents();
+
 				if($returnType !== 'string') {
-					$content = json_decode($content);
+					$content = \json_decode($content);
 				}
 			}
 
@@ -738,23 +735,26 @@ class AssetsApi {
 			switch($e->getCode()) {
 				case 200:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCharactersCharacterIdAssetsLocations200Ok[]', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCharactersCharacterIdAssetsLocations200Ok[]', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
+
 				case 403:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\Forbidden', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\Forbidden', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
+
 				case 500:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\InternalServerError', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\InternalServerError', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
 			}
+
 			throw $e;
 		}
 	}
@@ -775,12 +775,9 @@ class AssetsApi {
 	 * @return \GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function postCharactersCharacterIdAssetsLocationsAsync($character_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
-		return $this->postCharactersCharacterIdAssetsLocationsAsyncWithHttpInfo($character_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent)
-				->then(
-					function ($response) {
-					return $response[0];
-				}
-		);
+		return $this->postCharactersCharacterIdAssetsLocationsAsyncWithHttpInfo($character_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent)->then(function ($response) {
+			return $response[0];
+		});
 	}
 
 	/**
@@ -802,34 +799,35 @@ class AssetsApi {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCharactersCharacterIdAssetsLocations200Ok[]';
 		$request = $this->postCharactersCharacterIdAssetsLocationsRequest($character_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent);
 
-		return $this->client
-				->sendAsync($request, $this->createHttpClientOption())
-				->then(
-					function ($response) use ($returnType) {
-					$responseBody = $response->getBody();
-					if($returnType === '\SplFileObject') {
-						$content = $responseBody; //stream goes to serializer
-					} else {
-						$content = $responseBody->getContents();
-						if($returnType !== 'string') {
-							$content = json_decode($content);
-						}
-					}
+		return $this->client->sendAsync($request, $this->createHttpClientOption())->then(
+			function ($response) use ($returnType) {
+				$responseBody = $response->getBody();
 
-					return [
-						ObjectSerializer::deserialize($content, $returnType, []),
-						$response->getStatusCode(),
-						$response->getHeaders()
-					];
-				}, function ($exception) {
-					$response = $exception->getResponse();
-					$statusCode = $response->getStatusCode();
-					throw new ApiException(
-					sprintf(
-						'[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()
-					), $statusCode, $response->getHeaders(), $response->getBody()
-					);
+				if($returnType === '\SplFileObject') {
+					$content = $responseBody; //stream goes to serializer
+				} else {
+					$content = $responseBody->getContents();
+
+					if($returnType !== 'string') {
+						$content = \json_decode($content);
+					}
 				}
+
+				return [
+					ObjectSerializer::deserialize($content, $returnType, []),
+					$response->getStatusCode(),
+					$response->getHeaders()
+				];
+			},
+			function ($exception) {
+				$response = $exception->getResponse();
+				$statusCode = $response->getStatusCode();
+
+				throw new ApiException(\sprintf('[%d] Error connecting to the API (%s)',
+					$statusCode,
+					$exception->getRequest()->getUri()
+				), $statusCode, $response->getHeaders(), $response->getBody());
+			}
 		);
 	}
 
@@ -849,15 +847,12 @@ class AssetsApi {
 	protected function postCharactersCharacterIdAssetsLocationsRequest($character_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'character_id' is set
 		if($character_id === null) {
-			throw new \InvalidArgumentException(
-			'Missing the required parameter $character_id when calling postCharactersCharacterIdAssetsLocations'
-			);
+			throw new \InvalidArgumentException('Missing the required parameter $character_id when calling postCharactersCharacterIdAssetsLocations');
 		}
+
 		// verify the required parameter 'item_ids' is set
 		if($item_ids === null) {
-			throw new \InvalidArgumentException(
-			'Missing the required parameter $item_ids when calling postCharactersCharacterIdAssetsLocations'
-			);
+			throw new \InvalidArgumentException('Missing the required parameter $item_ids when calling postCharactersCharacterIdAssetsLocations');
 		}
 
 		$resourcePath = '/latest/characters/{character_id}/assets/locations/';
@@ -871,14 +866,17 @@ class AssetsApi {
 		if($datasource !== null) {
 			$queryParams['datasource'] = ObjectSerializer::toQueryValue($datasource);
 		}
+
 		// query params
 		if($token !== null) {
 			$queryParams['token'] = ObjectSerializer::toQueryValue($token);
 		}
+
 		// query params
 		if($user_agent !== null) {
 			$queryParams['user_agent'] = ObjectSerializer::toQueryValue($user_agent);
 		}
+
 		// header params
 		if($x_user_agent !== null) {
 			$headerParams['X-User-Agent'] = ObjectSerializer::toHeaderValue($x_user_agent);
@@ -886,44 +884,42 @@ class AssetsApi {
 
 		// path params
 		if($character_id !== null) {
-			$resourcePath = str_replace(
-				'{' . 'character_id' . '}', ObjectSerializer::toPathValue($character_id), $resourcePath
-			);
+			$resourcePath = str_replace('{' . 'character_id' . '}', ObjectSerializer::toPathValue($character_id), $resourcePath);
 		}
 
 		// body params
 		$_tempBody = null;
+
 		if(isset($item_ids)) {
 			$_tempBody = $item_ids;
 		}
 
 		if($multipart) {
-			$headers = $this->headerSelector->selectHeadersForMultipart(
-				['application/json']
-			);
+			$headers = $this->headerSelector->selectHeadersForMultipart(['application/json']);
 		} else {
-			$headers = $this->headerSelector->selectHeaders(
-				['application/json'], []
-			);
+			$headers = $this->headerSelector->selectHeaders(['application/json'], []);
 		}
 
 		// for model (json/xml)
 		if(isset($_tempBody)) {
 			// $_tempBody is the method argument, if present
 			$httpBody = $_tempBody;
+
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
 				$httpBody = \GuzzleHttp\json_encode($httpBody);
 			}
-		} elseif(count($formParams) > 0) {
+		} elseif(\count($formParams) > 0) {
 			if($multipart) {
 				$multipartContents = [];
+
 				foreach($formParams as $formParamName => $formParamValue) {
 					$multipartContents[] = [
 						'name' => $formParamName,
 						'contents' => $formParamValue
 					];
 				}
+
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
@@ -940,18 +936,15 @@ class AssetsApi {
 		}
 
 		$defaultHeaders = [];
+
 		if($this->config->getUserAgent()) {
 			$defaultHeaders['User-Agent'] = $this->config->getUserAgent();
 		}
 
-		$headers = array_merge(
-			$defaultHeaders, $headerParams, $headers
-		);
-
+		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
 		$query = \GuzzleHttp\Psr7\build_query($queryParams);
-		return new Request(
-			'POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody
-		);
+
+		return new Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
 
 	/**
@@ -972,6 +965,7 @@ class AssetsApi {
 	 */
 	public function postCharactersCharacterIdAssetsNames($character_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		list($response) = $this->postCharactersCharacterIdAssetsNamesWithHttpInfo($character_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent);
+
 		return $response;
 	}
 
@@ -1000,28 +994,27 @@ class AssetsApi {
 			try {
 				$response = $this->client->send($request, $options);
 			} catch(RequestException $e) {
-				throw new ApiException(
-				"[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse()->getBody()->getContents()
-				);
+				throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse()->getBody()->getContents());
 			}
 
 			$statusCode = $response->getStatusCode();
 
 			if($statusCode < 200 || $statusCode > 299) {
-				throw new ApiException(
-				sprintf(
-					'[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()
-				), $statusCode, $response->getHeaders(), $response->getBody()
-				);
+				throw new ApiException(\sprintf('[%d] Error connecting to the API (%s)',
+					$statusCode,
+					$request->getUri()
+				), $statusCode, $response->getHeaders(), $response->getBody());
 			}
 
 			$responseBody = $response->getBody();
+
 			if($returnType === '\SplFileObject') {
 				$content = $responseBody; //stream goes to serializer
 			} else {
 				$content = $responseBody->getContents();
+
 				if($returnType !== 'string') {
-					$content = json_decode($content);
+					$content = \json_decode($content);
 				}
 			}
 
@@ -1034,23 +1027,26 @@ class AssetsApi {
 			switch($e->getCode()) {
 				case 200:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCharactersCharacterIdAssetsNames200Ok[]', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCharactersCharacterIdAssetsNames200Ok[]', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
+
 				case 403:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\Forbidden', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\Forbidden', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
+
 				case 500:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\InternalServerError', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\InternalServerError', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
 			}
+
 			throw $e;
 		}
 	}
@@ -1071,12 +1067,9 @@ class AssetsApi {
 	 * @return \GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function postCharactersCharacterIdAssetsNamesAsync($character_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
-		return $this->postCharactersCharacterIdAssetsNamesAsyncWithHttpInfo($character_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent)
-				->then(
-					function ($response) {
-					return $response[0];
-				}
-		);
+		return $this->postCharactersCharacterIdAssetsNamesAsyncWithHttpInfo($character_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent)->then(function ($response) {
+			return $response[0];
+		});
 	}
 
 	/**
@@ -1098,34 +1091,35 @@ class AssetsApi {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCharactersCharacterIdAssetsNames200Ok[]';
 		$request = $this->postCharactersCharacterIdAssetsNamesRequest($character_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent);
 
-		return $this->client
-				->sendAsync($request, $this->createHttpClientOption())
-				->then(
-					function ($response) use ($returnType) {
-					$responseBody = $response->getBody();
-					if($returnType === '\SplFileObject') {
-						$content = $responseBody; //stream goes to serializer
-					} else {
-						$content = $responseBody->getContents();
-						if($returnType !== 'string') {
-							$content = json_decode($content);
-						}
-					}
+		return $this->client->sendAsync($request, $this->createHttpClientOption())->then(
+			function ($response) use ($returnType) {
+				$responseBody = $response->getBody();
 
-					return [
-						ObjectSerializer::deserialize($content, $returnType, []),
-						$response->getStatusCode(),
-						$response->getHeaders()
-					];
-				}, function ($exception) {
-					$response = $exception->getResponse();
-					$statusCode = $response->getStatusCode();
-					throw new ApiException(
-					sprintf(
-						'[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()
-					), $statusCode, $response->getHeaders(), $response->getBody()
-					);
+				if($returnType === '\SplFileObject') {
+					$content = $responseBody; //stream goes to serializer
+				} else {
+					$content = $responseBody->getContents();
+
+					if($returnType !== 'string') {
+						$content = \json_decode($content);
+					}
 				}
+
+				return [
+					ObjectSerializer::deserialize($content, $returnType, []),
+					$response->getStatusCode(),
+					$response->getHeaders()
+				];
+			},
+			function ($exception) {
+				$response = $exception->getResponse();
+				$statusCode = $response->getStatusCode();
+
+				throw new ApiException(\sprintf('[%d] Error connecting to the API (%s)',
+					$statusCode,
+					$exception->getRequest()->getUri()
+				), $statusCode, $response->getHeaders(), $response->getBody());
+			}
 		);
 	}
 
@@ -1145,15 +1139,12 @@ class AssetsApi {
 	protected function postCharactersCharacterIdAssetsNamesRequest($character_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'character_id' is set
 		if($character_id === null) {
-			throw new \InvalidArgumentException(
-			'Missing the required parameter $character_id when calling postCharactersCharacterIdAssetsNames'
-			);
+			throw new \InvalidArgumentException('Missing the required parameter $character_id when calling postCharactersCharacterIdAssetsNames');
 		}
+
 		// verify the required parameter 'item_ids' is set
 		if($item_ids === null) {
-			throw new \InvalidArgumentException(
-			'Missing the required parameter $item_ids when calling postCharactersCharacterIdAssetsNames'
-			);
+			throw new \InvalidArgumentException('Missing the required parameter $item_ids when calling postCharactersCharacterIdAssetsNames');
 		}
 
 		$resourcePath = '/latest/characters/{character_id}/assets/names/';
@@ -1167,14 +1158,17 @@ class AssetsApi {
 		if($datasource !== null) {
 			$queryParams['datasource'] = ObjectSerializer::toQueryValue($datasource);
 		}
+
 		// query params
 		if($token !== null) {
 			$queryParams['token'] = ObjectSerializer::toQueryValue($token);
 		}
+
 		// query params
 		if($user_agent !== null) {
 			$queryParams['user_agent'] = ObjectSerializer::toQueryValue($user_agent);
 		}
+
 		// header params
 		if($x_user_agent !== null) {
 			$headerParams['X-User-Agent'] = ObjectSerializer::toHeaderValue($x_user_agent);
@@ -1182,31 +1176,27 @@ class AssetsApi {
 
 		// path params
 		if($character_id !== null) {
-			$resourcePath = str_replace(
-				'{' . 'character_id' . '}', ObjectSerializer::toPathValue($character_id), $resourcePath
-			);
+			$resourcePath = str_replace('{' . 'character_id' . '}', ObjectSerializer::toPathValue($character_id), $resourcePath);
 		}
 
 		// body params
 		$_tempBody = null;
+
 		if(isset($item_ids)) {
 			$_tempBody = $item_ids;
 		}
 
 		if($multipart) {
-			$headers = $this->headerSelector->selectHeadersForMultipart(
-				['application/json']
-			);
+			$headers = $this->headerSelector->selectHeadersForMultipart(['application/json']);
 		} else {
-			$headers = $this->headerSelector->selectHeaders(
-				['application/json'], []
-			);
+			$headers = $this->headerSelector->selectHeaders(['application/json'], []);
 		}
 
 		// for model (json/xml)
 		if(isset($_tempBody)) {
 			// $_tempBody is the method argument, if present
 			$httpBody = $_tempBody;
+
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
 				$httpBody = \GuzzleHttp\json_encode($httpBody);
@@ -1214,12 +1204,14 @@ class AssetsApi {
 		} elseif(count($formParams) > 0) {
 			if($multipart) {
 				$multipartContents = [];
+
 				foreach($formParams as $formParamName => $formParamValue) {
 					$multipartContents[] = [
 						'name' => $formParamName,
 						'contents' => $formParamValue
 					];
 				}
+
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
@@ -1240,14 +1232,10 @@ class AssetsApi {
 			$defaultHeaders['User-Agent'] = $this->config->getUserAgent();
 		}
 
-		$headers = array_merge(
-			$defaultHeaders, $headerParams, $headers
-		);
-
+		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
 		$query = \GuzzleHttp\Psr7\build_query($queryParams);
-		return new Request(
-			'POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody
-		);
+
+		return new Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
 
 	/**
@@ -1268,6 +1256,7 @@ class AssetsApi {
 	 */
 	public function postCorporationsCorporationIdAssetsLocations($corporation_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		list($response) = $this->postCorporationsCorporationIdAssetsLocationsWithHttpInfo($corporation_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent);
+
 		return $response;
 	}
 
@@ -1296,19 +1285,16 @@ class AssetsApi {
 			try {
 				$response = $this->client->send($request, $options);
 			} catch(RequestException $e) {
-				throw new ApiException(
-				"[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse()->getBody()->getContents()
-				);
+				throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse()->getBody()->getContents());
 			}
 
 			$statusCode = $response->getStatusCode();
 
 			if($statusCode < 200 || $statusCode > 299) {
-				throw new ApiException(
-				sprintf(
-					'[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()
-				), $statusCode, $response->getHeaders(), $response->getBody()
-				);
+				throw new ApiException(\sprintf('[%d] Error connecting to the API (%s)',
+					$statusCode,
+					$request->getUri()
+				), $statusCode, $response->getHeaders(), $response->getBody());
 			}
 
 			$responseBody = $response->getBody();
@@ -1316,8 +1302,9 @@ class AssetsApi {
 				$content = $responseBody; //stream goes to serializer
 			} else {
 				$content = $responseBody->getContents();
+
 				if($returnType !== 'string') {
-					$content = json_decode($content);
+					$content = \json_decode($content);
 				}
 			}
 
@@ -1330,23 +1317,26 @@ class AssetsApi {
 			switch($e->getCode()) {
 				case 200:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCorporationsCorporationIdAssetsLocations200Ok[]', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCorporationsCorporationIdAssetsLocations200Ok[]', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
+
 				case 403:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\Forbidden', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\Forbidden', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
+
 				case 500:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\InternalServerError', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\InternalServerError', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
 			}
+
 			throw $e;
 		}
 	}
@@ -1367,12 +1357,9 @@ class AssetsApi {
 	 * @return \GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function postCorporationsCorporationIdAssetsLocationsAsync($corporation_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
-		return $this->postCorporationsCorporationIdAssetsLocationsAsyncWithHttpInfo($corporation_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent)
-				->then(
-					function ($response) {
-					return $response[0];
-				}
-		);
+		return $this->postCorporationsCorporationIdAssetsLocationsAsyncWithHttpInfo($corporation_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent)->then(function ($response) {
+			return $response[0];
+		});
 	}
 
 	/**
@@ -1394,34 +1381,35 @@ class AssetsApi {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCorporationsCorporationIdAssetsLocations200Ok[]';
 		$request = $this->postCorporationsCorporationIdAssetsLocationsRequest($corporation_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent);
 
-		return $this->client
-				->sendAsync($request, $this->createHttpClientOption())
-				->then(
-					function ($response) use ($returnType) {
-					$responseBody = $response->getBody();
-					if($returnType === '\SplFileObject') {
-						$content = $responseBody; //stream goes to serializer
-					} else {
-						$content = $responseBody->getContents();
-						if($returnType !== 'string') {
-							$content = json_decode($content);
-						}
-					}
+		return $this->client->sendAsync($request, $this->createHttpClientOption())->then(
+			function ($response) use ($returnType) {
+				$responseBody = $response->getBody();
 
-					return [
-						ObjectSerializer::deserialize($content, $returnType, []),
-						$response->getStatusCode(),
-						$response->getHeaders()
-					];
-				}, function ($exception) {
-					$response = $exception->getResponse();
-					$statusCode = $response->getStatusCode();
-					throw new ApiException(
-					sprintf(
-						'[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()
-					), $statusCode, $response->getHeaders(), $response->getBody()
-					);
+				if($returnType === '\SplFileObject') {
+					$content = $responseBody; //stream goes to serializer
+				} else {
+					$content = $responseBody->getContents();
+
+					if($returnType !== 'string') {
+						$content = \json_decode($content);
+					}
 				}
+
+				return [
+					ObjectSerializer::deserialize($content, $returnType, []),
+					$response->getStatusCode(),
+					$response->getHeaders()
+				];
+			},
+			function ($exception) {
+				$response = $exception->getResponse();
+				$statusCode = $response->getStatusCode();
+
+				throw new ApiException(\sprintf('[%d] Error connecting to the API (%s)',
+					$statusCode,
+					$exception->getRequest()->getUri()
+				), $statusCode, $response->getHeaders(), $response->getBody());
+			}
 		);
 	}
 
@@ -1441,15 +1429,12 @@ class AssetsApi {
 	protected function postCorporationsCorporationIdAssetsLocationsRequest($corporation_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'corporation_id' is set
 		if($corporation_id === null) {
-			throw new \InvalidArgumentException(
-			'Missing the required parameter $corporation_id when calling postCorporationsCorporationIdAssetsLocations'
-			);
+			throw new \InvalidArgumentException('Missing the required parameter $corporation_id when calling postCorporationsCorporationIdAssetsLocations');
 		}
+
 		// verify the required parameter 'item_ids' is set
 		if($item_ids === null) {
-			throw new \InvalidArgumentException(
-			'Missing the required parameter $item_ids when calling postCorporationsCorporationIdAssetsLocations'
-			);
+			throw new \InvalidArgumentException('Missing the required parameter $item_ids when calling postCorporationsCorporationIdAssetsLocations');
 		}
 
 		$resourcePath = '/latest/corporations/{corporation_id}/assets/locations/';
@@ -1463,14 +1448,17 @@ class AssetsApi {
 		if($datasource !== null) {
 			$queryParams['datasource'] = ObjectSerializer::toQueryValue($datasource);
 		}
+
 		// query params
 		if($token !== null) {
 			$queryParams['token'] = ObjectSerializer::toQueryValue($token);
 		}
+
 		// query params
 		if($user_agent !== null) {
 			$queryParams['user_agent'] = ObjectSerializer::toQueryValue($user_agent);
 		}
+
 		// header params
 		if($x_user_agent !== null) {
 			$headerParams['X-User-Agent'] = ObjectSerializer::toHeaderValue($x_user_agent);
@@ -1478,44 +1466,42 @@ class AssetsApi {
 
 		// path params
 		if($corporation_id !== null) {
-			$resourcePath = str_replace(
-				'{' . 'corporation_id' . '}', ObjectSerializer::toPathValue($corporation_id), $resourcePath
-			);
+			$resourcePath = \str_replace('{' . 'corporation_id' . '}', ObjectSerializer::toPathValue($corporation_id), $resourcePath);
 		}
 
 		// body params
 		$_tempBody = null;
+
 		if(isset($item_ids)) {
 			$_tempBody = $item_ids;
 		}
 
 		if($multipart) {
-			$headers = $this->headerSelector->selectHeadersForMultipart(
-				['application/json']
-			);
+			$headers = $this->headerSelector->selectHeadersForMultipart(['application/json']);
 		} else {
-			$headers = $this->headerSelector->selectHeaders(
-				['application/json'], []
-			);
+			$headers = $this->headerSelector->selectHeaders(['application/json'], []);
 		}
 
 		// for model (json/xml)
 		if(isset($_tempBody)) {
 			// $_tempBody is the method argument, if present
 			$httpBody = $_tempBody;
+
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
 				$httpBody = \GuzzleHttp\json_encode($httpBody);
 			}
-		} elseif(count($formParams) > 0) {
+		} elseif(\count($formParams) > 0) {
 			if($multipart) {
 				$multipartContents = [];
+
 				foreach($formParams as $formParamName => $formParamValue) {
 					$multipartContents[] = [
 						'name' => $formParamName,
 						'contents' => $formParamValue
 					];
 				}
+
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
@@ -1532,18 +1518,15 @@ class AssetsApi {
 		}
 
 		$defaultHeaders = [];
+
 		if($this->config->getUserAgent()) {
 			$defaultHeaders['User-Agent'] = $this->config->getUserAgent();
 		}
 
-		$headers = array_merge(
-			$defaultHeaders, $headerParams, $headers
-		);
-
+		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
 		$query = \GuzzleHttp\Psr7\build_query($queryParams);
-		return new Request(
-			'POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody
-		);
+
+		return new Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
 
 	/**
@@ -1564,6 +1547,7 @@ class AssetsApi {
 	 */
 	public function postCorporationsCorporationIdAssetsNames($corporation_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		list($response) = $this->postCorporationsCorporationIdAssetsNamesWithHttpInfo($corporation_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent);
+
 		return $response;
 	}
 
@@ -1592,28 +1576,27 @@ class AssetsApi {
 			try {
 				$response = $this->client->send($request, $options);
 			} catch(RequestException $e) {
-				throw new ApiException(
-				"[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse()->getBody()->getContents()
-				);
+				throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse()->getBody()->getContents());
 			}
 
 			$statusCode = $response->getStatusCode();
 
 			if($statusCode < 200 || $statusCode > 299) {
-				throw new ApiException(
-				sprintf(
-					'[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()
-				), $statusCode, $response->getHeaders(), $response->getBody()
-				);
+				throw new ApiException(\sprintf('[%d] Error connecting to the API (%s)',
+					$statusCode,
+					$request->getUri()
+				), $statusCode, $response->getHeaders(), $response->getBody());
 			}
 
 			$responseBody = $response->getBody();
+
 			if($returnType === '\SplFileObject') {
 				$content = $responseBody; //stream goes to serializer
 			} else {
 				$content = $responseBody->getContents();
+
 				if($returnType !== 'string') {
-					$content = json_decode($content);
+					$content = \json_decode($content);
 				}
 			}
 
@@ -1626,23 +1609,26 @@ class AssetsApi {
 			switch($e->getCode()) {
 				case 200:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCorporationsCorporationIdAssetsNames200Ok[]', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCorporationsCorporationIdAssetsNames200Ok[]', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
+
 				case 403:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\Forbidden', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\Forbidden', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
+
 				case 500:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\InternalServerError', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\InternalServerError', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
 			}
+
 			throw $e;
 		}
 	}
@@ -1663,12 +1649,9 @@ class AssetsApi {
 	 * @return \GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function postCorporationsCorporationIdAssetsNamesAsync($corporation_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
-		return $this->postCorporationsCorporationIdAssetsNamesAsyncWithHttpInfo($corporation_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent)
-				->then(
-					function ($response) {
-					return $response[0];
-				}
-		);
+		return $this->postCorporationsCorporationIdAssetsNamesAsyncWithHttpInfo($corporation_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent)->then(function ($response) {
+			return $response[0];
+		});
 	}
 
 	/**
@@ -1690,34 +1673,35 @@ class AssetsApi {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCorporationsCorporationIdAssetsNames200Ok[]';
 		$request = $this->postCorporationsCorporationIdAssetsNamesRequest($corporation_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent);
 
-		return $this->client
-				->sendAsync($request, $this->createHttpClientOption())
-				->then(
-					function ($response) use ($returnType) {
-					$responseBody = $response->getBody();
-					if($returnType === '\SplFileObject') {
-						$content = $responseBody; //stream goes to serializer
-					} else {
-						$content = $responseBody->getContents();
-						if($returnType !== 'string') {
-							$content = json_decode($content);
-						}
-					}
+		return $this->client->sendAsync($request, $this->createHttpClientOption())->then(
+			function ($response) use ($returnType) {
+				$responseBody = $response->getBody();
 
-					return [
-						ObjectSerializer::deserialize($content, $returnType, []),
-						$response->getStatusCode(),
-						$response->getHeaders()
-					];
-				}, function ($exception) {
-					$response = $exception->getResponse();
-					$statusCode = $response->getStatusCode();
-					throw new ApiException(
-					sprintf(
-						'[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()
-					), $statusCode, $response->getHeaders(), $response->getBody()
-					);
+				if($returnType === '\SplFileObject') {
+					$content = $responseBody; //stream goes to serializer
+				} else {
+					$content = $responseBody->getContents();
+
+					if($returnType !== 'string') {
+						$content = \json_decode($content);
+					}
 				}
+
+				return [
+					ObjectSerializer::deserialize($content, $returnType, []),
+					$response->getStatusCode(),
+					$response->getHeaders()
+				];
+			},
+			function ($exception) {
+				$response = $exception->getResponse();
+				$statusCode = $response->getStatusCode();
+
+				throw new ApiException(\sprintf('[%d] Error connecting to the API (%s)',
+					$statusCode,
+					$exception->getRequest()->getUri()
+				), $statusCode, $response->getHeaders(), $response->getBody());
+			}
 		);
 	}
 
@@ -1737,15 +1721,12 @@ class AssetsApi {
 	protected function postCorporationsCorporationIdAssetsNamesRequest($corporation_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'corporation_id' is set
 		if($corporation_id === null) {
-			throw new \InvalidArgumentException(
-			'Missing the required parameter $corporation_id when calling postCorporationsCorporationIdAssetsNames'
-			);
+			throw new \InvalidArgumentException('Missing the required parameter $corporation_id when calling postCorporationsCorporationIdAssetsNames');
 		}
+
 		// verify the required parameter 'item_ids' is set
 		if($item_ids === null) {
-			throw new \InvalidArgumentException(
-			'Missing the required parameter $item_ids when calling postCorporationsCorporationIdAssetsNames'
-			);
+			throw new \InvalidArgumentException('Missing the required parameter $item_ids when calling postCorporationsCorporationIdAssetsNames');
 		}
 
 		$resourcePath = '/latest/corporations/{corporation_id}/assets/names/';
@@ -1759,14 +1740,17 @@ class AssetsApi {
 		if($datasource !== null) {
 			$queryParams['datasource'] = ObjectSerializer::toQueryValue($datasource);
 		}
+
 		// query params
 		if($token !== null) {
 			$queryParams['token'] = ObjectSerializer::toQueryValue($token);
 		}
+
 		// query params
 		if($user_agent !== null) {
 			$queryParams['user_agent'] = ObjectSerializer::toQueryValue($user_agent);
 		}
+
 		// header params
 		if($x_user_agent !== null) {
 			$headerParams['X-User-Agent'] = ObjectSerializer::toHeaderValue($x_user_agent);
@@ -1774,44 +1758,42 @@ class AssetsApi {
 
 		// path params
 		if($corporation_id !== null) {
-			$resourcePath = str_replace(
-				'{' . 'corporation_id' . '}', ObjectSerializer::toPathValue($corporation_id), $resourcePath
-			);
+			$resourcePath = str_replace('{' . 'corporation_id' . '}', ObjectSerializer::toPathValue($corporation_id), $resourcePath);
 		}
 
 		// body params
 		$_tempBody = null;
+
 		if(isset($item_ids)) {
 			$_tempBody = $item_ids;
 		}
 
 		if($multipart) {
-			$headers = $this->headerSelector->selectHeadersForMultipart(
-				['application/json']
-			);
+			$headers = $this->headerSelector->selectHeadersForMultipart(['application/json']);
 		} else {
-			$headers = $this->headerSelector->selectHeaders(
-				['application/json'], []
-			);
+			$headers = $this->headerSelector->selectHeaders(['application/json'], []);
 		}
 
 		// for model (json/xml)
 		if(isset($_tempBody)) {
 			// $_tempBody is the method argument, if present
 			$httpBody = $_tempBody;
+
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
 				$httpBody = \GuzzleHttp\json_encode($httpBody);
 			}
-		} elseif(count($formParams) > 0) {
+		} elseif(\count($formParams) > 0) {
 			if($multipart) {
 				$multipartContents = [];
+
 				foreach($formParams as $formParamName => $formParamValue) {
 					$multipartContents[] = [
 						'name' => $formParamName,
 						'contents' => $formParamValue
 					];
 				}
+
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
@@ -1828,18 +1810,15 @@ class AssetsApi {
 		}
 
 		$defaultHeaders = [];
+
 		if($this->config->getUserAgent()) {
 			$defaultHeaders['User-Agent'] = $this->config->getUserAgent();
 		}
 
-		$headers = array_merge(
-			$defaultHeaders, $headerParams, $headers
-		);
-
+		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
 		$query = \GuzzleHttp\Psr7\build_query($queryParams);
-		return new Request(
-			'POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody
-		);
+
+		return new Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
 
 	/**
@@ -1850,8 +1829,10 @@ class AssetsApi {
 	 */
 	protected function createHttpClientOption() {
 		$options = [];
+
 		if($this->config->getDebug()) {
 			$options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
+
 			if(!$options[RequestOptions::DEBUG]) {
 				throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
 			}
@@ -1859,5 +1840,4 @@ class AssetsApi {
 
 		return $options;
 	}
-
 }
