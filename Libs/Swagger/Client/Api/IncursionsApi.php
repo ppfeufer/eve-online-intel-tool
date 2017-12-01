@@ -274,7 +274,7 @@ class IncursionsApi
     protected function getIncursionsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/incursions/';
+        $resourcePath = '/latest/incursions/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

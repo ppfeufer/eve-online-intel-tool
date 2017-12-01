@@ -303,7 +303,7 @@ class CalendarApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/calendar/';
+        $resourcePath = '/latest/characters/{character_id}/calendar/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -973,7 +973,7 @@ class CalendarApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/calendar/{event_id}/attendees/';
+        $resourcePath = '/latest/characters/{character_id}/calendar/{event_id}/attendees/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

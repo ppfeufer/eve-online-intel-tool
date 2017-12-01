@@ -280,7 +280,7 @@ class FleetsApi
             );
         }
 
-        $resourcePath = '/v1/fleets/{fleet_id}/members/{member_id}/';
+        $resourcePath = '/latest/fleets/{fleet_id}/members/{member_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -588,7 +588,7 @@ class FleetsApi
             );
         }
 
-        $resourcePath = '/v1/fleets/{fleet_id}/squads/{squad_id}/';
+        $resourcePath = '/latest/fleets/{fleet_id}/squads/{squad_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -896,7 +896,7 @@ class FleetsApi
             );
         }
 
-        $resourcePath = '/v1/fleets/{fleet_id}/wings/{wing_id}/';
+        $resourcePath = '/latest/fleets/{fleet_id}/wings/{wing_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1230,7 +1230,7 @@ class FleetsApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/fleet/';
+        $resourcePath = '/latest/characters/{character_id}/fleet/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1556,7 +1556,7 @@ class FleetsApi
             );
         }
 
-        $resourcePath = '/v1/fleets/{fleet_id}/';
+        $resourcePath = '/latest/fleets/{fleet_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1887,7 +1887,7 @@ class FleetsApi
             );
         }
 
-        $resourcePath = '/v1/fleets/{fleet_id}/members/';
+        $resourcePath = '/latest/fleets/{fleet_id}/members/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2222,7 +2222,7 @@ class FleetsApi
             );
         }
 
-        $resourcePath = '/v1/fleets/{fleet_id}/wings/';
+        $resourcePath = '/latest/fleets/{fleet_id}/wings/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2534,7 +2534,7 @@ class FleetsApi
             );
         }
 
-        $resourcePath = '/v1/fleets/{fleet_id}/members/';
+        $resourcePath = '/latest/fleets/{fleet_id}/members/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2863,7 +2863,7 @@ class FleetsApi
             );
         }
 
-        $resourcePath = '/v1/fleets/{fleet_id}/wings/';
+        $resourcePath = '/latest/fleets/{fleet_id}/wings/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3200,7 +3200,7 @@ class FleetsApi
             );
         }
 
-        $resourcePath = '/v1/fleets/{fleet_id}/wings/{wing_id}/squads/';
+        $resourcePath = '/latest/fleets/{fleet_id}/wings/{wing_id}/squads/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3516,7 +3516,7 @@ class FleetsApi
             );
         }
 
-        $resourcePath = '/v1/fleets/{fleet_id}/';
+        $resourcePath = '/latest/fleets/{fleet_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3838,7 +3838,7 @@ class FleetsApi
             );
         }
 
-        $resourcePath = '/v1/fleets/{fleet_id}/members/{member_id}/';
+        $resourcePath = '/latest/fleets/{fleet_id}/members/{member_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4160,7 +4160,7 @@ class FleetsApi
             );
         }
 
-        $resourcePath = '/v1/fleets/{fleet_id}/squads/{squad_id}/';
+        $resourcePath = '/latest/fleets/{fleet_id}/squads/{squad_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4482,7 +4482,7 @@ class FleetsApi
             );
         }
 
-        $resourcePath = '/v1/fleets/{fleet_id}/wings/{wing_id}/';
+        $resourcePath = '/latest/fleets/{fleet_id}/wings/{wing_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

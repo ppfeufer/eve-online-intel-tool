@@ -272,7 +272,7 @@ class ContactsApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/contacts/';
+        $resourcePath = '/latest/characters/{character_id}/contacts/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -598,7 +598,7 @@ class ContactsApi
             );
         }
 
-        $resourcePath = '/v1/alliances/{alliance_id}/contacts/';
+        $resourcePath = '/latest/alliances/{alliance_id}/contacts/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -925,7 +925,7 @@ class ContactsApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/contacts/';
+        $resourcePath = '/latest/characters/{character_id}/contacts/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1247,7 +1247,7 @@ class ContactsApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/contacts/labels/';
+        $resourcePath = '/latest/characters/{character_id}/contacts/labels/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1570,7 +1570,7 @@ class ContactsApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/contacts/';
+        $resourcePath = '/latest/corporations/{corporation_id}/contacts/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1931,7 +1931,7 @@ class ContactsApi
         }
 
 
-        $resourcePath = '/v1/characters/{character_id}/contacts/';
+        $resourcePath = '/latest/characters/{character_id}/contacts/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2266,7 +2266,7 @@ class ContactsApi
         }
 
 
-        $resourcePath = '/v1/characters/{character_id}/contacts/';
+        $resourcePath = '/latest/characters/{character_id}/contacts/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

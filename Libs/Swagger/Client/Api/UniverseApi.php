@@ -279,7 +279,7 @@ class UniverseApi
     protected function getUniverseBloodlinesRequest($datasource = 'tranquility', $language = 'en-us', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/universe/bloodlines/';
+        $resourcePath = '/latest/universe/bloodlines/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -561,7 +561,7 @@ class UniverseApi
     protected function getUniverseCategoriesRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/universe/categories/';
+        $resourcePath = '/latest/universe/categories/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -863,7 +863,7 @@ class UniverseApi
             );
         }
 
-        $resourcePath = '/v1/universe/categories/{category_id}/';
+        $resourcePath = '/latest/universe/categories/{category_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1153,7 +1153,7 @@ class UniverseApi
     protected function getUniverseConstellationsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/universe/constellations/';
+        $resourcePath = '/latest/universe/constellations/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1455,7 +1455,7 @@ class UniverseApi
             );
         }
 
-        $resourcePath = '/v1/universe/constellations/{constellation_id}/';
+        $resourcePath = '/latest/universe/constellations/{constellation_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1750,7 +1750,7 @@ class UniverseApi
     protected function getUniverseFactionsRequest($datasource = 'tranquility', $language = 'en-us', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v2/universe/factions/';
+        $resourcePath = '/latest/universe/factions/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2032,7 +2032,7 @@ class UniverseApi
     protected function getUniverseGraphicsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/universe/graphics/';
+        $resourcePath = '/latest/universe/graphics/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2329,7 +2329,7 @@ class UniverseApi
             );
         }
 
-        $resourcePath = '/v1/universe/graphics/{graphic_id}/';
+        $resourcePath = '/latest/universe/graphics/{graphic_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2620,7 +2620,7 @@ class UniverseApi
     protected function getUniverseGroupsRequest($datasource = 'tranquility', $page = '1', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/universe/groups/';
+        $resourcePath = '/latest/universe/groups/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2926,7 +2926,7 @@ class UniverseApi
             );
         }
 
-        $resourcePath = '/v1/universe/groups/{group_id}/';
+        $resourcePath = '/latest/universe/groups/{group_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3235,7 +3235,7 @@ class UniverseApi
             );
         }
 
-        $resourcePath = '/v1/universe/moons/{moon_id}/';
+        $resourcePath = '/latest/universe/moons/{moon_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3540,7 +3540,7 @@ class UniverseApi
             );
         }
 
-        $resourcePath = '/v1/universe/planets/{planet_id}/';
+        $resourcePath = '/latest/universe/planets/{planet_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3831,7 +3831,7 @@ class UniverseApi
     protected function getUniverseRacesRequest($datasource = 'tranquility', $language = 'en-us', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/universe/races/';
+        $resourcePath = '/latest/universe/races/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4113,7 +4113,7 @@ class UniverseApi
     protected function getUniverseRegionsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/universe/regions/';
+        $resourcePath = '/latest/universe/regions/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4415,7 +4415,7 @@ class UniverseApi
             );
         }
 
-        $resourcePath = '/v1/universe/regions/{region_id}/';
+        $resourcePath = '/latest/universe/regions/{region_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4724,7 +4724,7 @@ class UniverseApi
             );
         }
 
-        $resourcePath = '/v1/universe/stargates/{stargate_id}/';
+        $resourcePath = '/latest/universe/stargates/{stargate_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5021,7 +5021,7 @@ class UniverseApi
             );
         }
 
-        $resourcePath = '/v1/universe/stars/{star_id}/';
+        $resourcePath = '/latest/universe/stars/{star_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5326,7 +5326,7 @@ class UniverseApi
             );
         }
 
-        $resourcePath = '/v2/universe/stations/{station_id}/';
+        $resourcePath = '/latest/universe/stations/{station_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5612,7 +5612,7 @@ class UniverseApi
     protected function getUniverseStructuresRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/universe/structures/';
+        $resourcePath = '/latest/universe/structures/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5922,7 +5922,7 @@ class UniverseApi
             );
         }
 
-        $resourcePath = '/v1/universe/structures/{structure_id}/';
+        $resourcePath = '/latest/universe/structures/{structure_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6216,7 +6216,7 @@ class UniverseApi
     protected function getUniverseSystemJumpsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/universe/system_jumps/';
+        $resourcePath = '/latest/universe/system_jumps/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6494,7 +6494,7 @@ class UniverseApi
     protected function getUniverseSystemKillsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v2/universe/system_kills/';
+        $resourcePath = '/latest/universe/system_kills/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6772,7 +6772,7 @@ class UniverseApi
     protected function getUniverseSystemsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/universe/systems/';
+        $resourcePath = '/latest/universe/systems/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -7369,7 +7369,7 @@ class UniverseApi
     protected function getUniverseTypesRequest($datasource = 'tranquility', $page = '1', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/universe/types/';
+        $resourcePath = '/latest/universe/types/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -7984,7 +7984,7 @@ class UniverseApi
             );
         }
 
-        $resourcePath = '/v2/universe/names/';
+        $resourcePath = '/latest/universe/names/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

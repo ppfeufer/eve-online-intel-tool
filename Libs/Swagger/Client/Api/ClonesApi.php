@@ -298,7 +298,7 @@ class ClonesApi
             );
         }
 
-        $resourcePath = '/v2/characters/{character_id}/clones/';
+        $resourcePath = '/latest/characters/{character_id}/clones/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -616,7 +616,7 @@ class ClonesApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/implants/';
+        $resourcePath = '/latest/characters/{character_id}/implants/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

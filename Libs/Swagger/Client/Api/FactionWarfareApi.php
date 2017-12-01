@@ -298,7 +298,7 @@ class FactionWarfareApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/fw/stats/';
+        $resourcePath = '/latest/characters/{character_id}/fw/stats/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -616,7 +616,7 @@ class FactionWarfareApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/fw/stats/';
+        $resourcePath = '/latest/corporations/{corporation_id}/fw/stats/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -910,7 +910,7 @@ class FactionWarfareApi
     protected function getFwLeaderboardsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/fw/leaderboards/';
+        $resourcePath = '/latest/fw/leaderboards/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1188,7 +1188,7 @@ class FactionWarfareApi
     protected function getFwLeaderboardsCharactersRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/fw/leaderboards/characters/';
+        $resourcePath = '/latest/fw/leaderboards/characters/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1466,7 +1466,7 @@ class FactionWarfareApi
     protected function getFwLeaderboardsCorporationsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/fw/leaderboards/corporations/';
+        $resourcePath = '/latest/fw/leaderboards/corporations/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1744,7 +1744,7 @@ class FactionWarfareApi
     protected function getFwStatsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/fw/stats/';
+        $resourcePath = '/latest/fw/stats/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2022,7 +2022,7 @@ class FactionWarfareApi
     protected function getFwSystemsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/fw/systems/';
+        $resourcePath = '/latest/fw/systems/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2300,7 +2300,7 @@ class FactionWarfareApi
     protected function getFwWarsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/fw/wars/';
+        $resourcePath = '/latest/fw/wars/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

@@ -298,7 +298,7 @@ class WalletApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/wallet/';
+        $resourcePath = '/latest/characters/{character_id}/wallet/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -621,7 +621,7 @@ class WalletApi
             );
         }
 
-        $resourcePath = '/v2/characters/{character_id}/wallet/journal/';
+        $resourcePath = '/latest/characters/{character_id}/wallet/journal/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -948,7 +948,7 @@ class WalletApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/wallet/transactions/';
+        $resourcePath = '/latest/characters/{character_id}/wallet/transactions/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1270,7 +1270,7 @@ class WalletApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/wallets/';
+        $resourcePath = '/latest/corporations/{corporation_id}/wallets/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1611,7 +1611,7 @@ class WalletApi
         }
 
 
-        $resourcePath = '/v1/corporations/{corporation_id}/wallets/{division}/journal/';
+        $resourcePath = '/latest/corporations/{corporation_id}/wallets/{division}/journal/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1964,7 +1964,7 @@ class WalletApi
         }
 
 
-        $resourcePath = '/v1/corporations/{corporation_id}/wallets/{division}/transactions/';
+        $resourcePath = '/latest/corporations/{corporation_id}/wallets/{division}/transactions/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

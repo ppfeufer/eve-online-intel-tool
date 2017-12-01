@@ -274,7 +274,7 @@ class DogmaApi
     protected function getDogmaAttributesRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/dogma/attributes/';
+        $resourcePath = '/latest/dogma/attributes/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -571,7 +571,7 @@ class DogmaApi
             );
         }
 
-        $resourcePath = '/v1/dogma/attributes/{attribute_id}/';
+        $resourcePath = '/latest/dogma/attributes/{attribute_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -857,7 +857,7 @@ class DogmaApi
     protected function getDogmaEffectsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/dogma/effects/';
+        $resourcePath = '/latest/dogma/effects/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1154,7 +1154,7 @@ class DogmaApi
             );
         }
 
-        $resourcePath = '/v2/dogma/effects/{effect_id}/';
+        $resourcePath = '/latest/dogma/effects/{effect_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

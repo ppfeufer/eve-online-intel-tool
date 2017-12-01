@@ -590,7 +590,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v2/corporations/{corporation_id}/alliancehistory/';
+        $resourcePath = '/latest/corporations/{corporation_id}/alliancehistory/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -905,7 +905,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/blueprints/';
+        $resourcePath = '/latest/corporations/{corporation_id}/blueprints/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1232,7 +1232,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/containers/logs/';
+        $resourcePath = '/latest/corporations/{corporation_id}/containers/logs/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1554,7 +1554,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/divisions/';
+        $resourcePath = '/latest/corporations/{corporation_id}/divisions/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1872,7 +1872,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/facilities/';
+        $resourcePath = '/latest/corporations/{corporation_id}/facilities/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2185,7 +2185,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/icons/';
+        $resourcePath = '/latest/corporations/{corporation_id}/icons/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2500,7 +2500,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/medals/';
+        $resourcePath = '/latest/corporations/{corporation_id}/medals/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2827,7 +2827,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/medals/issued/';
+        $resourcePath = '/latest/corporations/{corporation_id}/medals/issued/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3149,7 +3149,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v2/corporations/{corporation_id}/members/';
+        $resourcePath = '/latest/corporations/{corporation_id}/members/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3467,7 +3467,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/members/limit/';
+        $resourcePath = '/latest/corporations/{corporation_id}/members/limit/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3785,7 +3785,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/members/titles/';
+        $resourcePath = '/latest/corporations/{corporation_id}/members/titles/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4103,7 +4103,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/membertracking/';
+        $resourcePath = '/latest/corporations/{corporation_id}/membertracking/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4426,7 +4426,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/outposts/';
+        $resourcePath = '/latest/corporations/{corporation_id}/outposts/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4759,7 +4759,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/outposts/{outpost_id}/';
+        $resourcePath = '/latest/corporations/{corporation_id}/outposts/{outpost_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5085,7 +5085,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/roles/';
+        $resourcePath = '/latest/corporations/{corporation_id}/roles/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5408,7 +5408,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/roles/history/';
+        $resourcePath = '/latest/corporations/{corporation_id}/roles/history/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5735,7 +5735,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/shareholders/';
+        $resourcePath = '/latest/corporations/{corporation_id}/shareholders/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6062,7 +6062,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/standings/';
+        $resourcePath = '/latest/corporations/{corporation_id}/standings/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6389,7 +6389,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/starbases/';
+        $resourcePath = '/latest/corporations/{corporation_id}/starbases/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6738,7 +6738,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/starbases/{starbase_id}/';
+        $resourcePath = '/latest/corporations/{corporation_id}/starbases/{starbase_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -7082,7 +7082,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/structures/';
+        $resourcePath = '/latest/corporations/{corporation_id}/structures/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -7408,7 +7408,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/titles/';
+        $resourcePath = '/latest/corporations/{corporation_id}/titles/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -7720,7 +7720,7 @@ class CorporationApi
         }
 
 
-        $resourcePath = '/v1/corporations/names/';
+        $resourcePath = '/latest/corporations/names/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -8005,7 +8005,7 @@ class CorporationApi
     protected function getCorporationsNpccorpsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/corporations/npccorps/';
+        $resourcePath = '/latest/corporations/npccorps/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -8292,7 +8292,7 @@ class CorporationApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/structures/{structure_id}/';
+        $resourcePath = '/latest/corporations/{corporation_id}/structures/{structure_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

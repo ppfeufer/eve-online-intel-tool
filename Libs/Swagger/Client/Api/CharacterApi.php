@@ -603,7 +603,7 @@ class CharacterApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/agents_research/';
+        $resourcePath = '/latest/characters/{character_id}/agents_research/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -926,7 +926,7 @@ class CharacterApi
             );
         }
 
-        $resourcePath = '/v2/characters/{character_id}/blueprints/';
+        $resourcePath = '/latest/characters/{character_id}/blueprints/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1248,7 +1248,7 @@ class CharacterApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/chat_channels/';
+        $resourcePath = '/latest/characters/{character_id}/chat_channels/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1553,7 +1553,7 @@ class CharacterApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/corporationhistory/';
+        $resourcePath = '/latest/characters/{character_id}/corporationhistory/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1863,7 +1863,7 @@ class CharacterApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/fatigue/';
+        $resourcePath = '/latest/characters/{character_id}/fatigue/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2181,7 +2181,7 @@ class CharacterApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/medals/';
+        $resourcePath = '/latest/characters/{character_id}/medals/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2499,7 +2499,7 @@ class CharacterApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/notifications/';
+        $resourcePath = '/latest/characters/{character_id}/notifications/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2817,7 +2817,7 @@ class CharacterApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/notifications/contacts/';
+        $resourcePath = '/latest/characters/{character_id}/notifications/contacts/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3130,7 +3130,7 @@ class CharacterApi
             );
         }
 
-        $resourcePath = '/v2/characters/{character_id}/portrait/';
+        $resourcePath = '/latest/characters/{character_id}/portrait/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3440,7 +3440,7 @@ class CharacterApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/roles/';
+        $resourcePath = '/latest/characters/{character_id}/roles/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3758,7 +3758,7 @@ class CharacterApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/standings/';
+        $resourcePath = '/latest/characters/{character_id}/standings/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4076,7 +4076,7 @@ class CharacterApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/titles/';
+        $resourcePath = '/latest/characters/{character_id}/titles/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4388,7 +4388,7 @@ class CharacterApi
         }
 
 
-        $resourcePath = '/v1/characters/names/';
+        $resourcePath = '/latest/characters/names/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4692,7 +4692,7 @@ class CharacterApi
             );
         }
 
-        $resourcePath = '/v1/characters/affiliation/';
+        $resourcePath = '/latest/characters/affiliation/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

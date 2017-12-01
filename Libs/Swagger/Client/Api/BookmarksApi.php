@@ -303,7 +303,7 @@ class BookmarksApi
             );
         }
 
-        $resourcePath = '/v2/characters/{character_id}/bookmarks/';
+        $resourcePath = '/latest/characters/{character_id}/bookmarks/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -630,7 +630,7 @@ class BookmarksApi
             );
         }
 
-        $resourcePath = '/v2/characters/{character_id}/bookmarks/folders/';
+        $resourcePath = '/latest/characters/{character_id}/bookmarks/folders/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -957,7 +957,7 @@ class BookmarksApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/bookmarks/';
+        $resourcePath = '/latest/corporations/{corporation_id}/bookmarks/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1284,7 +1284,7 @@ class BookmarksApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/bookmarks/folders/';
+        $resourcePath = '/latest/corporations/{corporation_id}/bookmarks/folders/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

@@ -280,7 +280,7 @@ class MailApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/mail/labels/{label_id}/';
+        $resourcePath = '/latest/characters/{character_id}/mail/labels/{label_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -580,7 +580,7 @@ class MailApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/mail/{mail_id}/';
+        $resourcePath = '/latest/characters/{character_id}/mail/{mail_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -923,7 +923,7 @@ class MailApi
         }
 
 
-        $resourcePath = '/v1/characters/{character_id}/mail/';
+        $resourcePath = '/latest/characters/{character_id}/mail/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1570,7 +1570,7 @@ class MailApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/mail/lists/';
+        $resourcePath = '/latest/characters/{character_id}/mail/lists/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1907,7 +1907,7 @@ class MailApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/mail/{mail_id}/';
+        $resourcePath = '/latest/characters/{character_id}/mail/{mail_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2252,7 +2252,7 @@ class MailApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/mail/';
+        $resourcePath = '/latest/characters/{character_id}/mail/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2578,7 +2578,7 @@ class MailApi
             );
         }
 
-        $resourcePath = '/v2/characters/{character_id}/mail/labels/';
+        $resourcePath = '/latest/characters/{character_id}/mail/labels/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2892,7 +2892,7 @@ class MailApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/mail/{mail_id}/';
+        $resourcePath = '/latest/characters/{character_id}/mail/{mail_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

@@ -279,7 +279,7 @@ class WarsApi
     protected function getWarsRequest($datasource = 'tranquility', $max_war_id = null, $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/wars/';
+        $resourcePath = '/latest/wars/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -580,7 +580,7 @@ class WarsApi
             );
         }
 
-        $resourcePath = '/v1/wars/{war_id}/';
+        $resourcePath = '/latest/wars/{war_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -890,7 +890,7 @@ class WarsApi
             );
         }
 
-        $resourcePath = '/v1/wars/{war_id}/killmails/';
+        $resourcePath = '/latest/wars/{war_id}/killmails/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

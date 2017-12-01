@@ -272,7 +272,7 @@ class FittingsApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/fittings/{fitting_id}/';
+        $resourcePath = '/latest/characters/{character_id}/fittings/{fitting_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -598,7 +598,7 @@ class FittingsApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/fittings/';
+        $resourcePath = '/latest/characters/{character_id}/fittings/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -921,7 +921,7 @@ class FittingsApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/fittings/';
+        $resourcePath = '/latest/characters/{character_id}/fittings/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

@@ -298,7 +298,7 @@ class PlanetaryInteractionApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/planets/';
+        $resourcePath = '/latest/characters/{character_id}/planets/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -966,7 +966,7 @@ class PlanetaryInteractionApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/customs_offices/';
+        $resourcePath = '/latest/corporations/{corporation_id}/customs_offices/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1283,7 +1283,7 @@ class PlanetaryInteractionApi
             );
         }
 
-        $resourcePath = '/v1/universe/schematics/{schematic_id}/';
+        $resourcePath = '/latest/universe/schematics/{schematic_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

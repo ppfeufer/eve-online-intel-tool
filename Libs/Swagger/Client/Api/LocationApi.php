@@ -298,7 +298,7 @@ class LocationApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/location/';
+        $resourcePath = '/latest/characters/{character_id}/location/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -616,7 +616,7 @@ class LocationApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/online/';
+        $resourcePath = '/latest/characters/{character_id}/online/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -934,7 +934,7 @@ class LocationApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/ship/';
+        $resourcePath = '/latest/characters/{character_id}/ship/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

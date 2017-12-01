@@ -279,7 +279,7 @@ class InsuranceApi
     protected function getInsurancePricesRequest($datasource = 'tranquility', $language = 'en-us', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/insurance/prices/';
+        $resourcePath = '/latest/insurance/prices/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

@@ -298,7 +298,7 @@ class ContractsApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/contracts/';
+        $resourcePath = '/latest/characters/{character_id}/contracts/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -627,7 +627,7 @@ class ContractsApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/contracts/{contract_id}/bids/';
+        $resourcePath = '/latest/characters/{character_id}/contracts/{contract_id}/bids/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -964,7 +964,7 @@ class ContractsApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/contracts/{contract_id}/items/';
+        $resourcePath = '/latest/characters/{character_id}/contracts/{contract_id}/items/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1290,7 +1290,7 @@ class ContractsApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/contracts/';
+        $resourcePath = '/latest/corporations/{corporation_id}/contracts/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1624,7 +1624,7 @@ class ContractsApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/contracts/{contract_id}/bids/';
+        $resourcePath = '/latest/corporations/{corporation_id}/contracts/{contract_id}/bids/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1965,7 +1965,7 @@ class ContractsApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/contracts/{contract_id}/items/';
+        $resourcePath = '/latest/corporations/{corporation_id}/contracts/{contract_id}/items/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

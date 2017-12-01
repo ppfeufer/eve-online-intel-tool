@@ -274,7 +274,7 @@ class SovereigntyApi
     protected function getSovereigntyCampaignsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/sovereignty/campaigns/';
+        $resourcePath = '/latest/sovereignty/campaigns/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -552,7 +552,7 @@ class SovereigntyApi
     protected function getSovereigntyMapRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/sovereignty/map/';
+        $resourcePath = '/latest/sovereignty/map/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -830,7 +830,7 @@ class SovereigntyApi
     protected function getSovereigntyStructuresRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/sovereignty/structures/';
+        $resourcePath = '/latest/sovereignty/structures/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

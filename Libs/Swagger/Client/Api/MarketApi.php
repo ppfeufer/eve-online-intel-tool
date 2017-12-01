@@ -298,7 +298,7 @@ class MarketApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/orders/';
+        $resourcePath = '/latest/characters/{character_id}/orders/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -621,7 +621,7 @@ class MarketApi
             );
         }
 
-        $resourcePath = '/v1/corporations/{corporation_id}/orders/';
+        $resourcePath = '/latest/corporations/{corporation_id}/orders/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -919,7 +919,7 @@ class MarketApi
     protected function getMarketsGroupsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/markets/groups/';
+        $resourcePath = '/latest/markets/groups/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1221,7 +1221,7 @@ class MarketApi
             );
         }
 
-        $resourcePath = '/v1/markets/groups/{market_group_id}/';
+        $resourcePath = '/latest/markets/groups/{market_group_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1511,7 +1511,7 @@ class MarketApi
     protected function getMarketsPricesRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/markets/prices/';
+        $resourcePath = '/latest/markets/prices/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1819,7 +1819,7 @@ class MarketApi
             );
         }
 
-        $resourcePath = '/v1/markets/{region_id}/history/';
+        $resourcePath = '/latest/markets/{region_id}/history/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2149,7 +2149,7 @@ class MarketApi
             );
         }
 
-        $resourcePath = '/v1/markets/{region_id}/orders/';
+        $resourcePath = '/latest/markets/{region_id}/orders/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2463,7 +2463,7 @@ class MarketApi
             );
         }
 
-        $resourcePath = '/v1/markets/{region_id}/types/';
+        $resourcePath = '/latest/markets/{region_id}/types/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2782,7 +2782,7 @@ class MarketApi
             );
         }
 
-        $resourcePath = '/v1/markets/structures/{structure_id}/';
+        $resourcePath = '/latest/markets/structures/{structure_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

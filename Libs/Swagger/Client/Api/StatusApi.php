@@ -274,7 +274,7 @@ class StatusApi
     protected function getStatusRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/status/';
+        $resourcePath = '/latest/status/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

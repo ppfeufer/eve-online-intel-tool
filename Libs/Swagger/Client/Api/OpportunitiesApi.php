@@ -298,7 +298,7 @@ class OpportunitiesApi
             );
         }
 
-        $resourcePath = '/v1/characters/{character_id}/opportunities/';
+        $resourcePath = '/latest/characters/{character_id}/opportunities/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -592,7 +592,7 @@ class OpportunitiesApi
     protected function getOpportunitiesGroupsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/opportunities/groups/';
+        $resourcePath = '/latest/opportunities/groups/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -886,7 +886,7 @@ class OpportunitiesApi
             );
         }
 
-        $resourcePath = '/v1/opportunities/groups/{group_id}/';
+        $resourcePath = '/latest/opportunities/groups/{group_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1176,7 +1176,7 @@ class OpportunitiesApi
     protected function getOpportunitiesTasksRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
 
-        $resourcePath = '/v1/opportunities/tasks/';
+        $resourcePath = '/latest/opportunities/tasks/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1465,7 +1465,7 @@ class OpportunitiesApi
             );
         }
 
-        $resourcePath = '/v1/opportunities/tasks/{task_id}/';
+        $resourcePath = '/latest/opportunities/tasks/{task_id}/';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
