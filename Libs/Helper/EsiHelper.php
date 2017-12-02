@@ -150,6 +150,9 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		$this->esiUrl = $this->getEsiUrl();
 		$this->esiEndpoints = $this->getEsiEndpoints();
 
+		/**
+		 * ESI API Client
+		 */
 		$this->searchApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api\SearchApi;
 		$this->characterApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api\CharacterApi;
 		$this->corporationApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api\CorporationApi;
@@ -177,10 +180,10 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		 * @see https://esi.tech.ccp.is/latest/
 		 */
 		return [
-			'alliance-information-by-id' => 'alliances/{alliance_id}/', // getting alliance information by ID - https://esi.tech.ccp.is/latest/alliances/99000102/
+//			'alliance-information-by-id' => 'alliances/{alliance_id}/', // getting alliance information by ID - https://esi.tech.ccp.is/latest/alliances/99000102/
 //			'character-information-by-id' => 'characters/{character_id}/', // getting character information by ID - https://esi.tech.ccp.is/latest/characters/90607580/
-			'character-affiliation' => 'characters/affiliation/', // getting character information by IDs - https://esi.tech.ccp.is/latest/characters/affiliation/ (POST request)
-			'corporation-information-by-id' => 'corporations/{corporation_id}/', // getting corporation information by ID - https://esi.tech.ccp.is/latest/corporations/98000030/
+//			'character-affiliation' => 'characters/affiliation/', // getting character information by IDs - https://esi.tech.ccp.is/latest/characters/affiliation/ (POST request)
+//			'corporation-information-by-id' => 'corporations/{corporation_id}/', // getting corporation information by ID - https://esi.tech.ccp.is/latest/corporations/98000030/
 			'search' => 'search/?search={name}&categories={category}&strict=true', // Search for entities that match a given sub-string. - https://esi.tech.ccp.is/latest/search/?search=Yulai%20Federation&strict=true&categories=alliance
 			'group-information-by-id' => 'universe/groups/{group_id}/', // getting types information by ID - https://esi.tech.ccp.is/latest/universe/groups/1305/
 			'system-information-by-id' => 'universe/systems/{system_id}/', // getting system information by ID - https://esi.tech.ccp.is/latest/universe/systems/30000003/
@@ -273,7 +276,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	 * @return array
 	 */
 	public function getCharacterAffiliation(array $characterIds) {
-		$characterAffiliationData = $this->getEsiData($this->esiEndpoints['character-affiliation'], null, \array_values($characterIds), 'post');
+		$characterAffiliationData = $this->characterApi->postCharactersAffiliation('[' . \join(',', $characterIds) . ']');
 
 		return [
 			'data' => $characterAffiliationData
@@ -291,16 +294,18 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		$corporationData = $this->databaseHelper->getCorporationDataFromDb($corporationID);
 
 		if(\is_null($corporationData) || empty($corporationData->corporation_name)) {
-			$corporationData = $this->getEsiData(\str_replace('{corporation_id}', $corporationID, $this->esiEndpoints['corporation-information-by-id']), null);
+			$corporationData = $this->corporationApi->getCorporationsCorporationId($corporationID);
 
 			if(!\is_null($corporationData)) {
 				$this->databaseHelper->writeCorporationDataToDb([
 					$corporationID,
-					$corporationData->corporation_name,
-					$corporationData->ticker,
+					$corporationData->getCorporationName(),
+					$corporationData->getTicker(),
 					\gmdate('Y-m-d H:i:s', \time())
 				]);
 			} // if(!\is_null($corporationData))
+
+			$corporationData = $this->databaseHelper->getCorporationDataFromDb($corporationID);
 		} // if(\is_null($corporationData))
 
 		return [
@@ -319,16 +324,18 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		$allianceData = $this->databaseHelper->getAllianceDataFromDb($allianceID);
 
 		if(\is_null($allianceData) || empty($allianceData->alliance_name)) {
-			$allianceData = $this->getEsiData(\str_replace('{alliance_id}', $allianceID, $this->esiEndpoints['alliance-information-by-id']), null);
+			$allianceData = $this->allianceApi->getAlliancesAllianceId($allianceID);
 
 			if(!\is_null($allianceData)) {
 				$this->databaseHelper->writeAllianceDataToDb([
 					$allianceID,
-					$allianceData->alliance_name,
-					$allianceData->ticker,
+					$allianceData->getAllianceName(),
+					$allianceData->getTicker(),
 					\gmdate('Y-m-d H:i:s', \time())
 				]);
 			} // if(!\is_null($allianceData))
+
+			$allianceData = $this->databaseHelper->getAllianceDataFromDb($allianceID);
 		} // if(\is_null($allianceData))
 
 		return [
@@ -486,8 +493,8 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 			if(isset($arrayNotInApi[\sanitize_title($name)])) {
 				$returnData = $arrayNotInApi[\sanitize_title($name)]['id'];
 			} else {
-				$searchUri = \str_replace('{name}', \urlencode(\wp_specialchars_decode(\trim($name), \ENT_QUOTES)), \str_replace('{category}', $type, $this->esiEndpoints['search']));
-				$data = $this->getEsiData($searchUri, null);
+//				$searchUri = \str_replace('{name}', \urlencode(\wp_specialchars_decode(\trim($name), \ENT_QUOTES)), \str_replace('{category}', $type, $this->esiEndpoints['search']));
+//				$data = $this->getEsiData($searchUri, null);
 
 				$searchData = $this->searchApi->getSearch($type, \trim($name));
 
@@ -503,13 +510,36 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 								$characterSheet = $this->getCharacterData($characterID);
 
 								if(\strtolower(\trim($characterSheet['data']->getCharacterName())) === \strtolower(\trim($name))) {
-//									$returnData = $characterSheet['data']->getCharacterId();
 									$returnData = $characterID;
-								}
-							}
-						}
+								} // if(\strtolower(\trim($characterSheet['data']->getCharacterName())) === \strtolower(\trim($name)))
+							} // foreach($searchData->getCharacter() as $characterID)
+						} // if(!empty($searchData->getCharacter()))
 						break;
-				}
+
+					case 'corporation':
+						if(!empty($searchData->getCorporation())) {
+							foreach($searchData->getCorporation() as $corporationID) {
+								$corporationSheet = $this->getCorporationData($corporationID);
+
+								if(\strtolower(\trim($corporationSheet['data']->getCorporationName())) === \strtolower(\trim($name))) {
+									$returnData = $corporationID;
+								} // if(\strtolower(\trim($corporationSheet['data']->getCorporationName())) === \strtolower(\trim($name)))
+							} // foreach($searchData->getCorporation() as $corporationID)
+						} // if(!empty($searchData->getCorporation()))
+						break;
+
+					case 'alliance':
+						if(!empty($searchData->getAlliance())) {
+							foreach($searchData->getAlliance() as $allianceID) {
+								$allianceSheet = $this->getAllianceData($allianceID);
+
+								if(\strtolower(\trim($allianceSheet['data']->getAllianceName())) === \strtolower(\trim($name))) {
+									$returnData = $allianceID;
+								} // if(\strtolower(\trim($allianceSheet['data']->getAllianceName())) === \strtolower(\trim($name)))
+							} // foreach($searchData->getAlliance() as $allianceID)
+						} // if(!empty($searchData->getAlliance()))
+						break;
+				} // switch($type)
 
 //				if(!isset($data->error) && !empty((array) $data) && isset($data->{$type})) {
 					/**

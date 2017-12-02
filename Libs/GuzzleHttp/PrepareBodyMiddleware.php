@@ -63,7 +63,7 @@ class PrepareBodyMiddleware
         // Add the expect header if needed.
         $this->addExpectHeader($request, $options, $modify);
 
-        return $fn(WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7modify_request($request, $modify), $options);
+        return $fn(\WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\modify_request($request, $modify), $options);
     }
 
     private function addExpectHeader(
