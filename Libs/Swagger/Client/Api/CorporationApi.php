@@ -8131,7 +8131,6 @@ class CorporationApi
      */
     public function putCorporationsCorporationIdStructuresStructureIdWithHttpInfo($corporation_id, $new_schedule, $structure_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
-        $returnType = '';
         $request = $this->putCorporationsCorporationIdStructuresStructureIdRequest($corporation_id, $new_schedule, $structure_id, $datasource, $token, $user_agent, $x_user_agent);
 
         try {

@@ -1001,7 +1001,6 @@ class CalendarApi {
 	 * @return array of null, HTTP status code, HTTP response headers (array of strings)
 	 */
 	public function putCharactersCharacterIdCalendarEventIdWithHttpInfo($character_id, $event_id, $response, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
-		$returnType = '';
 		$request = $this->putCharactersCharacterIdCalendarEventIdRequest($character_id, $event_id, $response, $datasource, $token, $user_agent, $x_user_agent);
 
 		try {
