@@ -99,6 +99,34 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	private $databaseHelper = null;
 
 	/**
+	 * ESI Search API
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api\SearchApi
+	 */
+	private $searchApi = null;
+
+	/**
+	 * ESI Character API
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api\CharacterApi
+	 */
+	private $characterApi = null;
+
+	/**
+	 * ESI Corporation API
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api\CorporationApi
+	 */
+	private $corporationApi = null;
+
+	/**
+	 * ESI Alliance API
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api\AllianceApi
+	 */
+	private $allianceApi = null;
+
+	/**
 	 * The Constructor
 	 */
 	protected function __construct() {
@@ -121,6 +149,11 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 
 		$this->esiUrl = $this->getEsiUrl();
 		$this->esiEndpoints = $this->getEsiEndpoints();
+
+		$this->searchApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api\SearchApi;
+		$this->characterApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api\CharacterApi;
+		$this->corporationApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api\CorporationApi;
+		$this->allianceApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api\AllianceApi;
 	} // public function __construct()
 
 	/**
@@ -145,7 +178,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		 */
 		return [
 			'alliance-information-by-id' => 'alliances/{alliance_id}/', // getting alliance information by ID - https://esi.tech.ccp.is/latest/alliances/99000102/
-			'character-information-by-id' => 'characters/{character_id}/', // getting character information by ID - https://esi.tech.ccp.is/latest/characters/90607580/
+//			'character-information-by-id' => 'characters/{character_id}/', // getting character information by ID - https://esi.tech.ccp.is/latest/characters/90607580/
 			'character-affiliation' => 'characters/affiliation/', // getting character information by IDs - https://esi.tech.ccp.is/latest/characters/affiliation/ (POST request)
 			'corporation-information-by-id' => 'corporations/{corporation_id}/', // getting corporation information by ID - https://esi.tech.ccp.is/latest/corporations/98000030/
 			'search' => 'search/?search={name}&categories={category}&strict=true', // Search for entities that match a given sub-string. - https://esi.tech.ccp.is/latest/search/?search=Yulai%20Federation&strict=true&categories=alliance
@@ -217,19 +250,19 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		$characterData = $this->databaseHelper->getCharacterDataFromDb($characterID);
 
 		if(\is_null($characterData) || empty($characterData->name)) {
-			$characterData = $this->getEsiData(\str_replace('{character_id}', $characterID, $this->esiEndpoints['character-information-by-id']), null);
+			$characterData = $this->characterApi->getCharactersNames($characterID);
 
-			if(!\is_null($characterData)) {
+			if(!\is_null($characterData['0'])) {
 				$this->databaseHelper->writeCharacterDataToDb([
 					$characterID,
-					$characterData->name,
+					$characterData['0']->getCharacterName(),
 					\gmdate('Y-m-d H:i:s', \time())
 				]);
-			} // if(!\is_null($characterData))
-		} // if(\is_null($characterData))
+			} // if(!\is_null($characterData['0']))
+		} // if(\is_null($characterData) || empty($characterData->name))
 
 		return [
-			'data' => $characterData
+			'data' => $characterData['0']
 		];
 	} // public function getCharacterData($characterID)
 
@@ -456,66 +489,89 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 				$searchUri = \str_replace('{name}', \urlencode(\wp_specialchars_decode(\trim($name), \ENT_QUOTES)), \str_replace('{category}', $type, $this->esiEndpoints['search']));
 				$data = $this->getEsiData($searchUri, null);
 
-				if(!isset($data->error) && !empty((array) $data) && isset($data->{$type})) {
+				$searchData = $this->searchApi->getSearch($type, \trim($name));
+
+				/**
+				 * -= FIX =-
+				 * CCPs strict mode is not really strict, so we have to check manually ....
+				 * Please CCP, get your shit sorted ...
+				 */
+				switch($type) {
+					case 'character':
+						if(!empty($searchData->getCharacter())) {
+							foreach($searchData->getCharacter() as $characterID) {
+								$characterSheet = $this->getCharacterData($characterID);
+
+								if(\strtolower(\trim($characterSheet['data']->getCharacterName())) === \strtolower(\trim($name))) {
+//									$returnData = $characterSheet['data']->getCharacterId();
+									$returnData = $characterID;
+								}
+							}
+						}
+						break;
+				}
+
+//				if(!isset($data->error) && !empty((array) $data) && isset($data->{$type})) {
 					/**
 					 * -= FIX =-
 					 * CCPs strict mode is not really strict, so we have to check manually ....
 					 * Please CCP, get your shit sorted ...
 					 */
-					foreach($data->{$type} as $entityID) {
-						switch($type) {
-							case 'character':
-								$characterSheet = $this->getCharacterData($entityID);
+//					foreach($data->{$type} as $entityID) {
+//						switch($type) {
+//							case 'character':
+//								$characterSheet = $this->getCharacterData($entityID);
+//
+//								if($this->isValidEsiData($characterSheet) === true && \strtolower(\trim($characterSheet['data']->name)) === \strtolower(\trim($name))) {
+//									$returnData = $entityID;
+//
+//									break;
+//								} // if($characterSheet['data']->name === $name)
+//								break;
+//
+//							case 'corporation':
+//								$corporationSheet = $this->getCorporationData($entityID);
+//
+//								if($this->isValidEsiData($corporationSheet) === true && \strtolower(\trim($corporationSheet['data']->corporation_name)) === \strtolower(\trim($name))) {
+//									$returnData = $entityID;
+//
+//									break;
+//								} // if($corporationSheet['data']->name === $name)
+//								break;
+//
+//							case 'alliance':
+//								$allianceSheet = $this->getAllianceData($entityID);
+//
+//								if($this->isValidEsiData($allianceSheet) === true && \strtolower(\trim($allianceSheet['data']->alliance_name)) === \strtolower(\trim($name))) {
+//									$returnData = $entityID;
+//
+//									break;
+//								} // if($allianceSheet['data']->name === $name)
+//								break;
+//
+//							case 'inventorytype':
+//								$shipSheet = $this->getShipData($entityID);
+//
+//								if(!\is_null($shipSheet)) {
+//									$returnData = $entityID;
+//
+//									break;
+//								} // if($allianceSheet['data']->name === $name)
+//								break;
+//
+//							case 'solarsystem':
+//								$systemSheet = $this->getSystemData($entityID);
+//
+//								if($this->isValidEsiData($systemSheet) === true && \strtolower($systemSheet['data']->name) === \strtolower($name)) {
+//									$returnData = $entityID;
+//
+//									break;
+//								} // if($allianceSheet['data']->name === $name)
+//								break;
+//						} // switch($type)
+//					} // foreach($data->{$type} as $entityID)
+//				} // if(!isset($data->error) && !empty($data))
 
-								if($this->isValidEsiData($characterSheet) === true && \strtolower(\trim($characterSheet['data']->name)) === \strtolower(\trim($name))) {
-									$returnData = $entityID;
-
-									break;
-								} // if($characterSheet['data']->name === $name)
-								break;
-
-							case 'corporation':
-								$corporationSheet = $this->getCorporationData($entityID);
-
-								if($this->isValidEsiData($corporationSheet) === true && \strtolower(\trim($corporationSheet['data']->corporation_name)) === \strtolower(\trim($name))) {
-									$returnData = $entityID;
-
-									break;
-								} // if($corporationSheet['data']->name === $name)
-								break;
-
-							case 'alliance':
-								$allianceSheet = $this->getAllianceData($entityID);
-
-								if($this->isValidEsiData($allianceSheet) === true && \strtolower(\trim($allianceSheet['data']->alliance_name)) === \strtolower(\trim($name))) {
-									$returnData = $entityID;
-
-									break;
-								} // if($allianceSheet['data']->name === $name)
-								break;
-
-							case 'inventorytype':
-								$shipSheet = $this->getShipData($entityID);
-
-								if(!\is_null($shipSheet)) {
-									$returnData = $entityID;
-
-									break;
-								} // if($allianceSheet['data']->name === $name)
-								break;
-
-							case 'solarsystem':
-								$systemSheet = $this->getSystemData($entityID);
-
-								if($this->isValidEsiData($systemSheet) === true && \strtolower($systemSheet['data']->name) === \strtolower($name)) {
-									$returnData = $entityID;
-
-									break;
-								} // if($allianceSheet['data']->name === $name)
-								break;
-						} // switch($type)
-					} // foreach($data->{$type} as $entityID)
-				} // if(!isset($data->error) && !empty($data))
 			} // if(isset($arrayNotInApi[\sanitize_title($name)]))
 		} // if(\is_null($returnData))
 

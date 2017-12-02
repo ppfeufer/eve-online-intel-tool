@@ -75,6 +75,7 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 	 */
 	public function getLocalArray($scanData) {
 		$returnValue = null;
+		$searchApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api\SearchApi;
 
 		/**
 		 * Correcting line breaks
