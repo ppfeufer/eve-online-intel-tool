@@ -27,12 +27,12 @@
 
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\MultipartStream;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\RequestOptions;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Client;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\ClientInterface;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Exception\RequestException;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\MultipartStream;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\RequestOptions;
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ApiException;
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Configuration;
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\HeaderSelector;
@@ -209,7 +209,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getCharactersCharacterIdFwStatsAsync($character_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -233,7 +233,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getCharactersCharacterIdFwStatsAsyncWithHttpInfo($character_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -287,7 +287,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function getCharactersCharacterIdFwStatsRequest($character_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -351,7 +351,7 @@ class FactionWarfareApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -366,11 +366,11 @@ class FactionWarfareApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -390,7 +390,7 @@ class FactionWarfareApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -527,7 +527,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getCorporationsCorporationIdFwStatsAsync($corporation_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -551,7 +551,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getCorporationsCorporationIdFwStatsAsyncWithHttpInfo($corporation_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -605,7 +605,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function getCorporationsCorporationIdFwStatsRequest($corporation_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -669,7 +669,7 @@ class FactionWarfareApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -684,11 +684,11 @@ class FactionWarfareApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -708,7 +708,7 @@ class FactionWarfareApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -831,7 +831,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFwLeaderboardsAsync($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -853,7 +853,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFwLeaderboardsAsyncWithHttpInfo($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -905,7 +905,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function getFwLeaderboardsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -951,7 +951,7 @@ class FactionWarfareApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -966,11 +966,11 @@ class FactionWarfareApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -986,7 +986,7 @@ class FactionWarfareApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1109,7 +1109,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFwLeaderboardsCharactersAsync($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -1131,7 +1131,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFwLeaderboardsCharactersAsyncWithHttpInfo($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -1183,7 +1183,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function getFwLeaderboardsCharactersRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -1229,7 +1229,7 @@ class FactionWarfareApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1244,11 +1244,11 @@ class FactionWarfareApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -1264,7 +1264,7 @@ class FactionWarfareApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1387,7 +1387,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFwLeaderboardsCorporationsAsync($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -1409,7 +1409,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFwLeaderboardsCorporationsAsyncWithHttpInfo($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -1461,7 +1461,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function getFwLeaderboardsCorporationsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -1507,7 +1507,7 @@ class FactionWarfareApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1522,11 +1522,11 @@ class FactionWarfareApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -1542,7 +1542,7 @@ class FactionWarfareApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1665,7 +1665,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFwStatsAsync($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -1687,7 +1687,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFwStatsAsyncWithHttpInfo($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -1739,7 +1739,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function getFwStatsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -1785,7 +1785,7 @@ class FactionWarfareApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1800,11 +1800,11 @@ class FactionWarfareApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -1820,7 +1820,7 @@ class FactionWarfareApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1943,7 +1943,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFwSystemsAsync($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -1965,7 +1965,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFwSystemsAsyncWithHttpInfo($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -2017,7 +2017,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function getFwSystemsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -2063,7 +2063,7 @@ class FactionWarfareApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2078,11 +2078,11 @@ class FactionWarfareApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -2098,7 +2098,7 @@ class FactionWarfareApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -2221,7 +2221,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFwWarsAsync($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -2243,7 +2243,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFwWarsAsyncWithHttpInfo($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -2295,7 +2295,7 @@ class FactionWarfareApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function getFwWarsRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null)
     {
@@ -2341,7 +2341,7 @@ class FactionWarfareApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2356,11 +2356,11 @@ class FactionWarfareApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -2376,7 +2376,7 @@ class FactionWarfareApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),

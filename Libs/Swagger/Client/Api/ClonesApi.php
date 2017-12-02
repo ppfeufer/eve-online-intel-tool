@@ -27,12 +27,12 @@
 
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\MultipartStream;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\RequestOptions;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Client;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\ClientInterface;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Exception\RequestException;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\MultipartStream;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\RequestOptions;
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ApiException;
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Configuration;
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\HeaderSelector;
@@ -209,7 +209,7 @@ class ClonesApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getCharactersCharacterIdClonesAsync($character_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -233,7 +233,7 @@ class ClonesApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getCharactersCharacterIdClonesAsyncWithHttpInfo($character_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -287,7 +287,7 @@ class ClonesApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function getCharactersCharacterIdClonesRequest($character_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -351,7 +351,7 @@ class ClonesApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -366,11 +366,11 @@ class ClonesApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -390,7 +390,7 @@ class ClonesApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -527,7 +527,7 @@ class ClonesApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getCharactersCharacterIdImplantsAsync($character_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -551,7 +551,7 @@ class ClonesApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getCharactersCharacterIdImplantsAsyncWithHttpInfo($character_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -605,7 +605,7 @@ class ClonesApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function getCharactersCharacterIdImplantsRequest($character_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -669,7 +669,7 @@ class ClonesApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -684,11 +684,11 @@ class ClonesApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -708,7 +708,7 @@ class ClonesApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),

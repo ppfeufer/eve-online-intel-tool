@@ -27,12 +27,12 @@
 
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\MultipartStream;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\RequestOptions;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Client;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\ClientInterface;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Exception\RequestException;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\MultipartStream;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\RequestOptions;
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ApiException;
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Configuration;
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\HeaderSelector;
@@ -197,7 +197,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function deleteFleetsFleetIdMembersMemberIdAsync($fleet_id, $member_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -222,7 +222,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function deleteFleetsFleetIdMembersMemberIdAsyncWithHttpInfo($fleet_id, $member_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -263,7 +263,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function deleteFleetsFleetIdMembersMemberIdRequest($fleet_id, $member_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -341,7 +341,7 @@ class FleetsApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -356,11 +356,11 @@ class FleetsApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -380,7 +380,7 @@ class FleetsApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'DELETE',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -505,7 +505,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function deleteFleetsFleetIdSquadsSquadIdAsync($fleet_id, $squad_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -530,7 +530,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function deleteFleetsFleetIdSquadsSquadIdAsyncWithHttpInfo($fleet_id, $squad_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -571,7 +571,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function deleteFleetsFleetIdSquadsSquadIdRequest($fleet_id, $squad_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -649,7 +649,7 @@ class FleetsApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -664,11 +664,11 @@ class FleetsApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -688,7 +688,7 @@ class FleetsApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'DELETE',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -813,7 +813,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function deleteFleetsFleetIdWingsWingIdAsync($fleet_id, $wing_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -838,7 +838,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function deleteFleetsFleetIdWingsWingIdAsyncWithHttpInfo($fleet_id, $wing_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -879,7 +879,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function deleteFleetsFleetIdWingsWingIdRequest($fleet_id, $wing_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -957,7 +957,7 @@ class FleetsApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -972,11 +972,11 @@ class FleetsApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -996,7 +996,7 @@ class FleetsApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'DELETE',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1141,7 +1141,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getCharactersCharacterIdFleetAsync($character_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -1165,7 +1165,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getCharactersCharacterIdFleetAsyncWithHttpInfo($character_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -1219,7 +1219,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function getCharactersCharacterIdFleetRequest($character_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -1283,7 +1283,7 @@ class FleetsApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1298,11 +1298,11 @@ class FleetsApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -1322,7 +1322,7 @@ class FleetsApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1467,7 +1467,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFleetsFleetIdAsync($fleet_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -1491,7 +1491,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFleetsFleetIdAsyncWithHttpInfo($fleet_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -1545,7 +1545,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function getFleetsFleetIdRequest($fleet_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -1609,7 +1609,7 @@ class FleetsApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1624,11 +1624,11 @@ class FleetsApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -1648,7 +1648,7 @@ class FleetsApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1796,7 +1796,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFleetsFleetIdMembersAsync($fleet_id, $datasource = 'tranquility', $language = 'en-us', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -1821,7 +1821,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFleetsFleetIdMembersAsyncWithHttpInfo($fleet_id, $datasource = 'tranquility', $language = 'en-us', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -1876,7 +1876,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function getFleetsFleetIdMembersRequest($fleet_id, $datasource = 'tranquility', $language = 'en-us', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -1944,7 +1944,7 @@ class FleetsApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1959,11 +1959,11 @@ class FleetsApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -1983,7 +1983,7 @@ class FleetsApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -2131,7 +2131,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFleetsFleetIdWingsAsync($fleet_id, $datasource = 'tranquility', $language = 'en-us', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -2156,7 +2156,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function getFleetsFleetIdWingsAsyncWithHttpInfo($fleet_id, $datasource = 'tranquility', $language = 'en-us', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -2211,7 +2211,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function getFleetsFleetIdWingsRequest($fleet_id, $datasource = 'tranquility', $language = 'en-us', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -2279,7 +2279,7 @@ class FleetsApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2294,11 +2294,11 @@ class FleetsApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -2318,7 +2318,7 @@ class FleetsApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -2451,7 +2451,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function postFleetsFleetIdMembersAsync($fleet_id, $invitation, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -2476,7 +2476,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function postFleetsFleetIdMembersAsyncWithHttpInfo($fleet_id, $invitation, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -2517,7 +2517,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function postFleetsFleetIdMembersRequest($fleet_id, $invitation, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -2590,7 +2590,7 @@ class FleetsApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2605,11 +2605,11 @@ class FleetsApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -2629,7 +2629,7 @@ class FleetsApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -2774,7 +2774,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function postFleetsFleetIdWingsAsync($fleet_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -2798,7 +2798,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function postFleetsFleetIdWingsAsyncWithHttpInfo($fleet_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -2852,7 +2852,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function postFleetsFleetIdWingsRequest($fleet_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -2916,7 +2916,7 @@ class FleetsApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2931,11 +2931,11 @@ class FleetsApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -2955,7 +2955,7 @@ class FleetsApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -3103,7 +3103,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function postFleetsFleetIdWingsWingIdSquadsAsync($fleet_id, $wing_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -3128,7 +3128,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function postFleetsFleetIdWingsWingIdSquadsAsyncWithHttpInfo($fleet_id, $wing_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -3183,7 +3183,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function postFleetsFleetIdWingsWingIdSquadsRequest($fleet_id, $wing_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -3261,7 +3261,7 @@ class FleetsApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3276,11 +3276,11 @@ class FleetsApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -3300,7 +3300,7 @@ class FleetsApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -3433,7 +3433,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function putFleetsFleetIdAsync($fleet_id, $new_settings, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -3458,7 +3458,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function putFleetsFleetIdAsyncWithHttpInfo($fleet_id, $new_settings, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -3499,7 +3499,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function putFleetsFleetIdRequest($fleet_id, $new_settings, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -3572,7 +3572,7 @@ class FleetsApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3587,11 +3587,11 @@ class FleetsApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -3611,7 +3611,7 @@ class FleetsApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'PUT',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -3747,7 +3747,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function putFleetsFleetIdMembersMemberIdAsync($fleet_id, $member_id, $movement, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -3773,7 +3773,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function putFleetsFleetIdMembersMemberIdAsyncWithHttpInfo($fleet_id, $member_id, $movement, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -3815,7 +3815,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function putFleetsFleetIdMembersMemberIdRequest($fleet_id, $member_id, $movement, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -3902,7 +3902,7 @@ class FleetsApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3917,11 +3917,11 @@ class FleetsApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -3941,7 +3941,7 @@ class FleetsApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'PUT',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -4069,7 +4069,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function putFleetsFleetIdSquadsSquadIdAsync($fleet_id, $naming, $squad_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -4095,7 +4095,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function putFleetsFleetIdSquadsSquadIdAsyncWithHttpInfo($fleet_id, $naming, $squad_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -4137,7 +4137,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function putFleetsFleetIdSquadsSquadIdRequest($fleet_id, $naming, $squad_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -4224,7 +4224,7 @@ class FleetsApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4239,11 +4239,11 @@ class FleetsApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -4263,7 +4263,7 @@ class FleetsApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'PUT',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -4391,7 +4391,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function putFleetsFleetIdWingsWingIdAsync($fleet_id, $naming, $wing_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -4417,7 +4417,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function putFleetsFleetIdWingsWingIdAsyncWithHttpInfo($fleet_id, $naming, $wing_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -4459,7 +4459,7 @@ class FleetsApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function putFleetsFleetIdWingsWingIdRequest($fleet_id, $naming, $wing_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -4546,7 +4546,7 @@ class FleetsApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4561,11 +4561,11 @@ class FleetsApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -4585,7 +4585,7 @@ class FleetsApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'PUT',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),

@@ -27,12 +27,12 @@
  */
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\MultipartStream;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\RequestOptions;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Client;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\ClientInterface;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Exception\RequestException;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\MultipartStream;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\RequestOptions;
 
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ApiException;
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Configuration;
@@ -194,7 +194,7 @@ class BookmarksApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getCharactersCharacterIdBookmarksAsync($character_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		return $this->getCharactersCharacterIdBookmarksAsyncWithHttpInfo($character_id, $datasource, $page, $token, $user_agent, $x_user_agent)->then(function ($response) {
@@ -215,7 +215,7 @@ class BookmarksApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getCharactersCharacterIdBookmarksAsyncWithHttpInfo($character_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetCharactersCharacterIdBookmarks200Ok[]';
@@ -264,7 +264,7 @@ class BookmarksApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Psr7\Request
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
 	 */
 	protected function getCharactersCharacterIdBookmarksRequest($character_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'character_id' is set
@@ -325,7 +325,7 @@ class BookmarksApi {
 
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($httpBody);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
 			}
 		} elseif(\count($formParams) > 0) {
 			if($multipart) {
@@ -341,10 +341,10 @@ class BookmarksApi {
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 			} else {
 				// for HTTP post (form)
-				$httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
 			}
 		}
 
@@ -360,7 +360,7 @@ class BookmarksApi {
 		}
 
 		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
-		$query = \GuzzleHttp\Psr7\build_query($queryParams);
+		$query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
 
 		return new Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
@@ -483,7 +483,7 @@ class BookmarksApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getCharactersCharacterIdBookmarksFoldersAsync($character_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		return $this->getCharactersCharacterIdBookmarksFoldersAsyncWithHttpInfo($character_id, $datasource, $page, $token, $user_agent, $x_user_agent)->then(function ($response) {
@@ -504,7 +504,7 @@ class BookmarksApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getCharactersCharacterIdBookmarksFoldersAsyncWithHttpInfo($character_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetCharactersCharacterIdBookmarksFolders200Ok[]';
@@ -553,7 +553,7 @@ class BookmarksApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Psr7\Request
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
 	 */
 	protected function getCharactersCharacterIdBookmarksFoldersRequest($character_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'character_id' is set
@@ -614,7 +614,7 @@ class BookmarksApi {
 
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($httpBody);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
 			}
 		} elseif(\count($formParams) > 0) {
 			if($multipart) {
@@ -630,10 +630,10 @@ class BookmarksApi {
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 			} else {
 				// for HTTP post (form)
-				$httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
 			}
 		}
 
@@ -649,7 +649,7 @@ class BookmarksApi {
 		}
 
 		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
-		$query = \GuzzleHttp\Psr7\build_query($queryParams);
+		$query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
 
 		return new Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
@@ -772,7 +772,7 @@ class BookmarksApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getCorporationsCorporationIdBookmarksAsync($corporation_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		return $this->getCorporationsCorporationIdBookmarksAsyncWithHttpInfo($corporation_id, $datasource, $page, $token, $user_agent, $x_user_agent)->then(function ($response) {
@@ -793,7 +793,7 @@ class BookmarksApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getCorporationsCorporationIdBookmarksAsyncWithHttpInfo($corporation_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetCorporationsCorporationIdBookmarks200Ok[]';
@@ -841,7 +841,7 @@ class BookmarksApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Psr7\Request
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
 	 */
 	protected function getCorporationsCorporationIdBookmarksRequest($corporation_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'corporation_id' is set
@@ -902,7 +902,7 @@ class BookmarksApi {
 
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($httpBody);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
 			}
 		} elseif(\count($formParams) > 0) {
 			if($multipart) {
@@ -918,10 +918,10 @@ class BookmarksApi {
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 			} else {
 				// for HTTP post (form)
-				$httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
 			}
 		}
 
@@ -937,7 +937,7 @@ class BookmarksApi {
 		}
 
 		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
-		$query = \GuzzleHttp\Psr7\build_query($queryParams);
+		$query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
 
 		return new Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
@@ -1060,7 +1060,7 @@ class BookmarksApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getCorporationsCorporationIdBookmarksFoldersAsync($corporation_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		return $this->getCorporationsCorporationIdBookmarksFoldersAsyncWithHttpInfo($corporation_id, $datasource, $page, $token, $user_agent, $x_user_agent)->then(function ($response) {
@@ -1081,7 +1081,7 @@ class BookmarksApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getCorporationsCorporationIdBookmarksFoldersAsyncWithHttpInfo($corporation_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetCorporationsCorporationIdBookmarksFolders200Ok[]';
@@ -1130,7 +1130,7 @@ class BookmarksApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Psr7\Request
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
 	 */
 	protected function getCorporationsCorporationIdBookmarksFoldersRequest($corporation_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'corporation_id' is set
@@ -1191,7 +1191,7 @@ class BookmarksApi {
 
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($httpBody);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
 			}
 		} elseif(count($formParams) > 0) {
 			if($multipart) {
@@ -1207,10 +1207,10 @@ class BookmarksApi {
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 			} else {
 				// for HTTP post (form)
-				$httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
 			}
 		}
 
@@ -1226,7 +1226,7 @@ class BookmarksApi {
 		}
 
 		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
-		$query = \GuzzleHttp\Psr7\build_query($queryParams);
+		$query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
 
 		return new Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}

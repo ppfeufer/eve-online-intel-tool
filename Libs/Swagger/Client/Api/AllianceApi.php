@@ -28,12 +28,12 @@
 
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\MultipartStream;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\RequestOptions;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Client;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\ClientInterface;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Exception\RequestException;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\MultipartStream;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\RequestOptions;
 
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ApiException;
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Configuration;
@@ -175,7 +175,7 @@ class AllianceApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getAlliancesAsync($datasource = 'tranquility', $user_agent = null, $x_user_agent = null) {
 		return $this->getAlliancesAsyncWithHttpInfo($datasource, $user_agent, $x_user_agent)->then(function ($response) {
@@ -193,7 +193,7 @@ class AllianceApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getAlliancesAsyncWithHttpInfo($datasource = 'tranquility', $user_agent = null, $x_user_agent = null) {
 		$returnType = 'int[]';
@@ -239,7 +239,7 @@ class AllianceApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Psr7\Request
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
 	 */
 	protected function getAlliancesRequest($datasource = 'tranquility', $user_agent = null, $x_user_agent = null) {
 		$resourcePath = '/latest/alliances/';
@@ -280,7 +280,7 @@ class AllianceApi {
 
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($httpBody);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
 			}
 		} elseif(\count($formParams) > 0) {
 			if($multipart) {
@@ -296,10 +296,10 @@ class AllianceApi {
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 			} else {
 				// for HTTP post (form)
-				$httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
 			}
 		}
 
@@ -311,7 +311,7 @@ class AllianceApi {
 
 		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
 
-		$query = \GuzzleHttp\Psr7\build_query($queryParams);
+		$query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
 
 		return new Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
@@ -428,7 +428,7 @@ class AllianceApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getAlliancesAllianceIdAsync($alliance_id, $datasource = 'tranquility', $user_agent = null, $x_user_agent = null) {
 		return $this->getAlliancesAllianceIdAsyncWithHttpInfo($alliance_id, $datasource, $user_agent, $x_user_agent)->then(function ($response) {
@@ -447,7 +447,7 @@ class AllianceApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getAlliancesAllianceIdAsyncWithHttpInfo($alliance_id, $datasource = 'tranquility', $user_agent = null, $x_user_agent = null) {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetAlliancesAllianceIdOk';
@@ -493,7 +493,7 @@ class AllianceApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Psr7\Request
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
 	 */
 	protected function getAlliancesAllianceIdRequest($alliance_id, $datasource = 'tranquility', $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'alliance_id' is set
@@ -544,7 +544,7 @@ class AllianceApi {
 
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($httpBody);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
 			}
 		} elseif(\count($formParams) > 0) {
 			if($multipart) {
@@ -559,10 +559,10 @@ class AllianceApi {
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 			} else {
 				// for HTTP post (form)
-				$httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
 			}
 		}
 
@@ -573,7 +573,7 @@ class AllianceApi {
 
 		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
 
-		$query = \GuzzleHttp\Psr7\build_query($queryParams);
+		$query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
 
 		return new Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
@@ -683,7 +683,7 @@ class AllianceApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getAlliancesAllianceIdCorporationsAsync($alliance_id, $datasource = 'tranquility', $user_agent = null, $x_user_agent = null) {
 		return $this->getAlliancesAllianceIdCorporationsAsyncWithHttpInfo($alliance_id, $datasource, $user_agent, $x_user_agent)->then(function ($response) {
@@ -702,7 +702,7 @@ class AllianceApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getAlliancesAllianceIdCorporationsAsyncWithHttpInfo($alliance_id, $datasource = 'tranquility', $user_agent = null, $x_user_agent = null) {
 		$returnType = 'int[]';
@@ -749,7 +749,7 @@ class AllianceApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Psr7\Request
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
 	 */
 	protected function getAlliancesAllianceIdCorporationsRequest($alliance_id, $datasource = 'tranquility', $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'alliance_id' is set
@@ -800,7 +800,7 @@ class AllianceApi {
 
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($httpBody);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
 			}
 		} elseif(count($formParams) > 0) {
 			if($multipart) {
@@ -816,10 +816,10 @@ class AllianceApi {
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 			} else {
 				// for HTTP post (form)
-				$httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
 			}
 		}
 
@@ -831,7 +831,7 @@ class AllianceApi {
 		}
 
 		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
-		$query = \GuzzleHttp\Psr7\build_query($queryParams);
+		$query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
 
 		return new Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
@@ -948,7 +948,7 @@ class AllianceApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getAlliancesAllianceIdIconsAsync($alliance_id, $datasource = 'tranquility', $user_agent = null, $x_user_agent = null) {
 		return $this->getAlliancesAllianceIdIconsAsyncWithHttpInfo($alliance_id, $datasource, $user_agent, $x_user_agent)->then(function ($response) {
@@ -967,7 +967,7 @@ class AllianceApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getAlliancesAllianceIdIconsAsyncWithHttpInfo($alliance_id, $datasource = 'tranquility', $user_agent = null, $x_user_agent = null) {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetAlliancesAllianceIdIconsOk';
@@ -1014,7 +1014,7 @@ class AllianceApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Psr7\Request
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
 	 */
 	protected function getAlliancesAllianceIdIconsRequest($alliance_id, $datasource = 'tranquility', $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'alliance_id' is set
@@ -1065,7 +1065,7 @@ class AllianceApi {
 
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($httpBody);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
 			}
 		} elseif(\count($formParams) > 0) {
 			if($multipart) {
@@ -1081,10 +1081,10 @@ class AllianceApi {
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 			} else {
 				// for HTTP post (form)
-				$httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
 			}
 		}
 
@@ -1095,7 +1095,7 @@ class AllianceApi {
 		}
 
 		$headers = array_merge($defaultHeaders, $headerParams, $headers);
-		$query = \GuzzleHttp\Psr7\build_query($queryParams);
+		$query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
 
 		return new Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
@@ -1205,7 +1205,7 @@ class AllianceApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getAlliancesNamesAsync($alliance_ids, $datasource = 'tranquility', $user_agent = null, $x_user_agent = null) {
 		return $this->getAlliancesNamesAsyncWithHttpInfo($alliance_ids, $datasource, $user_agent, $x_user_agent)->then(function ($response) {
@@ -1224,7 +1224,7 @@ class AllianceApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getAlliancesNamesAsyncWithHttpInfo($alliance_ids, $datasource = 'tranquility', $user_agent = null, $x_user_agent = null) {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetAlliancesNames200Ok[]';
@@ -1271,7 +1271,7 @@ class AllianceApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Psr7\Request
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
 	 */
 	protected function getAlliancesNamesRequest($alliance_ids, $datasource = 'tranquility', $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'alliance_ids' is set
@@ -1333,7 +1333,7 @@ class AllianceApi {
 
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($httpBody);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
 			}
 		} elseif(\count($formParams) > 0) {
 			if($multipart) {
@@ -1349,10 +1349,10 @@ class AllianceApi {
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 			} else {
 				// for HTTP post (form)
-				$httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
 			}
 		}
 
@@ -1363,7 +1363,7 @@ class AllianceApi {
 		}
 
 		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
-		$query = \GuzzleHttp\Psr7\build_query($queryParams);
+		$query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
 
 		return new Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}

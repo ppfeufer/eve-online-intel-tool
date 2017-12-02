@@ -27,12 +27,12 @@
 
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\MultipartStream;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\RequestOptions;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Client;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\ClientInterface;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Exception\RequestException;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\MultipartStream;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\RequestOptions;
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ApiException;
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Configuration;
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\HeaderSelector;
@@ -192,7 +192,7 @@ class UserInterfaceApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function postUiAutopilotWaypointAsync($add_to_beginning, $clear_other_waypoints, $destination_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -218,7 +218,7 @@ class UserInterfaceApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function postUiAutopilotWaypointAsyncWithHttpInfo($add_to_beginning, $clear_other_waypoints, $destination_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -260,7 +260,7 @@ class UserInterfaceApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function postUiAutopilotWaypointRequest($add_to_beginning, $clear_other_waypoints, $destination_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -340,7 +340,7 @@ class UserInterfaceApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -355,11 +355,11 @@ class UserInterfaceApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -379,7 +379,7 @@ class UserInterfaceApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -493,7 +493,7 @@ class UserInterfaceApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function postUiOpenwindowContractAsync($contract_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -517,7 +517,7 @@ class UserInterfaceApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function postUiOpenwindowContractAsyncWithHttpInfo($contract_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -557,7 +557,7 @@ class UserInterfaceApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function postUiOpenwindowContractRequest($contract_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -617,7 +617,7 @@ class UserInterfaceApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -632,11 +632,11 @@ class UserInterfaceApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -656,7 +656,7 @@ class UserInterfaceApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -770,7 +770,7 @@ class UserInterfaceApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function postUiOpenwindowInformationAsync($target_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -794,7 +794,7 @@ class UserInterfaceApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function postUiOpenwindowInformationAsyncWithHttpInfo($target_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -834,7 +834,7 @@ class UserInterfaceApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function postUiOpenwindowInformationRequest($target_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -894,7 +894,7 @@ class UserInterfaceApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -909,11 +909,11 @@ class UserInterfaceApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -933,7 +933,7 @@ class UserInterfaceApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1047,7 +1047,7 @@ class UserInterfaceApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function postUiOpenwindowMarketdetailsAsync($type_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -1071,7 +1071,7 @@ class UserInterfaceApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function postUiOpenwindowMarketdetailsAsyncWithHttpInfo($type_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -1111,7 +1111,7 @@ class UserInterfaceApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function postUiOpenwindowMarketdetailsRequest($type_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -1171,7 +1171,7 @@ class UserInterfaceApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1186,11 +1186,11 @@ class UserInterfaceApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -1210,7 +1210,7 @@ class UserInterfaceApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1332,7 +1332,7 @@ class UserInterfaceApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function postUiOpenwindowNewmailAsync($new_mail, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -1356,7 +1356,7 @@ class UserInterfaceApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
      */
     public function postUiOpenwindowNewmailAsyncWithHttpInfo($new_mail, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -1396,7 +1396,7 @@ class UserInterfaceApi
      * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
      */
     protected function postUiOpenwindowNewmailRequest($new_mail, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null)
     {
@@ -1455,7 +1455,7 @@ class UserInterfaceApi
             $httpBody = $_tempBody;
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1470,11 +1470,11 @@ class UserInterfaceApi
                 $httpBody = new MultipartStream($multipartContents);
 
             } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
             }
         }
 
@@ -1494,7 +1494,7 @@ class UserInterfaceApi
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),

@@ -93,7 +93,7 @@ class ObjectSerializer {
 	 */
 	public static function sanitizeFilename($filename) {
 		if(\preg_match("/.*[\/\\\\](.*)$/", $filename, $match)) {
-			return $match[1];
+			return $match['1'];
 		} else {
 			return $filename;
 		}
@@ -229,7 +229,7 @@ class ObjectSerializer {
 
 			if(\strrpos($inner, ",") !== false) {
 				$subClass_array = \explode(',', $inner, 2);
-				$subClass = $subClass_array[1];
+				$subClass = $subClass_array['1'];
 
 				foreach($data as $key => $value) {
 					$deserialized[$key] = self::deserialize($value, $subClass, null);
@@ -267,7 +267,7 @@ class ObjectSerializer {
 
 			return $data;
 		} elseif($class === '\SplFileObject') {
-			/** @var \Psr\Http\Message\StreamInterface $data */
+			/** @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Psr\Http\Message\StreamInterface $data */
 			// determine file name
 			if(\array_key_exists('Content-Disposition', $httpHeaders) &&
 				\preg_match('/inline; filename=[\'"]?([^\'"\s]+)[\'"]?$/i', $httpHeaders['Content-Disposition'], $match)) {

@@ -28,12 +28,12 @@
 
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\MultipartStream;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\RequestOptions;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Client;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\ClientInterface;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Exception\RequestException;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\MultipartStream;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request;
+use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\RequestOptions;
 
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ApiException;
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Configuration;
@@ -195,7 +195,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getCharactersCharacterIdAssetsAsync($character_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		return $this->getCharactersCharacterIdAssetsAsyncWithHttpInfo($character_id, $datasource, $page, $token, $user_agent, $x_user_agent)->then(function ($response) {
@@ -216,7 +216,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getCharactersCharacterIdAssetsAsyncWithHttpInfo($character_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetCharactersCharacterIdAssets200Ok[]';
@@ -265,7 +265,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Psr7\Request
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
 	 */
 	protected function getCharactersCharacterIdAssetsRequest($character_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'character_id' is set
@@ -326,7 +326,7 @@ class AssetsApi {
 
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($httpBody);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
 			}
 		} elseif(\count($formParams) > 0) {
 			if($multipart) {
@@ -342,10 +342,10 @@ class AssetsApi {
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 			} else {
 				// for HTTP post (form)
-				$httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
 			}
 		}
 
@@ -361,7 +361,7 @@ class AssetsApi {
 		}
 
 		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
-		$query = \GuzzleHttp\Psr7\build_query($queryParams);
+		$query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
 
 		return new Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
@@ -485,7 +485,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getCorporationsCorporationIdAssetsAsync($corporation_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		return $this->getCorporationsCorporationIdAssetsAsyncWithHttpInfo($corporation_id, $datasource, $page, $token, $user_agent, $x_user_agent)->then(function ($response) {
@@ -506,7 +506,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function getCorporationsCorporationIdAssetsAsyncWithHttpInfo($corporation_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetCorporationsCorporationIdAssets200Ok[]';
@@ -554,7 +554,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Psr7\Request
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
 	 */
 	protected function getCorporationsCorporationIdAssetsRequest($corporation_id, $datasource = 'tranquility', $page = '1', $token = null, $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'corporation_id' is set
@@ -615,7 +615,7 @@ class AssetsApi {
 
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($httpBody);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
 			}
 		} elseif(count($formParams) > 0) {
 			if($multipart) {
@@ -631,10 +631,10 @@ class AssetsApi {
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 			} else {
 				// for HTTP post (form)
-				$httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
 			}
 		}
 
@@ -650,7 +650,7 @@ class AssetsApi {
 		}
 
 		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
-		$query = \GuzzleHttp\Psr7\build_query($queryParams);
+		$query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
 
 		return new Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
@@ -772,7 +772,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function postCharactersCharacterIdAssetsLocationsAsync($character_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		return $this->postCharactersCharacterIdAssetsLocationsAsyncWithHttpInfo($character_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent)->then(function ($response) {
@@ -793,7 +793,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function postCharactersCharacterIdAssetsLocationsAsyncWithHttpInfo($character_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCharactersCharacterIdAssetsLocations200Ok[]';
@@ -842,7 +842,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Psr7\Request
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
 	 */
 	protected function postCharactersCharacterIdAssetsLocationsRequest($character_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'character_id' is set
@@ -907,7 +907,7 @@ class AssetsApi {
 
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($httpBody);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
 			}
 		} elseif(\count($formParams) > 0) {
 			if($multipart) {
@@ -923,10 +923,10 @@ class AssetsApi {
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 			} else {
 				// for HTTP post (form)
-				$httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
 			}
 		}
 
@@ -942,7 +942,7 @@ class AssetsApi {
 		}
 
 		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
-		$query = \GuzzleHttp\Psr7\build_query($queryParams);
+		$query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
 
 		return new Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
@@ -1064,7 +1064,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function postCharactersCharacterIdAssetsNamesAsync($character_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		return $this->postCharactersCharacterIdAssetsNamesAsyncWithHttpInfo($character_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent)->then(function ($response) {
@@ -1085,7 +1085,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function postCharactersCharacterIdAssetsNamesAsyncWithHttpInfo($character_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCharactersCharacterIdAssetsNames200Ok[]';
@@ -1134,7 +1134,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Psr7\Request
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
 	 */
 	protected function postCharactersCharacterIdAssetsNamesRequest($character_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'character_id' is set
@@ -1199,7 +1199,7 @@ class AssetsApi {
 
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($httpBody);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
 			}
 		} elseif(count($formParams) > 0) {
 			if($multipart) {
@@ -1215,10 +1215,10 @@ class AssetsApi {
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 			} else {
 				// for HTTP post (form)
-				$httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
 			}
 		}
 
@@ -1233,7 +1233,7 @@ class AssetsApi {
 		}
 
 		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
-		$query = \GuzzleHttp\Psr7\build_query($queryParams);
+		$query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
 
 		return new Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
@@ -1354,7 +1354,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function postCorporationsCorporationIdAssetsLocationsAsync($corporation_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		return $this->postCorporationsCorporationIdAssetsLocationsAsyncWithHttpInfo($corporation_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent)->then(function ($response) {
@@ -1375,7 +1375,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function postCorporationsCorporationIdAssetsLocationsAsyncWithHttpInfo($corporation_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCorporationsCorporationIdAssetsLocations200Ok[]';
@@ -1424,7 +1424,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Psr7\Request
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
 	 */
 	protected function postCorporationsCorporationIdAssetsLocationsRequest($corporation_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'corporation_id' is set
@@ -1489,7 +1489,7 @@ class AssetsApi {
 
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($httpBody);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
 			}
 		} elseif(\count($formParams) > 0) {
 			if($multipart) {
@@ -1505,10 +1505,10 @@ class AssetsApi {
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 			} else {
 				// for HTTP post (form)
-				$httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
 			}
 		}
 
@@ -1524,7 +1524,7 @@ class AssetsApi {
 		}
 
 		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
-		$query = \GuzzleHttp\Psr7\build_query($queryParams);
+		$query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
 
 		return new Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
@@ -1646,7 +1646,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function postCorporationsCorporationIdAssetsNamesAsync($corporation_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		return $this->postCorporationsCorporationIdAssetsNamesAsyncWithHttpInfo($corporation_id, $item_ids, $datasource, $token, $user_agent, $x_user_agent)->then(function ($response) {
@@ -1667,7 +1667,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Promise\PromiseInterface
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function postCorporationsCorporationIdAssetsNamesAsyncWithHttpInfo($corporation_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		$returnType = '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCorporationsCorporationIdAssetsNames200Ok[]';
@@ -1716,7 +1716,7 @@ class AssetsApi {
 	 * @param  string $x_user_agent Client identifier, takes precedence over User-Agent (optional)
 	 *
 	 * @throws \InvalidArgumentException
-	 * @return \GuzzleHttp\Psr7\Request
+	 * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request
 	 */
 	protected function postCorporationsCorporationIdAssetsNamesRequest($corporation_id, $item_ids, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		// verify the required parameter 'corporation_id' is set
@@ -1781,7 +1781,7 @@ class AssetsApi {
 
 			// \stdClass has no __toString(), so we should encode it manually
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($httpBody);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
 			}
 		} elseif(\count($formParams) > 0) {
 			if($multipart) {
@@ -1797,10 +1797,10 @@ class AssetsApi {
 				// for HTTP post (form)
 				$httpBody = new MultipartStream($multipartContents);
 			} elseif($headers['Content-Type'] === 'application/json') {
-				$httpBody = \GuzzleHttp\json_encode($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($formParams);
 			} else {
 				// for HTTP post (form)
-				$httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($formParams);
 			}
 		}
 
@@ -1816,7 +1816,7 @@ class AssetsApi {
 		}
 
 		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
-		$query = \GuzzleHttp\Psr7\build_query($queryParams);
+		$query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
 
 		return new Request('POST', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
 	}
