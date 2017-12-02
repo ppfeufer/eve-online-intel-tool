@@ -111,8 +111,9 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 
 		// loop through the ID sets to get the affiliation data
 		foreach(\array_chunk($arrayCharacterIds, $characterIdChunkSize, true) as $idSet) {
-			$characterData = $this->esiHelper->getCharacterAffiliation($idSet);
-			foreach($characterData['data'] as $affiliatedIds) {
+			$characterAffiliationData = $this->esiHelper->getCharacterAffiliation($idSet);
+
+			foreach($characterAffiliationData['data'] as $affiliatedIds) {
 				$pilotDetails[$affiliatedIds->getCharacterId()] = [
 					'characterID' => $affiliatedIds->getCharacterId(),
 					'characterName' => $pilotList[$affiliatedIds->getCharacterId()]
@@ -134,11 +135,11 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 				/**
 				 * Grabbing alliance information
 				 */
-				if(!is_null($affiliatedIds->getAllianceId())) {
+				if(!\is_null($affiliatedIds->getAllianceId())) {
 					$allianceSheet = $this->esiHelper->getAllianceData($affiliatedIds->getAllianceId());
 
 					if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error)) {
-						$pilotDetails[$affiliatedIds->getCharacterId()]['allianceID'] = (!is_null($affiliatedIds->getAllianceId())) ? $affiliatedIds->getAllianceId() : 0;
+						$pilotDetails[$affiliatedIds->getCharacterId()]['allianceID'] = $affiliatedIds->getAllianceId();
 						$pilotDetails[$affiliatedIds->getCharacterId()]['allianceName'] = $allianceSheet['data']->alliance_name;
 						$pilotDetails[$affiliatedIds->getCharacterId()]['allianceTicker'] = $allianceSheet['data']->ticker;
 					} // if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error))
