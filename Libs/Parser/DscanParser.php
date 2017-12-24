@@ -191,21 +191,16 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 			$regionName = null;
 
 			// Get the constellation data
-			if($this->esi->isValidEsiData($systemData) === true) {
-				$constellationData = $this->esi->getConstellationData($systemData['data']->constellation_id);
-			} // if($this->esi->isValidEsiData($systemData) === true)
+			$constellationData = $this->esi->getConstellationData($systemData['data']->constellation_id);
+
+			// Set the constellation name
+			$constellationName = $constellationData['data']->name;
 
 			// Get the region data
-			if($this->esi->isValidEsiData($constellationData) === true) {
-				// Set the constellation name
-				$constellationName = $constellationData['data']->name;
-				$regionData = $this->esi->getRegionData($constellationData['data']->region_id);
-			} // if($this->esi->isValidEsiData($constellationData) === true)
+			$regionData = $this->esi->getRegionData($constellationData['data']->region_id);
 
 			// Set the region name
-			if($this->esi->isValidEsiData($regionData) === true) {
-				$regionName = $regionData['data']->name;
-			} // if($this->esi->isValidEsiData($regionData) === true)
+			$regionName = $regionData['data']->name;
 
 			$returnValue = [
 				'systemName' => $systemName,
