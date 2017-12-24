@@ -1046,7 +1046,7 @@ class AllianceApi {
 
 		// path params
 		if($alliance_id !== null) {
-			$resourcePath = str_replace('{' . 'alliance_id' . '}', ObjectSerializer::toPathValue($alliance_id), $resourcePath);
+			$resourcePath = \str_replace('{' . 'alliance_id' . '}', ObjectSerializer::toPathValue($alliance_id), $resourcePath);
 		}
 
 		// body params
@@ -1094,7 +1094,7 @@ class AllianceApi {
 			$defaultHeaders['User-Agent'] = $this->config->getUserAgent();
 		}
 
-		$headers = array_merge($defaultHeaders, $headerParams, $headers);
+		$headers = \array_merge($defaultHeaders, $headerParams, $headers);
 		$query = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\build_query($queryParams);
 
 		return new Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
@@ -1307,6 +1307,7 @@ class AllianceApi {
 		if($datasource !== null) {
 			$queryParams['datasource'] = ObjectSerializer::toQueryValue($datasource);
 		}
+
 		// query params
 		if($user_agent !== null) {
 			$queryParams['user_agent'] = ObjectSerializer::toQueryValue($user_agent);
