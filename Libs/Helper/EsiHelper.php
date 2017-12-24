@@ -127,6 +127,13 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 	private $allianceApi = null;
 
 	/**
+	 * ESI Universe API
+	 *
+	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api\UniverseApi
+	 */
+	private $universeApi = null;
+
+	/**
 	 * The Constructor
 	 */
 	protected function __construct() {
@@ -157,6 +164,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		$this->characterApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api\CharacterApi;
 		$this->corporationApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api\CorporationApi;
 		$this->allianceApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api\AllianceApi;
+		$this->universeApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Api\UniverseApi;
 	} // public function __construct()
 
 	/**
@@ -185,6 +193,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 //			'character-affiliation' => 'characters/affiliation/', // getting character information by IDs - https://esi.tech.ccp.is/latest/characters/affiliation/ (POST request)
 //			'corporation-information-by-id' => 'corporations/{corporation_id}/', // getting corporation information by ID - https://esi.tech.ccp.is/latest/corporations/98000030/
 			'search' => 'search/?search={name}&categories={category}&strict=true', // Search for entities that match a given sub-string. - https://esi.tech.ccp.is/latest/search/?search=Yulai%20Federation&strict=true&categories=alliance
+
 			'group-information-by-id' => 'universe/groups/{group_id}/', // getting types information by ID - https://esi.tech.ccp.is/latest/universe/groups/1305/
 			'system-information-by-id' => 'universe/systems/{system_id}/', // getting system information by ID - https://esi.tech.ccp.is/latest/universe/systems/30000003/
 			'constellation-information-by-id' => 'universe/constellations/{constellation_id}/', // getting constellation information by ID - https://esi.tech.ccp.is/latest/universe/constellations/20000315/
@@ -353,16 +362,18 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		$systemData = $this->databaseHelper->getSystemDataFromDb($systemID);
 
 		if(\is_null($systemData) || empty($systemData->name)) {
-			$systemData = $this->getEsiData(\str_replace('{system_id}', $systemID, $this->esiEndpoints['system-information-by-id']), null);
+			$systemData = $this->universeApi->getUniverseSystemsSystemId($systemID);
 
 			if(!\is_null($systemData)) {
 				$this->databaseHelper->writeSystemDataToDb([
 					$systemID,
-					$systemData->name,
-					$systemData->constellation_id,
-					$systemData->star_id,
+					$systemData->getName(),
+					$systemData->getConstellationId(),
+					$systemData->getStarId(),
 					\gmdate('Y-m-d H:i:s', \time())
 				]);
+
+				$systemData = $this->databaseHelper->getSystemDataFromDb($systemID);
 			} // if(!\is_null($systemData))
 		} // if(\is_null($systemData) || empty($systemData->system_name))
 
@@ -381,15 +392,17 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		$constellationData = $this->databaseHelper->getConstellationDataFromDb($constellationID);
 
 		if(\is_null($constellationData) || empty($constellationData->name)) {
-			$constellationData = $this->getEsiData(\str_replace('{constellation_id}', $constellationID, $this->esiEndpoints['constellation-information-by-id']), null);
+			$constellationData = $this->universeApi->getUniverseConstellationsConstellationId($constellationID);
 
 			if(!\is_null($constellationData)) {
 				$this->databaseHelper->writeConstellationDataToDb([
 					$constellationID,
-					$constellationData->name,
-					$constellationData->region_id,
+					$constellationData->getName(),
+					$constellationData->getRegionId(),
 					\gmdate('Y-m-d H:i:s', \time())
 				]);
+
+				$constellationData = $this->databaseHelper->getConstellationDataFromDb($constellationID);
 			} // if(!\is_null($constellationData))
 		} // if(\is_null($constellationData) || empty($constellationData->name))
 
@@ -408,14 +421,16 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 		$regionData = $this->databaseHelper->getRegionDataFromDb($regionID);
 
 		if(\is_null($regionData) || empty($regionData->name)) {
-			$regionData = $this->getEsiData(\str_replace('{region_id}', $regionID, $this->esiEndpoints['region-information-by-id']), null);
+			$regionData = $this->universeApi->getUniverseRegionsRegionId($regionID);
 
 			if(!\is_null($regionData)) {
 				$this->databaseHelper->writeRegionDataToDb([
 					$regionID,
-					$regionData->name,
+					$regionData->getName(),
 					\gmdate('Y-m-d H:i:s', \time())
 				]);
+
+				$regionData = $this->databaseHelper->getRegionDataFromDb($regionID);
 			} // if(!\is_null($regionData))
 		} // if(\is_null($regionData) || empty($regionData->name))
 
@@ -479,7 +494,7 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 				break;
 
 			// System
-			case 'solarsystem':
+			case 'solar_system':
 				$systemData = $this->databaseHelper->getSystemDataFromDbByName($name);
 
 				if(isset($systemData->system_id)) {
@@ -493,9 +508,6 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 			if(isset($arrayNotInApi[\sanitize_title($name)])) {
 				$returnData = $arrayNotInApi[\sanitize_title($name)]['id'];
 			} else {
-//				$searchUri = \str_replace('{name}', \urlencode(\wp_specialchars_decode(\trim($name), \ENT_QUOTES)), \str_replace('{category}', $type, $this->esiEndpoints['search']));
-//				$data = $this->getEsiData($searchUri, null);
-
 				$searchData = $this->searchApi->getSearch($type, \trim($name));
 
 				/**
@@ -539,6 +551,18 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 							} // foreach($searchData->getAlliance() as $allianceID)
 						} // if(!empty($searchData->getAlliance()))
 						break;
+
+					case 'solar_system':
+						if(!empty($searchData->getSolarSystem())) {
+							foreach($searchData->getSolarSystem() as $solarSystemID) {
+								$solarSystemData = $this->universeApi->getUniverseSystemsSystemId($solarSystemID);
+
+								if(\strtolower($solarSystemData->getName()) === \strtolower(\trim($name))) {
+									$returnData = $solarSystemID;
+								} // if(\strtolower($solarSystemData->getName()) === \strtolower(\trim($name)))
+							} // foreach($searchData->getSolarSystem() as $solarSystemID)
+						} // if(!empty($searchData->getSolarSystem()))
+						break;
 				} // switch($type)
 
 //				if(!isset($data->error) && !empty((array) $data) && isset($data->{$type})) {
@@ -549,50 +573,11 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
 					 */
 //					foreach($data->{$type} as $entityID) {
 //						switch($type) {
-//							case 'character':
-//								$characterSheet = $this->getCharacterData($entityID);
-//
-//								if($this->isValidEsiData($characterSheet) === true && \strtolower(\trim($characterSheet['data']->name)) === \strtolower(\trim($name))) {
-//									$returnData = $entityID;
-//
-//									break;
-//								} // if($characterSheet['data']->name === $name)
-//								break;
-//
-//							case 'corporation':
-//								$corporationSheet = $this->getCorporationData($entityID);
-//
-//								if($this->isValidEsiData($corporationSheet) === true && \strtolower(\trim($corporationSheet['data']->corporation_name)) === \strtolower(\trim($name))) {
-//									$returnData = $entityID;
-//
-//									break;
-//								} // if($corporationSheet['data']->name === $name)
-//								break;
-//
-//							case 'alliance':
-//								$allianceSheet = $this->getAllianceData($entityID);
-//
-//								if($this->isValidEsiData($allianceSheet) === true && \strtolower(\trim($allianceSheet['data']->alliance_name)) === \strtolower(\trim($name))) {
-//									$returnData = $entityID;
-//
-//									break;
-//								} // if($allianceSheet['data']->name === $name)
-//								break;
 //
 //							case 'inventorytype':
 //								$shipSheet = $this->getShipData($entityID);
 //
 //								if(!\is_null($shipSheet)) {
-//									$returnData = $entityID;
-//
-//									break;
-//								} // if($allianceSheet['data']->name === $name)
-//								break;
-//
-//							case 'solarsystem':
-//								$systemSheet = $this->getSystemData($entityID);
-//
-//								if($this->isValidEsiData($systemSheet) === true && \strtolower($systemSheet['data']->name) === \strtolower($name)) {
 //									$returnData = $entityID;
 //
 //									break;
