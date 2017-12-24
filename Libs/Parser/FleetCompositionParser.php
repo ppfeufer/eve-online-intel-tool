@@ -141,7 +141,7 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 			$counter['class'][\sanitize_title($lineDetailsArray['2'])]++;
 			$shipClassBreakdown[\sanitize_title($lineDetailsArray['2'])] = [
 				'shipName' => $lineDetailsArray['2'],
-				'shipID' => $this->esi->getEveIdFromName($lineDetailsArray['2'], 'inventorytype'),
+				'shipID' => $this->esi->getEveIdFromName($lineDetailsArray['2'], 'inventory_type'),
 				'shipTypeSanitized' => \sanitize_title($lineDetailsArray['3']),
 				'count' => $counter['class'][\sanitize_title($lineDetailsArray['2'])]
 			];

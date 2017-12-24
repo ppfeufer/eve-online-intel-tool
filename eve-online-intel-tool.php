@@ -19,6 +19,9 @@ const WP_GITHUB_FORCE_UPDATE = true;
 
 // Include the autoloader so we can dynamically include the rest of the classes.
 require_once(\trailingslashit(\dirname(__FILE__)) . 'inc/autoloader.php');
+require_once(\trailingslashit(\dirname(__FILE__)) . 'Libs/GuzzleHttp/functions_include.php');
+require_once(\trailingslashit(\dirname(__FILE__)) . 'Libs/GuzzleHttp/Psr7/functions_include.php');
+require_once(\trailingslashit(\dirname(__FILE__)) . 'Libs/GuzzleHttp/Promise/functions_include.php');
 
 class EveOnlineIntelTool {
 	/**

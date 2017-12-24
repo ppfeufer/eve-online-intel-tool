@@ -635,6 +635,29 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
 	} // public function getShipDataFromDb($shipID)
 
 	/**
+	 * Get ship data from DB (by ship name)
+	 *
+	 * @param string $shipName
+	 * @return object
+	 */
+	public function getShipDataFromDbByName($shipName) {
+		$returnValue = null;
+
+		$shipResult = $this->wpdb->get_results($this->wpdb->prepare(
+			'SELECT * FROM ' . $this->wpdb->base_prefix . 'eveIntelShips' . ' WHERE class = %s',
+			[
+				$shipName
+			]
+		));
+
+		if($shipResult) {
+			$returnValue = $shipResult['0'];
+		} // if($shipResult)
+
+		return $returnValue;
+	} // public function getShipDataFromDb($shipID)
+
+	/**
 	 * Write ship data to cache database
 	 *
 	 * @param array $shipData (ship_id, class, type, category_id, lastUpdated)
