@@ -1,11 +1,11 @@
 <?php
 /**
- * PostCharactersCharacterIdCspaCharacters
+ * PostUniverseIdsServiceUnavailable
  *
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -32,15 +32,15 @@ use \ArrayAccess;
 use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
 
 /**
- * PostCharactersCharacterIdCspaCharacters Class Doc Comment
+ * PostUniverseIdsServiceUnavailable Class Doc Comment
  *
  * @category Class
- * @description characters object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @description Service unavailable
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class PostCharactersCharacterIdCspaCharacters implements ModelInterface, ArrayAccess
+class PostUniverseIdsServiceUnavailable implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class PostCharactersCharacterIdCspaCharacters implements ModelInterface, ArrayAc
       *
       * @var string
       */
-    protected static $swaggerModelName = 'post_characters_character_id_cspa_characters';
+    protected static $swaggerModelName = 'post_universe_ids_service_unavailable';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,7 +57,7 @@ class PostCharactersCharacterIdCspaCharacters implements ModelInterface, ArrayAc
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'characters' => 'int[]'
+        'error' => 'string'
     ];
 
     /**
@@ -66,7 +66,7 @@ class PostCharactersCharacterIdCspaCharacters implements ModelInterface, ArrayAc
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'characters' => 'int32'
+        'error' => null
     ];
 
     /**
@@ -96,7 +96,7 @@ class PostCharactersCharacterIdCspaCharacters implements ModelInterface, ArrayAc
      * @var string[]
      */
     protected static $attributeMap = [
-        'characters' => 'characters'
+        'error' => 'error'
     ];
 
     /**
@@ -105,7 +105,7 @@ class PostCharactersCharacterIdCspaCharacters implements ModelInterface, ArrayAc
      * @var string[]
      */
     protected static $setters = [
-        'characters' => 'setCharacters'
+        'error' => 'setError'
     ];
 
     /**
@@ -114,7 +114,7 @@ class PostCharactersCharacterIdCspaCharacters implements ModelInterface, ArrayAc
      * @var string[]
      */
     protected static $getters = [
-        'characters' => 'getCharacters'
+        'error' => 'getError'
     ];
 
     /**
@@ -177,7 +177,7 @@ class PostCharactersCharacterIdCspaCharacters implements ModelInterface, ArrayAc
      */
     public function __construct(array $data = null)
     {
-        $this->container['characters'] = isset($data['characters']) ? $data['characters'] : null;
+        $this->container['error'] = isset($data['error']) ? $data['error'] : null;
     }
 
     /**
@@ -189,9 +189,6 @@ class PostCharactersCharacterIdCspaCharacters implements ModelInterface, ArrayAc
     {
         $invalidProperties = [];
 
-        if ($this->container['characters'] === null) {
-            $invalidProperties[] = "'characters' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -204,33 +201,30 @@ class PostCharactersCharacterIdCspaCharacters implements ModelInterface, ArrayAc
     public function valid()
     {
 
-        if ($this->container['characters'] === null) {
-            return false;
-        }
         return true;
     }
 
 
     /**
-     * Gets characters
+     * Gets error
      *
-     * @return int[]
+     * @return string
      */
-    public function getCharacters()
+    public function getError()
     {
-        return $this->container['characters'];
+        return $this->container['error'];
     }
 
     /**
-     * Sets characters
+     * Sets error
      *
-     * @param int[] $characters characters array
+     * @param string $error Service unavailable message
      *
      * @return $this
      */
-    public function setCharacters($characters)
+    public function setError($error)
     {
-        $this->container['characters'] = $characters;
+        $this->container['error'] = $error;
 
         return $this;
     }

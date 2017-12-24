@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -35,8 +35,8 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  * GetAlliancesAllianceIdNotFound Class Doc Comment
  *
  * @category Class
- * @description Alliance not found
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @description Not found
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -218,7 +218,7 @@ class GetAlliancesAllianceIdNotFound implements ModelInterface, ArrayAccess
     /**
      * Sets error
      *
-     * @param string $error error message
+     * @param string $error Not found message
      *
      * @return $this
      */

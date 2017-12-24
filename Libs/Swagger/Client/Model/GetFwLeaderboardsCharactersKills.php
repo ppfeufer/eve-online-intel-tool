@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description Top 100 rankings of pilots by number of kills from yesterday, last week and in total.
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */

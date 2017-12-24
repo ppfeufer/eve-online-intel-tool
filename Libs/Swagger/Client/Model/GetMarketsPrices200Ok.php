@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description 200 ok object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -58,8 +58,8 @@ class GetMarketsPrices200Ok implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'type_id' => 'int',
-        'average_price' => 'float',
-        'adjusted_price' => 'float'
+        'average_price' => 'double',
+        'adjusted_price' => 'double'
     ];
 
     /**
@@ -69,8 +69,8 @@ class GetMarketsPrices200Ok implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'type_id' => 'int32',
-        'average_price' => 'float',
-        'adjusted_price' => 'float'
+        'average_price' => 'double',
+        'adjusted_price' => 'double'
     ];
 
     /**
@@ -250,7 +250,7 @@ class GetMarketsPrices200Ok implements ModelInterface, ArrayAccess
     /**
      * Gets average_price
      *
-     * @return float
+     * @return double
      */
     public function getAveragePrice()
     {
@@ -260,7 +260,7 @@ class GetMarketsPrices200Ok implements ModelInterface, ArrayAccess
     /**
      * Sets average_price
      *
-     * @param float $average_price average_price number
+     * @param double $average_price average_price number
      *
      * @return $this
      */
@@ -274,7 +274,7 @@ class GetMarketsPrices200Ok implements ModelInterface, ArrayAccess
     /**
      * Gets adjusted_price
      *
-     * @return float
+     * @return double
      */
     public function getAdjustedPrice()
     {
@@ -284,7 +284,7 @@ class GetMarketsPrices200Ok implements ModelInterface, ArrayAccess
     /**
      * Sets adjusted_price
      *
-     * @param float $adjusted_price adjusted_price number
+     * @param double $adjusted_price adjusted_price number
      *
      * @return $this
      */

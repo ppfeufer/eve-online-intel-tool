@@ -1,11 +1,11 @@
 <?php
 /**
- * PostCharactersCharacterIdCspaCreated
+ * GetCharactersCharacterIdOnlineOk
  *
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -32,15 +32,15 @@ use \ArrayAccess;
 use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
 
 /**
- * PostCharactersCharacterIdCspaCreated Class Doc Comment
+ * GetCharactersCharacterIdOnlineOk Class Doc Comment
  *
  * @category Class
- * @description 201 created object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @description 200 ok object
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class PostCharactersCharacterIdCspaCreated implements ModelInterface, ArrayAccess
+class GetCharactersCharacterIdOnlineOk implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class PostCharactersCharacterIdCspaCreated implements ModelInterface, ArrayAcces
       *
       * @var string
       */
-    protected static $swaggerModelName = 'post_characters_character_id_cspa_created';
+    protected static $swaggerModelName = 'get_characters_character_id_online_ok';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,7 +57,10 @@ class PostCharactersCharacterIdCspaCreated implements ModelInterface, ArrayAcces
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'cost' => 'int'
+        'online' => 'bool',
+        'last_login' => '\DateTime',
+        'last_logout' => '\DateTime',
+        'logins' => 'int'
     ];
 
     /**
@@ -66,7 +69,10 @@ class PostCharactersCharacterIdCspaCreated implements ModelInterface, ArrayAcces
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'cost' => 'int64'
+        'online' => null,
+        'last_login' => 'date-time',
+        'last_logout' => 'date-time',
+        'logins' => 'int32'
     ];
 
     /**
@@ -96,7 +102,10 @@ class PostCharactersCharacterIdCspaCreated implements ModelInterface, ArrayAcces
      * @var string[]
      */
     protected static $attributeMap = [
-        'cost' => 'cost'
+        'online' => 'online',
+        'last_login' => 'last_login',
+        'last_logout' => 'last_logout',
+        'logins' => 'logins'
     ];
 
     /**
@@ -105,7 +114,10 @@ class PostCharactersCharacterIdCspaCreated implements ModelInterface, ArrayAcces
      * @var string[]
      */
     protected static $setters = [
-        'cost' => 'setCost'
+        'online' => 'setOnline',
+        'last_login' => 'setLastLogin',
+        'last_logout' => 'setLastLogout',
+        'logins' => 'setLogins'
     ];
 
     /**
@@ -114,7 +126,10 @@ class PostCharactersCharacterIdCspaCreated implements ModelInterface, ArrayAcces
      * @var string[]
      */
     protected static $getters = [
-        'cost' => 'getCost'
+        'online' => 'getOnline',
+        'last_login' => 'getLastLogin',
+        'last_logout' => 'getLastLogout',
+        'logins' => 'getLogins'
     ];
 
     /**
@@ -177,7 +192,10 @@ class PostCharactersCharacterIdCspaCreated implements ModelInterface, ArrayAcces
      */
     public function __construct(array $data = null)
     {
-        $this->container['cost'] = isset($data['cost']) ? $data['cost'] : null;
+        $this->container['online'] = isset($data['online']) ? $data['online'] : null;
+        $this->container['last_login'] = isset($data['last_login']) ? $data['last_login'] : null;
+        $this->container['last_logout'] = isset($data['last_logout']) ? $data['last_logout'] : null;
+        $this->container['logins'] = isset($data['logins']) ? $data['logins'] : null;
     }
 
     /**
@@ -189,6 +207,9 @@ class PostCharactersCharacterIdCspaCreated implements ModelInterface, ArrayAcces
     {
         $invalidProperties = [];
 
+        if ($this->container['online'] === null) {
+            $invalidProperties[] = "'online' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -201,30 +222,105 @@ class PostCharactersCharacterIdCspaCreated implements ModelInterface, ArrayAcces
     public function valid()
     {
 
+        if ($this->container['online'] === null) {
+            return false;
+        }
         return true;
     }
 
 
     /**
-     * Gets cost
+     * Gets online
      *
-     * @return int
+     * @return bool
      */
-    public function getCost()
+    public function getOnline()
     {
-        return $this->container['cost'];
+        return $this->container['online'];
     }
 
     /**
-     * Sets cost
+     * Sets online
      *
-     * @param int $cost cost integer
+     * @param bool $online If the character is online
      *
      * @return $this
      */
-    public function setCost($cost)
+    public function setOnline($online)
     {
-        $this->container['cost'] = $cost;
+        $this->container['online'] = $online;
+
+        return $this;
+    }
+
+    /**
+     * Gets last_login
+     *
+     * @return \DateTime
+     */
+    public function getLastLogin()
+    {
+        return $this->container['last_login'];
+    }
+
+    /**
+     * Sets last_login
+     *
+     * @param \DateTime $last_login Timestamp of the last login
+     *
+     * @return $this
+     */
+    public function setLastLogin($last_login)
+    {
+        $this->container['last_login'] = $last_login;
+
+        return $this;
+    }
+
+    /**
+     * Gets last_logout
+     *
+     * @return \DateTime
+     */
+    public function getLastLogout()
+    {
+        return $this->container['last_logout'];
+    }
+
+    /**
+     * Sets last_logout
+     *
+     * @param \DateTime $last_logout Timestamp of the last logout
+     *
+     * @return $this
+     */
+    public function setLastLogout($last_logout)
+    {
+        $this->container['last_logout'] = $last_logout;
+
+        return $this;
+    }
+
+    /**
+     * Gets logins
+     *
+     * @return int
+     */
+    public function getLogins()
+    {
+        return $this->container['logins'];
+    }
+
+    /**
+     * Sets logins
+     *
+     * @param int $logins Total number of times the character has logged in
+     *
+     * @return $this
+     */
+    public function setLogins($logins)
+    {
+        $this->container['logins'] = $logins;
 
         return $this;
     }

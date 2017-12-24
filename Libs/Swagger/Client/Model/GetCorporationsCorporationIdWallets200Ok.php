@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description 200 ok object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -58,7 +58,7 @@ class GetCorporationsCorporationIdWallets200Ok implements ModelInterface, ArrayA
       */
     protected static $swaggerTypes = [
         'division' => 'int',
-        'balance' => 'float'
+        'balance' => 'double'
     ];
 
     /**
@@ -68,7 +68,7 @@ class GetCorporationsCorporationIdWallets200Ok implements ModelInterface, ArrayA
       */
     protected static $swaggerFormats = [
         'division' => 'int32',
-        'balance' => 'float'
+        'balance' => 'double'
     ];
 
     /**
@@ -272,7 +272,7 @@ class GetCorporationsCorporationIdWallets200Ok implements ModelInterface, ArrayA
     /**
      * Gets balance
      *
-     * @return float
+     * @return double
      */
     public function getBalance()
     {
@@ -282,7 +282,7 @@ class GetCorporationsCorporationIdWallets200Ok implements ModelInterface, ArrayA
     /**
      * Sets balance
      *
-     * @param float $balance balance number
+     * @param double $balance balance number
      *
      * @return $this
      */

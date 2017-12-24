@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description skill object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -59,7 +59,8 @@ class GetCharactersCharacterIdSkillsSkill implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'skill_id' => 'int',
         'skillpoints_in_skill' => 'int',
-        'current_skill_level' => 'int'
+        'trained_skill_level' => 'int',
+        'active_skill_level' => 'int'
     ];
 
     /**
@@ -70,7 +71,8 @@ class GetCharactersCharacterIdSkillsSkill implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'skill_id' => 'int32',
         'skillpoints_in_skill' => 'int64',
-        'current_skill_level' => 'int32'
+        'trained_skill_level' => 'int32',
+        'active_skill_level' => 'int32'
     ];
 
     /**
@@ -102,7 +104,8 @@ class GetCharactersCharacterIdSkillsSkill implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'skill_id' => 'skill_id',
         'skillpoints_in_skill' => 'skillpoints_in_skill',
-        'current_skill_level' => 'current_skill_level'
+        'trained_skill_level' => 'trained_skill_level',
+        'active_skill_level' => 'active_skill_level'
     ];
 
     /**
@@ -113,7 +116,8 @@ class GetCharactersCharacterIdSkillsSkill implements ModelInterface, ArrayAccess
     protected static $setters = [
         'skill_id' => 'setSkillId',
         'skillpoints_in_skill' => 'setSkillpointsInSkill',
-        'current_skill_level' => 'setCurrentSkillLevel'
+        'trained_skill_level' => 'setTrainedSkillLevel',
+        'active_skill_level' => 'setActiveSkillLevel'
     ];
 
     /**
@@ -124,7 +128,8 @@ class GetCharactersCharacterIdSkillsSkill implements ModelInterface, ArrayAccess
     protected static $getters = [
         'skill_id' => 'getSkillId',
         'skillpoints_in_skill' => 'getSkillpointsInSkill',
-        'current_skill_level' => 'getCurrentSkillLevel'
+        'trained_skill_level' => 'getTrainedSkillLevel',
+        'active_skill_level' => 'getActiveSkillLevel'
     ];
 
     /**
@@ -189,7 +194,8 @@ class GetCharactersCharacterIdSkillsSkill implements ModelInterface, ArrayAccess
     {
         $this->container['skill_id'] = isset($data['skill_id']) ? $data['skill_id'] : null;
         $this->container['skillpoints_in_skill'] = isset($data['skillpoints_in_skill']) ? $data['skillpoints_in_skill'] : null;
-        $this->container['current_skill_level'] = isset($data['current_skill_level']) ? $data['current_skill_level'] : null;
+        $this->container['trained_skill_level'] = isset($data['trained_skill_level']) ? $data['trained_skill_level'] : null;
+        $this->container['active_skill_level'] = isset($data['active_skill_level']) ? $data['active_skill_level'] : null;
     }
 
     /**
@@ -201,6 +207,18 @@ class GetCharactersCharacterIdSkillsSkill implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['skill_id'] === null) {
+            $invalidProperties[] = "'skill_id' can't be null";
+        }
+        if ($this->container['skillpoints_in_skill'] === null) {
+            $invalidProperties[] = "'skillpoints_in_skill' can't be null";
+        }
+        if ($this->container['trained_skill_level'] === null) {
+            $invalidProperties[] = "'trained_skill_level' can't be null";
+        }
+        if ($this->container['active_skill_level'] === null) {
+            $invalidProperties[] = "'active_skill_level' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -213,6 +231,18 @@ class GetCharactersCharacterIdSkillsSkill implements ModelInterface, ArrayAccess
     public function valid()
     {
 
+        if ($this->container['skill_id'] === null) {
+            return false;
+        }
+        if ($this->container['skillpoints_in_skill'] === null) {
+            return false;
+        }
+        if ($this->container['trained_skill_level'] === null) {
+            return false;
+        }
+        if ($this->container['active_skill_level'] === null) {
+            return false;
+        }
         return true;
     }
 
@@ -266,25 +296,49 @@ class GetCharactersCharacterIdSkillsSkill implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets current_skill_level
+     * Gets trained_skill_level
      *
      * @return int
      */
-    public function getCurrentSkillLevel()
+    public function getTrainedSkillLevel()
     {
-        return $this->container['current_skill_level'];
+        return $this->container['trained_skill_level'];
     }
 
     /**
-     * Sets current_skill_level
+     * Sets trained_skill_level
      *
-     * @param int $current_skill_level current_skill_level integer
+     * @param int $trained_skill_level trained_skill_level integer
      *
      * @return $this
      */
-    public function setCurrentSkillLevel($current_skill_level)
+    public function setTrainedSkillLevel($trained_skill_level)
     {
-        $this->container['current_skill_level'] = $current_skill_level;
+        $this->container['trained_skill_level'] = $trained_skill_level;
+
+        return $this;
+    }
+
+    /**
+     * Gets active_skill_level
+     *
+     * @return int
+     */
+    public function getActiveSkillLevel()
+    {
+        return $this->container['active_skill_level'];
+    }
+
+    /**
+     * Sets active_skill_level
+     *
+     * @param int $active_skill_level active_skill_level integer
+     *
+     * @return $this
+     */
+    public function setActiveSkillLevel($active_skill_level)
+    {
+        $this->container['active_skill_level'] = $active_skill_level;
 
         return $this;
     }

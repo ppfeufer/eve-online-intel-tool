@@ -1,11 +1,11 @@
 <?php
 /**
- * GetCorporationsCorporationIdMembers200Ok
+ * PostUniverseIdsCorporation
  *
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -32,15 +32,15 @@ use \ArrayAccess;
 use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
 
 /**
- * GetCorporationsCorporationIdMembers200Ok Class Doc Comment
+ * PostUniverseIdsCorporation Class Doc Comment
  *
  * @category Class
- * @description 200 ok object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @description corporation object
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class GetCorporationsCorporationIdMembers200Ok implements ModelInterface, ArrayAccess
+class PostUniverseIdsCorporation implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class GetCorporationsCorporationIdMembers200Ok implements ModelInterface, ArrayA
       *
       * @var string
       */
-    protected static $swaggerModelName = 'get_corporations_corporation_id_members_200_ok';
+    protected static $swaggerModelName = 'post_universe_ids_corporation';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,7 +57,8 @@ class GetCorporationsCorporationIdMembers200Ok implements ModelInterface, ArrayA
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'character_id' => 'int'
+        'id' => 'int',
+        'name' => 'string'
     ];
 
     /**
@@ -66,7 +67,8 @@ class GetCorporationsCorporationIdMembers200Ok implements ModelInterface, ArrayA
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'character_id' => 'int32'
+        'id' => 'int32',
+        'name' => null
     ];
 
     /**
@@ -96,7 +98,8 @@ class GetCorporationsCorporationIdMembers200Ok implements ModelInterface, ArrayA
      * @var string[]
      */
     protected static $attributeMap = [
-        'character_id' => 'character_id'
+        'id' => 'id',
+        'name' => 'name'
     ];
 
     /**
@@ -105,7 +108,8 @@ class GetCorporationsCorporationIdMembers200Ok implements ModelInterface, ArrayA
      * @var string[]
      */
     protected static $setters = [
-        'character_id' => 'setCharacterId'
+        'id' => 'setId',
+        'name' => 'setName'
     ];
 
     /**
@@ -114,7 +118,8 @@ class GetCorporationsCorporationIdMembers200Ok implements ModelInterface, ArrayA
      * @var string[]
      */
     protected static $getters = [
-        'character_id' => 'getCharacterId'
+        'id' => 'getId',
+        'name' => 'getName'
     ];
 
     /**
@@ -177,7 +182,8 @@ class GetCorporationsCorporationIdMembers200Ok implements ModelInterface, ArrayA
      */
     public function __construct(array $data = null)
     {
-        $this->container['character_id'] = isset($data['character_id']) ? $data['character_id'] : null;
+        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
     }
 
     /**
@@ -189,9 +195,6 @@ class GetCorporationsCorporationIdMembers200Ok implements ModelInterface, ArrayA
     {
         $invalidProperties = [];
 
-        if ($this->container['character_id'] === null) {
-            $invalidProperties[] = "'character_id' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -204,33 +207,54 @@ class GetCorporationsCorporationIdMembers200Ok implements ModelInterface, ArrayA
     public function valid()
     {
 
-        if ($this->container['character_id'] === null) {
-            return false;
-        }
         return true;
     }
 
 
     /**
-     * Gets character_id
+     * Gets id
      *
      * @return int
      */
-    public function getCharacterId()
+    public function getId()
     {
-        return $this->container['character_id'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets character_id
+     * Sets id
      *
-     * @param int $character_id character_id integer
+     * @param int $id id integer
      *
      * @return $this
      */
-    public function setCharacterId($character_id)
+    public function setId($id)
     {
-        $this->container['character_id'] = $character_id;
+        $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->container['name'];
+    }
+
+    /**
+     * Sets name
+     *
+     * @param string $name name string
+     *
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->container['name'] = $name;
 
         return $this;
     }

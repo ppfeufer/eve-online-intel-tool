@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description 200 ok object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -57,8 +57,9 @@ class GetCharactersCharacterIdClonesOk implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'last_jump_date' => '\DateTime',
+        'last_clone_jump_date' => '\DateTime',
         'home_location' => '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetCharactersCharacterIdClonesHomeLocation',
+        'last_station_change_date' => '\DateTime',
         'jump_clones' => '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetCharactersCharacterIdClonesJumpClone[]'
     ];
 
@@ -68,8 +69,9 @@ class GetCharactersCharacterIdClonesOk implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'last_jump_date' => 'date-time',
+        'last_clone_jump_date' => 'date-time',
         'home_location' => null,
+        'last_station_change_date' => 'date-time',
         'jump_clones' => null
     ];
 
@@ -100,8 +102,9 @@ class GetCharactersCharacterIdClonesOk implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'last_jump_date' => 'last_jump_date',
+        'last_clone_jump_date' => 'last_clone_jump_date',
         'home_location' => 'home_location',
+        'last_station_change_date' => 'last_station_change_date',
         'jump_clones' => 'jump_clones'
     ];
 
@@ -111,8 +114,9 @@ class GetCharactersCharacterIdClonesOk implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'last_jump_date' => 'setLastJumpDate',
+        'last_clone_jump_date' => 'setLastCloneJumpDate',
         'home_location' => 'setHomeLocation',
+        'last_station_change_date' => 'setLastStationChangeDate',
         'jump_clones' => 'setJumpClones'
     ];
 
@@ -122,8 +126,9 @@ class GetCharactersCharacterIdClonesOk implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'last_jump_date' => 'getLastJumpDate',
+        'last_clone_jump_date' => 'getLastCloneJumpDate',
         'home_location' => 'getHomeLocation',
+        'last_station_change_date' => 'getLastStationChangeDate',
         'jump_clones' => 'getJumpClones'
     ];
 
@@ -187,8 +192,9 @@ class GetCharactersCharacterIdClonesOk implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['last_jump_date'] = isset($data['last_jump_date']) ? $data['last_jump_date'] : null;
+        $this->container['last_clone_jump_date'] = isset($data['last_clone_jump_date']) ? $data['last_clone_jump_date'] : null;
         $this->container['home_location'] = isset($data['home_location']) ? $data['home_location'] : null;
+        $this->container['last_station_change_date'] = isset($data['last_station_change_date']) ? $data['last_station_change_date'] : null;
         $this->container['jump_clones'] = isset($data['jump_clones']) ? $data['jump_clones'] : null;
     }
 
@@ -224,25 +230,25 @@ class GetCharactersCharacterIdClonesOk implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets last_jump_date
+     * Gets last_clone_jump_date
      *
      * @return \DateTime
      */
-    public function getLastJumpDate()
+    public function getLastCloneJumpDate()
     {
-        return $this->container['last_jump_date'];
+        return $this->container['last_clone_jump_date'];
     }
 
     /**
-     * Sets last_jump_date
+     * Sets last_clone_jump_date
      *
-     * @param \DateTime $last_jump_date last_jump_date string
+     * @param \DateTime $last_clone_jump_date last_clone_jump_date string
      *
      * @return $this
      */
-    public function setLastJumpDate($last_jump_date)
+    public function setLastCloneJumpDate($last_clone_jump_date)
     {
-        $this->container['last_jump_date'] = $last_jump_date;
+        $this->container['last_clone_jump_date'] = $last_clone_jump_date;
 
         return $this;
     }
@@ -267,6 +273,30 @@ class GetCharactersCharacterIdClonesOk implements ModelInterface, ArrayAccess
     public function setHomeLocation($home_location)
     {
         $this->container['home_location'] = $home_location;
+
+        return $this;
+    }
+
+    /**
+     * Gets last_station_change_date
+     *
+     * @return \DateTime
+     */
+    public function getLastStationChangeDate()
+    {
+        return $this->container['last_station_change_date'];
+    }
+
+    /**
+     * Sets last_station_change_date
+     *
+     * @param \DateTime $last_station_change_date last_station_change_date string
+     *
+     * @return $this
+     */
+    public function setLastStationChangeDate($last_station_change_date)
+    {
+        $this->container['last_station_change_date'] = $last_station_change_date;
 
         return $this;
     }

@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description 200 ok object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -60,9 +60,9 @@ class GetMarketsRegionIdHistory200Ok implements ModelInterface, ArrayAccess
         'date' => '\DateTime',
         'order_count' => 'int',
         'volume' => 'int',
-        'highest' => 'float',
-        'average' => 'float',
-        'lowest' => 'float'
+        'highest' => 'double',
+        'average' => 'double',
+        'lowest' => 'double'
     ];
 
     /**
@@ -74,9 +74,9 @@ class GetMarketsRegionIdHistory200Ok implements ModelInterface, ArrayAccess
         'date' => 'date',
         'order_count' => 'int64',
         'volume' => 'int64',
-        'highest' => 'float',
-        'average' => 'float',
-        'lowest' => 'float'
+        'highest' => 'double',
+        'average' => 'double',
+        'lowest' => 'double'
     ];
 
     /**
@@ -346,7 +346,7 @@ class GetMarketsRegionIdHistory200Ok implements ModelInterface, ArrayAccess
     /**
      * Gets highest
      *
-     * @return float
+     * @return double
      */
     public function getHighest()
     {
@@ -356,7 +356,7 @@ class GetMarketsRegionIdHistory200Ok implements ModelInterface, ArrayAccess
     /**
      * Sets highest
      *
-     * @param float $highest highest number
+     * @param double $highest highest number
      *
      * @return $this
      */
@@ -370,7 +370,7 @@ class GetMarketsRegionIdHistory200Ok implements ModelInterface, ArrayAccess
     /**
      * Gets average
      *
-     * @return float
+     * @return double
      */
     public function getAverage()
     {
@@ -380,7 +380,7 @@ class GetMarketsRegionIdHistory200Ok implements ModelInterface, ArrayAccess
     /**
      * Sets average
      *
-     * @param float $average average number
+     * @param double $average average number
      *
      * @return $this
      */
@@ -394,7 +394,7 @@ class GetMarketsRegionIdHistory200Ok implements ModelInterface, ArrayAccess
     /**
      * Gets lowest
      *
-     * @return float
+     * @return double
      */
     public function getLowest()
     {
@@ -404,7 +404,7 @@ class GetMarketsRegionIdHistory200Ok implements ModelInterface, ArrayAccess
     /**
      * Sets lowest
      *
-     * @param float $lowest lowest number
+     * @param double $lowest lowest number
      *
      * @return $this
      */

@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description position object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -57,9 +57,9 @@ class GetUniverseSystemsSystemIdPosition implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'x' => 'float',
-        'y' => 'float',
-        'z' => 'float'
+        'x' => 'double',
+        'y' => 'double',
+        'z' => 'double'
     ];
 
     /**
@@ -68,9 +68,9 @@ class GetUniverseSystemsSystemIdPosition implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'x' => 'float',
-        'y' => 'float',
-        'z' => 'float'
+        'x' => 'double',
+        'y' => 'double',
+        'z' => 'double'
     ];
 
     /**
@@ -238,7 +238,7 @@ class GetUniverseSystemsSystemIdPosition implements ModelInterface, ArrayAccess
     /**
      * Gets x
      *
-     * @return float
+     * @return double
      */
     public function getX()
     {
@@ -248,7 +248,7 @@ class GetUniverseSystemsSystemIdPosition implements ModelInterface, ArrayAccess
     /**
      * Sets x
      *
-     * @param float $x x number
+     * @param double $x x number
      *
      * @return $this
      */
@@ -262,7 +262,7 @@ class GetUniverseSystemsSystemIdPosition implements ModelInterface, ArrayAccess
     /**
      * Gets y
      *
-     * @return float
+     * @return double
      */
     public function getY()
     {
@@ -272,7 +272,7 @@ class GetUniverseSystemsSystemIdPosition implements ModelInterface, ArrayAccess
     /**
      * Sets y
      *
-     * @param float $y y number
+     * @param double $y y number
      *
      * @return $this
      */
@@ -286,7 +286,7 @@ class GetUniverseSystemsSystemIdPosition implements ModelInterface, ArrayAccess
     /**
      * Gets z
      *
-     * @return float
+     * @return double
      */
     public function getZ()
     {
@@ -296,7 +296,7 @@ class GetUniverseSystemsSystemIdPosition implements ModelInterface, ArrayAccess
     /**
      * Sets z
      *
-     * @param float $z z number
+     * @param double $z z number
      *
      * @return $this
      */

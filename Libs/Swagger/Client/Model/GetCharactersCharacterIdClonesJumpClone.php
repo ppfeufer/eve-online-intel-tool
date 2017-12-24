@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description jump_clone object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -57,6 +57,8 @@ class GetCharactersCharacterIdClonesJumpClone implements ModelInterface, ArrayAc
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'jump_clone_id' => 'int',
+        'name' => 'string',
         'location_id' => 'int',
         'location_type' => 'string',
         'implants' => 'int[]'
@@ -68,6 +70,8 @@ class GetCharactersCharacterIdClonesJumpClone implements ModelInterface, ArrayAc
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'jump_clone_id' => 'int32',
+        'name' => null,
         'location_id' => 'int64',
         'location_type' => null,
         'implants' => 'int32'
@@ -100,6 +104,8 @@ class GetCharactersCharacterIdClonesJumpClone implements ModelInterface, ArrayAc
      * @var string[]
      */
     protected static $attributeMap = [
+        'jump_clone_id' => 'jump_clone_id',
+        'name' => 'name',
         'location_id' => 'location_id',
         'location_type' => 'location_type',
         'implants' => 'implants'
@@ -111,6 +117,8 @@ class GetCharactersCharacterIdClonesJumpClone implements ModelInterface, ArrayAc
      * @var string[]
      */
     protected static $setters = [
+        'jump_clone_id' => 'setJumpCloneId',
+        'name' => 'setName',
         'location_id' => 'setLocationId',
         'location_type' => 'setLocationType',
         'implants' => 'setImplants'
@@ -122,6 +130,8 @@ class GetCharactersCharacterIdClonesJumpClone implements ModelInterface, ArrayAc
      * @var string[]
      */
     protected static $getters = [
+        'jump_clone_id' => 'getJumpCloneId',
+        'name' => 'getName',
         'location_id' => 'getLocationId',
         'location_type' => 'getLocationType',
         'implants' => 'getImplants'
@@ -202,6 +212,8 @@ class GetCharactersCharacterIdClonesJumpClone implements ModelInterface, ArrayAc
      */
     public function __construct(array $data = null)
     {
+        $this->container['jump_clone_id'] = isset($data['jump_clone_id']) ? $data['jump_clone_id'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
         $this->container['location_id'] = isset($data['location_id']) ? $data['location_id'] : null;
         $this->container['location_type'] = isset($data['location_type']) ? $data['location_type'] : null;
         $this->container['implants'] = isset($data['implants']) ? $data['implants'] : null;
@@ -216,6 +228,15 @@ class GetCharactersCharacterIdClonesJumpClone implements ModelInterface, ArrayAc
     {
         $invalidProperties = [];
 
+        if ($this->container['jump_clone_id'] === null) {
+            $invalidProperties[] = "'jump_clone_id' can't be null";
+        }
+        if ($this->container['location_id'] === null) {
+            $invalidProperties[] = "'location_id' can't be null";
+        }
+        if ($this->container['location_type'] === null) {
+            $invalidProperties[] = "'location_type' can't be null";
+        }
         $allowedValues = $this->getLocationTypeAllowableValues();
         if (!in_array($this->container['location_type'], $allowedValues)) {
             $invalidProperties[] = sprintf(
@@ -224,6 +245,9 @@ class GetCharactersCharacterIdClonesJumpClone implements ModelInterface, ArrayAc
             );
         }
 
+        if ($this->container['implants'] === null) {
+            $invalidProperties[] = "'implants' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -236,13 +260,73 @@ class GetCharactersCharacterIdClonesJumpClone implements ModelInterface, ArrayAc
     public function valid()
     {
 
+        if ($this->container['jump_clone_id'] === null) {
+            return false;
+        }
+        if ($this->container['location_id'] === null) {
+            return false;
+        }
+        if ($this->container['location_type'] === null) {
+            return false;
+        }
         $allowedValues = $this->getLocationTypeAllowableValues();
         if (!in_array($this->container['location_type'], $allowedValues)) {
+            return false;
+        }
+        if ($this->container['implants'] === null) {
             return false;
         }
         return true;
     }
 
+
+    /**
+     * Gets jump_clone_id
+     *
+     * @return int
+     */
+    public function getJumpCloneId()
+    {
+        return $this->container['jump_clone_id'];
+    }
+
+    /**
+     * Sets jump_clone_id
+     *
+     * @param int $jump_clone_id jump_clone_id integer
+     *
+     * @return $this
+     */
+    public function setJumpCloneId($jump_clone_id)
+    {
+        $this->container['jump_clone_id'] = $jump_clone_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->container['name'];
+    }
+
+    /**
+     * Sets name
+     *
+     * @param string $name name string
+     *
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->container['name'] = $name;
+
+        return $this;
+    }
 
     /**
      * Gets location_id
@@ -288,7 +372,7 @@ class GetCharactersCharacterIdClonesJumpClone implements ModelInterface, ArrayAc
     public function setLocationType($location_type)
     {
         $allowedValues = $this->getLocationTypeAllowableValues();
-        if (!is_null($location_type) && !in_array($location_type, $allowedValues)) {
+        if (!in_array($location_type, $allowedValues)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value for 'location_type', must be one of '%s'",

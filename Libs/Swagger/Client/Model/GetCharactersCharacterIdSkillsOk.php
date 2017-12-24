@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description 200 ok object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -58,7 +58,8 @@ class GetCharactersCharacterIdSkillsOk implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'skills' => '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetCharactersCharacterIdSkillsSkill[]',
-        'total_sp' => 'int'
+        'total_sp' => 'int',
+        'unallocated_sp' => 'int'
     ];
 
     /**
@@ -68,7 +69,8 @@ class GetCharactersCharacterIdSkillsOk implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'skills' => null,
-        'total_sp' => 'int64'
+        'total_sp' => 'int64',
+        'unallocated_sp' => 'int32'
     ];
 
     /**
@@ -99,7 +101,8 @@ class GetCharactersCharacterIdSkillsOk implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'skills' => 'skills',
-        'total_sp' => 'total_sp'
+        'total_sp' => 'total_sp',
+        'unallocated_sp' => 'unallocated_sp'
     ];
 
     /**
@@ -109,7 +112,8 @@ class GetCharactersCharacterIdSkillsOk implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'skills' => 'setSkills',
-        'total_sp' => 'setTotalSp'
+        'total_sp' => 'setTotalSp',
+        'unallocated_sp' => 'setUnallocatedSp'
     ];
 
     /**
@@ -119,7 +123,8 @@ class GetCharactersCharacterIdSkillsOk implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'skills' => 'getSkills',
-        'total_sp' => 'getTotalSp'
+        'total_sp' => 'getTotalSp',
+        'unallocated_sp' => 'getUnallocatedSp'
     ];
 
     /**
@@ -184,6 +189,7 @@ class GetCharactersCharacterIdSkillsOk implements ModelInterface, ArrayAccess
     {
         $this->container['skills'] = isset($data['skills']) ? $data['skills'] : null;
         $this->container['total_sp'] = isset($data['total_sp']) ? $data['total_sp'] : null;
+        $this->container['unallocated_sp'] = isset($data['unallocated_sp']) ? $data['unallocated_sp'] : null;
     }
 
     /**
@@ -195,6 +201,12 @@ class GetCharactersCharacterIdSkillsOk implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['skills'] === null) {
+            $invalidProperties[] = "'skills' can't be null";
+        }
+        if ($this->container['total_sp'] === null) {
+            $invalidProperties[] = "'total_sp' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -207,6 +219,12 @@ class GetCharactersCharacterIdSkillsOk implements ModelInterface, ArrayAccess
     public function valid()
     {
 
+        if ($this->container['skills'] === null) {
+            return false;
+        }
+        if ($this->container['total_sp'] === null) {
+            return false;
+        }
         return true;
     }
 
@@ -255,6 +273,30 @@ class GetCharactersCharacterIdSkillsOk implements ModelInterface, ArrayAccess
     public function setTotalSp($total_sp)
     {
         $this->container['total_sp'] = $total_sp;
+
+        return $this;
+    }
+
+    /**
+     * Gets unallocated_sp
+     *
+     * @return int
+     */
+    public function getUnallocatedSp()
+    {
+        return $this->container['unallocated_sp'];
+    }
+
+    /**
+     * Sets unallocated_sp
+     *
+     * @param int $unallocated_sp Skill points available to be assigned
+     *
+     * @return $this
+     */
+    public function setUnallocatedSp($unallocated_sp)
+    {
+        $this->container['unallocated_sp'] = $unallocated_sp;
 
         return $this;
     }

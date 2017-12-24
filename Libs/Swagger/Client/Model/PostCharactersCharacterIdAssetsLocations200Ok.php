@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description 200 ok object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -58,9 +58,7 @@ class PostCharactersCharacterIdAssetsLocations200Ok implements ModelInterface, A
       */
     protected static $swaggerTypes = [
         'item_id' => 'int',
-        'x' => 'double',
-        'y' => 'double',
-        'z' => 'double'
+        'position' => '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCharactersCharacterIdAssetsLocationsPosition'
     ];
 
     /**
@@ -70,9 +68,7 @@ class PostCharactersCharacterIdAssetsLocations200Ok implements ModelInterface, A
       */
     protected static $swaggerFormats = [
         'item_id' => 'int64',
-        'x' => 'double',
-        'y' => 'double',
-        'z' => 'double'
+        'position' => null
     ];
 
     /**
@@ -103,9 +99,7 @@ class PostCharactersCharacterIdAssetsLocations200Ok implements ModelInterface, A
      */
     protected static $attributeMap = [
         'item_id' => 'item_id',
-        'x' => 'x',
-        'y' => 'y',
-        'z' => 'z'
+        'position' => 'position'
     ];
 
     /**
@@ -115,9 +109,7 @@ class PostCharactersCharacterIdAssetsLocations200Ok implements ModelInterface, A
      */
     protected static $setters = [
         'item_id' => 'setItemId',
-        'x' => 'setX',
-        'y' => 'setY',
-        'z' => 'setZ'
+        'position' => 'setPosition'
     ];
 
     /**
@@ -127,9 +119,7 @@ class PostCharactersCharacterIdAssetsLocations200Ok implements ModelInterface, A
      */
     protected static $getters = [
         'item_id' => 'getItemId',
-        'x' => 'getX',
-        'y' => 'getY',
-        'z' => 'getZ'
+        'position' => 'getPosition'
     ];
 
     /**
@@ -193,9 +183,7 @@ class PostCharactersCharacterIdAssetsLocations200Ok implements ModelInterface, A
     public function __construct(array $data = null)
     {
         $this->container['item_id'] = isset($data['item_id']) ? $data['item_id'] : null;
-        $this->container['x'] = isset($data['x']) ? $data['x'] : null;
-        $this->container['y'] = isset($data['y']) ? $data['y'] : null;
-        $this->container['z'] = isset($data['z']) ? $data['z'] : null;
+        $this->container['position'] = isset($data['position']) ? $data['position'] : null;
     }
 
     /**
@@ -210,14 +198,8 @@ class PostCharactersCharacterIdAssetsLocations200Ok implements ModelInterface, A
         if ($this->container['item_id'] === null) {
             $invalidProperties[] = "'item_id' can't be null";
         }
-        if ($this->container['x'] === null) {
-            $invalidProperties[] = "'x' can't be null";
-        }
-        if ($this->container['y'] === null) {
-            $invalidProperties[] = "'y' can't be null";
-        }
-        if ($this->container['z'] === null) {
-            $invalidProperties[] = "'z' can't be null";
+        if ($this->container['position'] === null) {
+            $invalidProperties[] = "'position' can't be null";
         }
         return $invalidProperties;
     }
@@ -234,13 +216,7 @@ class PostCharactersCharacterIdAssetsLocations200Ok implements ModelInterface, A
         if ($this->container['item_id'] === null) {
             return false;
         }
-        if ($this->container['x'] === null) {
-            return false;
-        }
-        if ($this->container['y'] === null) {
-            return false;
-        }
-        if ($this->container['z'] === null) {
+        if ($this->container['position'] === null) {
             return false;
         }
         return true;
@@ -272,73 +248,25 @@ class PostCharactersCharacterIdAssetsLocations200Ok implements ModelInterface, A
     }
 
     /**
-     * Gets x
+     * Gets position
      *
-     * @return double
+     * @return \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCharactersCharacterIdAssetsLocationsPosition
      */
-    public function getX()
+    public function getPosition()
     {
-        return $this->container['x'];
+        return $this->container['position'];
     }
 
     /**
-     * Sets x
+     * Sets position
      *
-     * @param double $x x number
+     * @param \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\PostCharactersCharacterIdAssetsLocationsPosition $position position
      *
      * @return $this
      */
-    public function setX($x)
+    public function setPosition($position)
     {
-        $this->container['x'] = $x;
-
-        return $this;
-    }
-
-    /**
-     * Gets y
-     *
-     * @return double
-     */
-    public function getY()
-    {
-        return $this->container['y'];
-    }
-
-    /**
-     * Sets y
-     *
-     * @param double $y y number
-     *
-     * @return $this
-     */
-    public function setY($y)
-    {
-        $this->container['y'] = $y;
-
-        return $this;
-    }
-
-    /**
-     * Gets z
-     *
-     * @return double
-     */
-    public function getZ()
-    {
-        return $this->container['z'];
-    }
-
-    /**
-     * Sets z
-     *
-     * @param double $z z number
-     *
-     * @return $this
-     */
-    public function setZ($z)
-    {
-        $this->container['z'] = $z;
+        $this->container['position'] = $position;
 
         return $this;
     }

@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description wallet transaction
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -61,7 +61,7 @@ class GetCharactersCharacterIdWalletTransactions200Ok implements ModelInterface,
         'date' => '\DateTime',
         'type_id' => 'int',
         'location_id' => 'int',
-        'unit_price' => 'float',
+        'unit_price' => 'double',
         'quantity' => 'int',
         'client_id' => 'int',
         'is_buy' => 'bool',
@@ -79,7 +79,7 @@ class GetCharactersCharacterIdWalletTransactions200Ok implements ModelInterface,
         'date' => 'date-time',
         'type_id' => 'int32',
         'location_id' => 'int64',
-        'unit_price' => 'float',
+        'unit_price' => 'double',
         'quantity' => 'int32',
         'client_id' => 'int32',
         'is_buy' => null,
@@ -418,7 +418,7 @@ class GetCharactersCharacterIdWalletTransactions200Ok implements ModelInterface,
     /**
      * Gets unit_price
      *
-     * @return float
+     * @return double
      */
     public function getUnitPrice()
     {
@@ -428,7 +428,7 @@ class GetCharactersCharacterIdWalletTransactions200Ok implements ModelInterface,
     /**
      * Sets unit_price
      *
-     * @param float $unit_price Amount paid per unit
+     * @param double $unit_price Amount paid per unit
      *
      * @return $this
      */

@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description 200 ok object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -64,11 +64,11 @@ class GetCharactersCharacterIdWalletJournal200Ok implements ModelInterface, Arra
         'first_party_type' => 'string',
         'second_party_id' => 'int',
         'second_party_type' => 'string',
-        'amount' => 'float',
-        'balance' => 'float',
+        'amount' => 'double',
+        'balance' => 'double',
         'reason' => 'string',
-        'tax_reciever_id' => 'int',
-        'tax' => 'float',
+        'tax_receiver_id' => 'int',
+        'tax' => 'double',
         'extra_info' => '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetCharactersCharacterIdWalletJournalExtraInfo'
     ];
 
@@ -85,11 +85,11 @@ class GetCharactersCharacterIdWalletJournal200Ok implements ModelInterface, Arra
         'first_party_type' => null,
         'second_party_id' => 'int32',
         'second_party_type' => null,
-        'amount' => 'float',
-        'balance' => 'float',
+        'amount' => 'double',
+        'balance' => 'double',
         'reason' => null,
-        'tax_reciever_id' => 'int32',
-        'tax' => 'float',
+        'tax_receiver_id' => 'int32',
+        'tax' => 'double',
         'extra_info' => null
     ];
 
@@ -130,7 +130,7 @@ class GetCharactersCharacterIdWalletJournal200Ok implements ModelInterface, Arra
         'amount' => 'amount',
         'balance' => 'balance',
         'reason' => 'reason',
-        'tax_reciever_id' => 'tax_reciever_id',
+        'tax_receiver_id' => 'tax_receiver_id',
         'tax' => 'tax',
         'extra_info' => 'extra_info'
     ];
@@ -151,7 +151,7 @@ class GetCharactersCharacterIdWalletJournal200Ok implements ModelInterface, Arra
         'amount' => 'setAmount',
         'balance' => 'setBalance',
         'reason' => 'setReason',
-        'tax_reciever_id' => 'setTaxRecieverId',
+        'tax_receiver_id' => 'setTaxReceiverId',
         'tax' => 'setTax',
         'extra_info' => 'setExtraInfo'
     ];
@@ -172,7 +172,7 @@ class GetCharactersCharacterIdWalletJournal200Ok implements ModelInterface, Arra
         'amount' => 'getAmount',
         'balance' => 'getBalance',
         'reason' => 'getReason',
-        'tax_reciever_id' => 'getTaxRecieverId',
+        'tax_receiver_id' => 'getTaxReceiverId',
         'tax' => 'getTax',
         'extra_info' => 'getExtraInfo'
     ];
@@ -534,7 +534,7 @@ class GetCharactersCharacterIdWalletJournal200Ok implements ModelInterface, Arra
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
         $this->container['balance'] = isset($data['balance']) ? $data['balance'] : null;
         $this->container['reason'] = isset($data['reason']) ? $data['reason'] : null;
-        $this->container['tax_reciever_id'] = isset($data['tax_reciever_id']) ? $data['tax_reciever_id'] : null;
+        $this->container['tax_receiver_id'] = isset($data['tax_receiver_id']) ? $data['tax_receiver_id'] : null;
         $this->container['tax'] = isset($data['tax']) ? $data['tax'] : null;
         $this->container['extra_info'] = isset($data['extra_info']) ? $data['extra_info'] : null;
     }
@@ -816,7 +816,7 @@ class GetCharactersCharacterIdWalletJournal200Ok implements ModelInterface, Arra
     /**
      * Gets amount
      *
-     * @return float
+     * @return double
      */
     public function getAmount()
     {
@@ -826,7 +826,7 @@ class GetCharactersCharacterIdWalletJournal200Ok implements ModelInterface, Arra
     /**
      * Sets amount
      *
-     * @param float $amount Transaction amount. Positive when value transferred to the first party. Negative otherwise
+     * @param double $amount Transaction amount. Positive when value transferred to the first party. Negative otherwise
      *
      * @return $this
      */
@@ -840,7 +840,7 @@ class GetCharactersCharacterIdWalletJournal200Ok implements ModelInterface, Arra
     /**
      * Gets balance
      *
-     * @return float
+     * @return double
      */
     public function getBalance()
     {
@@ -850,7 +850,7 @@ class GetCharactersCharacterIdWalletJournal200Ok implements ModelInterface, Arra
     /**
      * Sets balance
      *
-     * @param float $balance Wallet balance after transaction occurred
+     * @param double $balance Wallet balance after transaction occurred
      *
      * @return $this
      */
@@ -886,25 +886,25 @@ class GetCharactersCharacterIdWalletJournal200Ok implements ModelInterface, Arra
     }
 
     /**
-     * Gets tax_reciever_id
+     * Gets tax_receiver_id
      *
      * @return int
      */
-    public function getTaxRecieverId()
+    public function getTaxReceiverId()
     {
-        return $this->container['tax_reciever_id'];
+        return $this->container['tax_receiver_id'];
     }
 
     /**
-     * Sets tax_reciever_id
+     * Sets tax_receiver_id
      *
-     * @param int $tax_reciever_id the corporation ID receiving any tax paid
+     * @param int $tax_receiver_id the corporation ID receiving any tax paid
      *
      * @return $this
      */
-    public function setTaxRecieverId($tax_reciever_id)
+    public function setTaxReceiverId($tax_receiver_id)
     {
-        $this->container['tax_reciever_id'] = $tax_reciever_id;
+        $this->container['tax_receiver_id'] = $tax_receiver_id;
 
         return $this;
     }
@@ -912,7 +912,7 @@ class GetCharactersCharacterIdWalletJournal200Ok implements ModelInterface, Arra
     /**
      * Gets tax
      *
-     * @return float
+     * @return double
      */
     public function getTax()
     {
@@ -922,7 +922,7 @@ class GetCharactersCharacterIdWalletJournal200Ok implements ModelInterface, Arra
     /**
      * Sets tax
      *
-     * @param float $tax Tax amount received for tax related transactions
+     * @param double $tax Tax amount received for tax related transactions
      *
      * @return $this
      */

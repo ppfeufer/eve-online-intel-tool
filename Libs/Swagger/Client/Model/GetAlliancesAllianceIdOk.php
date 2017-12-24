@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description 200 ok object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -57,10 +57,13 @@ class GetAlliancesAllianceIdOk implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'alliance_name' => 'string',
+        'name' => 'string',
+        'creator_id' => 'int',
+        'creator_corporation_id' => 'int',
         'ticker' => 'string',
-        'executor_corp' => 'int',
-        'date_founded' => '\DateTime'
+        'executor_corporation_id' => 'int',
+        'date_founded' => '\DateTime',
+        'faction_id' => 'int'
     ];
 
     /**
@@ -69,10 +72,13 @@ class GetAlliancesAllianceIdOk implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'alliance_name' => null,
+        'name' => null,
+        'creator_id' => 'int32',
+        'creator_corporation_id' => 'int32',
         'ticker' => null,
-        'executor_corp' => 'int32',
-        'date_founded' => 'date-time'
+        'executor_corporation_id' => 'int32',
+        'date_founded' => 'date-time',
+        'faction_id' => 'int32'
     ];
 
     /**
@@ -102,10 +108,13 @@ class GetAlliancesAllianceIdOk implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'alliance_name' => 'alliance_name',
+        'name' => 'name',
+        'creator_id' => 'creator_id',
+        'creator_corporation_id' => 'creator_corporation_id',
         'ticker' => 'ticker',
-        'executor_corp' => 'executor_corp',
-        'date_founded' => 'date_founded'
+        'executor_corporation_id' => 'executor_corporation_id',
+        'date_founded' => 'date_founded',
+        'faction_id' => 'faction_id'
     ];
 
     /**
@@ -114,10 +123,13 @@ class GetAlliancesAllianceIdOk implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'alliance_name' => 'setAllianceName',
+        'name' => 'setName',
+        'creator_id' => 'setCreatorId',
+        'creator_corporation_id' => 'setCreatorCorporationId',
         'ticker' => 'setTicker',
-        'executor_corp' => 'setExecutorCorp',
-        'date_founded' => 'setDateFounded'
+        'executor_corporation_id' => 'setExecutorCorporationId',
+        'date_founded' => 'setDateFounded',
+        'faction_id' => 'setFactionId'
     ];
 
     /**
@@ -126,10 +138,13 @@ class GetAlliancesAllianceIdOk implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'alliance_name' => 'getAllianceName',
+        'name' => 'getName',
+        'creator_id' => 'getCreatorId',
+        'creator_corporation_id' => 'getCreatorCorporationId',
         'ticker' => 'getTicker',
-        'executor_corp' => 'getExecutorCorp',
-        'date_founded' => 'getDateFounded'
+        'executor_corporation_id' => 'getExecutorCorporationId',
+        'date_founded' => 'getDateFounded',
+        'faction_id' => 'getFactionId'
     ];
 
     /**
@@ -192,10 +207,13 @@ class GetAlliancesAllianceIdOk implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['alliance_name'] = isset($data['alliance_name']) ? $data['alliance_name'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
+        $this->container['creator_id'] = isset($data['creator_id']) ? $data['creator_id'] : null;
+        $this->container['creator_corporation_id'] = isset($data['creator_corporation_id']) ? $data['creator_corporation_id'] : null;
         $this->container['ticker'] = isset($data['ticker']) ? $data['ticker'] : null;
-        $this->container['executor_corp'] = isset($data['executor_corp']) ? $data['executor_corp'] : null;
+        $this->container['executor_corporation_id'] = isset($data['executor_corporation_id']) ? $data['executor_corporation_id'] : null;
         $this->container['date_founded'] = isset($data['date_founded']) ? $data['date_founded'] : null;
+        $this->container['faction_id'] = isset($data['faction_id']) ? $data['faction_id'] : null;
     }
 
     /**
@@ -207,8 +225,14 @@ class GetAlliancesAllianceIdOk implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['alliance_name'] === null) {
-            $invalidProperties[] = "'alliance_name' can't be null";
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
+        }
+        if ($this->container['creator_id'] === null) {
+            $invalidProperties[] = "'creator_id' can't be null";
+        }
+        if ($this->container['creator_corporation_id'] === null) {
+            $invalidProperties[] = "'creator_corporation_id' can't be null";
         }
         if ($this->container['ticker'] === null) {
             $invalidProperties[] = "'ticker' can't be null";
@@ -228,7 +252,13 @@ class GetAlliancesAllianceIdOk implements ModelInterface, ArrayAccess
     public function valid()
     {
 
-        if ($this->container['alliance_name'] === null) {
+        if ($this->container['name'] === null) {
+            return false;
+        }
+        if ($this->container['creator_id'] === null) {
+            return false;
+        }
+        if ($this->container['creator_corporation_id'] === null) {
             return false;
         }
         if ($this->container['ticker'] === null) {
@@ -242,25 +272,73 @@ class GetAlliancesAllianceIdOk implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets alliance_name
+     * Gets name
      *
      * @return string
      */
-    public function getAllianceName()
+    public function getName()
     {
-        return $this->container['alliance_name'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets alliance_name
+     * Sets name
      *
-     * @param string $alliance_name the full name of the alliance
+     * @param string $name the full name of the alliance
      *
      * @return $this
      */
-    public function setAllianceName($alliance_name)
+    public function setName($name)
     {
-        $this->container['alliance_name'] = $alliance_name;
+        $this->container['name'] = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets creator_id
+     *
+     * @return int
+     */
+    public function getCreatorId()
+    {
+        return $this->container['creator_id'];
+    }
+
+    /**
+     * Sets creator_id
+     *
+     * @param int $creator_id ID of the character that created the alliance
+     *
+     * @return $this
+     */
+    public function setCreatorId($creator_id)
+    {
+        $this->container['creator_id'] = $creator_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets creator_corporation_id
+     *
+     * @return int
+     */
+    public function getCreatorCorporationId()
+    {
+        return $this->container['creator_corporation_id'];
+    }
+
+    /**
+     * Sets creator_corporation_id
+     *
+     * @param int $creator_corporation_id ID of the corporation that created the alliance
+     *
+     * @return $this
+     */
+    public function setCreatorCorporationId($creator_corporation_id)
+    {
+        $this->container['creator_corporation_id'] = $creator_corporation_id;
 
         return $this;
     }
@@ -290,25 +368,25 @@ class GetAlliancesAllianceIdOk implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets executor_corp
+     * Gets executor_corporation_id
      *
      * @return int
      */
-    public function getExecutorCorp()
+    public function getExecutorCorporationId()
     {
-        return $this->container['executor_corp'];
+        return $this->container['executor_corporation_id'];
     }
 
     /**
-     * Sets executor_corp
+     * Sets executor_corporation_id
      *
-     * @param int $executor_corp the executor corporation ID, if this alliance is not closed
+     * @param int $executor_corporation_id the executor corporation ID, if this alliance is not closed
      *
      * @return $this
      */
-    public function setExecutorCorp($executor_corp)
+    public function setExecutorCorporationId($executor_corporation_id)
     {
-        $this->container['executor_corp'] = $executor_corp;
+        $this->container['executor_corporation_id'] = $executor_corporation_id;
 
         return $this;
     }
@@ -333,6 +411,30 @@ class GetAlliancesAllianceIdOk implements ModelInterface, ArrayAccess
     public function setDateFounded($date_founded)
     {
         $this->container['date_founded'] = $date_founded;
+
+        return $this;
+    }
+
+    /**
+     * Gets faction_id
+     *
+     * @return int
+     */
+    public function getFactionId()
+    {
+        return $this->container['faction_id'];
+    }
+
+    /**
+     * Sets faction_id
+     *
+     * @param int $faction_id Faction ID this alliance is fighting for, if this alliance is enlisted in factional warfare
+     *
+     * @return $this
+     */
+    public function setFactionId($faction_id)
+    {
+        $this->container['faction_id'] = $faction_id;
 
         return $this;
     }

@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description 200 ok object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -67,7 +67,7 @@ class GetCorporationsCorporationIdIndustryJobs200Ok implements ModelInterface, A
         'blueprint_location_id' => 'int',
         'output_location_id' => 'int',
         'runs' => 'int',
-        'cost' => 'float',
+        'cost' => 'double',
         'licensed_runs' => 'int',
         'probability' => 'float',
         'product_type_id' => 'int',
@@ -97,7 +97,7 @@ class GetCorporationsCorporationIdIndustryJobs200Ok implements ModelInterface, A
         'blueprint_location_id' => 'int64',
         'output_location_id' => 'int64',
         'runs' => 'int32',
-        'cost' => 'float',
+        'cost' => 'double',
         'licensed_runs' => 'int32',
         'probability' => 'float',
         'product_type_id' => 'int32',
@@ -693,7 +693,7 @@ class GetCorporationsCorporationIdIndustryJobs200Ok implements ModelInterface, A
     /**
      * Gets cost
      *
-     * @return float
+     * @return double
      */
     public function getCost()
     {
@@ -703,7 +703,7 @@ class GetCorporationsCorporationIdIndustryJobs200Ok implements ModelInterface, A
     /**
      * Sets cost
      *
-     * @param float $cost The sume of job installation fee and industry facility tax
+     * @param double $cost The sume of job installation fee and industry facility tax
      *
      * @return $this
      */

@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description 200 ok object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -412,6 +412,9 @@ class GetCharactersCharacterIdAssets200Ok implements ModelInterface, ArrayAccess
         if ($this->container['type_id'] === null) {
             $invalidProperties[] = "'type_id' can't be null";
         }
+        if ($this->container['quantity'] === null) {
+            $invalidProperties[] = "'quantity' can't be null";
+        }
         if ($this->container['location_id'] === null) {
             $invalidProperties[] = "'location_id' can't be null";
         }
@@ -456,6 +459,9 @@ class GetCharactersCharacterIdAssets200Ok implements ModelInterface, ArrayAccess
     {
 
         if ($this->container['type_id'] === null) {
+            return false;
+        }
+        if ($this->container['quantity'] === null) {
             return false;
         }
         if ($this->container['location_id'] === null) {

@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description 200 ok object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -57,17 +57,19 @@ class GetCorporationsCorporationIdOk implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'corporation_name' => 'string',
+        'name' => 'string',
         'ticker' => 'string',
         'member_count' => 'int',
         'ceo_id' => 'int',
         'alliance_id' => 'int',
-        'corporation_description' => 'string',
+        'description' => 'string',
         'tax_rate' => 'float',
-        'creation_date' => '\DateTime',
+        'date_founded' => '\DateTime',
         'creator_id' => 'int',
         'url' => 'string',
-        'faction' => 'string'
+        'faction_id' => 'int',
+        'home_station_id' => 'int',
+        'shares' => 'int'
     ];
 
     /**
@@ -76,17 +78,19 @@ class GetCorporationsCorporationIdOk implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'corporation_name' => null,
+        'name' => null,
         'ticker' => null,
         'member_count' => 'int32',
         'ceo_id' => 'int32',
         'alliance_id' => 'int32',
-        'corporation_description' => null,
+        'description' => null,
         'tax_rate' => 'float',
-        'creation_date' => 'date-time',
+        'date_founded' => 'date-time',
         'creator_id' => 'int32',
         'url' => null,
-        'faction' => null
+        'faction_id' => 'int32',
+        'home_station_id' => 'int32',
+        'shares' => 'int64'
     ];
 
     /**
@@ -116,17 +120,19 @@ class GetCorporationsCorporationIdOk implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'corporation_name' => 'corporation_name',
+        'name' => 'name',
         'ticker' => 'ticker',
         'member_count' => 'member_count',
         'ceo_id' => 'ceo_id',
         'alliance_id' => 'alliance_id',
-        'corporation_description' => 'corporation_description',
+        'description' => 'description',
         'tax_rate' => 'tax_rate',
-        'creation_date' => 'creation_date',
+        'date_founded' => 'date_founded',
         'creator_id' => 'creator_id',
         'url' => 'url',
-        'faction' => 'faction'
+        'faction_id' => 'faction_id',
+        'home_station_id' => 'home_station_id',
+        'shares' => 'shares'
     ];
 
     /**
@@ -135,17 +141,19 @@ class GetCorporationsCorporationIdOk implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'corporation_name' => 'setCorporationName',
+        'name' => 'setName',
         'ticker' => 'setTicker',
         'member_count' => 'setMemberCount',
         'ceo_id' => 'setCeoId',
         'alliance_id' => 'setAllianceId',
-        'corporation_description' => 'setCorporationDescription',
+        'description' => 'setDescription',
         'tax_rate' => 'setTaxRate',
-        'creation_date' => 'setCreationDate',
+        'date_founded' => 'setDateFounded',
         'creator_id' => 'setCreatorId',
         'url' => 'setUrl',
-        'faction' => 'setFaction'
+        'faction_id' => 'setFactionId',
+        'home_station_id' => 'setHomeStationId',
+        'shares' => 'setShares'
     ];
 
     /**
@@ -154,17 +162,19 @@ class GetCorporationsCorporationIdOk implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'corporation_name' => 'getCorporationName',
+        'name' => 'getName',
         'ticker' => 'getTicker',
         'member_count' => 'getMemberCount',
         'ceo_id' => 'getCeoId',
         'alliance_id' => 'getAllianceId',
-        'corporation_description' => 'getCorporationDescription',
+        'description' => 'getDescription',
         'tax_rate' => 'getTaxRate',
-        'creation_date' => 'getCreationDate',
+        'date_founded' => 'getDateFounded',
         'creator_id' => 'getCreatorId',
         'url' => 'getUrl',
-        'faction' => 'getFaction'
+        'faction_id' => 'getFactionId',
+        'home_station_id' => 'getHomeStationId',
+        'shares' => 'getShares'
     ];
 
     /**
@@ -208,27 +218,8 @@ class GetCorporationsCorporationIdOk implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const FACTION_MINMATAR = 'Minmatar';
-    const FACTION_GALLENTE = 'Gallente';
-    const FACTION_CALDARI = 'Caldari';
-    const FACTION_AMARR = 'Amarr';
     
 
-    
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getFactionAllowableValues()
-    {
-        return [
-            self::FACTION_MINMATAR,
-            self::FACTION_GALLENTE,
-            self::FACTION_CALDARI,
-            self::FACTION_AMARR,
-        ];
-    }
     
 
     /**
@@ -246,17 +237,19 @@ class GetCorporationsCorporationIdOk implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['corporation_name'] = isset($data['corporation_name']) ? $data['corporation_name'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
         $this->container['ticker'] = isset($data['ticker']) ? $data['ticker'] : null;
         $this->container['member_count'] = isset($data['member_count']) ? $data['member_count'] : null;
         $this->container['ceo_id'] = isset($data['ceo_id']) ? $data['ceo_id'] : null;
         $this->container['alliance_id'] = isset($data['alliance_id']) ? $data['alliance_id'] : null;
-        $this->container['corporation_description'] = isset($data['corporation_description']) ? $data['corporation_description'] : null;
+        $this->container['description'] = isset($data['description']) ? $data['description'] : null;
         $this->container['tax_rate'] = isset($data['tax_rate']) ? $data['tax_rate'] : null;
-        $this->container['creation_date'] = isset($data['creation_date']) ? $data['creation_date'] : null;
+        $this->container['date_founded'] = isset($data['date_founded']) ? $data['date_founded'] : null;
         $this->container['creator_id'] = isset($data['creator_id']) ? $data['creator_id'] : null;
         $this->container['url'] = isset($data['url']) ? $data['url'] : null;
-        $this->container['faction'] = isset($data['faction']) ? $data['faction'] : null;
+        $this->container['faction_id'] = isset($data['faction_id']) ? $data['faction_id'] : null;
+        $this->container['home_station_id'] = isset($data['home_station_id']) ? $data['home_station_id'] : null;
+        $this->container['shares'] = isset($data['shares']) ? $data['shares'] : null;
     }
 
     /**
@@ -268,8 +261,8 @@ class GetCorporationsCorporationIdOk implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['corporation_name'] === null) {
-            $invalidProperties[] = "'corporation_name' can't be null";
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
         }
         if ($this->container['ticker'] === null) {
             $invalidProperties[] = "'ticker' can't be null";
@@ -279,9 +272,6 @@ class GetCorporationsCorporationIdOk implements ModelInterface, ArrayAccess
         }
         if ($this->container['ceo_id'] === null) {
             $invalidProperties[] = "'ceo_id' can't be null";
-        }
-        if ($this->container['corporation_description'] === null) {
-            $invalidProperties[] = "'corporation_description' can't be null";
         }
         if ($this->container['tax_rate'] === null) {
             $invalidProperties[] = "'tax_rate' can't be null";
@@ -297,17 +287,6 @@ class GetCorporationsCorporationIdOk implements ModelInterface, ArrayAccess
         if ($this->container['creator_id'] === null) {
             $invalidProperties[] = "'creator_id' can't be null";
         }
-        if ($this->container['url'] === null) {
-            $invalidProperties[] = "'url' can't be null";
-        }
-        $allowedValues = $this->getFactionAllowableValues();
-        if (!in_array($this->container['faction'], $allowedValues)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'faction', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
-        }
-
         return $invalidProperties;
     }
 
@@ -320,7 +299,7 @@ class GetCorporationsCorporationIdOk implements ModelInterface, ArrayAccess
     public function valid()
     {
 
-        if ($this->container['corporation_name'] === null) {
+        if ($this->container['name'] === null) {
             return false;
         }
         if ($this->container['ticker'] === null) {
@@ -330,9 +309,6 @@ class GetCorporationsCorporationIdOk implements ModelInterface, ArrayAccess
             return false;
         }
         if ($this->container['ceo_id'] === null) {
-            return false;
-        }
-        if ($this->container['corporation_description'] === null) {
             return false;
         }
         if ($this->container['tax_rate'] === null) {
@@ -347,37 +323,30 @@ class GetCorporationsCorporationIdOk implements ModelInterface, ArrayAccess
         if ($this->container['creator_id'] === null) {
             return false;
         }
-        if ($this->container['url'] === null) {
-            return false;
-        }
-        $allowedValues = $this->getFactionAllowableValues();
-        if (!in_array($this->container['faction'], $allowedValues)) {
-            return false;
-        }
         return true;
     }
 
 
     /**
-     * Gets corporation_name
+     * Gets name
      *
      * @return string
      */
-    public function getCorporationName()
+    public function getName()
     {
-        return $this->container['corporation_name'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets corporation_name
+     * Sets name
      *
-     * @param string $corporation_name the full name of the corporation
+     * @param string $name the full name of the corporation
      *
      * @return $this
      */
-    public function setCorporationName($corporation_name)
+    public function setName($name)
     {
-        $this->container['corporation_name'] = $corporation_name;
+        $this->container['name'] = $name;
 
         return $this;
     }
@@ -467,7 +436,7 @@ class GetCorporationsCorporationIdOk implements ModelInterface, ArrayAccess
     /**
      * Sets alliance_id
      *
-     * @param int $alliance_id id of alliance that corporation is a member of, if any
+     * @param int $alliance_id ID of the alliance that corporation is a member of, if any
      *
      * @return $this
      */
@@ -479,25 +448,25 @@ class GetCorporationsCorporationIdOk implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets corporation_description
+     * Gets description
      *
      * @return string
      */
-    public function getCorporationDescription()
+    public function getDescription()
     {
-        return $this->container['corporation_description'];
+        return $this->container['description'];
     }
 
     /**
-     * Sets corporation_description
+     * Sets description
      *
-     * @param string $corporation_description corporation_description string
+     * @param string $description description string
      *
      * @return $this
      */
-    public function setCorporationDescription($corporation_description)
+    public function setDescription($description)
     {
-        $this->container['corporation_description'] = $corporation_description;
+        $this->container['description'] = $description;
 
         return $this;
     }
@@ -535,25 +504,25 @@ class GetCorporationsCorporationIdOk implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets creation_date
+     * Gets date_founded
      *
      * @return \DateTime
      */
-    public function getCreationDate()
+    public function getDateFounded()
     {
-        return $this->container['creation_date'];
+        return $this->container['date_founded'];
     }
 
     /**
-     * Sets creation_date
+     * Sets date_founded
      *
-     * @param \DateTime $creation_date creation_date string
+     * @param \DateTime $date_founded date_founded string
      *
      * @return $this
      */
-    public function setCreationDate($creation_date)
+    public function setDateFounded($date_founded)
     {
-        $this->container['creation_date'] = $creation_date;
+        $this->container['date_founded'] = $date_founded;
 
         return $this;
     }
@@ -607,34 +576,73 @@ class GetCorporationsCorporationIdOk implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets faction
+     * Gets faction_id
      *
-     * @return string
+     * @return int
      */
-    public function getFaction()
+    public function getFactionId()
     {
-        return $this->container['faction'];
+        return $this->container['faction_id'];
     }
 
     /**
-     * Sets faction
+     * Sets faction_id
      *
-     * @param string $faction faction string
+     * @param int $faction_id faction_id integer
      *
      * @return $this
      */
-    public function setFaction($faction)
+    public function setFactionId($faction_id)
     {
-        $allowedValues = $this->getFactionAllowableValues();
-        if (!is_null($faction) && !in_array($faction, $allowedValues)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'faction', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['faction'] = $faction;
+        $this->container['faction_id'] = $faction_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets home_station_id
+     *
+     * @return int
+     */
+    public function getHomeStationId()
+    {
+        return $this->container['home_station_id'];
+    }
+
+    /**
+     * Sets home_station_id
+     *
+     * @param int $home_station_id home_station_id integer
+     *
+     * @return $this
+     */
+    public function setHomeStationId($home_station_id)
+    {
+        $this->container['home_station_id'] = $home_station_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets shares
+     *
+     * @return int
+     */
+    public function getShares()
+    {
+        return $this->container['shares'];
+    }
+
+    /**
+     * Sets shares
+     *
+     * @param int $shares shares integer
+     *
+     * @return $this
+     */
+    public function setShares($shares)
+    {
+        $this->container['shares'] = $shares;
 
         return $this;
     }

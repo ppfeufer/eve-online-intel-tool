@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description 200 ok object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -63,7 +63,7 @@ class GetCorporationsCorporationIdOrders200Ok implements ModelInterface, ArrayAc
         'location_id' => 'int',
         'range' => 'string',
         'is_buy_order' => 'bool',
-        'price' => 'float',
+        'price' => 'double',
         'volume_total' => 'int',
         'volume_remain' => 'int',
         'issued' => '\DateTime',
@@ -71,7 +71,7 @@ class GetCorporationsCorporationIdOrders200Ok implements ModelInterface, ArrayAc
         'min_volume' => 'int',
         'wallet_division' => 'int',
         'duration' => 'int',
-        'escrow' => 'float'
+        'escrow' => 'double'
     ];
 
     /**
@@ -86,7 +86,7 @@ class GetCorporationsCorporationIdOrders200Ok implements ModelInterface, ArrayAc
         'location_id' => 'int64',
         'range' => null,
         'is_buy_order' => null,
-        'price' => 'float',
+        'price' => 'double',
         'volume_total' => 'int32',
         'volume_remain' => 'int32',
         'issued' => 'date-time',
@@ -94,7 +94,7 @@ class GetCorporationsCorporationIdOrders200Ok implements ModelInterface, ArrayAc
         'min_volume' => 'int32',
         'wallet_division' => 'int32',
         'duration' => 'int32',
-        'escrow' => 'float'
+        'escrow' => 'double'
     ];
 
     /**
@@ -631,7 +631,7 @@ class GetCorporationsCorporationIdOrders200Ok implements ModelInterface, ArrayAc
     /**
      * Gets price
      *
-     * @return float
+     * @return double
      */
     public function getPrice()
     {
@@ -641,7 +641,7 @@ class GetCorporationsCorporationIdOrders200Ok implements ModelInterface, ArrayAc
     /**
      * Sets price
      *
-     * @param float $price Cost per unit for this order
+     * @param double $price Cost per unit for this order
      *
      * @return $this
      */
@@ -840,7 +840,7 @@ class GetCorporationsCorporationIdOrders200Ok implements ModelInterface, ArrayAc
     /**
      * Gets escrow
      *
-     * @return float
+     * @return double
      */
     public function getEscrow()
     {
@@ -850,7 +850,7 @@ class GetCorporationsCorporationIdOrders200Ok implements ModelInterface, ArrayAc
     /**
      * Sets escrow
      *
-     * @param float $escrow For buy orders, the amount of ISK in escrow
+     * @param double $escrow For buy orders, the amount of ISK in escrow
      *
      * @return $this
      */

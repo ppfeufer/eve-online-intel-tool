@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description 200 ok object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -63,12 +63,11 @@ class GetCharactersCharacterIdSearchOk implements ModelInterface, ArrayAccess
         'constellation' => 'int[]',
         'corporation' => 'int[]',
         'faction' => 'int[]',
-        'inventorytype' => 'int[]',
+        'inventory_type' => 'int[]',
         'region' => 'int[]',
-        'solarsystem' => 'int[]',
+        'solar_system' => 'int[]',
         'station' => 'int[]',
-        'structure' => 'int[]',
-        'wormhole' => 'int[]'
+        'structure' => 'int[]'
     ];
 
     /**
@@ -83,12 +82,11 @@ class GetCharactersCharacterIdSearchOk implements ModelInterface, ArrayAccess
         'constellation' => 'int32',
         'corporation' => 'int32',
         'faction' => 'int32',
-        'inventorytype' => 'int32',
+        'inventory_type' => 'int32',
         'region' => 'int32',
-        'solarsystem' => 'int32',
+        'solar_system' => 'int32',
         'station' => 'int32',
-        'structure' => 'int64',
-        'wormhole' => 'int32'
+        'structure' => 'int64'
     ];
 
     /**
@@ -124,12 +122,11 @@ class GetCharactersCharacterIdSearchOk implements ModelInterface, ArrayAccess
         'constellation' => 'constellation',
         'corporation' => 'corporation',
         'faction' => 'faction',
-        'inventorytype' => 'inventorytype',
+        'inventory_type' => 'inventory_type',
         'region' => 'region',
-        'solarsystem' => 'solarsystem',
+        'solar_system' => 'solar_system',
         'station' => 'station',
-        'structure' => 'structure',
-        'wormhole' => 'wormhole'
+        'structure' => 'structure'
     ];
 
     /**
@@ -144,12 +141,11 @@ class GetCharactersCharacterIdSearchOk implements ModelInterface, ArrayAccess
         'constellation' => 'setConstellation',
         'corporation' => 'setCorporation',
         'faction' => 'setFaction',
-        'inventorytype' => 'setInventorytype',
+        'inventory_type' => 'setInventoryType',
         'region' => 'setRegion',
-        'solarsystem' => 'setSolarsystem',
+        'solar_system' => 'setSolarSystem',
         'station' => 'setStation',
-        'structure' => 'setStructure',
-        'wormhole' => 'setWormhole'
+        'structure' => 'setStructure'
     ];
 
     /**
@@ -164,12 +160,11 @@ class GetCharactersCharacterIdSearchOk implements ModelInterface, ArrayAccess
         'constellation' => 'getConstellation',
         'corporation' => 'getCorporation',
         'faction' => 'getFaction',
-        'inventorytype' => 'getInventorytype',
+        'inventory_type' => 'getInventoryType',
         'region' => 'getRegion',
-        'solarsystem' => 'getSolarsystem',
+        'solar_system' => 'getSolarSystem',
         'station' => 'getStation',
-        'structure' => 'getStructure',
-        'wormhole' => 'getWormhole'
+        'structure' => 'getStructure'
     ];
 
     /**
@@ -238,12 +233,11 @@ class GetCharactersCharacterIdSearchOk implements ModelInterface, ArrayAccess
         $this->container['constellation'] = isset($data['constellation']) ? $data['constellation'] : null;
         $this->container['corporation'] = isset($data['corporation']) ? $data['corporation'] : null;
         $this->container['faction'] = isset($data['faction']) ? $data['faction'] : null;
-        $this->container['inventorytype'] = isset($data['inventorytype']) ? $data['inventorytype'] : null;
+        $this->container['inventory_type'] = isset($data['inventory_type']) ? $data['inventory_type'] : null;
         $this->container['region'] = isset($data['region']) ? $data['region'] : null;
-        $this->container['solarsystem'] = isset($data['solarsystem']) ? $data['solarsystem'] : null;
+        $this->container['solar_system'] = isset($data['solar_system']) ? $data['solar_system'] : null;
         $this->container['station'] = isset($data['station']) ? $data['station'] : null;
         $this->container['structure'] = isset($data['structure']) ? $data['structure'] : null;
-        $this->container['wormhole'] = isset($data['wormhole']) ? $data['wormhole'] : null;
     }
 
     /**
@@ -416,25 +410,25 @@ class GetCharactersCharacterIdSearchOk implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets inventorytype
+     * Gets inventory_type
      *
      * @return int[]
      */
-    public function getInventorytype()
+    public function getInventoryType()
     {
-        return $this->container['inventorytype'];
+        return $this->container['inventory_type'];
     }
 
     /**
-     * Sets inventorytype
+     * Sets inventory_type
      *
-     * @param int[] $inventorytype inventorytype array
+     * @param int[] $inventory_type inventory_type array
      *
      * @return $this
      */
-    public function setInventorytype($inventorytype)
+    public function setInventoryType($inventory_type)
     {
-        $this->container['inventorytype'] = $inventorytype;
+        $this->container['inventory_type'] = $inventory_type;
 
         return $this;
     }
@@ -464,25 +458,25 @@ class GetCharactersCharacterIdSearchOk implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets solarsystem
+     * Gets solar_system
      *
      * @return int[]
      */
-    public function getSolarsystem()
+    public function getSolarSystem()
     {
-        return $this->container['solarsystem'];
+        return $this->container['solar_system'];
     }
 
     /**
-     * Sets solarsystem
+     * Sets solar_system
      *
-     * @param int[] $solarsystem solarsystem array
+     * @param int[] $solar_system solar_system array
      *
      * @return $this
      */
-    public function setSolarsystem($solarsystem)
+    public function setSolarSystem($solar_system)
     {
-        $this->container['solarsystem'] = $solarsystem;
+        $this->container['solar_system'] = $solar_system;
 
         return $this;
     }
@@ -531,30 +525,6 @@ class GetCharactersCharacterIdSearchOk implements ModelInterface, ArrayAccess
     public function setStructure($structure)
     {
         $this->container['structure'] = $structure;
-
-        return $this;
-    }
-
-    /**
-     * Gets wormhole
-     *
-     * @return int[]
-     */
-    public function getWormhole()
-    {
-        return $this->container['wormhole'];
-    }
-
-    /**
-     * Sets wormhole
-     *
-     * @param int[] $wormhole wormhole array
-     *
-     * @return $this
-     */
-    public function setWormhole($wormhole)
-    {
-        $this->container['wormhole'] = $wormhole;
 
         return $this;
     }

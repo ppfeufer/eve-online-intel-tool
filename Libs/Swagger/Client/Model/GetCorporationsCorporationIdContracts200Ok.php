@@ -5,7 +5,7 @@
  * PHP version 7
  *
  * @category Class
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -36,7 +36,7 @@ use \WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\ObjectSerializer;
  *
  * @category Class
  * @description 200 ok object
- * @package  WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client
+ * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -74,10 +74,10 @@ class GetCorporationsCorporationIdContracts200Ok implements ModelInterface, Arra
         'date_accepted' => '\DateTime',
         'days_to_complete' => 'int',
         'date_completed' => '\DateTime',
-        'price' => 'float',
-        'reward' => 'float',
-        'collateral' => 'float',
-        'buyout' => 'float',
+        'price' => 'double',
+        'reward' => 'double',
+        'collateral' => 'double',
+        'buyout' => 'double',
         'volume' => 'float'
     ];
 
@@ -104,10 +104,10 @@ class GetCorporationsCorporationIdContracts200Ok implements ModelInterface, Arra
         'date_accepted' => 'date-time',
         'days_to_complete' => 'int32',
         'date_completed' => 'date-time',
-        'price' => 'float',
-        'reward' => 'float',
-        'collateral' => 'float',
-        'buyout' => 'float',
+        'price' => 'double',
+        'reward' => 'double',
+        'collateral' => 'double',
+        'buyout' => 'double',
         'volume' => 'float'
     ];
 
@@ -942,7 +942,7 @@ class GetCorporationsCorporationIdContracts200Ok implements ModelInterface, Arra
     /**
      * Gets price
      *
-     * @return float
+     * @return double
      */
     public function getPrice()
     {
@@ -952,7 +952,7 @@ class GetCorporationsCorporationIdContracts200Ok implements ModelInterface, Arra
     /**
      * Sets price
      *
-     * @param float $price Price of contract (for ItemsExchange and Auctions)
+     * @param double $price Price of contract (for ItemsExchange and Auctions)
      *
      * @return $this
      */
@@ -966,7 +966,7 @@ class GetCorporationsCorporationIdContracts200Ok implements ModelInterface, Arra
     /**
      * Gets reward
      *
-     * @return float
+     * @return double
      */
     public function getReward()
     {
@@ -976,7 +976,7 @@ class GetCorporationsCorporationIdContracts200Ok implements ModelInterface, Arra
     /**
      * Sets reward
      *
-     * @param float $reward Remuneration for contract (for Couriers only)
+     * @param double $reward Remuneration for contract (for Couriers only)
      *
      * @return $this
      */
@@ -990,7 +990,7 @@ class GetCorporationsCorporationIdContracts200Ok implements ModelInterface, Arra
     /**
      * Gets collateral
      *
-     * @return float
+     * @return double
      */
     public function getCollateral()
     {
@@ -1000,7 +1000,7 @@ class GetCorporationsCorporationIdContracts200Ok implements ModelInterface, Arra
     /**
      * Sets collateral
      *
-     * @param float $collateral Collateral price (for Couriers only)
+     * @param double $collateral Collateral price (for Couriers only)
      *
      * @return $this
      */
@@ -1014,7 +1014,7 @@ class GetCorporationsCorporationIdContracts200Ok implements ModelInterface, Arra
     /**
      * Gets buyout
      *
-     * @return float
+     * @return double
      */
     public function getBuyout()
     {
@@ -1024,7 +1024,7 @@ class GetCorporationsCorporationIdContracts200Ok implements ModelInterface, Arra
     /**
      * Sets buyout
      *
-     * @param float $buyout Buyout price (for Auctions only)
+     * @param double $buyout Buyout price (for Auctions only)
      *
      * @return $this
      */
