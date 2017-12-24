@@ -29,20 +29,6 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Helper;
 
 class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
 	/**
-	 * ESI URL
-	 *
-	 * @var string
-	 */
-	private $esiUrl = null;
-
-	/**
-	 * ESI Endpoints
-	 *
-	 * @var array
-	 */
-	private $esiEndpoints = null;
-
-	/**
 	 * Image Server URL
 	 *
 	 * @var string
