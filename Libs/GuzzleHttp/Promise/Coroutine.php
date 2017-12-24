@@ -1,4 +1,5 @@
 <?php
+
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise;
 
 use Exception;
@@ -40,112 +41,102 @@ use Throwable;
  * @return Promise
  * @link https://github.com/petkaantonov/bluebird/blob/master/API.md#generators inspiration
  */
-final class Coroutine implements PromiseInterface
-{
-    /**
-     * @var PromiseInterface|null
-     */
-    private $currentPromise;
+final class Coroutine implements PromiseInterface {
+	/**
+	 * @var PromiseInterface|null
+	 */
+	private $currentPromise;
 
-    /**
-     * @var Generator
-     */
-    private $generator;
+	/**
+	 * @var Generator
+	 */
+	private $generator;
 
-    /**
-     * @var Promise
-     */
-    private $result;
+	/**
+	 * @var Promise
+	 */
+	private $result;
 
-    public function __construct(callable $generatorFn)
-    {
-        $this->generator = $generatorFn();
-        $this->result = new Promise(function () {
-            while (isset($this->currentPromise)) {
-                $this->currentPromise->wait();
-            }
-        });
-        $this->nextCoroutine($this->generator->current());
-    }
+	public function __construct(callable $generatorFn) {
+		$this->generator = $generatorFn();
+		$this->result = new Promise(function() {
+			while(isset($this->currentPromise)) {
+				$this->currentPromise->wait();
+			}
+		});
 
-    public function then(
-        callable $onFulfilled = null,
-        callable $onRejected = null
-    ) {
-        return $this->result->then($onFulfilled, $onRejected);
-    }
+		$this->nextCoroutine($this->generator->current());
+	}
 
-    public function otherwise(callable $onRejected)
-    {
-        return $this->result->otherwise($onRejected);
-    }
+	public function then(callable $onFulfilled = null, callable $onRejected = null) {
+		return $this->result->then($onFulfilled, $onRejected);
+	}
 
-    public function wait($unwrap = true)
-    {
-        return $this->result->wait($unwrap);
-    }
+	public function otherwise(callable $onRejected) {
+		return $this->result->otherwise($onRejected);
+	}
 
-    public function getState()
-    {
-        return $this->result->getState();
-    }
+	public function wait($unwrap = true) {
+		return $this->result->wait($unwrap);
+	}
 
-    public function resolve($value)
-    {
-        $this->result->resolve($value);
-    }
+	public function getState() {
+		return $this->result->getState();
+	}
 
-    public function reject($reason)
-    {
-        $this->result->reject($reason);
-    }
+	public function resolve($value) {
+		$this->result->resolve($value);
+	}
 
-    public function cancel()
-    {
-        $this->currentPromise->cancel();
-        $this->result->cancel();
-    }
+	public function reject($reason) {
+		$this->result->reject($reason);
+	}
 
-    private function nextCoroutine($yielded)
-    {
-        $this->currentPromise = promise_for($yielded)
-            ->then([$this, '_handleSuccess'], [$this, '_handleFailure']);
-    }
+	public function cancel() {
+		$this->currentPromise->cancel();
+		$this->result->cancel();
+	}
 
-    /**
-     * @internal
-     */
-    public function _handleSuccess($value)
-    {
-        unset($this->currentPromise);
-        try {
-            $next = $this->generator->send($value);
-            if ($this->generator->valid()) {
-                $this->nextCoroutine($next);
-            } else {
-                $this->result->resolve($value);
-            }
-        } catch (Exception $exception) {
-            $this->result->reject($exception);
-        } catch (Throwable $throwable) {
-            $this->result->reject($throwable);
-        }
-    }
+	private function nextCoroutine($yielded) {
+		$this->currentPromise = promise_for($yielded)->then([$this, '_handleSuccess'], [$this, '_handleFailure']);
+	}
 
-    /**
-     * @internal
-     */
-    public function _handleFailure($reason)
-    {
-        unset($this->currentPromise);
-        try {
-            $nextYield = $this->generator->throw(exception_for($reason));
-            // The throw was caught, so keep iterating on the coroutine
-            $this->nextCoroutine($nextYield);
-        } catch (Exception $exception) {
-            $this->result->reject($exception);
-        } catch (Throwable $throwable) {
-            $this->result->reject($throwable);
-        }
-    }
+	/**
+	 * @internal
+	 */
+	public function _handleSuccess($value) {
+		unset($this->currentPromise);
+
+		try {
+			$next = $this->generator->send($value);
+
+			if($this->generator->valid()) {
+				$this->nextCoroutine($next);
+			} else {
+				$this->result->resolve($value);
+			}
+		} catch(Exception $exception) {
+			$this->result->reject($exception);
+		} catch(Throwable $throwable) {
+			$this->result->reject($throwable);
+		}
+	}
+
+	/**
+	 * @internal
+	 */
+	public function _handleFailure($reason) {
+		unset($this->currentPromise);
+
+		try {
+			$nextYield = $this->generator->throw(exception_for($reason));
+
+			// The throw was caught, so keep iterating on the coroutine
+			$this->nextCoroutine($nextYield);
+		} catch(Exception $exception) {
+			$this->result->reject($exception);
+		} catch(Throwable $throwable) {
+			$this->result->reject($throwable);
+		}
+	}
 }

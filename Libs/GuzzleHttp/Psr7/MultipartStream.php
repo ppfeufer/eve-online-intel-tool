@@ -1,4 +1,5 @@
 <?php
+
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7;
 
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Psr\Http\Message\StreamInterface;
@@ -7,147 +8,135 @@ use WordPress\Plugin\EveOnlineIntelTool\Libs\Psr\Http\Message\StreamInterface;
  * Stream that when read returns bytes for a streaming multipart or
  * multipart/form-data stream.
  */
-class MultipartStream implements StreamInterface
-{
-    use StreamDecoratorTrait;
+class MultipartStream implements StreamInterface {
+	use StreamDecoratorTrait;
 
-    private $boundary;
+	private $boundary;
 
-    /**
-     * @param array  $elements Array of associative arrays, each containing a
-     *                         required "name" key mapping to the form field,
-     *                         name, a required "contents" key mapping to a
-     *                         StreamInterface/resource/string, an optional
-     *                         "headers" associative array of custom headers,
-     *                         and an optional "filename" key mapping to a
-     *                         string to send as the filename in the part.
-     * @param string $boundary You can optionally provide a specific boundary
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function __construct(array $elements = [], $boundary = null)
-    {
-        $this->boundary = $boundary ?: sha1(uniqid('', true));
-        $this->stream = $this->createStream($elements);
-    }
+	/**
+	 * @param array  $elements Array of associative arrays, each containing a
+	 *                         required "name" key mapping to the form field,
+	 *                         name, a required "contents" key mapping to a
+	 *                         StreamInterface/resource/string, an optional
+	 *                         "headers" associative array of custom headers,
+	 *                         and an optional "filename" key mapping to a
+	 *                         string to send as the filename in the part.
+	 * @param string $boundary You can optionally provide a specific boundary
+	 *
+	 * @throws \InvalidArgumentException
+	 */
+	public function __construct(array $elements = [], $boundary = null) {
+		$this->boundary = $boundary ?: \sha1(\uniqid('', true));
+		$this->stream = $this->createStream($elements);
+	}
 
-    /**
-     * Get the boundary
-     *
-     * @return string
-     */
-    public function getBoundary()
-    {
-        return $this->boundary;
-    }
+	/**
+	 * Get the boundary
+	 *
+	 * @return string
+	 */
+	public function getBoundary() {
+		return $this->boundary;
+	}
 
-    public function isWritable()
-    {
-        return false;
-    }
+	public function isWritable() {
+		return false;
+	}
 
-    /**
-     * Get the headers needed before transferring the content of a POST file
-     */
-    private function getHeaders(array $headers)
-    {
-        $str = '';
-        foreach ($headers as $key => $value) {
-            $str .= "{$key}: {$value}\r\n";
-        }
+	/**
+	 * Get the headers needed before transferring the content of a POST file
+	 */
+	private function getHeaders(array $headers) {
+		$str = '';
 
-        return "--{$this->boundary}\r\n" . trim($str) . "\r\n\r\n";
-    }
+		foreach($headers as $key => $value) {
+			$str .= "{$key}: {$value}\r\n";
+		}
 
-    /**
-     * Create the aggregate stream that will be used to upload the POST data
-     */
-    protected function createStream(array $elements)
-    {
-        $stream = new AppendStream();
+		return "--{$this->boundary}\r\n" . \trim($str) . "\r\n\r\n";
+	}
 
-        foreach ($elements as $element) {
-            $this->addElement($stream, $element);
-        }
+	/**
+	 * Create the aggregate stream that will be used to upload the POST data
+	 */
+	protected function createStream(array $elements) {
+		$stream = new AppendStream();
 
-        // Add the trailing boundary with CRLF
-        $stream->addStream(stream_for("--{$this->boundary}--\r\n"));
+		foreach($elements as $element) {
+			$this->addElement($stream, $element);
+		}
 
-        return $stream;
-    }
+		// Add the trailing boundary with CRLF
+		$stream->addStream(stream_for("--{$this->boundary}--\r\n"));
 
-    private function addElement(AppendStream $stream, array $element)
-    {
-        foreach (['contents', 'name'] as $key) {
-            if (!array_key_exists($key, $element)) {
-                throw new \InvalidArgumentException("A '{$key}' key is required");
-            }
-        }
+		return $stream;
+	}
 
-        $element['contents'] = stream_for($element['contents']);
+	private function addElement(AppendStream $stream, array $element) {
+		foreach(['contents', 'name'] as $key) {
+			if(!\array_key_exists($key, $element)) {
+				throw new \InvalidArgumentException("A '{$key}' key is required");
+			}
+		}
 
-        if (empty($element['filename'])) {
-            $uri = $element['contents']->getMetadata('uri');
-            if (substr($uri, 0, 6) !== 'php://') {
-                $element['filename'] = $uri;
-            }
-        }
+		$element['contents'] = stream_for($element['contents']);
 
-        list($body, $headers) = $this->createElement(
-            $element['name'],
-            $element['contents'],
-            isset($element['filename']) ? $element['filename'] : null,
-            isset($element['headers']) ? $element['headers'] : []
-        );
+		if(empty($element['filename'])) {
+			$uri = $element['contents']->getMetadata('uri');
 
-        $stream->addStream(stream_for($this->getHeaders($headers)));
-        $stream->addStream($body);
-        $stream->addStream(stream_for("\r\n"));
-    }
+			if(\substr($uri, 0, 6) !== 'php://') {
+				$element['filename'] = $uri;
+			}
+		}
 
-    /**
-     * @return array
-     */
-    private function createElement($name, StreamInterface $stream, $filename, array $headers)
-    {
-        // Set a default content-disposition header if one was no provided
-        $disposition = $this->getHeader($headers, 'content-disposition');
-        if (!$disposition) {
-            $headers['Content-Disposition'] = ($filename === '0' || $filename)
-                ? sprintf('form-data; name="%s"; filename="%s"',
-                    $name,
-                    basename($filename))
-                : "form-data; name=\"{$name}\"";
-        }
+		list($body, $headers) = $this->createElement(
+			$element['name'], $element['contents'], isset($element['filename']) ? $element['filename'] : null, isset($element['headers']) ? $element['headers'] : []
+		);
 
-        // Set a default content-length header if one was no provided
-        $length = $this->getHeader($headers, 'content-length');
-        if (!$length) {
-            if ($length = $stream->getSize()) {
-                $headers['Content-Length'] = (string) $length;
-            }
-        }
+		$stream->addStream(stream_for($this->getHeaders($headers)));
+		$stream->addStream($body);
+		$stream->addStream(stream_for("\r\n"));
+	}
 
-        // Set a default Content-Type if one was not supplied
-        $type = $this->getHeader($headers, 'content-type');
-        if (!$type && ($filename === '0' || $filename)) {
-            if ($type = mimetype_from_filename($filename)) {
-                $headers['Content-Type'] = $type;
-            }
-        }
+	/**
+	 * @return array
+	 */
+	private function createElement($name, StreamInterface $stream, $filename, array $headers) {
+		// Set a default content-disposition header if one was no provided
+		$disposition = $this->getHeader($headers, 'content-disposition');
 
-        return [$stream, $headers];
-    }
+		if(!$disposition) {
+			$headers['Content-Disposition'] = ($filename === '0' || $filename) ? \sprintf('form-data; name="%s"; filename="%s"', $name, \basename($filename)) : "form-data; name=\"{$name}\"";
+		}
 
-    private function getHeader(array $headers, $key)
-    {
-        $lowercaseHeader = strtolower($key);
-        foreach ($headers as $k => $v) {
-            if (strtolower($k) === $lowercaseHeader) {
-                return $v;
-            }
-        }
+		// Set a default content-length header if one was no provided
+		$length = $this->getHeader($headers, 'content-length');
+		if(!$length) {
+			if($length = $stream->getSize()) {
+				$headers['Content-Length'] = (string) $length;
+			}
+		}
 
-        return null;
-    }
+		// Set a default Content-Type if one was not supplied
+		$type = $this->getHeader($headers, 'content-type');
+		if(!$type && ($filename === '0' || $filename)) {
+			if($type === mimetype_from_filename($filename)) {
+				$headers['Content-Type'] = $type;
+			}
+		}
+
+		return [$stream, $headers];
+	}
+
+	private function getHeader(array $headers, $key) {
+		$lowercaseHeader = strtolower($key);
+
+		foreach($headers as $k => $v) {
+			if(\strtolower($k) === $lowercaseHeader) {
+				return $v;
+			}
+		}
+
+		return null;
+	}
 }
