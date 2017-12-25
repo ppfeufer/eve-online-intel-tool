@@ -201,4 +201,14 @@ class PostType {
 
 		return $pageTemplate;
 	} // public function registerPageTemplate($pageTemplate)
+
+	public static function isPostTypePage() {
+		$returnValue = false;
+
+		if(\is_page(self::getPosttypeSlug('intel')) || \get_post_type() === 'intel' || \is_post_type_archive('intel') === true) {
+			$returnValue = true;
+		} // if(\is_page(self::getPosttypeSlug('intel')) || \get_post_type() === 'intel' || \is_post_type_archive('intel') === true)
+
+		return $returnValue;
+	}
 } // class PostType

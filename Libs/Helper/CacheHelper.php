@@ -89,6 +89,7 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 	 */
 	public function checkOrCreateCacheDirectories() {
 		$this->createCacheDirectory();
+		$this->createCacheDirectory('esi');
 		$this->createCacheDirectory('images');
 		$this->createCacheDirectory('images/ship');
 		$this->createCacheDirectory('images/character');

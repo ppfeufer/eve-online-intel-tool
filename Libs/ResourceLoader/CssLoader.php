@@ -58,11 +58,11 @@ class CssLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\
 			/**
 			 * load only when needed
 			 */
-			if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('intel')) || \get_post_type() === 'intel' || \is_post_type_archive('intel') === true) {
+			if(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::isPostTypePage() === true) {
 				\wp_enqueue_style('bootstrap', $this->pluginHelper->getPluginUri('bootstrap/css/bootstrap.min.css'));
 				\wp_enqueue_style('data-tables-bootstrap', $this->pluginHelper->getPluginUri('css/data-tables/dataTables.bootstrap.min.css'));
 				\wp_enqueue_style('eve-online-intel-tool', $this->pluginHelper->getPluginUri('css/eve-online-intel-tool.min.css'));
-			} // if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('intel')) || \get_post_type() === 'intel')
+			} // if(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::isPostTypePage() === true)
 		} // if(!\is_admin())
 	} // public function enqueue()
 

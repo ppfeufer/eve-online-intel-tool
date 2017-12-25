@@ -54,7 +54,7 @@ class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Inte
 		 * Only in Frontend
 		 */
 		if(!\is_admin()) {
-			if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('intel')) || \get_post_type() === 'intel' || \is_post_type_archive('intel') === true) {
+			if(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::isPostTypePage() === true) {
 				\wp_enqueue_script('bootstrap-js', $this->pluginHelper->getPluginUri('bootstrap/js/bootstrap.min.js'), ['jquery'], '', true);
 				\wp_enqueue_script('bootstrap-toolkit-js', $this->pluginHelper->getPluginUri('bootstrap/bootstrap-toolkit/bootstrap-toolkit.min.js'), ['jquery', 'bootstrap-js'], '', true);
 
@@ -65,7 +65,7 @@ class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Inte
 
 				\wp_enqueue_script('eve-online-intel-tool-js', $this->pluginHelper->getPluginUri('js/eve-online-intel-tool.min.js'), ['jquery'], '', true);
 				\wp_localize_script('eve-online-intel-tool-js', 'eveIntelToolL10n', $this->getJavaScriptTranslations());
-			} // if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('intel')) || \get_post_type() === 'intel')
+			} // if(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::isPostTypePage() === true)
 		} // if(!\is_admin())
 	} // public function enqueue()
 
