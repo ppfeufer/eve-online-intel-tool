@@ -5,6 +5,16 @@
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.5.1...development)
 ### Added
 - noindex and nofollow to the intel pages header. Google doesn't need to index or follow them.
+- Proper ESI Client
+
+### Changed
+- D-Scan using ESI Client now
+- Fleet Composition Scan using ESI Client now
+- Chat Scan using ESI Client now
+- Simplified the way to determin if we are on the right post type to make sure our styles and javascript will be loaded properly
+
+### Removed
+- A lot of unused variables and functions
 
 ## [v0.5.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.5.1) - 2017-11-17
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.5.0...v0.5.1)
