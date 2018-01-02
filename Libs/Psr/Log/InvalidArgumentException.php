@@ -2,6 +2,6 @@
 
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Psr\Log;
 
-class InvalidArgumentException extends \InvalidArgumentException
-{
+class InvalidArgumentException extends \InvalidArgumentException {
+
 }

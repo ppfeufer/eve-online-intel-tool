@@ -305,7 +305,7 @@ class CalendarApi {
 
 		// path params
 		if($character_id !== null) {
-			$resourcePath = str_replace('{' . 'character_id' . '}', ObjectSerializer::toPathValue($character_id), $resourcePath);
+			$resourcePath = \str_replace('{' . 'character_id' . '}', ObjectSerializer::toPathValue($character_id), $resourcePath);
 		}
 
 		// body params
@@ -411,7 +411,7 @@ class CalendarApi {
 				$response = $this->client->send($request, $options);
 			} catch(RequestException $e) {
 				throw new ApiException(
-				"[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse()->getBody()->getContents()
+					"[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse()->getBody()->getContents()
 				);
 			}
 
@@ -419,9 +419,9 @@ class CalendarApi {
 
 			if($statusCode < 200 || $statusCode > 299) {
 				throw new ApiException(
-				sprintf(
-					'[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()
-				), $statusCode, $response->getHeaders(), $response->getBody()
+					\sprintf(
+						'[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()
+					), $statusCode, $response->getHeaders(), $response->getBody()
 				);
 			}
 
@@ -431,7 +431,7 @@ class CalendarApi {
 			} else {
 				$content = $responseBody->getContents();
 				if($returnType !== 'string') {
-					$content = json_decode($content);
+					$content = \json_decode($content);
 				}
 			}
 
@@ -444,19 +444,19 @@ class CalendarApi {
 			switch($e->getCode()) {
 				case 200:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetCharactersCharacterIdCalendarEventIdOk', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetCharactersCharacterIdCalendarEventIdOk', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
 				case 403:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\Forbidden', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\Forbidden', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
 				case 500:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\InternalServerError', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\InternalServerError', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
@@ -509,16 +509,17 @@ class CalendarApi {
 		$request = $this->getCharactersCharacterIdCalendarEventIdRequest($character_id, $event_id, $datasource, $token, $user_agent, $x_user_agent);
 
 		return $this->client
-				->sendAsync($request, $this->createHttpClientOption())
-				->then(
+			->sendAsync($request, $this->createHttpClientOption())
+			->then(
 					function ($response) use ($returnType) {
 					$responseBody = $response->getBody();
+
 					if($returnType === '\SplFileObject') {
 						$content = $responseBody; //stream goes to serializer
 					} else {
 						$content = $responseBody->getContents();
 						if($returnType !== 'string') {
-							$content = json_decode($content);
+							$content = \json_decode($content);
 						}
 					}
 
@@ -531,9 +532,9 @@ class CalendarApi {
 					$response = $exception->getResponse();
 					$statusCode = $response->getStatusCode();
 					throw new ApiException(
-					sprintf(
-						'[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()
-					), $statusCode, $response->getHeaders(), $response->getBody()
+						\sprintf(
+							'[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()
+						), $statusCode, $response->getHeaders(), $response->getBody()
 					);
 				}
 		);
@@ -556,13 +557,13 @@ class CalendarApi {
 		// verify the required parameter 'character_id' is set
 		if($character_id === null) {
 			throw new \InvalidArgumentException(
-			'Missing the required parameter $character_id when calling getCharactersCharacterIdCalendarEventId'
+				'Missing the required parameter $character_id when calling getCharactersCharacterIdCalendarEventId'
 			);
 		}
 		// verify the required parameter 'event_id' is set
 		if($event_id === null) {
 			throw new \InvalidArgumentException(
-			'Missing the required parameter $event_id when calling getCharactersCharacterIdCalendarEventId'
+				'Missing the required parameter $event_id when calling getCharactersCharacterIdCalendarEventId'
 			);
 		}
 
@@ -653,7 +654,7 @@ class CalendarApi {
 			$defaultHeaders['User-Agent'] = $this->config->getUserAgent();
 		}
 
-		$headers = array_merge(
+		$headers = \array_merge(
 			$defaultHeaders, $headerParams, $headers
 		);
 
@@ -718,9 +719,9 @@ class CalendarApi {
 
 			if($statusCode < 200 || $statusCode > 299) {
 				throw new ApiException(
-				sprintf(
-					'[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()
-				), $statusCode, $response->getHeaders(), $response->getBody()
+					\sprintf(
+						'[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()
+					), $statusCode, $response->getHeaders(), $response->getBody()
 				);
 			}
 
@@ -730,7 +731,7 @@ class CalendarApi {
 			} else {
 				$content = $responseBody->getContents();
 				if($returnType !== 'string') {
-					$content = json_decode($content);
+					$content = \json_decode($content);
 				}
 			}
 
@@ -743,19 +744,19 @@ class CalendarApi {
 			switch($e->getCode()) {
 				case 200:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetCharactersCharacterIdCalendarEventIdAttendees200Ok[]', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\GetCharactersCharacterIdCalendarEventIdAttendees200Ok[]', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
 				case 403:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\Forbidden', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\Forbidden', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
 				case 500:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\InternalServerError', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\InternalServerError', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
@@ -781,10 +782,10 @@ class CalendarApi {
 	 */
 	public function getCharactersCharacterIdCalendarEventIdAttendeesAsync($character_id, $event_id, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		return $this->getCharactersCharacterIdCalendarEventIdAttendeesAsyncWithHttpInfo($character_id, $event_id, $datasource, $token, $user_agent, $x_user_agent)
-				->then(
-					function ($response) {
-					return $response[0];
-				}
+			->then(
+				function ($response) {
+				return $response[0];
+			}
 		);
 	}
 
@@ -808,16 +809,16 @@ class CalendarApi {
 		$request = $this->getCharactersCharacterIdCalendarEventIdAttendeesRequest($character_id, $event_id, $datasource, $token, $user_agent, $x_user_agent);
 
 		return $this->client
-				->sendAsync($request, $this->createHttpClientOption())
-				->then(
-					function ($response) use ($returnType) {
+			->sendAsync($request, $this->createHttpClientOption())
+			->then(
+				function ($response) use ($returnType) {
 					$responseBody = $response->getBody();
 					if($returnType === '\SplFileObject') {
 						$content = $responseBody; //stream goes to serializer
 					} else {
 						$content = $responseBody->getContents();
 						if($returnType !== 'string') {
-							$content = json_decode($content);
+							$content = \json_decode($content);
 						}
 					}
 
@@ -830,9 +831,9 @@ class CalendarApi {
 					$response = $exception->getResponse();
 					$statusCode = $response->getStatusCode();
 					throw new ApiException(
-					sprintf(
-						'[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()
-					), $statusCode, $response->getHeaders(), $response->getBody()
+						\sprintf(
+							'[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()
+						), $statusCode, $response->getHeaders(), $response->getBody()
 					);
 				}
 		);
@@ -855,13 +856,13 @@ class CalendarApi {
 		// verify the required parameter 'character_id' is set
 		if($character_id === null) {
 			throw new \InvalidArgumentException(
-			'Missing the required parameter $character_id when calling getCharactersCharacterIdCalendarEventIdAttendees'
+				'Missing the required parameter $character_id when calling getCharactersCharacterIdCalendarEventIdAttendees'
 			);
 		}
 		// verify the required parameter 'event_id' is set
 		if($event_id === null) {
 			throw new \InvalidArgumentException(
-			'Missing the required parameter $event_id when calling getCharactersCharacterIdCalendarEventIdAttendees'
+				'Missing the required parameter $event_id when calling getCharactersCharacterIdCalendarEventIdAttendees'
 			);
 		}
 
@@ -891,13 +892,13 @@ class CalendarApi {
 
 		// path params
 		if($character_id !== null) {
-			$resourcePath = str_replace(
+			$resourcePath = \str_replace(
 				'{' . 'character_id' . '}', ObjectSerializer::toPathValue($character_id), $resourcePath
 			);
 		}
 		// path params
 		if($event_id !== null) {
-			$resourcePath = str_replace(
+			$resourcePath = \str_replace(
 				'{' . 'event_id' . '}', ObjectSerializer::toPathValue($event_id), $resourcePath
 			);
 		}
@@ -923,7 +924,7 @@ class CalendarApi {
 			if($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
 				$httpBody = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($httpBody);
 			}
-		} elseif(count($formParams) > 0) {
+		} elseif(\count($formParams) > 0) {
 			if($multipart) {
 				$multipartContents = [];
 				foreach($formParams as $formParamName => $formParamValue) {
@@ -952,7 +953,7 @@ class CalendarApi {
 			$defaultHeaders['User-Agent'] = $this->config->getUserAgent();
 		}
 
-		$headers = array_merge(
+		$headers = \array_merge(
 			$defaultHeaders, $headerParams, $headers
 		);
 
@@ -1009,7 +1010,7 @@ class CalendarApi {
 				$response = $this->client->send($request, $options);
 			} catch(RequestException $e) {
 				throw new ApiException(
-				"[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse()->getBody()->getContents()
+					"[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse()->getBody()->getContents()
 				);
 			}
 
@@ -1017,9 +1018,9 @@ class CalendarApi {
 
 			if($statusCode < 200 || $statusCode > 299) {
 				throw new ApiException(
-				sprintf(
-					'[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()
-				), $statusCode, $response->getHeaders(), $response->getBody()
+					\sprintf(
+						'[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()
+					), $statusCode, $response->getHeaders(), $response->getBody()
 				);
 			}
 
@@ -1028,13 +1029,13 @@ class CalendarApi {
 			switch($e->getCode()) {
 				case 403:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\Forbidden', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\Forbidden', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
 				case 500:
 					$data = ObjectSerializer::deserialize(
-							$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\InternalServerError', $e->getResponseHeaders()
+						$e->getResponseBody(), '\WordPress\Plugin\EveOnlineIntelTool\Libs\Swagger\Client\Model\InternalServerError', $e->getResponseHeaders()
 					);
 					$e->setResponseObject($data);
 					break;
@@ -1061,10 +1062,10 @@ class CalendarApi {
 	 */
 	public function putCharactersCharacterIdCalendarEventIdAsync($character_id, $event_id, $response, $datasource = 'tranquility', $token = null, $user_agent = null, $x_user_agent = null) {
 		return $this->putCharactersCharacterIdCalendarEventIdAsyncWithHttpInfo($character_id, $event_id, $response, $datasource, $token, $user_agent, $x_user_agent)
-				->then(
-					function ($response) {
-					return $response[0];
-				}
+			->then(
+				function ($response) {
+				return $response[0];
+			}
 		);
 	}
 
@@ -1089,17 +1090,17 @@ class CalendarApi {
 		$request = $this->putCharactersCharacterIdCalendarEventIdRequest($character_id, $event_id, $response, $datasource, $token, $user_agent, $x_user_agent);
 
 		return $this->client
-				->sendAsync($request, $this->createHttpClientOption())
-				->then(
-					function ($response) use ($returnType) {
+			->sendAsync($request, $this->createHttpClientOption())
+			->then(
+				function ($response) use ($returnType) {
 					return [null, $response->getStatusCode(), $response->getHeaders()];
 				}, function ($exception) {
 					$response = $exception->getResponse();
 					$statusCode = $response->getStatusCode();
 					throw new ApiException(
-					sprintf(
-						'[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()
-					), $statusCode, $response->getHeaders(), $response->getBody()
+						\sprintf(
+							'[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()
+						), $statusCode, $response->getHeaders(), $response->getBody()
 					);
 				}
 		);
@@ -1123,19 +1124,21 @@ class CalendarApi {
 		// verify the required parameter 'character_id' is set
 		if($character_id === null) {
 			throw new \InvalidArgumentException(
-			'Missing the required parameter $character_id when calling putCharactersCharacterIdCalendarEventId'
+				'Missing the required parameter $character_id when calling putCharactersCharacterIdCalendarEventId'
 			);
 		}
+
 		// verify the required parameter 'event_id' is set
 		if($event_id === null) {
 			throw new \InvalidArgumentException(
-			'Missing the required parameter $event_id when calling putCharactersCharacterIdCalendarEventId'
+				'Missing the required parameter $event_id when calling putCharactersCharacterIdCalendarEventId'
 			);
 		}
+
 		// verify the required parameter 'response' is set
 		if($response === null) {
 			throw new \InvalidArgumentException(
-			'Missing the required parameter $response when calling putCharactersCharacterIdCalendarEventId'
+				'Missing the required parameter $response when calling putCharactersCharacterIdCalendarEventId'
 			);
 		}
 
@@ -1150,14 +1153,17 @@ class CalendarApi {
 		if($datasource !== null) {
 			$queryParams['datasource'] = ObjectSerializer::toQueryValue($datasource);
 		}
+
 		// query params
 		if($token !== null) {
 			$queryParams['token'] = ObjectSerializer::toQueryValue($token);
 		}
+
 		// query params
 		if($user_agent !== null) {
 			$queryParams['user_agent'] = ObjectSerializer::toQueryValue($user_agent);
 		}
+
 		// header params
 		if($x_user_agent !== null) {
 			$headerParams['X-User-Agent'] = ObjectSerializer::toHeaderValue($x_user_agent);
@@ -1165,13 +1171,14 @@ class CalendarApi {
 
 		// path params
 		if($character_id !== null) {
-			$resourcePath = str_replace(
+			$resourcePath = \str_replace(
 				'{' . 'character_id' . '}', ObjectSerializer::toPathValue($character_id), $resourcePath
 			);
 		}
+
 		// path params
 		if($event_id !== null) {
-			$resourcePath = str_replace(
+			$resourcePath = \str_replace(
 				'{' . 'event_id' . '}', ObjectSerializer::toPathValue($event_id), $resourcePath
 			);
 		}
@@ -1203,6 +1210,7 @@ class CalendarApi {
 		} elseif(count($formParams) > 0) {
 			if($multipart) {
 				$multipartContents = [];
+
 				foreach($formParams as $formParamName => $formParamValue) {
 					$multipartContents[] = [
 						'name' => $formParamName,
@@ -1229,7 +1237,7 @@ class CalendarApi {
 			$defaultHeaders['User-Agent'] = $this->config->getUserAgent();
 		}
 
-		$headers = array_merge(
+		$headers = \array_merge(
 			$defaultHeaders, $headerParams, $headers
 		);
 
@@ -1256,5 +1264,4 @@ class CalendarApi {
 
 		return $options;
 	}
-
 }

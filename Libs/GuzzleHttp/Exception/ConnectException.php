@@ -1,4 +1,5 @@
 <?php
+
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Exception;
 
 use WordPress\Plugin\EveOnlineIntelTool\Libs\Psr\Http\Message\RequestInterface;
@@ -8,30 +9,22 @@ use WordPress\Plugin\EveOnlineIntelTool\Libs\Psr\Http\Message\RequestInterface;
  *
  * Note that no response is present for a ConnectException
  */
-class ConnectException extends RequestException
-{
-    public function __construct(
-        $message,
-        RequestInterface $request,
-        \Exception $previous = null,
-        array $handlerContext = []
-    ) {
-        parent::__construct($message, $request, null, $previous, $handlerContext);
-    }
+class ConnectException extends RequestException {
+	public function __construct($message, RequestInterface $request, \Exception $previous = null, array $handlerContext = []) {
+		parent::__construct($message, $request, null, $previous, $handlerContext);
+	}
 
-    /**
-     * @return null
-     */
-    public function getResponse()
-    {
-        return null;
-    }
+	/**
+	 * @return null
+	 */
+	public function getResponse() {
+		return null;
+	}
 
-    /**
-     * @return bool
-     */
-    public function hasResponse()
-    {
-        return false;
-    }
+	/**
+	 * @return bool
+	 */
+	public function hasResponse() {
+		return false;
+	}
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp;
 
 use WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Cookie\CookieJar;
@@ -22,393 +23,394 @@ use WordPress\Plugin\EveOnlineIntelTool\Libs\Psr\Http\Message\ResponseInterface;
  * @method Promise\PromiseInterface patchAsync(string|UriInterface $uri, array $options = [])
  * @method Promise\PromiseInterface deleteAsync(string|UriInterface $uri, array $options = [])
  */
-class Client implements ClientInterface
-{
-    /** @var array Default request options */
-    private $config;
+class Client implements ClientInterface {
+	/**
+	 * @var array Default request options
+	 */
+	private $config;
 
-    /**
-     * Clients accept an array of constructor parameters.
-     *
-     * Here's an example of creating a client using a base_uri and an array of
-     * default request options to apply to each request:
-     *
-     *     $client = new Client([
-     *         'base_uri'        => 'http://www.foo.com/1.0/',
-     *         'timeout'         => 0,
-     *         'allow_redirects' => false,
-     *         'proxy'           => '192.168.16.1:10'
-     *     ]);
-     *
-     * Client configuration settings include the following options:
-     *
-     * - handler: (callable) Function that transfers HTTP requests over the
-     *   wire. The function is called with a WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Http\Message\RequestInterface
-     *   and array of transfer options, and must return a
-     *   WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface that is fulfilled with a
-     *   WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Http\Message\ResponseInterface on success. "handler" is a
-     *   constructor only option that cannot be overridden in per/request
-     *   options. If no handler is provided, a default handler will be created
-     *   that enables all of the request options below by attaching all of the
-     *   default middleware to the handler.
-     * - base_uri: (string|UriInterface) Base URI of the client that is merged
-     *   into relative URIs. Can be a string or instance of UriInterface.
-     * - **: any request option
-     *
-     * @param array $config Client configuration settings.
-     *
-     * @see \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\RequestOptions for a list of available request options.
-     */
-    public function __construct(array $config = [])
-    {
-        if (!isset($config['handler'])) {
-            $config['handler'] = HandlerStack::create();
-        } elseif (!is_callable($config['handler'])) {
-            throw new \InvalidArgumentException('handler must be a callable');
-        }
+	/**
+	 * Clients accept an array of constructor parameters.
+	 *
+	 * Here's an example of creating a client using a base_uri and an array of
+	 * default request options to apply to each request:
+	 *
+	 *     $client = new Client([
+	 *         'base_uri'        => 'http://www.foo.com/1.0/',
+	 *         'timeout'         => 0,
+	 *         'allow_redirects' => false,
+	 *         'proxy'           => '192.168.16.1:10'
+	 *     ]);
+	 *
+	 * Client configuration settings include the following options:
+	 *
+	 * - handler: (callable) Function that transfers HTTP requests over the
+	 *   wire. The function is called with a WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Http\Message\RequestInterface
+	 *   and array of transfer options, and must return a
+	 *   WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise\PromiseInterface that is fulfilled with a
+	 *   WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Http\Message\ResponseInterface on success. "handler" is a
+	 *   constructor only option that cannot be overridden in per/request
+	 *   options. If no handler is provided, a default handler will be created
+	 *   that enables all of the request options below by attaching all of the
+	 *   default middleware to the handler.
+	 * - base_uri: (string|UriInterface) Base URI of the client that is merged
+	 *   into relative URIs. Can be a string or instance of UriInterface.
+	 * - **: any request option
+	 *
+	 * @param array $config Client configuration settings.
+	 *
+	 * @see \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\RequestOptions for a list of available request options.
+	 */
+	public function __construct(array $config = []) {
+		if(!isset($config['handler'])) {
+			$config['handler'] = HandlerStack::create();
+		} elseif(!\is_callable($config['handler'])) {
+			throw new \InvalidArgumentException('handler must be a callable');
+		}
 
-        // Convert the base_uri to a UriInterface
-        if (isset($config['base_uri'])) {
-            $config['base_uri'] = WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\uri_for($config['base_uri']);
-        }
+		// Convert the base_uri to a UriInterface
+		if(isset($config['base_uri'])) {
+			$config['base_uri'] = WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\uri_for($config['base_uri']);
+		}
 
-        $this->configureDefaults($config);
-    }
+		$this->configureDefaults($config);
+	}
 
-    public function __call($method, $args)
-    {
-        if (count($args) < 1) {
-            throw new \InvalidArgumentException('Magic request methods require a URI and optional options array');
-        }
+	public function __call($method, $args) {
+		if(count($args) < 1) {
+			throw new \InvalidArgumentException('Magic request methods require a URI and optional options array');
+		}
 
-        $uri = $args[0];
-        $opts = isset($args[1]) ? $args[1] : [];
+		$uri = $args[0];
+		$opts = isset($args[1]) ? $args[1] : [];
 
-        return substr($method, -5) === 'Async'
-            ? $this->requestAsync(substr($method, 0, -5), $uri, $opts)
-            : $this->request($method, $uri, $opts);
-    }
+		return \substr($method, -5) === 'Async' ? $this->requestAsync(\substr($method, 0, -5), $uri, $opts) : $this->request($method, $uri, $opts);
+	}
 
-    public function sendAsync(RequestInterface $request, array $options = [])
-    {
-        // Merge the base URI into the request URI if needed.
-        $options = $this->prepareDefaults($options);
+	public function sendAsync(RequestInterface $request, array $options = []) {
+		// Merge the base URI into the request URI if needed.
+		$options = $this->prepareDefaults($options);
 
-        return $this->transfer(
-            $request->withUri($this->buildUri($request->getUri(), $options), $request->hasHeader('Host')),
-            $options
-        );
-    }
+		return $this->transfer(
+				$request->withUri($this->buildUri($request->getUri(), $options), $request->hasHeader('Host')), $options
+		);
+	}
 
-    public function send(RequestInterface $request, array $options = [])
-    {
-        $options[RequestOptions::SYNCHRONOUS] = true;
-        return $this->sendAsync($request, $options)->wait();
-    }
+	public function send(RequestInterface $request, array $options = []) {
+		$options[RequestOptions::SYNCHRONOUS] = true;
+		return $this->sendAsync($request, $options)->wait();
+	}
 
-    public function requestAsync($method, $uri = '', array $options = [])
-    {
-        $options = $this->prepareDefaults($options);
-        // Remove request modifying parameter because it can be done up-front.
-        $headers = isset($options['headers']) ? $options['headers'] : [];
-        $body = isset($options['body']) ? $options['body'] : null;
-        $version = isset($options['version']) ? $options['version'] : '1.1';
-        // Merge the URI into the base URI.
-        $uri = $this->buildUri($uri, $options);
-        if (is_array($body)) {
-            $this->invalidBody();
-        }
-        $request = new WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request($method, $uri, $headers, $body, $version);
-        // Remove the option so that they are not doubly-applied.
-        unset($options['headers'], $options['body'], $options['version']);
+	public function requestAsync($method, $uri = '', array $options = []) {
+		$options = $this->prepareDefaults($options);
+		// Remove request modifying parameter because it can be done up-front.
+		$headers = isset($options['headers']) ? $options['headers'] : [];
+		$body = isset($options['body']) ? $options['body'] : null;
+		$version = isset($options['version']) ? $options['version'] : '1.1';
+		// Merge the URI into the base URI.
+		$uri = $this->buildUri($uri, $options);
 
-        return $this->transfer($request, $options);
-    }
+		if(\is_array($body)) {
+			$this->invalidBody();
+		}
 
-    public function request($method, $uri = '', array $options = [])
-    {
-        $options[RequestOptions::SYNCHRONOUS] = true;
-        return $this->requestAsync($method, $uri, $options)->wait();
-    }
+		$request = new WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\Request($method, $uri, $headers, $body, $version);
 
-    public function getConfig($option = null)
-    {
-        return $option === null
-            ? $this->config
-            : (isset($this->config[$option]) ? $this->config[$option] : null);
-    }
+		// Remove the option so that they are not doubly-applied.
+		unset($options['headers'], $options['body'], $options['version']);
 
-    private function buildUri($uri, array $config)
-    {
-        // for BC we accept null which would otherwise fail in uri_for
-        $uri = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\uri_for($uri === null ? '' : $uri);
+		return $this->transfer($request, $options);
+	}
 
-        if (isset($config['base_uri'])) {
-            $uri = WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\UriResolver::resolve(WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\uri_for($config['base_uri']), $uri);
-        }
+	public function request($method, $uri = '', array $options = []) {
+		$options[RequestOptions::SYNCHRONOUS] = true;
 
-        return $uri->getScheme() === '' && $uri->getHost() !== '' ? $uri->withScheme('http') : $uri;
-    }
+		return $this->requestAsync($method, $uri, $options)->wait();
+	}
 
-    /**
-     * Configures the default options for a client.
-     *
-     * @param array $config
-     */
-    private function configureDefaults(array $config)
-    {
-        $defaults = [
-            'allow_redirects' => RedirectMiddleware::$defaultSettings,
-            'http_errors'     => true,
-            'decode_content'  => true,
-            'verify'          => true,
-            'cookies'         => false
-        ];
+	public function getConfig($option = null) {
+		return $option === null ? $this->config : (isset($this->config[$option]) ? $this->config[$option] : null);
+	}
 
-        // Use the standard Linux HTTP_PROXY and HTTPS_PROXY if set.
+	private function buildUri($uri, array $config) {
+		// for BC we accept null which would otherwise fail in uri_for
+		$uri = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\uri_for($uri === null ? '' : $uri);
 
-        // We can only trust the HTTP_PROXY environment variable in a CLI
-        // process due to the fact that PHP has no reliable mechanism to
-        // get environment variables that start with "HTTP_".
-        if (php_sapi_name() == 'cli' && getenv('HTTP_PROXY')) {
-            $defaults['proxy']['http'] = getenv('HTTP_PROXY');
-        }
+		if(isset($config['base_uri'])) {
+			$uri = WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\UriResolver::resolve(WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\uri_for($config['base_uri']), $uri);
+		}
 
-        if ($proxy = getenv('HTTPS_PROXY')) {
-            $defaults['proxy']['https'] = $proxy;
-        }
+		return $uri->getScheme() === '' && $uri->getHost() !== '' ? $uri->withScheme('http') : $uri;
+	}
 
-        if ($noProxy = getenv('NO_PROXY')) {
-            $cleanedNoProxy = str_replace(' ', '', $noProxy);
-            $defaults['proxy']['no'] = explode(',', $cleanedNoProxy);
-        }
+	/**
+	 * Configures the default options for a client.
+	 *
+	 * @param array $config
+	 */
+	private function configureDefaults(array $config) {
+		$defaults = [
+			'allow_redirects' => RedirectMiddleware::$defaultSettings,
+			'http_errors' => true,
+			'decode_content' => true,
+			'verify' => true,
+			'cookies' => false
+		];
 
-        $this->config = $config + $defaults;
+		// Use the standard Linux HTTP_PROXY and HTTPS_PROXY if set.
+		// We can only trust the HTTP_PROXY environment variable in a CLI
+		// process due to the fact that PHP has no reliable mechanism to
+		// get environment variables that start with "HTTP_".
+		if(\php_sapi_name() === 'cli' && \getenv('HTTP_PROXY')) {
+			$defaults['proxy']['http'] = getenv('HTTP_PROXY');
+		}
 
-        if (!empty($config['cookies']) && $config['cookies'] === true) {
-            $this->config['cookies'] = new CookieJar();
-        }
+		if($proxy === \getenv('HTTPS_PROXY')) {
+			$defaults['proxy']['https'] = $proxy;
+		}
 
-        // Add the default user-agent header.
-        if (!isset($this->config['headers'])) {
-            $this->config['headers'] = ['User-Agent' => default_user_agent()];
-        } else {
-            // Add the User-Agent header if one was not already set.
-            foreach (array_keys($this->config['headers']) as $name) {
-                if (strtolower($name) === 'user-agent') {
-                    return;
-                }
-            }
-            $this->config['headers']['User-Agent'] = default_user_agent();
-        }
-    }
+		if($noProxy === \getenv('NO_PROXY')) {
+			$cleanedNoProxy = \str_replace(' ', '', $noProxy);
+			$defaults['proxy']['no'] = \explode(',', $cleanedNoProxy);
+		}
 
-    /**
-     * Merges default options into the array.
-     *
-     * @param array $options Options to modify by reference
-     *
-     * @return array
-     */
-    private function prepareDefaults($options)
-    {
-        $defaults = $this->config;
+		$this->config = $config + $defaults;
 
-        if (!empty($defaults['headers'])) {
-            // Default headers are only added if they are not present.
-            $defaults['_conditional'] = $defaults['headers'];
-            unset($defaults['headers']);
-        }
+		if(!empty($config['cookies']) && $config['cookies'] === true) {
+			$this->config['cookies'] = new CookieJar();
+		}
 
-        // Special handling for headers is required as they are added as
-        // conditional headers and as headers passed to a request ctor.
-        if (array_key_exists('headers', $options)) {
-            // Allows default headers to be unset.
-            if ($options['headers'] === null) {
-                $defaults['_conditional'] = null;
-                unset($options['headers']);
-            } elseif (!is_array($options['headers'])) {
-                throw new \InvalidArgumentException('headers must be an array');
-            }
-        }
+		// Add the default user-agent header.
+		if(!isset($this->config['headers'])) {
+			$this->config['headers'] = ['User-Agent' => default_user_agent()];
+		} else {
+			// Add the User-Agent header if one was not already set.
+			foreach(\array_keys($this->config['headers']) as $name) {
+				if(\strtolower($name) === 'user-agent') {
+					return;
+				}
+			}
 
-        // Shallow merge defaults underneath options.
-        $result = $options + $defaults;
+			$this->config['headers']['User-Agent'] = default_user_agent();
+		}
+	}
 
-        // Remove null values.
-        foreach ($result as $k => $v) {
-            if ($v === null) {
-                unset($result[$k]);
-            }
-        }
+	/**
+	 * Merges default options into the array.
+	 *
+	 * @param array $options Options to modify by reference
+	 *
+	 * @return array
+	 */
+	private function prepareDefaults($options) {
+		$defaults = $this->config;
 
-        return $result;
-    }
+		if(!empty($defaults['headers'])) {
+			// Default headers are only added if they are not present.
+			$defaults['_conditional'] = $defaults['headers'];
 
-    /**
-     * Transfers the given request and applies request options.
-     *
-     * The URI of the request is not modified and the request options are used
-     * as-is without merging in default options.
-     *
-     * @param RequestInterface $request
-     * @param array            $options
-     *
-     * @return Promise\PromiseInterface
-     */
-    private function transfer(RequestInterface $request, array $options)
-    {
-        // save_to -> sink
-        if (isset($options['save_to'])) {
-            $options['sink'] = $options['save_to'];
-            unset($options['save_to']);
-        }
+			unset($defaults['headers']);
+		}
 
-        // exceptions -> http_errors
-        if (isset($options['exceptions'])) {
-            $options['http_errors'] = $options['exceptions'];
-            unset($options['exceptions']);
-        }
+		// Special handling for headers is required as they are added as
+		// conditional headers and as headers passed to a request ctor.
+		if(\array_key_exists('headers', $options)) {
+			// Allows default headers to be unset.
+			if($options['headers'] === null) {
+				$defaults['_conditional'] = null;
 
-        $request = $this->applyOptions($request, $options);
-        $handler = $options['handler'];
+				unset($options['headers']);
+			} elseif(!\is_array($options['headers'])) {
+				throw new \InvalidArgumentException('headers must be an array');
+			}
+		}
 
-        try {
-            return Promise\promise_for($handler($request, $options));
-        } catch (\Exception $e) {
-            return Promise\rejection_for($e);
-        }
-    }
+		// Shallow merge defaults underneath options.
+		$result = $options + $defaults;
 
-    /**
-     * Applies the array of request options to a request.
-     *
-     * @param RequestInterface $request
-     * @param array            $options
-     *
-     * @return RequestInterface
-     */
-    private function applyOptions(RequestInterface $request, array &$options)
-    {
-        $modify = [];
+		// Remove null values.
+		foreach($result as $k => $v) {
+			if($v === null) {
+				unset($result[$k]);
+			}
+		}
 
-        if (isset($options['form_params'])) {
-            if (isset($options['multipart'])) {
-                throw new \InvalidArgumentException('You cannot use '
-                    . 'form_params and multipart at the same time. Use the '
-                    . 'form_params option if you want to send application/'
-                    . 'x-www-form-urlencoded requests, and the multipart '
-                    . 'option to send multipart/form-data requests.');
-            }
-            $options['body'] = http_build_query($options['form_params'], '', '&');
-            unset($options['form_params']);
-            $options['_conditional']['Content-Type'] = 'application/x-www-form-urlencoded';
-        }
+		return $result;
+	}
 
-        if (isset($options['multipart'])) {
-            $options['body'] = new WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\MultipartStream($options['multipart']);
-            unset($options['multipart']);
-        }
+	/**
+	 * Transfers the given request and applies request options.
+	 *
+	 * The URI of the request is not modified and the request options are used
+	 * as-is without merging in default options.
+	 *
+	 * @param RequestInterface $request
+	 * @param array            $options
+	 *
+	 * @return Promise\PromiseInterface
+	 */
+	private function transfer(RequestInterface $request, array $options) {
+		// save_to -> sink
+		if(isset($options['save_to'])) {
+			$options['sink'] = $options['save_to'];
+			unset($options['save_to']);
+		}
 
-        if (isset($options['json'])) {
-            $options['body'] = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($options['json']);
-            unset($options['json']);
-            $options['_conditional']['Content-Type'] = 'application/json';
-        }
+		// exceptions -> http_errors
+		if(isset($options['exceptions'])) {
+			$options['http_errors'] = $options['exceptions'];
+			unset($options['exceptions']);
+		}
 
-        if (!empty($options['decode_content'])
-            && $options['decode_content'] !== true
-        ) {
-            $modify['set_headers']['Accept-Encoding'] = $options['decode_content'];
-        }
+		$request = $this->applyOptions($request, $options);
+		$handler = $options['handler'];
 
-        if (isset($options['headers'])) {
-            if (isset($modify['set_headers'])) {
-                $modify['set_headers'] = $options['headers'] + $modify['set_headers'];
-            } else {
-                $modify['set_headers'] = $options['headers'];
-            }
-            unset($options['headers']);
-        }
+		try {
+			return Promise\promise_for($handler($request, $options));
+		} catch(\Exception $e) {
+			return Promise\rejection_for($e);
+		}
+	}
 
-        if (isset($options['body'])) {
-            if (is_array($options['body'])) {
-                $this->invalidBody();
-            }
-            $modify['body'] = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\stream_for($options['body']);
-            unset($options['body']);
-        }
+	/**
+	 * Applies the array of request options to a request.
+	 *
+	 * @param RequestInterface $request
+	 * @param array            $options
+	 *
+	 * @return RequestInterface
+	 */
+	private function applyOptions(RequestInterface $request, array &$options) {
+		$modify = [];
 
-        if (!empty($options['auth']) && is_array($options['auth'])) {
-            $value = $options['auth'];
-            $type = isset($value[2]) ? strtolower($value[2]) : 'basic';
-            switch ($type) {
-                case 'basic':
-                    $modify['set_headers']['Authorization'] = 'Basic '
-                        . base64_encode("$value[0]:$value[1]");
-                    break;
-                case 'digest':
-                    // @todo: Do not rely on curl
-                    $options['curl'][CURLOPT_HTTPAUTH] = CURLAUTH_DIGEST;
-                    $options['curl'][CURLOPT_USERPWD] = "$value[0]:$value[1]";
-                    break;
-                case 'ntlm':
-                    $options['curl'][CURLOPT_HTTPAUTH] = CURLAUTH_NTLM;
-                    $options['curl'][CURLOPT_USERPWD] = "$value[0]:$value[1]";
-                    break;
-            }
-        }
+		if(isset($options['form_params'])) {
+			if(isset($options['multipart'])) {
+				throw new \InvalidArgumentException('You cannot use '
+				. 'form_params and multipart at the same time. Use the '
+				. 'form_params option if you want to send application/'
+				. 'x-www-form-urlencoded requests, and the multipart '
+				. 'option to send multipart/form-data requests.');
+			}
+			$options['body'] = \http_build_query($options['form_params'], '', '&');
 
-        if (isset($options['query'])) {
-            $value = $options['query'];
-            if (is_array($value)) {
-                $value = http_build_query($value, null, '&', PHP_QUERY_RFC3986);
-            }
-            if (!is_string($value)) {
-                throw new \InvalidArgumentException('query must be a string or array');
-            }
-            $modify['query'] = $value;
-            unset($options['query']);
-        }
+			unset($options['form_params']);
 
-        // Ensure that sink is not an invalid value.
-        if (isset($options['sink'])) {
-            // TODO: Add more sink validation?
-            if (is_bool($options['sink'])) {
-                throw new \InvalidArgumentException('sink must not be a boolean');
-            }
-        }
+			$options['_conditional']['Content-Type'] = 'application/x-www-form-urlencoded';
+		}
 
-        $request = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\modify_request($request, $modify);
-        if ($request->getBody() instanceof WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\MultipartStream) {
-            // Use a multipart/form-data POST if a Content-Type is not set.
-            $options['_conditional']['Content-Type'] = 'multipart/form-data; boundary='
-                . $request->getBody()->getBoundary();
-        }
+		if(isset($options['multipart'])) {
+			$options['body'] = new WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\MultipartStream($options['multipart']);
 
-        // Merge in conditional headers if they are not present.
-        if (isset($options['_conditional'])) {
-            // Build up the changes so it's in a single clone of the message.
-            $modify = [];
-            foreach ($options['_conditional'] as $k => $v) {
-                if (!$request->hasHeader($k)) {
-                    $modify['set_headers'][$k] = $v;
-                }
-            }
-            $request = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\modify_request($request, $modify);
-            // Don't pass this internal value along to middleware/handlers.
-            unset($options['_conditional']);
-        }
+			unset($options['multipart']);
+		}
 
-        return $request;
-    }
+		if(isset($options['json'])) {
+			$options['body'] = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\json_encode($options['json']);
 
-    private function invalidBody()
-    {
-        throw new \InvalidArgumentException('Passing in the "body" request '
-            . 'option as an array to send a POST request has been deprecated. '
-            . 'Please use the "form_params" request option to send a '
-            . 'application/x-www-form-urlencoded request, or the "multipart" '
-            . 'request option to send a multipart/form-data request.');
-    }
+			unset($options['json']);
+
+			$options['_conditional']['Content-Type'] = 'application/json';
+		}
+
+		if(!empty($options['decode_content']) && $options['decode_content'] !== true) {
+			$modify['set_headers']['Accept-Encoding'] = $options['decode_content'];
+		}
+
+		if(isset($options['headers'])) {
+			if(isset($modify['set_headers'])) {
+				$modify['set_headers'] = $options['headers'] + $modify['set_headers'];
+			} else {
+				$modify['set_headers'] = $options['headers'];
+			}
+
+			unset($options['headers']);
+		}
+
+		if(isset($options['body'])) {
+			if(\is_array($options['body'])) {
+				$this->invalidBody();
+			}
+
+			$modify['body'] = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\stream_for($options['body']);
+
+			unset($options['body']);
+		}
+
+		if(!empty($options['auth']) && \is_array($options['auth'])) {
+			$value = $options['auth'];
+			$type = isset($value[2]) ? \strtolower($value[2]) : 'basic';
+
+			switch($type) {
+				case 'basic':
+					$modify['set_headers']['Authorization'] = 'Basic ' . \base64_encode("$value[0]:$value[1]");
+					break;
+				case 'digest':
+					// @todo: Do not rely on curl
+					$options['curl'][\CURLOPT_HTTPAUTH] = \CURLAUTH_DIGEST;
+					$options['curl'][\CURLOPT_USERPWD] = "$value[0]:$value[1]";
+					break;
+				case 'ntlm':
+					$options['curl'][\CURLOPT_HTTPAUTH] = \CURLAUTH_NTLM;
+					$options['curl'][\CURLOPT_USERPWD] = "$value[0]:$value[1]";
+					break;
+			}
+		}
+
+		if(isset($options['query'])) {
+			$value = $options['query'];
+			if(\is_array($value)) {
+				$value = \http_build_query($value, null, '&', \PHP_QUERY_RFC3986);
+			}
+
+			if(!\is_string($value)) {
+				throw new \InvalidArgumentException('query must be a string or array');
+			}
+
+			$modify['query'] = $value;
+
+			unset($options['query']);
+		}
+
+		// Ensure that sink is not an invalid value.
+		if(isset($options['sink'])) {
+			// TODO: Add more sink validation?
+			if(\is_bool($options['sink'])) {
+				throw new \InvalidArgumentException('sink must not be a boolean');
+			}
+		}
+
+		$request = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\modify_request($request, $modify);
+
+		if($request->getBody() instanceof WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\MultipartStream) {
+			// Use a multipart/form-data POST if a Content-Type is not set.
+			$options['_conditional']['Content-Type'] = 'multipart/form-data; boundary=' . $request->getBody()->getBoundary();
+		}
+
+		// Merge in conditional headers if they are not present.
+		if(isset($options['_conditional'])) {
+			// Build up the changes so it's in a single clone of the message.
+			$modify = [];
+
+			foreach($options['_conditional'] as $k => $v) {
+				if(!$request->hasHeader($k)) {
+					$modify['set_headers'][$k] = $v;
+				}
+			}
+
+			$request = \WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Psr7\modify_request($request, $modify);
+
+			// Don't pass this internal value along to middleware/handlers.
+			unset($options['_conditional']);
+		}
+
+		return $request;
+	}
+
+	private function invalidBody() {
+		throw new \InvalidArgumentException('Passing in the "body" request '
+		. 'option as an array to send a POST request has been deprecated. '
+		. 'Please use the "form_params" request option to send a '
+		. 'application/x-www-form-urlencoded request, or the "multipart" '
+		. 'request option to send a multipart/form-data request.');
+	}
 }

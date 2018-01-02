@@ -1,4 +1,5 @@
 <?php
+
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise;
 
 /**
@@ -7,81 +8,70 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\GuzzleHttp\Promise;
  * Thenning off of this promise will invoke the onRejected callback
  * immediately and ignore other callbacks.
  */
-class RejectedPromise implements PromiseInterface
-{
-    private $reason;
+class RejectedPromise implements PromiseInterface {
+	private $reason;
 
-    public function __construct($reason)
-    {
-        if (method_exists($reason, 'then')) {
-            throw new \InvalidArgumentException(
-                'You cannot create a RejectedPromise with a promise.');
-        }
+	public function __construct($reason) {
+		if(\method_exists($reason, 'then')) {
+			throw new \InvalidArgumentException('You cannot create a RejectedPromise with a promise.');
+		}
 
-        $this->reason = $reason;
-    }
+		$this->reason = $reason;
+	}
 
-    public function then(
-        callable $onFulfilled = null,
-        callable $onRejected = null
-    ) {
-        // If there's no onRejected callback then just return self.
-        if (!$onRejected) {
-            return $this;
-        }
+	public function then(callable $onFulfilled = null, callable $onRejected = null) {
+		// If there's no onRejected callback then just return self.
+		if(!$onRejected) {
+			return $this;
+		}
 
-        $queue = queue();
-        $reason = $this->reason;
-        $p = new Promise([$queue, 'run']);
-        $queue->add(static function () use ($p, $reason, $onRejected) {
-            if ($p->getState() === self::PENDING) {
-                try {
-                    // Return a resolved promise if onRejected does not throw.
-                    $p->resolve($onRejected($reason));
-                } catch (\Throwable $e) {
-                    // onRejected threw, so return a rejected promise.
-                    $p->reject($e);
-                } catch (\Exception $e) {
-                    // onRejected threw, so return a rejected promise.
-                    $p->reject($e);
-                }
-            }
-        });
+		$queue = queue();
+		$reason = $this->reason;
+		$p = new Promise([$queue, 'run']);
 
-        return $p;
-    }
+		$queue->add(static function() use ($p, $reason, $onRejected) {
+			if($p->getState() === self::PENDING) {
+				try {
+					// Return a resolved promise if onRejected does not throw.
+					$p->resolve($onRejected($reason));
+				} catch(\Throwable $e) {
+					// onRejected threw, so return a rejected promise.
+					$p->reject($e);
+				} catch(\Exception $e) {
+					// onRejected threw, so return a rejected promise.
+					$p->reject($e);
+				}
+			}
+		});
 
-    public function otherwise(callable $onRejected)
-    {
-        return $this->then(null, $onRejected);
-    }
+		return $p;
+	}
 
-    public function wait($unwrap = true, $defaultDelivery = null)
-    {
-        if ($unwrap) {
-            throw exception_for($this->reason);
-        }
-    }
+	public function otherwise(callable $onRejected) {
+		return $this->then(null, $onRejected);
+	}
 
-    public function getState()
-    {
-        return self::REJECTED;
-    }
+	public function wait($unwrap = true, $defaultDelivery = null) {
+		if($unwrap) {
+			throw exception_for($this->reason);
+		}
+	}
 
-    public function resolve($value)
-    {
-        throw new \LogicException("Cannot resolve a rejected promise");
-    }
+	public function getState() {
+		return self::REJECTED;
+	}
 
-    public function reject($reason)
-    {
-        if ($reason !== $this->reason) {
-            throw new \LogicException("Cannot reject a rejected promise");
-        }
-    }
+	public function resolve($value) {
+		throw new \LogicException("Cannot resolve a rejected promise");
+	}
 
-    public function cancel()
-    {
-        // pass
-    }
+	public function reject($reason) {
+		if($reason !== $this->reason) {
+			throw new \LogicException("Cannot reject a rejected promise");
+		}
+	}
+
+	public function cancel() {
+		// pass
+	}
 }
