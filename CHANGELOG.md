@@ -2,7 +2,11 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.0...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.1...development)
+- in development
+
+## [v0.6.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.6.1) - 2018-02-07
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.0...v0.6.1)
 ### Changed
 - Drastically reduced the ESI Client to what we really need
 
