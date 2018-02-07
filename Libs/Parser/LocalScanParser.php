@@ -113,34 +113,33 @@ class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleto
 			$characterAffiliationData = $this->esiHelper->getCharacterAffiliation($idSet);
 
 			foreach($characterAffiliationData['data'] as $affiliatedIds) {
-				$pilotDetails[$affiliatedIds->getCharacterId()] = [
-					'characterID' => $affiliatedIds->getCharacterId(),
-					'characterName' => $pilotList[$affiliatedIds->getCharacterId()]
+				$pilotDetails[$affiliatedIds->character_id] = [
+					'characterID' => $affiliatedIds->character_id,
+					'characterName' => $pilotList[$affiliatedIds->character_id]
 				];
 
 				/**
 				 * Grabbing corporation information
 				 */
-				if(!\is_null($affiliatedIds->getCorporationId())) {
-					$corporationSheet = $this->esiHelper->getCorporationData($affiliatedIds->getCorporationId());
-
+				if(!empty($affiliatedIds->corporation_id)) {
+					$corporationSheet = $this->esiHelper->getCorporationData($affiliatedIds->corporation_id);
 					if(!empty($corporationSheet['data']) && !isset($corporationSheet['data']->error)) {
-						$pilotDetails[$affiliatedIds->getCharacterId()]['corporationID'] = $affiliatedIds->getCorporationId();
-						$pilotDetails[$affiliatedIds->getCharacterId()]['corporationName'] = $corporationSheet['data']->corporation_name;
-						$pilotDetails[$affiliatedIds->getCharacterId()]['corporationTicker'] = $corporationSheet['data']->ticker;
+						$pilotDetails[$affiliatedIds->character_id]['corporationID'] = $affiliatedIds->corporation_id;
+						$pilotDetails[$affiliatedIds->character_id]['corporationName'] = $corporationSheet['data']->corporation_name;
+						$pilotDetails[$affiliatedIds->character_id]['corporationTicker'] = $corporationSheet['data']->ticker;
 					} // if(!empty($corporationSheet['data']) && !isset($corporationSheet['data']->error))
 				} // if(isset($affiliatedIds->getCorporationId()))
 
 				/**
 				 * Grabbing alliance information
 				 */
-				if(!\is_null($affiliatedIds->getAllianceId())) {
-					$allianceSheet = $this->esiHelper->getAllianceData($affiliatedIds->getAllianceId());
+				if(!empty($affiliatedIds->alliance_id)) {
+					$allianceSheet = $this->esiHelper->getAllianceData($affiliatedIds->alliance_id);
 
 					if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error)) {
-						$pilotDetails[$affiliatedIds->getCharacterId()]['allianceID'] = $affiliatedIds->getAllianceId();
-						$pilotDetails[$affiliatedIds->getCharacterId()]['allianceName'] = $allianceSheet['data']->alliance_name;
-						$pilotDetails[$affiliatedIds->getCharacterId()]['allianceTicker'] = $allianceSheet['data']->ticker;
+						$pilotDetails[$affiliatedIds->character_id]['allianceID'] = $affiliatedIds->alliance_id;
+						$pilotDetails[$affiliatedIds->character_id]['allianceName'] = $allianceSheet['data']->alliance_name;
+						$pilotDetails[$affiliatedIds->character_id]['allianceTicker'] = $allianceSheet['data']->ticker;
 					} // if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error))
 				} // if(isset($affiliatedIds->getAllianceId()))
 			} // foreach($characterData['data'] as $affiliatedIds)
