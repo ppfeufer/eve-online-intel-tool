@@ -183,10 +183,6 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 		if($systemName !== null) {
 			$systemID = $this->esi->getEveIdFromName(\trim($systemName), 'solar_system');
 			$systemData = $this->esi->getSystemData($systemID);
-
-			$constellationData = null;
-			$regionData = null;
-
 			$constellationName = null;
 			$regionName = null;
 
@@ -194,13 +190,18 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 			$constellationData = $this->esi->getConstellationData($systemData['data']->constellation_id);
 
 			// Set the constellation name
-			$constellationName = $constellationData['data']->name;
+			if(!\is_null($constellationData)) {
 
-			// Get the region data
-			$regionData = $this->esi->getRegionData($constellationData['data']->region_id);
+				$constellationName = $constellationData['data']->name;
 
-			// Set the region name
-			$regionName = $regionData['data']->name;
+				// Get the region data
+				$regionData = $this->esi->getRegionData($constellationData['data']->region_id);
+
+				// Set the region name
+				if(!\is_null($regionData)) {
+					$regionName = $regionData['data']->name;
+				}
+			}
 
 			$returnValue = [
 				'systemName' => $systemName,

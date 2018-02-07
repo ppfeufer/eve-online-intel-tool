@@ -30,6 +30,7 @@ class RemoteHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 	 * @return mixed
 	 */
 	public function getRemoteData($url, $parameter = [], $method = 'get') {
+		$returnValue = null;
 		$params = '';
 
 		switch($method) {
@@ -50,8 +51,10 @@ class RemoteHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 				break;
 		} // switch($method)
 
-		$data = \wp_remote_retrieve_body($remoteData);
+		if(\wp_remote_retrieve_response_code($remoteData) === 200) {
+			$returnValue = \json_decode(\wp_remote_retrieve_body($remoteData));
+		}
 
-		return $data;
+		return $returnValue;
 	} // private function getRemoteData($url, array $parameter)
 } // class RemoteHelper extends \WordPress\Plugin\EveOnlineTranquilityStatus\Singletons\AbstractSingleton
