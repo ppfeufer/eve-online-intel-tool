@@ -22,18 +22,17 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api;
 \defined('ABSPATH') or die();
 
 class CorporationApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger {
-	/**
-	 * Find corporation data by corporation ID
-	 *
-	 * @param int $corporationID
-	 * @return object
-	 */
-	public function findById($corporationID) {
-		$this->esiRoute = 'corporations/' . $corporationID . '/?datasource=tranquility';
+    /**
+     * Find corporation data by corporation ID
+     *
+     * @param int $corporationID
+     * @return object
+     */
+    public function findById($corporationID) {
+        $this->esiRoute = 'corporations/' . $corporationID . '/?datasource=tranquility';
 
-		$corporationData = $this->callEsi();
+        $corporationData = $this->callEsi();
 
-		return $corporationData;
-	}
+        return $corporationData;
+    }
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) 2017 Rounon Dax
  *
@@ -16,24 +17,23 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Helper;
 
 \defined('ABSPATH') or die();
 
 class IntelHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
-	/**
-	 * Correcting line breaks
-	 *
-	 * mac -> linux
-	 * windows -> linux
-	 *
-	 * @param string $scanData
-	 * @return string
-	 */
-	public function fixLineBreaks($scanData) {
-		$cleanedScanData = \str_replace("\r", "\n", \str_replace("\r\n", "\n", $scanData)); // mac -> linux
+    /**
+     * Correcting line breaks
+     *
+     * mac -> linux
+     * windows -> linux
+     *
+     * @param string $scanData
+     * @return string
+     */
+    public function fixLineBreaks($scanData) {
+        $cleanedScanData = \str_replace("\r", "\n", \str_replace("\r\n", "\n", $scanData)); // mac -> linux
 
-		return $cleanedScanData;
-	} // public function fixLineBreaks($scanData)
-} // class IntelHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton
+        return $cleanedScanData;
+    }
+}

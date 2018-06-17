@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) 2017 Rounon Dax
  *
@@ -16,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs;
 
 \defined('ABSPATH') or die();
@@ -25,337 +25,337 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs;
  * Parsing our intel data
  */
 class IntelParser {
-	/**
-	 * Intel data to parse
-	 *
-	 * @var string
-	 */
-	public $eveIntel = null;
+    /**
+     * Intel data to parse
+     *
+     * @var string
+     */
+    public $eveIntel = null;
 
-	/**
-	 * Unique ID for this run
-	 *
-	 * @var string
-	 */
-	public $uniqueID = null;
+    /**
+     * Unique ID for this run
+     *
+     * @var string
+     */
+    public $uniqueID = null;
 
-	/**
-	 * ID of the new post
-	 *
-	 * @var int
-	 */
-	public $postID = null;
+    /**
+     * ID of the new post
+     *
+     * @var int
+     */
+    public $postID = null;
 
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		$nonce = \filter_input(\INPUT_POST, '_wpnonce');
-		if(!\wp_verify_nonce($nonce, 'eve-online-intel-tool-new-intel-form')) {
-			die('Busted!');
-		} // if(!\wp_verify_nonce($nonce, 'eve-online-intel-tool-new-intel-form'))
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $nonce = \filter_input(\INPUT_POST, '_wpnonce');
+        if(!\wp_verify_nonce($nonce, 'eve-online-intel-tool-new-intel-form')) {
+            die('Busted!');
+        }
 
-		$this->eveIntel = \filter_input(\INPUT_POST, 'eveIntel');
-		$this->uniqueID = \uniqid();
+        $this->eveIntel = \filter_input(\INPUT_POST, 'eveIntel');
+        $this->uniqueID = \uniqid();
 
-		/**
-		 * Let's get the intel type
-		 */
-		$intelType = $this->checkIntelType($this->eveIntel);
+        /**
+         * Let's get the intel type
+         */
+        $intelType = $this->checkIntelType($this->eveIntel);
 
-		switch($intelType) {
-			/**
-			 * Error / non parsable data
-			 */
-			case null:
-				$this->postID = null;
-				break;
+        switch($intelType) {
+            /**
+             * Error / non parsable data
+             */
+            case null:
+                $this->postID = null;
+                break;
 
-			/**
-			 * D-Scan
-			 */
-			case 'dscan':
-				$this->postID = $this->saveDscanData($this->eveIntel);
-				break;
+            /**
+             * D-Scan
+             */
+            case 'dscan':
+                $this->postID = $this->saveDscanData($this->eveIntel);
+                break;
 
-			/**
-			 * Fleet Composition
-			 */
-			case 'fleetcomposition':
-				$this->postID = $this->saveFleetComositionData($this->eveIntel);
-				break;
+            /**
+             * Fleet Composition
+             */
+            case 'fleetcomposition':
+                $this->postID = $this->saveFleetComositionData($this->eveIntel);
+                break;
 
-			/**
-			 * Chat Scan
-			 */
-			case 'local':
-				$this->postID = $this->saveLocalScanData($this->eveIntel);
-				break;
+            /**
+             * Chat Scan
+             */
+            case 'local':
+                $this->postID = $this->saveLocalScanData($this->eveIntel);
+                break;
 
-			/**
-			 * Mining Ledger
-			 */
-			case 'miningledger':
-			case 'corpminingledger':
-				$this->postID = $this->saveMiningLedgerScanData($this->eveIntel, $intelType);
-				break;
+            /**
+             * Mining Ledger
+             */
+            case 'miningledger':
+            case 'corpminingledger':
+                $this->postID = $this->saveMiningLedgerScanData($this->eveIntel, $intelType);
+                break;
 
-			/**
-			 * Default
-			 */
-			default:
-				$this->postID = null;
-				break;
-		} // switch($intelType)
-	} // public function __construct()
+            /**
+             * Default
+             */
+            default:
+                $this->postID = null;
+                break;
+        }
+    }
 
-	/**
-	 * Determine what type of intel we might have
-	 *
-	 * @param string $scanData
-	 * @return string
-	 */
-	private function checkIntelType($scanData) {
-		$intelType = null;
+    /**
+     * Determine what type of intel we might have
+     *
+     * @param string $scanData
+     * @return string
+     */
+    private function checkIntelType($scanData) {
+        $intelType = null;
 
-		/**
-		 * Correcting line breaks
-		 *
-		 * mac -> linux
-		 * windows -> linux
-		 */
-		$cleanedScanData = Helper\IntelHelper::getInstance()->fixLineBreaks($scanData);
+        /**
+         * Correcting line breaks
+         *
+         * mac -> linux
+         * windows -> linux
+         */
+        $cleanedScanData = Helper\IntelHelper::getInstance()->fixLineBreaks($scanData);
 
-		switch($cleanedScanData) {
-			case '':
-				$intelType = null;
-				break;
+        switch($cleanedScanData) {
+            case '':
+                $intelType = null;
+                break;
 
-			/**
-			 * First: Fleet Comp
-			 */
-			case (\preg_match('/^([a-zA-Z0-9 -_]{3,37})[\t](.*)[\t](.* \/ .*) ?$/m', $cleanedScanData) ? true : false):
-				$intelType = 'fleetcomposition';
-				break;
+            /**
+             * First: Fleet Comp
+             */
+            case (\preg_match('/^([a-zA-Z0-9 -_]{3,37})[\t](.*)[\t](.* \/ .*) ?$/m', $cleanedScanData) ? true : false):
+                $intelType = 'fleetcomposition';
+                break;
 
-			/**
-			 * Second: D-Scan
-			 */
-			case (\preg_match('/^\d+[\t](.*)[\t](-|\d(.*)) ?$/m', $cleanedScanData) ? true : false):
-				$intelType = 'dscan';
-				break;
+            /**
+             * Second: D-Scan
+             */
+            case (\preg_match('/^\d+[\t](.*)[\t](-|\d(.*)) ?$/m', $cleanedScanData) ? true : false):
+                $intelType = 'dscan';
+                break;
 
-			/**
-			 * Third: Chat Scan
-			 */
-			case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
-				$intelType = 'local';
-				break;
+            /**
+             * Third: Chat Scan
+             */
+            case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
+                $intelType = 'local';
+                break;
 
-			/**
-			 * Fourth: Personal Mining Ledger
-			 */
-//			case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
-//				$intelType = 'miningledger';
-//				break;
+            /**
+             * Fourth: Personal Mining Ledger
+             */
+//            case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
+//                $intelType = 'miningledger';
+//                break;
 
-			/**
-			 * Fifth: Corporation Mining Ledger
-			 */
-//			case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
-//				$intelType = 'corpminingledger';
-//				break;
+            /**
+             * Fifth: Corporation Mining Ledger
+             */
+//            case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
+//                $intelType = 'corpminingledger';
+//                break;
 
-			default:
-				$intelType = null;
-				break;
-		} // switch($cleanedScanData)
+            default:
+                $intelType = null;
+                break;
+        }
 
-		return $intelType;
-	} // private function checkIntelType($scanData)
+        return $intelType;
+    }
 
-	/**
-	 * Saving the D-Scan data
-	 *
-	 * @param string $scanData
-	 * @return int
-	 */
-	private function saveDscanData($scanData) {
-		$returnData = null;
+    /**
+     * Saving the D-Scan data
+     *
+     * @param string $scanData
+     * @return int
+     */
+    private function saveDscanData($scanData) {
+        $returnData = null;
 
-		$parsedDscanData = Parser\DscanParser::getInstance()->parseDscan($scanData);
+        $parsedDscanData = Parser\DscanParser::getInstance()->parseDscan($scanData);
 
-		if($parsedDscanData !== null) {
-			$postName = $this->uniqueID;
+        if($parsedDscanData !== null) {
+            $postName = $this->uniqueID;
 
-			/**
-			 * If we have a system, add it to the post title
-			 */
-			if(!empty($parsedDscanData['system']['systemName'])) {
-				$postName = $parsedDscanData['system']['systemName'];
+            /**
+             * If we have a system, add it to the post title
+             */
+            if(!empty($parsedDscanData['system']['systemName'])) {
+                $postName = $parsedDscanData['system']['systemName'];
 
-				if(!empty($parsedDscanData['system']['constellationName'])) {
-					$postName .= ' - ' . $parsedDscanData['system']['constellationName'];
-				} // if(!empty($parsedDscanData['system']['constellationName']))
+                if(!empty($parsedDscanData['system']['constellationName'])) {
+                    $postName .= ' - ' . $parsedDscanData['system']['constellationName'];
+                }
 
-				if(!empty($parsedDscanData['system']['regionName'])) {
-					$postName .= ' - ' . $parsedDscanData['system']['regionName'];
-				} // if(!empty($parsedDscanData['system']['regionName']))
+                if(!empty($parsedDscanData['system']['regionName'])) {
+                    $postName .= ' - ' . $parsedDscanData['system']['regionName'];
+                }
 
-				$postName .= ' ' . $this->uniqueID;
-			} // if(!empty($parsedDscanData['system']['name']))
+                $postName .= ' ' . $this->uniqueID;
+            }
 
-			$metaData = [
-				'eve-intel-tool_dscan-rawData' => \maybe_serialize(Helper\IntelHelper::getInstance()->fixLineBreaks($scanData)),
-				'eve-intel-tool_dscan-all' => \maybe_serialize($parsedDscanData['all']),
-				'eve-intel-tool_dscan-onGrid' => \maybe_serialize($parsedDscanData['onGrid']),
-				'eve-intel-tool_dscan-offGrid' => \maybe_serialize($parsedDscanData['offGrid']),
-				'eve-intel-tool_dscan-shipTypes' => \maybe_serialize($parsedDscanData['shipTypes']),
-				'eve-intel-tool_dscan-system' => \maybe_serialize($parsedDscanData['system']),
-				'eve-intel-tool_dscan-upwellStructures' => \maybe_serialize($parsedDscanData['upwellStructures']),
-				'eve-intel-tool_dscan-deployables' => \maybe_serialize($parsedDscanData['deployables']),
-				'eve-intel-tool_dscan-starbaseModules' => \maybe_serialize($parsedDscanData['starbaseModules']),
-				'eve-intel-tool_dscan-lootSalvage' => \maybe_serialize($parsedDscanData['lootSalvage']),
-				'eve-intel-tool_dscan-time' => \maybe_serialize(\gmdate('Y-m-d H:i:s', \time())),
-			];
+            $metaData = [
+                'eve-intel-tool_dscan-rawData' => \maybe_serialize(Helper\IntelHelper::getInstance()->fixLineBreaks($scanData)),
+                'eve-intel-tool_dscan-all' => \maybe_serialize($parsedDscanData['all']),
+                'eve-intel-tool_dscan-onGrid' => \maybe_serialize($parsedDscanData['onGrid']),
+                'eve-intel-tool_dscan-offGrid' => \maybe_serialize($parsedDscanData['offGrid']),
+                'eve-intel-tool_dscan-shipTypes' => \maybe_serialize($parsedDscanData['shipTypes']),
+                'eve-intel-tool_dscan-system' => \maybe_serialize($parsedDscanData['system']),
+                'eve-intel-tool_dscan-upwellStructures' => \maybe_serialize($parsedDscanData['upwellStructures']),
+                'eve-intel-tool_dscan-deployables' => \maybe_serialize($parsedDscanData['deployables']),
+                'eve-intel-tool_dscan-starbaseModules' => \maybe_serialize($parsedDscanData['starbaseModules']),
+                'eve-intel-tool_dscan-lootSalvage' => \maybe_serialize($parsedDscanData['lootSalvage']),
+                'eve-intel-tool_dscan-time' => \maybe_serialize(\gmdate('Y-m-d H:i:s', \time())),
+            ];
 
-			$returnData = $this->savePostdata($postName, $metaData, 'dscan');
-		} // if($parsedDscanData !== null)
+            $returnData = $this->savePostdata($postName, $metaData, 'dscan');
+        }
 
-		return $returnData;
-	} // private function saveDscanData($scanData)
+        return $returnData;
+    }
 
-	/**
-	 * Saving the fleet composition data
-	 *
-	 * @param string $scanData
-	 * @return int
-	 */
-	private function saveFleetComositionData($scanData) {
-		$returnData = null;
-		$parsedFleetComposition = Parser\FleetCompositionParser::getInstance()->parseFleetCompositionScan($scanData);
+    /**
+     * Saving the fleet composition data
+     *
+     * @param string $scanData
+     * @return int
+     */
+    private function saveFleetComositionData($scanData) {
+        $returnData = null;
+        $parsedFleetComposition = Parser\FleetCompositionParser::getInstance()->parseFleetCompositionScan($scanData);
 
-		if($parsedFleetComposition !== null) {
-			$postName = $this->uniqueID;
-			$metaData = [
-				'eve-intel-tool_fleetcomposition-rawData' => \maybe_serialize($parsedFleetComposition['rawData']),
-				'eve-intel-tool_fleetcomposition-fleetOverview' => \maybe_serialize($parsedFleetComposition['fleetCompositionData']['overview']),
-				'eve-intel-tool_fleetcomposition-fleetInformation' => \maybe_serialize($parsedFleetComposition['fleetInformation']),
-				'eve-intel-tool_fleetcomposition-shipClasses' => \maybe_serialize($parsedFleetComposition['fleetCompositionData']['shipClasses']),
-				'eve-intel-tool_fleetcomposition-shipTypes' => \maybe_serialize($parsedFleetComposition['fleetCompositionData']['shipTypes']),
-				'eve-intel-tool_fleetcomposition-pilotDetails' => \maybe_serialize($parsedFleetComposition['participationData']['pilotDetails']),
-				'eve-intel-tool_fleetcomposition-pilotList' => \maybe_serialize($parsedFleetComposition['participationData']['characterList']),
-				'eve-intel-tool_fleetcomposition-corporationList' => \maybe_serialize($parsedFleetComposition['participationData']['corporationList']),
-				'eve-intel-tool_fleetcomposition-allianceList' => \maybe_serialize($parsedFleetComposition['participationData']['allianceList']),
-				'eve-intel-tool_fleetcomposition-corporationParticipation' => \maybe_serialize($parsedFleetComposition['participationData']['corporationParticipation']),
-				'eve-intel-tool_fleetcomposition-allianceParticipation' => \maybe_serialize($parsedFleetComposition['participationData']['allianceParticipation']),
-				'eve-intel-tool_fleetcomposition-time' => \maybe_serialize(\gmdate('Y-m-d H:i:s', \time())),
-			];
+        if($parsedFleetComposition !== null) {
+            $postName = $this->uniqueID;
+            $metaData = [
+                'eve-intel-tool_fleetcomposition-rawData' => \maybe_serialize($parsedFleetComposition['rawData']),
+                'eve-intel-tool_fleetcomposition-fleetOverview' => \maybe_serialize($parsedFleetComposition['fleetCompositionData']['overview']),
+                'eve-intel-tool_fleetcomposition-fleetInformation' => \maybe_serialize($parsedFleetComposition['fleetInformation']),
+                'eve-intel-tool_fleetcomposition-shipClasses' => \maybe_serialize($parsedFleetComposition['fleetCompositionData']['shipClasses']),
+                'eve-intel-tool_fleetcomposition-shipTypes' => \maybe_serialize($parsedFleetComposition['fleetCompositionData']['shipTypes']),
+                'eve-intel-tool_fleetcomposition-pilotDetails' => \maybe_serialize($parsedFleetComposition['participationData']['pilotDetails']),
+                'eve-intel-tool_fleetcomposition-pilotList' => \maybe_serialize($parsedFleetComposition['participationData']['characterList']),
+                'eve-intel-tool_fleetcomposition-corporationList' => \maybe_serialize($parsedFleetComposition['participationData']['corporationList']),
+                'eve-intel-tool_fleetcomposition-allianceList' => \maybe_serialize($parsedFleetComposition['participationData']['allianceList']),
+                'eve-intel-tool_fleetcomposition-corporationParticipation' => \maybe_serialize($parsedFleetComposition['participationData']['corporationParticipation']),
+                'eve-intel-tool_fleetcomposition-allianceParticipation' => \maybe_serialize($parsedFleetComposition['participationData']['allianceParticipation']),
+                'eve-intel-tool_fleetcomposition-time' => \maybe_serialize(\gmdate('Y-m-d H:i:s', \time())),
+            ];
 
-			$returnData = $this->savePostdata($postName, $metaData, 'fleetcomposition');
-		} // if($parsedFleetComposition !== null)
+            $returnData = $this->savePostdata($postName, $metaData, 'fleetcomposition');
+        }
 
-		return $returnData;
-	} // private function saveFleetComositionData($scanData)
+        return $returnData;
+    }
 
-	/**
-	 * Saving the local/chat scan data
-	 *
-	 * @param string $scanData
-	 * @return int
-	 */
-	private function saveLocalScanData($scanData) {
-		$returnData = null;
+    /**
+     * Saving the local/chat scan data
+     *
+     * @param string $scanData
+     * @return int
+     */
+    private function saveLocalScanData($scanData) {
+        $returnData = null;
 
-		$parsedLocalData = Parser\LocalScanParser::getInstance()->parseLocalScan($scanData);
+        $parsedLocalData = Parser\LocalScanParser::getInstance()->parseLocalScan($scanData);
 
-		if($parsedLocalData !== null) {
-			$postName = $this->uniqueID;
-			$metaData = [
-				'eve-intel-tool_local-rawData' => \maybe_serialize($parsedLocalData['rawData']),
-				'eve-intel-tool_local-pilotDetails' => \maybe_serialize($parsedLocalData['pilotDetails']),
-				'eve-intel-tool_local-pilotList' => \maybe_serialize($parsedLocalData['characterList']),
-				'eve-intel-tool_local-corporationList' => \maybe_serialize($parsedLocalData['corporationList']),
-				'eve-intel-tool_local-allianceList' => \maybe_serialize($parsedLocalData['allianceList']),
-				'eve-intel-tool_local-corporationParticipation' => \maybe_serialize($parsedLocalData['corporationParticipation']),
-				'eve-intel-tool_local-allianceParticipation' => \maybe_serialize($parsedLocalData['allianceParticipation']),
-				'eve-intel-tool_local-time' => \maybe_serialize(\gmdate('Y-m-d H:i:s', \time())),
-			];
+        if($parsedLocalData !== null) {
+            $postName = $this->uniqueID;
+            $metaData = [
+                'eve-intel-tool_local-rawData' => \maybe_serialize($parsedLocalData['rawData']),
+                'eve-intel-tool_local-pilotDetails' => \maybe_serialize($parsedLocalData['pilotDetails']),
+                'eve-intel-tool_local-pilotList' => \maybe_serialize($parsedLocalData['characterList']),
+                'eve-intel-tool_local-corporationList' => \maybe_serialize($parsedLocalData['corporationList']),
+                'eve-intel-tool_local-allianceList' => \maybe_serialize($parsedLocalData['allianceList']),
+                'eve-intel-tool_local-corporationParticipation' => \maybe_serialize($parsedLocalData['corporationParticipation']),
+                'eve-intel-tool_local-allianceParticipation' => \maybe_serialize($parsedLocalData['allianceParticipation']),
+                'eve-intel-tool_local-time' => \maybe_serialize(\gmdate('Y-m-d H:i:s', \time())),
+            ];
 
-			$returnData = $this->savePostdata($postName, $metaData, 'local');
-		} // if($parsedDscanData !== null)
+            $returnData = $this->savePostdata($postName, $metaData, 'local');
+        }
 
-		return $returnData;
-	} // private function saveFleetComositionData($scanData)
+        return $returnData;
+    }
 
-//	private function saveMiningLedgerScanData($scanData, $ledgerType) {
-//		$returnData = null;
+//    private function saveMiningLedgerScanData($scanData, $ledgerType) {
+//        $returnData = null;
 //
-//		/**
-//		 * Only if we have the allowed ledger type, just in case ...
-//		 */
-//		if(\in_array($ledgerType, ['miningledger', 'corpminingledger'])) {
-//			$parsedLedgerData = Parser\MiningLedgerParser::getInstance()->parseLedgerData($scanData, $ledgerType);
+//        /**
+//         * Only if we have the allowed ledger type, just in case ...
+//         */
+//        if(\in_array($ledgerType, ['miningledger', 'corpminingledger'])) {
+//            $parsedLedgerData = Parser\MiningLedgerParser::getInstance()->parseLedgerData($scanData, $ledgerType);
 //
-//			if(!\is_null($parsedLedgerData)) {
-//				$postName = $this->uniqueID;
-//				$metaData = [];
-//				$returnData = $this->savePostdata($postName, $metaData, $ledgerType);
-//			}
-//		}
-//	}
+//            if(!\is_null($parsedLedgerData)) {
+//                $postName = $this->uniqueID;
+//                $metaData = [];
+//                $returnData = $this->savePostdata($postName, $metaData, $ledgerType);
+//            }
+//        }
+//    }
 
-	/**
-	 * Save the post data
-	 *
-	 * @param string $postName
-	 * @param array $metaData
-	 * @param string $category
-	 * @return int
-	 */
-	private function savePostdata($postName, $metaData, $category) {
-		$returnData = null;
+    /**
+     * Save the post data
+     *
+     * @param string $postName
+     * @param array $metaData
+     * @param string $category
+     * @return int
+     */
+    private function savePostdata($postName, $metaData, $category) {
+        $returnData = null;
 
-		switch($category) {
-			case 'dscan':
-				$postTitle = 'D-Scan: ' . \wp_filter_kses($postName);
-				break;
+        switch($category) {
+            case 'dscan':
+                $postTitle = 'D-Scan: ' . \wp_filter_kses($postName);
+                break;
 
-			case 'fleetcomposition':
-				$postTitle = 'Fleet Composition: ' . \wp_filter_kses($postName);
-				break;
+            case 'fleetcomposition':
+                $postTitle = 'Fleet Composition: ' . \wp_filter_kses($postName);
+                break;
 
-			case 'local':
-				$postTitle = 'Chat Scan: ' . \wp_filter_kses($postName);
-				break;
+            case 'local':
+                $postTitle = 'Chat Scan: ' . \wp_filter_kses($postName);
+                break;
 
-			case 'miningledger':
-				$postTitle = 'Personal Mining Ledger: ' . \wp_filter_kses($postName);
-				break;
+            case 'miningledger':
+                $postTitle = 'Personal Mining Ledger: ' . \wp_filter_kses($postName);
+                break;
 
-			case 'corpminingledger':
-				$postTitle = 'Corporation Mining Ledger: ' . \wp_filter_kses($postName);
-				break;
-		} // switch($category)
+            case 'corpminingledger':
+                $postTitle = 'Corporation Mining Ledger: ' . \wp_filter_kses($postName);
+                break;
+        }
 
-		$newPostID = \wp_insert_post([
-			'post_title' => $postTitle,
-			'post_name' => \sanitize_title($postTitle),
-			'post_content' => '',
-			'post_category' => '',
-			'post_status' => 'publish',
-			'post_type' => 'intel',
-			'comment_status' => 'closed',
-			'ping_status' => 'closed',
-			'meta_input' => $metaData
-		], true);
+        $newPostID = \wp_insert_post([
+            'post_title' => $postTitle,
+            'post_name' => \sanitize_title($postTitle),
+            'post_content' => '',
+            'post_category' => '',
+            'post_status' => 'publish',
+            'post_type' => 'intel',
+            'comment_status' => 'closed',
+            'ping_status' => 'closed',
+            'meta_input' => $metaData
+            ], true);
 
-		if($newPostID) {
-			\wp_set_object_terms($newPostID, $category, 'intel_category');
+        if($newPostID) {
+            \wp_set_object_terms($newPostID, $category, 'intel_category');
 
-			$returnData = $newPostID;
-		} // if($newPostID)
+            $returnData = $newPostID;
+        }
 
-		return $returnData;
-	} // private function savePostdata($postName, $metaData, $category)
-} // class IntelParser
+        return $returnData;
+    }
+}

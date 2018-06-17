@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) 2017 Rounon Dax
  *
@@ -16,36 +17,35 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Ajax;
 
 \defined('ABSPATH') or die();
 
 class FormNonce implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		$this->initActions();
-	} // public function __construct()
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->initActions();
+    }
 
-	/**
-	 * Ajax Acion
-	 */
-	public function ajaxAction() {
-		$nonce = \wp_create_nonce('eve-online-intel-tool-new-intel-form');
+    /**
+     * Ajax Acion
+     */
+    public function ajaxAction() {
+        $nonce = \wp_create_nonce('eve-online-intel-tool-new-intel-form');
 
-		\wp_send_json($nonce);
+        \wp_send_json($nonce);
 
-		// always exit this API function
-		exit;
-	} // public function ajaxAction()
+        // always exit this API function
+        exit;
+    }
 
-	/**
-	 * Initialize WP Actions
-	 */
-	public function initActions() {
-		\add_action('wp_ajax_nopriv_get-eve-intel-form-nonce', [$this, 'ajaxAction']);
-		\add_action('wp_ajax_get-eve-intel-form-nonce', [$this, 'ajaxAction']);
-	} // public function initActions()
-} // class FormNonce
+    /**
+     * Initialize WP Actions
+     */
+    public function initActions() {
+        \add_action('wp_ajax_nopriv_get-eve-intel-form-nonce', [$this, 'ajaxAction']);
+        \add_action('wp_ajax_get-eve-intel-form-nonce', [$this, 'ajaxAction']);
+    }
+}

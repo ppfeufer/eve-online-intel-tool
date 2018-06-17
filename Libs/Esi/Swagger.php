@@ -22,52 +22,52 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Esi;
 \defined('ABSPATH') or die();
 
 class Swagger {
-	/**
-	 * ESI URL
-	 *
-	 * @var string
-	 */
-	public $esiUrl = 'https://esi.evetech.net/latest/';
+    /**
+     * ESI URL
+     *
+     * @var string
+     */
+    public $esiUrl = 'https://esi.evetech.net/latest/';
 
-	/**
-	 * ESI route
-	 *
-	 * @var string
-	 */
-	public $esiRoute = null;
+    /**
+     * ESI route
+     *
+     * @var string
+     */
+    public $esiRoute = null;
 
-	/**
-	 * Remote Helper
-	 *
-	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\RemoteHelper
-	 */
-	public $remoteHelper = null;
+    /**
+     * Remote Helper
+     *
+     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\RemoteHelper
+     */
+    public $remoteHelper = null;
 
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		$this->remoteHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\RemoteHelper::getInstance();
-	}
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->remoteHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\RemoteHelper::getInstance();
+    }
 
-	/**
-	 * Call ESI
-	 *
-	 * @param string $method
-	 * @param array $parameter
-	 * @return stdClass Object
-	 */
-	public function callEsi($method = 'get', $parameter = []) {
-		switch($method) {
-			case 'get':
-				$data = $this->remoteHelper->getRemoteData($this->esiUrl . $this->esiRoute);
-				break;
+    /**
+     * Call ESI
+     *
+     * @param string $method
+     * @param array $parameter
+     * @return stdClass Object
+     */
+    public function callEsi($method = 'get', $parameter = []) {
+        switch($method) {
+            case 'get':
+                $data = $this->remoteHelper->getRemoteData($this->esiUrl . $this->esiRoute);
+                break;
 
-			case 'post':
-				$data = $this->remoteHelper->getRemoteData($this->esiUrl . $this->esiRoute, $parameter, $method);
-				break;
-		} // switch($method)
+            case 'post':
+                $data = $this->remoteHelper->getRemoteData($this->esiUrl . $this->esiRoute, $parameter, $method);
+                break;
+        } // switch($method)
 
-		return $data;
-	}
+        return $data;
+    }
 }

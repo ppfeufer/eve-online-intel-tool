@@ -22,31 +22,31 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api;
 \defined('ABSPATH') or die();
 
 class CharacterApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger {
-	/**
-	 * Find character data by charater ID
-	 *
-	 * @param int $characterID
-	 * @return object
-	 */
-	public function findById($characterID) {
-		$this->esiRoute = 'characters/' . $characterID . '/?datasource=tranquility';
+    /**
+     * Find character data by charater ID
+     *
+     * @param int $characterID
+     * @return object
+     */
+    public function findById($characterID) {
+        $this->esiRoute = 'characters/' . $characterID . '/?datasource=tranquility';
 
-		$characterData = $this->callEsi();
+        $characterData = $this->callEsi();
 
-		return $characterData;
-	}
+        return $characterData;
+    }
 
-	/**
-	 * Find character affiliation
-	 *
-	 * @param array $characterIds
-	 * @return object
-	 */
-	public function findAffiliation($characterIds = []) {
-		$this->esiRoute = 'characters/affiliation/';
+    /**
+     * Find character affiliation
+     *
+     * @param array $characterIds
+     * @return object
+     */
+    public function findAffiliation($characterIds = []) {
+        $this->esiRoute = 'characters/affiliation/';
 
-		$affiliationData = $this->callEsi('post', $characterIds);
+        $affiliationData = $this->callEsi('post', $characterIds);
 
-		return $affiliationData;
-	}
+        return $affiliationData;
+    }
 }

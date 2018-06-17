@@ -3,7 +3,11 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.2...development)
-- in development
+### Added
+- Faction Fortizars to structures that can hold the system name
+
+### Changed
+- Refactored the D-Scan pareser a little bit
 
 ## [v0.6.2](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.6.2) - 2018-05-29
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.1...v0.6.2)

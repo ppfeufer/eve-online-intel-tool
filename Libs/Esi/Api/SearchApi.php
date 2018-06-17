@@ -22,21 +22,21 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api;
 \defined('ABSPATH') or die();
 
 class SearchApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger {
-	public function findIdByName($name, $type) {
-		$this->esiRoute = 'search/?categories=' .$type . '&datasource=tranquility&language=en-us&search=' . $name . '&strict=true';
+    public function findIdByName($name, $type) {
+        $this->esiRoute = 'search/?categories=' . $type . '&datasource=tranquility&language=en-us&search=' . $name . '&strict=true';
 
-		return $this->callEsi();
-	}
+        return $this->callEsi();
+    }
 
-	/**
-	 * Find character ID by name
-	 *
-	 * @param string $name
-	 * @return stdClass Object
-	 */
-	public function findCharacterIdByName($name) {
-		$this->esiRoute = 'search/?categories=character&datasource=tranquility&language=en-us&search=' . $name . '&strict=true';
+    /**
+     * Find character ID by name
+     *
+     * @param string $name
+     * @return stdClass Object
+     */
+    public function findCharacterIdByName($name) {
+        $this->esiRoute = 'search/?categories=character&datasource=tranquility&language=en-us&search=' . $name . '&strict=true';
 
-		return $this->callEsi();
-	}
+        return $this->callEsi();
+    }
 }

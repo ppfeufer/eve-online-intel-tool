@@ -22,73 +22,73 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api;
 \defined('ABSPATH') or die();
 
 class UniverseApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger {
-	/**
-	 * Find type data by type ID
-	 *
-	 * @param int $typeID
-	 * @return object
-	 */
-	public function findTypeById($typeID) {
-		$this->esiRoute = 'universe/types/' . $typeID . '/?datasource=tranquility';
+    /**
+     * Find type data by type ID
+     *
+     * @param int $typeID
+     * @return object
+     */
+    public function findTypeById($typeID) {
+        $this->esiRoute = 'universe/types/' . $typeID . '/?datasource=tranquility';
 
-		$typeData = $this->callEsi();
+        $typeData = $this->callEsi();
 
-		return $typeData;
-	}
+        return $typeData;
+    }
 
-	/**
-	 * Fine group data by group ID
-	 *
-	 * @param int $groupID
-	 * @return object
-	 */
-	public function findGroupById($groupID) {
-		$this->esiRoute = 'universe/groups/' . $groupID . '/?datasource=tranquility';
+    /**
+     * Fine group data by group ID
+     *
+     * @param int $groupID
+     * @return object
+     */
+    public function findGroupById($groupID) {
+        $this->esiRoute = 'universe/groups/' . $groupID . '/?datasource=tranquility';
 
-		$groupData = $this->callEsi();
+        $groupData = $this->callEsi();
 
-		return $groupData;
-	}
+        return $groupData;
+    }
 
-	/**
-	 * Fine system data by system ID
-	 *
-	 * @param int $systemID
-	 * @return object
-	 */
-	public function findSystemById($systemID) {
-		$this->esiRoute = 'universe/systems/' . $systemID . '/?datasource=tranquility';
+    /**
+     * Fine system data by system ID
+     *
+     * @param int $systemID
+     * @return object
+     */
+    public function findSystemById($systemID) {
+        $this->esiRoute = 'universe/systems/' . $systemID . '/?datasource=tranquility';
 
-		$systemData = $this->callEsi();
+        $systemData = $this->callEsi();
 
-		return $systemData;
-	}
+        return $systemData;
+    }
 
-	/**
-	 * Fine constellation data by constellation ID
-	 *
-	 * @param int $constellationID
-	 * @return object
-	 */
-	public function findConstellationById($constellationID) {
-		$this->esiRoute = 'universe/constellations/' . $constellationID . '/?datasource=tranquility';
+    /**
+     * Fine constellation data by constellation ID
+     *
+     * @param int $constellationID
+     * @return object
+     */
+    public function findConstellationById($constellationID) {
+        $this->esiRoute = 'universe/constellations/' . $constellationID . '/?datasource=tranquility';
 
-		$constellationData = $this->callEsi();
+        $constellationData = $this->callEsi();
 
-		return $constellationData;
-	}
+        return $constellationData;
+    }
 
-	/**
-	 * Fine region data by region ID
-	 *
-	 * @param int $regionID
-	 * @return object
-	 */
-	public function findRegionById($regionID) {
-		$this->esiRoute = 'universe/regions/' . $regionID . '/?datasource=tranquility';
+    /**
+     * Fine region data by region ID
+     *
+     * @param int $regionID
+     * @return object
+     */
+    public function findRegionById($regionID) {
+        $this->esiRoute = 'universe/regions/' . $regionID . '/?datasource=tranquility';
 
-		$regionData = $this->callEsi();
+        $regionData = $this->callEsi();
 
-		return $regionData;
-	}
+        return $regionData;
+    }
 }
