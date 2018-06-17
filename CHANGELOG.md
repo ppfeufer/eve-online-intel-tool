@@ -2,8 +2,13 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.1...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.2...development)
 - in development
+
+## [v0.6.2](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.6.2) - 2018-05-29
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.1...v0.6.2)
+### Changed
+- Changed ESI API URL to the new one
 
 ## [v0.6.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.6.1) - 2018-02-07
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.0...v0.6.1)

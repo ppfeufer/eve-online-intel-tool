@@ -27,7 +27,7 @@ class Swagger {
 	 *
 	 * @var string
 	 */
-	public $esiUrl = 'https://esi.tech.ccp.is/latest/';
+	public $esiUrl = 'https://esi.evetech.net/latest/';
 
 	/**
 	 * ESI route
