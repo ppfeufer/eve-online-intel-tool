@@ -1,6 +1,10 @@
-<form id="new_intel" name="new_intel" method="post">
+<?php
+$textareaRows = (isset($textareaRows)) ? $textareaRows : 15;
+?>
+
+<form id="new_intel" name="new_intel" method="post" action="/<?php echo \WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('intel'); ?>/">
     <div class="form-group">
-        <textarea class="form-control" rows="15" id="eveIntel" name="eveIntel" placeholder="<?php echo \__('Paste here ...', 'eve-online-intel-tool'); ?>"></textarea>
+        <textarea class="form-control" rows="<?php echo $textareaRows; ?>" id="eveIntel" name="eveIntel" placeholder="<?php echo \__('Paste here ...', 'eve-online-intel-tool'); ?>"></textarea>
     </div>
 
     <div class="row form-submit-area">

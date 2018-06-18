@@ -1,32 +1,32 @@
 /* global wp */
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     /**
      * Check all upload sections for uploaded files
      */
-    $('code.uploaded-file-url').each(function () {
-        if ($(this).html().trim() !== '') {
+    $('code.uploaded-file-url').each(function() {
+        if($(this).html().trim() !== '') {
             $(this).css('display', 'inline-block');
         } // if($(this).html().trim() !== '')
     });
 
-    $('img.uploaded-image').each(function () {
-        if ($(this).attr('src').trim() !== '') {
+    $('img.uploaded-image').each(function() {
+        if($(this).attr('src').trim() !== '') {
             $(this).css('display', 'block');
         } // if($(this).html().trim() !== '')
     });
 
     // Upload attachment
-    $('.upload, .image img, .url code').click(function (e) {
+    $('.upload, .image img, .url code').click(function(e) {
         e.preventDefault();
 
         var sendAttachmentBkp = wp.media.editor.send.attachment;
         var dataID = $(this).data('field-id');
 
-        wp.media.editor.send.attachment = function (props, attachment) {
+        wp.media.editor.send.attachment = function(props, attachment) {
             var current = '[data-id="' + dataID + '"]';
 
-            if (attachment.sizes && attachment.sizes.thumbnail && attachment.sizes.thumbnail.url) {
+            if(attachment.sizes && attachment.sizes.thumbnail && attachment.sizes.thumbnail.url) {
                 $(current + ' .image img').attr('src', attachment.sizes.thumbnail.url);
                 $(current + ' .image img').css('display', 'block');
             } // if(attachment.sizes && attachment.sizes.thumbnail && attachment.sizes.thumbnail.url)
@@ -45,7 +45,7 @@ jQuery(document).ready(function ($) {
     });
 
     // Remove attachment
-    $('.remove').click(function (e) {
+    $('.remove').click(function(e) {
         e.preventDefault();
 
         var dataID = $(this).parent().attr('data-id');
@@ -60,13 +60,13 @@ jQuery(document).ready(function ($) {
     });
 
     // Add color picker to fields
-    if ($('.colorpicker').length) {
+    if($('.colorpicker').length) {
         $('.colorpicker').wpColorPicker();
     } // if($('.colorpicker').length)
 
     // Nav click toggle
-    if ($('.nav-tab').length) {
-        $('.nav-tab').click(function (e) {
+    if($('.nav-tab').length) {
+        $('.nav-tab').click(function(e) {
             e.preventDefault();
 
             var id = $(this).attr('href').substr(1);

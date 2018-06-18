@@ -17,23 +17,23 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Helper;
+
+namespace WordPress\Plugin\EveOnlineIntelTool\Libs;
 
 \defined('ABSPATH') or die();
 
-class IntelHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+class Widgets {
     /**
-     * Correcting line breaks
-     *
-     * mac -> linux
-     * windows -> linux
-     *
-     * @param string $scanData
-     * @return string
+     * Constructor
      */
-    public function fixLineBreaks($scanData) {
-        $cleanedScanData = \str_replace("\r", "\n", \str_replace("\r\n", "\n", $scanData)); // mac -> linux
+    public function __construct() {
+        ;
+    }
 
-        return $cleanedScanData;
+    /**
+     * Initialize frontend widgets
+     */
+    public function init() {
+        \add_action('widgets_init', \create_function('', 'return register_widget("WordPress\Plugin\EveOnlineIntelTool\Libs\Widgets\Frontend\IntelFormWidget");'));
     }
 }
