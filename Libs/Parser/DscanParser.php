@@ -126,7 +126,6 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
      */
     public function detectSystem($cleanedScanData) {
         $returnValue = null;
-        $systemName = null;
 
         /**
          * Trying to find the system by one of the structure IDs
