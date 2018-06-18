@@ -45,7 +45,6 @@ class PostType {
 
         $argsTaxonomyCategory = [
             'label' => \__('Category', 'eve-online-intel-tool'),
-//            'labels' => $labelsShip,
             'public' => false,
             'hierarchical' => true,
             'show_ui' => true,
