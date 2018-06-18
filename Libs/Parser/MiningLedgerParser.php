@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) 2017 Rounon Dax
  *
@@ -16,29 +17,28 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Parser;
 
 \defined('ABSPATH') or die();
 
 class MiningLedgerParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
-	/**
-	 * EVE Swagger Interface
-	 *
-	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper
-	 */
-	private $esi = null;
+    /**
+     * EVE Swagger Interface
+     *
+     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper
+     */
+    private $esi = null;
 
-	/**
-	 * Constructor
-	 */
-	protected function __construct() {
-		parent::__construct();
+    /**
+     * Constructor
+     */
+    protected function __construct() {
+        parent::__construct();
 
-		$this->esi = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
-	} // END protected function __construct()
+        $this->esi = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
+    }
 
-	public function parseLedgerData($scanData, $ledgerType) {
-		;
-	}
-} // class MiningLedgerParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton
+    public function parseLedgerData($scanData, $ledgerType) {
+        ;
+    }
+}

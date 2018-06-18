@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) 2017 Rounon Dax
  *
@@ -16,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Helper;
 
 \defined('ABSPATH') or die();
@@ -25,30 +25,30 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Helper;
  * Helper Class for manipulating and/or checking strings
  */
 class StringHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
-	/**
-	 * Make a string camelCase
-	 *
-	 * @param string $string
-	 * @param boolean $ucFirst
-	 * @param array $noStrip
-	 * @return string
-	 */
-	public function camelCase($string, $ucFirst = false, $noStrip = []) {
-		// First we make sure all is lower case
-		$string = \strtolower($string);
+    /**
+     * Make a string camelCase
+     *
+     * @param string $string
+     * @param boolean $ucFirst
+     * @param array $noStrip
+     * @return string
+     */
+    public function camelCase($string, $ucFirst = false, $noStrip = []) {
+        // First we make sure all is lower case
+        $string = \strtolower($string);
 
-		// non-alpha and non-numeric characters become spaces
-		$string = \preg_replace('/[^a-z0-9' . \implode('', $noStrip) . ']+/i', ' ', $string);
-		$string = \trim($string);
+        // non-alpha and non-numeric characters become spaces
+        $string = \preg_replace('/[^a-z0-9' . \implode('', $noStrip) . ']+/i', ' ', $string);
+        $string = \trim($string);
 
-		// uppercase the first character of each word
-		$string = \ucwords($string);
-		$string = \str_replace(' ', '', $string);
+        // uppercase the first character of each word
+        $string = \ucwords($string);
+        $string = \str_replace(' ', '', $string);
 
-		if($ucFirst === false) {
-			$string = \lcfirst($string);
-		} // if($ucFirst === false)
+        if($ucFirst === false) {
+            $string = \lcfirst($string);
+        }
 
-		return $string;
-	} // public static function camelCase($string, $ucFirst = false, $noStrip = [])
-} // class StringHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton
+        return $string;
+    }
+}

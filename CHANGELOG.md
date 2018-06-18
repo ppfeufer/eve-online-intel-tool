@@ -2,13 +2,21 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.2...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.3...development)
 - in development
+
+## [v0.6.3](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.6.3) - 2018-06-18
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.2...v0.6.3)
+### Added
+- Faction Fortizars to structures that can hold the system name
+
+### Changed
+- Refactored the D-Scan pareser a little bit
 
 ## [v0.6.2](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.6.2) - 2018-05-29
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.1...v0.6.2)
 ### Changed
-- Changed ESI API URL to the new one
+- Changed ESI URL to the new one
 
 ## [v0.6.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.6.1) - 2018-02-07
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.0...v0.6.1)

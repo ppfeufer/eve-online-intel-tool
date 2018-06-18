@@ -22,18 +22,17 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api;
 \defined('ABSPATH') or die();
 
 class AllianceApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger {
-	/**
-	 * Find alliance data by alliance ID
-	 *
-	 * @param int $allianceID
-	 * @return object
-	 */
-	public function findById($allianceID) {
-		$this->esiRoute = 'alliances/' . $allianceID . '/?datasource=tranquility';
+    /**
+     * Find alliance data by alliance ID
+     *
+     * @param int $allianceID
+     * @return object
+     */
+    public function findById($allianceID) {
+        $this->esiRoute = 'alliances/' . $allianceID . '/?datasource=tranquility';
 
-		$allianceData = $this->callEsi();
+        $allianceData = $this->callEsi();
 
-		return $allianceData;
-	}
+        return $allianceData;
+    }
 }
-

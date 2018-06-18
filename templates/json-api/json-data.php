@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Echoing the json data
  */

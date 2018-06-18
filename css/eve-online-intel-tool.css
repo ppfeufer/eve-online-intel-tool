@@ -1,119 +1,119 @@
 @media all {
-	.eve-intel-copy-to-clipboard {
-		margin-top: 16px;
-		margin-top: 1rem;
-	}
+    .eve-intel-copy-to-clipboard {
+        margin-top: 16px;
+        margin-top: 1rem;
+    }
 
-	.eve-intel-copy-to-clipboard ul li {
-		display: block;
-		width: 150px;
-		float: left;
-	}
+    .eve-intel-copy-to-clipboard ul li {
+        display: block;
+        width: 150px;
+        float: left;
+    }
 
-	.eve-intel-copy-to-clipboard ul li > a {
-		padding: 0;
-	}
+    .eve-intel-copy-to-clipboard ul li > a {
+        padding: 0;
+    }
 
-	.copy-permalink-to-clipboard {
-		margin-bottom: 24px;
-		margin-bottom: 1.5rem;
-	}
+    .copy-permalink-to-clipboard {
+        margin-bottom: 24px;
+        margin-bottom: 1.5rem;
+    }
 
-	.copy-permalink-to-clipboard .btn {
-		position: relative;
-		display: block;
-		padding: 10px 15px;
-	}
+    .copy-permalink-to-clipboard .btn {
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+    }
 
-	.eve-intel-copy-result {
-		width: 300px;
-	}
+    .eve-intel-copy-result {
+        width: 300px;
+    }
 
-	.paste-explanation ul {
-		list-style-type: none;
-		padding: 0;
-	}
+    .paste-explanation ul {
+        list-style-type: none;
+        padding: 0;
+    }
 
-	.paste-explanation li > small {
-		color: rgb(119,119,119);
-	}
+    .paste-explanation li > small {
+        color: rgb(119,119,119);
+    }
 
-	td.data-align-right {
-		text-align: right;
-	}
+    td.data-align-right {
+        text-align: right;
+    }
 
-	.eve-intel-section-header {
-		margin-bottom: 0;
-		margin-top: 32px;
-		margin-top: 2rem;
-		border-bottom: 1px solid #ededed;
-	}
+    .eve-intel-section-header {
+        margin-bottom: 0;
+        margin-top: 32px;
+        margin-top: 2rem;
+        border-bottom: 1px solid #ededed;
+    }
 }
 
 /* Highlighting
 ----------------------------------------------------------------------------- */
 @media all {
-	.form-submit-area div:first-child {
-		margin-bottom: 15px;
-	}
+    .form-submit-area div:first-child {
+        margin-bottom: 15px;
+    }
 }
 
 /* Highlighting
 ----------------------------------------------------------------------------- */
 @media all {
-	.dataHighlight, .dataHighlightSticky {
-		background-color: rgba(255,255,255,0.5);
-	}
+    .dataHighlight, .dataHighlightSticky {
+        background-color: rgba(255,255,255,0.5);
+    }
 
-	.dataHighlight td:first-child, .dataHighlightSticky td:first-child {
-		border-left: 1px solid #ff0000;
-		margin-left: -11px;
-		padding-left: 4px;
-	}
+    .dataHighlight td:first-child, .dataHighlightSticky td:first-child {
+        border-left: 1px solid #ff0000;
+        margin-left: -11px;
+        padding-left: 4px;
+    }
 }
 
 /* Data Tables
 ----------------------------------------------------------------------------- */
 @media all {
-	div.dataTables_wrapper div.dataTables_info {
-		padding-top: 8px;
-		white-space: initial;
-	}
+    div.dataTables_wrapper div.dataTables_info {
+        padding-top: 8px;
+        white-space: initial;
+    }
 
-	.dataTables_wrapper table.dataTable {
-		width: 100%;
-	}
+    .dataTables_wrapper table.dataTable {
+        width: 100%;
+    }
 
-	.dataTable tr.even {
-		background-color: rgba(255,255,255,0.2);
-	}
+    .dataTable tr.even {
+        background-color: rgba(255,255,255,0.2);
+    }
 
-	.dataTable tbody tr:hover,
-	.dataTable tbody tr.dataHighlight,
-	.dataTable tbody tr.dataHighlightSticky {
-		background-color: rgba(255,255,255,0.5);
-	}
+    .dataTable tbody tr:hover,
+    .dataTable tbody tr.dataHighlight,
+    .dataTable tbody tr.dataHighlightSticky {
+        background-color: rgba(255,255,255,0.5);
+    }
 
-	.table-eve-intel tbody > tr > td {
-		vertical-align: middle;
-		color: rgb(51,51,51);
-	}
+    .table-eve-intel tbody > tr > td {
+        vertical-align: middle;
+        color: rgb(51,51,51);
+    }
 
-	.table-no-images > tbody > tr > td {
-		padding-top: 11px;
-		padding-bottom: 12px;
-	}
+    .table-no-images > tbody > tr > td {
+        padding-top: 11px;
+        padding-bottom: 12px;
+    }
 
-	.table-sortable > tbody > tr > .table-data-count {
-		text-align: right;
-		padding-right: 16px;
-		padding-right: 1rem;
-	}
+    .table-sortable > tbody > tr > .table-data-count {
+        text-align: right;
+        padding-right: 16px;
+        padding-right: 1rem;
+    }
 
-	.table-eve-intel .eve-image {
-		margin-right: 8px;
-		margin-right: 0.5rem;
-	}
+    .table-eve-intel .eve-image {
+        margin-right: 8px;
+        margin-right: 0.5rem;
+    }
 }
 
 /*
@@ -123,61 +123,61 @@
  * Requires a base and modifier class.
  */
 @media all {
-	/* Common styles for all types */
-	.bs-callout {
-		padding: 20px;
-		margin: 20px 0;
-		border: 1px solid #eee;
-		border-left-width: 5px;
-		border-radius: 3px;
-	}
-	.bs-callout h4 {
-		margin-top: 0;
-		margin-bottom: 5px;
-	}
-	.bs-callout p:last-child {
-		margin-bottom: 0;
-	}
-	.bs-callout code {
-		border-radius: 3px;
-	}
+    /* Common styles for all types */
+    .bs-callout {
+        padding: 20px;
+        margin: 20px 0;
+        border: 1px solid #eee;
+        border-left-width: 5px;
+        border-radius: 3px;
+    }
+    .bs-callout h4 {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+    .bs-callout p:last-child {
+        margin-bottom: 0;
+    }
+    .bs-callout code {
+        border-radius: 3px;
+    }
 
-	/* Tighten up space between multiple callouts */
-	.bs-callout + .bs-callout {
-		margin-top: -5px;
-	}
+    /* Tighten up space between multiple callouts */
+    .bs-callout + .bs-callout {
+        margin-top: -5px;
+    }
 
-	/* Variations */
-	.bs-callout-danger {
-		border-left-color: #ce4844;
-	}
-	.bs-callout-danger h4 {
-		color: #ce4844;
-	}
-	.bs-callout-warning {
-		border-left-color: #aa6708;
-	}
-	.bs-callout-warning h4 {
-		color: #aa6708;
-	}
-	.bs-callout-info {
-		border-left-color: #1b809e;
-	}
-	.bs-callout-info h4 {
-		color: #1b809e;
-	}
+    /* Variations */
+    .bs-callout-danger {
+        border-left-color: #ce4844;
+    }
+    .bs-callout-danger h4 {
+        color: #ce4844;
+    }
+    .bs-callout-warning {
+        border-left-color: #aa6708;
+    }
+    .bs-callout-warning h4 {
+        color: #aa6708;
+    }
+    .bs-callout-info {
+        border-left-color: #1b809e;
+    }
+    .bs-callout-info h4 {
+        color: #1b809e;
+    }
 }
 
 @media screen and (min-width: 1200px) {
-	.paste-explanation .entry-title, .intel-parse-error {
-		margin-top: 0;
-	}
+    .paste-explanation .entry-title, .intel-parse-error {
+        margin-top: 0;
+    }
 }
 
 /* Hack for Bootstrap tables for Firefox
 ----------------------------------------------------------------------------- */
 @-moz-document url-prefix() {
-	fieldset {
-		display: table-cell;
-	}
+    fieldset {
+        display: table-cell;
+    }
 }
