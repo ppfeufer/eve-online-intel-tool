@@ -59,7 +59,7 @@ class IntelFormWidget extends \WP_Widget {
 
         $controlOptions = [];
 
-        parent::__construct('fitting_manager_doctrine_sidebar_widget', __('EVE Online Intel Form Widget', 'eve-online-intel-tool'), $widgetOptions, $controlOptions);
+        parent::__construct('eve_online_intel_tool_sidebar_widget', \__('EVE Online Intel Form Widget', 'eve-online-intel-tool'), $widgetOptions, $controlOptions);
     }
 
     /**
