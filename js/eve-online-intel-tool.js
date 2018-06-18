@@ -270,10 +270,10 @@ jQuery(document).ready(function($) {
      *
      * @returns {undefined}
      */
-    var stopAnimation = function() {
-        clearTimeout(cPreloaderTimeout);
-        cPreloaderTimeout = false;
-    };
+//    var stopAnimation = function() {
+//        clearTimeout(cPreloaderTimeout);
+//        cPreloaderTimeout = false;
+//    };
 
     /**
      * Imageloader
