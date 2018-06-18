@@ -2,7 +2,11 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.2...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.3...development)
+- in development
+
+## [v0.6.3](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.6.3) - 2018-06-18
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.2...v0.6.3)
 ### Added
 - Faction Fortizars to structures that can hold the system name
 
