@@ -91,4 +91,12 @@ class UniverseApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger 
 
         return $regionData;
     }
+
+    public function getIdFromName(array $names) {
+        $this->esiRoute = 'universe/ids/?datasource=tranquility';
+
+        $nameData = $this->callEsi('post', $names);
+
+        return $nameData;
+    }
 }

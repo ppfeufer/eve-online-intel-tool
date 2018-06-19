@@ -246,6 +246,22 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
         ];
     }
 
+    public function getIdFromName(array $names, $type) {
+        $returnData = null;
+        $esiData = $this->universeApi->getIdFromName(\array_values($names));
+
+//        echo '<pre>' . print_r($esiData, true) . '</pre>';
+
+        if(isset($esiData->{$type})) {
+            $returnData = $esiData->{$type};
+//            foreach($esiData->{$type} as $character) {
+//                $returnData[] = $character->id;
+//            }
+        }
+
+        return $returnData;
+    }
+
     /**
      * Get corporation data by ID
      *
