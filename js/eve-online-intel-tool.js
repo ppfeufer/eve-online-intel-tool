@@ -1,10 +1,10 @@
 /* global Clipboard, eveIntelToolL10n, eveImages */
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     /**
      * Remove copy buttons if the browser doesn't support it
      */
-    if (!Clipboard.isSupported()) {
+    if(!Clipboard.isSupported()) {
         $('.eve-intel-copy-to-clipboard').remove();
     } // if(!Clipboard.isSupported())
 
@@ -18,8 +18,8 @@ jQuery(document).ready(function ($) {
         /**
          * close after 5 seconds
          */
-        $(element).fadeTo(2000, 500).slideUp(500, function () {
-            $(this).slideUp(500, function () {
+        $(element).fadeTo(2000, 500).slideUp(500, function() {
+            $(this).slideUp(500, function() {
                 $(this).remove();
             });
         });
@@ -58,7 +58,7 @@ jQuery(document).ready(function ($) {
     /**
      * Copy permalink to clipboard
      */
-    $('.btn-copy-permalink-to-clipboard').on('click', function () {
+    $('.btn-copy-permalink-to-clipboard').on('click', function() {
         /**
          * Copy permalink to clipboard
          *
@@ -71,7 +71,7 @@ jQuery(document).ready(function ($) {
          *
          * @param {type} e
          */
-        clipboardPermalinkData.on('success', function (e) {
+        clipboardPermalinkData.on('success', function(e) {
             showSuccess(eveIntelToolL10n.copyToClipboard.permalink.text.success, '.eve-intel-copy-result');
 
             e.clearSelection();
@@ -81,7 +81,7 @@ jQuery(document).ready(function ($) {
         /**
          * Copy error
          */
-        clipboardPermalinkData.on('error', function () {
+        clipboardPermalinkData.on('error', function() {
             showError(eveIntelToolL10n.copyToClipboard.permalink.text.error, '.eve-intel-copy-result');
 
             clipboardPermalinkData.destroy();
@@ -94,8 +94,8 @@ jQuery(document).ready(function ($) {
      * @type array
      */
     var dataTables = $('.table-sortable');
-    dataTables.each(function () {
-        if (typeof ($(this).data('haspaging')) !== 'undefined' && $(this).data('haspaging') === 'no') {
+    dataTables.each(function() {
+        if(typeof ($(this).data('haspaging')) !== 'undefined' && $(this).data('haspaging') === 'no') {
             $($(this)).DataTable({
                 language: eveIntelToolL10n.dataTables.translation,
                 paging: false,
@@ -114,7 +114,7 @@ jQuery(document).ready(function ($) {
     /**
      * Highlighting similar table rows on mouse over
      */
-    $('tr[data-highlight]').hover(function () {
+    $('tr[data-highlight]').hover(function() {
         $('tr[data-highlight="' + $(this).data('highlight') + '"]').toggleClass('dataHighlight');
     });
 
@@ -124,7 +124,7 @@ jQuery(document).ready(function ($) {
      * todo:
      * Get this to work with data tables pagination, so it's deactivated for now
      */
-    $('tr[data-highlight]').click(function () {
+    $('tr[data-highlight]').click(function() {
         $('tr[data-highlight="' + $(this).data('highlight') + '"]').toggleClass('dataHighlightSticky');
     });
 
@@ -132,19 +132,19 @@ jQuery(document).ready(function ($) {
      * Getting the nonce for the form
      * Have to do it this way, because of possible static caches that might be used
      */
-    if ($('form#new_intel').length) {
+    if($('form#new_intel').length) {
         /**
          * Ajax Call: get-eve-intel-form-nonce
          */
         var getEveIntelFormNonce = {
-            ajaxCall: function () {
+            ajaxCall: function() {
                 $.ajax({
                     type: 'post',
                     url: eveIntelToolL10n.ajax.url,
                     data: 'action=get-eve-intel-form-nonce',
                     dataType: 'json',
-                    success: function (result) {
-                        if (result !== null) {
+                    success: function(result) {
+                        if(result !== null) {
                             // Setting the nonce
                             $('#_wpnonce').val(result);
 
@@ -155,7 +155,7 @@ jQuery(document).ready(function ($) {
                             $('.authenticating-form').remove();
                         } // if(result !== null)
                     },
-                    error: function (jqXHR, textStatus, errorThrow) {
+                    error: function(jqXHR, textStatus, errorThrow) {
                         console.log('Ajax request - ' + textStatus + ': ' + errorThrow);
                     }
                 });
@@ -172,23 +172,23 @@ jQuery(document).ready(function ($) {
     /**
      * If lazy loading for EVE images is activated ....
      */
-    if ($('.eve-intel-result').length) {
+    if($('.eve-intel-result').length) {
         /**
          * Ajax Call: get-eve-intel-entity-image
          */
         var getEveIntelEntityImage = {
-            ajaxCall: function (data) {
+            ajaxCall: function(data) {
                 $.ajax({
                     type: 'post',
                     url: eveIntelToolL10n.ajax.url,
                     data: 'action=get-eve-intel-entity-image&entityType=' + data.entityType + '&entityID=' + data.eveID + '&imageUri=' + data.imageUri,
                     dataType: 'json',
-                    success: function (result) {
-                        if (result !== null) {
+                    success: function(result) {
+                        if(result !== null) {
                             $('img[data-eveid="' + data.eveID + '"]').attr('src', result);
                         } // if(result !== null)
                     },
-                    error: function (jqXHR, textStatus, errorThrow) {
+                    error: function(jqXHR, textStatus, errorThrow) {
                         console.log('Ajax request - ' + textStatus + ': ' + errorThrow);
                     }
                 });
@@ -198,8 +198,8 @@ jQuery(document).ready(function ($) {
         /**
          * Call the ajax to get the entity image
          */
-        if (typeof eveImages !== 'undefined') {
-            $(eveImages).each(function () {
+        if(typeof eveImages !== 'undefined') {
+            $(eveImages).each(function() {
                 getEveIntelEntityImage.ajaxCall($(this)[0]);
             });
         } // if(typeof eveImages !== 'undefined')
@@ -223,7 +223,7 @@ jQuery(document).ready(function ($) {
      *
      * @returns {undefined}
      */
-    var continueAnimation = function () {
+    var continueAnimation = function() {
         cXpos += cFrameWidth;
 
         /**
@@ -236,12 +236,12 @@ jQuery(document).ready(function ($) {
          * if our cIndex is higher than our total number of frames,
          * we're at the end and should restart
          */
-        if (cIndex >= cTotalFrames) {
+        if(cIndex >= cTotalFrames) {
             cXpos = 0;
             cIndex = 0;
         } // if(cIndex >= cTotalFrames)
 
-        if ($('#new_intel .loaderImage')) {
+        if($('#new_intel .loaderImage')) {
             $('#new_intel .loaderImage').css('backgroundPosition', (-cXpos) + 'px 0');
         } // if($('#new_intel .loaderImage'))
 
@@ -253,7 +253,7 @@ jQuery(document).ready(function ($) {
      *
      * @returns {undefined}
      */
-    var startAnimation = function () {
+    var startAnimation = function() {
         $('#new_intel .loaderImage').css('display', 'block');
         $('#new_intel .loaderImage').css('backgroundImage', 'url(' + cImageSrc + ')');
         $('#new_intel .loaderImage').css('width', cWidth + 'px');
@@ -270,7 +270,7 @@ jQuery(document).ready(function ($) {
      *
      * @returns {undefined}
      */
-    var stopAnimation = function () {
+    var stopAnimation = function() {
         clearTimeout(cPreloaderTimeout);
         cPreloaderTimeout = false;
     };
@@ -282,13 +282,13 @@ jQuery(document).ready(function ($) {
      * @param {type} fun
      * @returns {undefined}
      */
-    var imageLoader = function (s, fun) {
+    var imageLoader = function(s, fun) {
         clearTimeout(cImageTimeout);
         cImageTimeout = 0;
 
         var genImage = new Image();
 
-        genImage.onload = function () {
+        genImage.onload = function() {
             cImageTimeout = setTimeout(fun, 0);
         };
 

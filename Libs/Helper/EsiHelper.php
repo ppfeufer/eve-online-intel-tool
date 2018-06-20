@@ -84,13 +84,6 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
     private $databaseHelper = null;
 
     /**
-     * ESI Search API
-     *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api\SearchApi
-     */
-    private $searchApi = null;
-
-    /**
      * ESI Character API
      *
      * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api\CharacterApi
@@ -142,7 +135,6 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
         /**
          * ESI API Client
          */
-        $this->searchApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api\SearchApi;
         $this->characterApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api\CharacterApi;
         $this->corporationApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api\CorporationApi;
         $this->allianceApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api\AllianceApi;
@@ -244,6 +236,24 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
         return [
             'data' => $characterAffiliationData
         ];
+    }
+
+    /**
+     * Get the IDs to an array of names
+     *
+     * @param array $names
+     * @param string $type
+     * @return type
+     */
+    public function getIdFromName(array $names, $type) {
+        $returnData = null;
+        $esiData = $this->universeApi->getIdFromName(\array_values($names));
+
+        if(isset($esiData->{$type})) {
+            $returnData = $esiData->{$type};
+        }
+
+        return $returnData;
     }
 
     /**
@@ -391,164 +401,5 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
         return [
             'data' => $regionData
         ];
-    }
-
-    /**
-     * Get the EVE ID by it's name
-     *
-     * @param type $name
-     * @param type $type
-     * @return type
-     */
-    public function getEveIdFromName($name, $type) {
-        $returnData = null;
-
-        $arrayNotInApi = [
-            \sanitize_title('Capsule') => [
-                'name' => 'Capsule',
-                'id' => 670
-            ],
-            \sanitize_title('Capsule - Genolution \'Auroral\' 197-variant') => [
-                'name' => 'Capsule - Genolution \'Auroral\' 197-variant',
-                'id' => 33328
-            ]
-        ];
-
-        // Check DB first
-        switch($type) {
-            // Pilot
-            case 'character':
-                $characterData = $this->databaseHelper->getCharacterDataFromDbByName($name);
-
-                if(isset($characterData->character_id)) {
-                    $returnData = $characterData->character_id;
-                }
-                break;
-
-            // Corporation
-            case 'corporation':
-                $corporationData = $this->databaseHelper->getCorporationDataFromDbByName($name);
-
-                if(isset($corporationData->corporation_id)) {
-                    $returnData = $corporationData->corporation_id;
-                }
-                break;
-
-            // Alliance
-            case 'alliance':
-                $allianceData = $this->databaseHelper->getAllianceDataFromDbByName($name);
-
-                if(isset($allianceData->alliance_id)) {
-                    $returnData = $allianceData->alliance_id;
-                }
-                break;
-
-            // Ship
-            case 'inventory_type':
-                $inventoryData = $this->databaseHelper->getShipDataFromDbByName($name);
-
-                if(isset($inventoryData->ship_id)) {
-                    $returnData = $inventoryData->ship_id;
-                }
-                break;
-
-            // System
-            case 'solar_system':
-                $systemData = $this->databaseHelper->getSystemDataFromDbByName($name);
-
-                if(isset($systemData->system_id)) {
-                    $returnData = $systemData->system_id;
-                }
-                break;
-        }
-
-        // No data in our DB, let's get it from the ESI
-        if(\is_null($returnData)) {
-            if(isset($arrayNotInApi[\sanitize_title($name)])) {
-                $returnData = $arrayNotInApi[\sanitize_title($name)]['id'];
-            } else {
-                $searchData = $this->searchApi->findIdByName(\trim($name), $type);
-
-                /**
-                 * -= FIX =-
-                 *
-                 * CCPs strict mode is not really strict, so we have to check manually ....
-                 * Please CCP, get your shit sorted ...
-                 */
-                switch($type) {
-                    case 'character':
-                        if(!\is_null($searchData)) {
-                            foreach($searchData->character as $characterID) {
-                                $characterSheet = $this->getCharacterData($characterID);
-
-                                if(\strtolower(\trim($characterSheet['data']->name)) === \strtolower(\trim($name))) {
-                                    $returnData = $characterID;
-
-                                    break;
-                                }
-                            }
-                        }
-                        break;
-
-                    case 'corporation':
-                        if(!\is_null($searchData)) {
-                            foreach($searchData->corporation as $corporationID) {
-                                $corporationSheet = $this->getCorporationData($corporationID);
-
-                                if(\strtolower(\trim($corporationSheet['data']->corporation_name)) === \strtolower(\trim($name))) {
-                                    $returnData = $corporationID;
-
-                                    break;
-                                }
-                            }
-                        }
-                        break;
-
-                    case 'alliance':
-                        if(!\is_null($searchData)) {
-                            foreach($searchData->alliance as $allianceID) {
-                                $allianceSheet = $this->getAllianceData($allianceID);
-
-                                if(\strtolower(\trim($allianceSheet['data']->alliance_name)) === \strtolower(\trim($name))) {
-                                    $returnData = $allianceID;
-
-                                    break;
-                                }
-                            }
-                        }
-                        break;
-
-                    case 'solar_system':
-                        if(!\is_null($searchData)) {
-                            foreach($searchData->solar_system as $solarSystemID) {
-                                $solarSystemData = $this->getSystemData($solarSystemID);
-
-                                if(\strtolower(\trim($solarSystemData['data']->name)) === \strtolower(\trim($name))) {
-                                    $returnData = $solarSystemID;
-
-                                    break;
-                                }
-                            }
-                        }
-                        break;
-
-                    case 'inventory_type':
-                        if(!\is_null($searchData)) {
-                            foreach($searchData->inventory_type as $inventoryTypeID) {
-                                $inventorySheet = $this->getShipData($inventoryTypeID);
-
-                                if(\strtolower($inventorySheet['data']['shipData']->name) === \strtolower(\trim($name))) {
-                                    $returnData = $inventoryTypeID;
-
-                                    break;
-                                }
-                            }
-                        }
-                        break;
-                }
-            }
-        }
-
-        return $returnData;
     }
 }

@@ -58,14 +58,14 @@ class JavascriptLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Inte
                 \wp_enqueue_script('bootstrap-js', $this->pluginHelper->getPluginUri('bootstrap/js/bootstrap.min.js'), ['jquery'], '', true);
                 \wp_enqueue_script('bootstrap-toolkit-js', $this->pluginHelper->getPluginUri('bootstrap/bootstrap-toolkit/bootstrap-toolkit.min.js'), ['jquery', 'bootstrap-js'], '', true);
 
-                \wp_enqueue_script('copy-to-clipboard-js', $this->pluginHelper->getPluginUri('js/copy-to-clipboard.min.js'), ['jquery'], '', true);
 
                 \wp_enqueue_script('data-tables-js', $this->pluginHelper->getPluginUri('js/data-tables/jquery.dataTables.min.js'), ['jquery'], '', true);
                 \wp_enqueue_script('data-tables-bootstrap-js', $this->pluginHelper->getPluginUri('js/data-tables/dataTables.bootstrap.min.js'), ['jquery', 'data-tables-js'], '', true);
-
-                \wp_enqueue_script('eve-online-intel-tool-js', $this->pluginHelper->getPluginUri('js/eve-online-intel-tool.min.js'), ['jquery'], '', true);
-                \wp_localize_script('eve-online-intel-tool-js', 'eveIntelToolL10n', $this->getJavaScriptTranslations());
             }
+
+            \wp_enqueue_script('copy-to-clipboard-js', $this->pluginHelper->getPluginUri('js/copy-to-clipboard.min.js'), ['jquery'], '', true);
+            \wp_enqueue_script('eve-online-intel-tool-js', $this->pluginHelper->getPluginUri('js/eve-online-intel-tool.min.js'), ['jquery'], '', true);
+            \wp_localize_script('eve-online-intel-tool-js', 'eveIntelToolL10n', $this->getJavaScriptTranslations());
         }
     }
 

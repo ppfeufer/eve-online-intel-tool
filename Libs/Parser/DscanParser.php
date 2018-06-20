@@ -211,8 +211,9 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
      * @return type
      */
     public function getSystemInformationBySystemName($systemName) {
-        $systemID = $this->esi->getEveIdFromName(\trim($systemName), 'solar_system');
-        $systemData = $this->esi->getSystemData($systemID);
+        $systemData = $this->esi->getIdFromName([\trim($systemName)], 'systems');
+
+        $systemData = $this->esi->getSystemData($systemData['0']->id);
         $constellationName = null;
         $regionName = null;
 
