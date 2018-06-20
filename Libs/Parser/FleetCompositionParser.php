@@ -83,15 +83,15 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
              * Break the text down into an array
              *
              * Array
-             * 	(
-             * 		[0] => Pilot Name
-             * 		[1] => System (Docked)
-             * 		[2] => Ship Class
-             * 		[3] => Ship Type
-             * 		[4] => Position in Fleet
-             * 		[5] => Skills (FC - WC - SC)
-             * 		[6] => Wing Name / Squad Name
-             * 	)
+             *  (
+             *      [0] => Pilot Name
+             *      [1] => System (Docked)
+             *      [2] => Ship Class
+             *      [3] => Ship Type
+             *      [4] => Position in Fleet
+             *      [5] => Skills (FC - WC - SC)
+             *      [6] => Wing Name / Squad Name
+             *  )
              */
             $lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
 
@@ -122,41 +122,59 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
             $pilotListRaw .= $lineDetailsArray['0'] . "\n";
 
             // Pilot Details
-            $pilotOverview[\sanitize_title($lineDetailsArray['0'])] = [
+            $pilotOverview[$lineDetailsArray['0']] = [
                 'pilotName' => $lineDetailsArray['0'],
-                'pilotID' => $this->esi->getEveIdFromName($lineDetailsArray['0'], 'character'),
                 'system' => $lineDetailsArray['1'],
                 'shipClass' => $lineDetailsArray['2'],
                 'shipType' => $lineDetailsArray['3'],
-//                'positionInFleet' => $lineDetailsArray['4'],
-//                'skills' => $lineDetailsArray['5'],
-//                'fleetHirarchy' => $lineDetailsArray['6']
+
+                'positionInFleet' => $lineDetailsArray['4'],
+                'skills' => $lineDetailsArray['5'],
+                'fleetHirarchy' => $lineDetailsArray['6']
             ];
 
-            // Ship Classes
-            if(!isset($counter['class'][\sanitize_title($lineDetailsArray['2'])])) {
-                $counter['class'][\sanitize_title($lineDetailsArray['2'])] = 0;
+            $pilotNames[$lineDetailsArray['0']] = $lineDetailsArray['0'];
+            $shipClasses[$lineDetailsArray['2']] = $lineDetailsArray['2'];
+        }
+
+        // Get pilot IDs
+        $pilotEsiData = $this->esi->getIdFromName($pilotNames, 'characters');
+        foreach($pilotEsiData as $pilotIdData) {
+            $pilotOverview[$pilotIdData->name]['pilotID'] = $pilotIdData->id;
+        }
+
+        // Get ship class IDs
+        $shipEsiData = $this->esi->getIdFromName($shipClasses, 'inventory_types');
+        foreach($pilotOverview as &$pilot) {
+
+            foreach($shipEsiData as $shipData) {
+                if($shipData->name === $pilot['shipClass']) {
+                    // Ship Classes
+                    if(!isset($counter['class'][\sanitize_title($shipData->name)])) {
+                        $counter['class'][\sanitize_title($shipData->name)] = 0;
+                    }
+
+                    $counter['class'][\sanitize_title($shipData->name)] ++;
+                    $shipClassBreakdown[\sanitize_title($shipData->name)] = [
+                        'shipName' => $shipData->name,
+                        'shipID' => $shipData->id,
+                        'shipTypeSanitized' => \sanitize_title($pilot['shipType']),
+                        'count' => $counter['class'][\sanitize_title($shipData->name)]
+                    ];
+
+                    // Ship Types
+                    if(!isset($counter['type'][\sanitize_title($pilot['shipType'])])) {
+                        $counter['type'][\sanitize_title($pilot['shipType'])] = 0;
+                    }
+
+                    $counter['type'][\sanitize_title($pilot['shipType'])] ++;
+                    $shipTypeBreakdown[\sanitize_title($pilot['shipType'])] = [
+                        'type' => $pilot['shipType'],
+                        'shipTypeSanitized' => \sanitize_title($pilot['shipType']),
+                        'count' => $counter['type'][\sanitize_title($pilot['shipType'])]
+                    ];
+                }
             }
-
-            $counter['class'][\sanitize_title($lineDetailsArray['2'])] ++;
-            $shipClassBreakdown[\sanitize_title($lineDetailsArray['2'])] = [
-                'shipName' => $lineDetailsArray['2'],
-                'shipID' => $this->esi->getEveIdFromName($lineDetailsArray['2'], 'inventory_type'),
-                'shipTypeSanitized' => \sanitize_title($lineDetailsArray['3']),
-                'count' => $counter['class'][\sanitize_title($lineDetailsArray['2'])]
-            ];
-
-            // Ship Types
-            if(!isset($counter['type'][\sanitize_title($lineDetailsArray['3'])])) {
-                $counter['type'][\sanitize_title($lineDetailsArray['3'])] = 0;
-            }
-
-            $counter['type'][\sanitize_title($lineDetailsArray['3'])] ++;
-            $shipTypeBreakdown[\sanitize_title($lineDetailsArray['3'])] = [
-                'type' => $lineDetailsArray['3'],
-                'shipTypeSanitized' => \sanitize_title($lineDetailsArray['3']),
-                'count' => $counter['type'][\sanitize_title($lineDetailsArray['3'])]
-            ];
         }
 
         $fleetComposition = [
