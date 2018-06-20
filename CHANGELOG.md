@@ -2,9 +2,13 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.3...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.7.0...development)
+-in development
+
+## [v0.7.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.7.0) - 2018-06-20
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.3...v0.7.0)
 ### Added
-- Quick Intel Sidebar Widget
+- Quick Intel Sidebar Widget (Issue #62)
 
 ### Changed
 - Replaced /search/ endpoint from local scan with /universe/ids/ endpoint
