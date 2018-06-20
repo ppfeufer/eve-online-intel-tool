@@ -7,9 +7,12 @@
 - Quick Intel Sidebar Widget
 
 ### Changed
-- Removed /search/ endpoint from local scan in favor of /universe/ids/ endpoint
-- Removed /search/ endpoint from d-scan scan in favor of /universe/ids/ endpoint
-- Removed /search/ endpoint from fleet scan in favor of /universe/ids/ endpoint
+- Replaced /search/ endpoint from local scan with /universe/ids/ endpoint
+- Replaced /search/ endpoint from d-scan with /universe/ids/ endpoint
+- Replaced /search/ endpoint from fleet scan with /universe/ids/ endpoint
+
+### Removed
+- Usage of SearchApi
 
 ## [v0.6.3](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.6.3) - 2018-06-18
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.2...v0.6.3)
