@@ -23,13 +23,27 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api;
 
 class UniverseApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger {
     /**
+     * Used ESI enpoints in this class
+     *
+     * @var array ESI enpoints
+     */
+    protected $esiEndpoints = [
+        'universe_ids' => 'universe/ids/?datasource=tranquility',
+        'universe_types_typeID' => 'universe/types/{type_id}/?datasource=tranquility',
+        'universe_groups_groupID' => 'universe/groups/{group_id}/?datasource=tranquility',
+        'universe_systems_systemID' => 'universe/systems/{system_id}/?datasource=tranquility',
+        'universe_constellations_constellationID' => 'universe/constellations/{constellation_id}/?datasource=tranquility',
+        'universe_regions_regionID' => 'universe/regions/{region_id}/?datasource=tranquility',
+    ];
+
+    /**
      * Find type data by type ID
      *
      * @param int $typeID
      * @return object
      */
     public function findTypeById($typeID) {
-        $this->esiRoute = 'universe/types/' . $typeID . '/?datasource=tranquility';
+        $this->esiRoute = \preg_replace('/{type_id}/', $typeID, $this->esiEndpoints['universe_types_typeID']);
 
         $typeData = $this->callEsi();
 
@@ -43,7 +57,7 @@ class UniverseApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger 
      * @return object
      */
     public function findGroupById($groupID) {
-        $this->esiRoute = 'universe/groups/' . $groupID . '/?datasource=tranquility';
+        $this->esiRoute = \preg_replace('/{group_id}/', $groupID, $this->esiEndpoints['universe_groups_groupID']);
 
         $groupData = $this->callEsi();
 
@@ -57,7 +71,7 @@ class UniverseApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger 
      * @return object
      */
     public function findSystemById($systemID) {
-        $this->esiRoute = 'universe/systems/' . $systemID . '/?datasource=tranquility';
+        $this->esiRoute = \preg_replace('/{system_id}/', $systemID, $this->esiEndpoints['universe_systems_systemID']);
 
         $systemData = $this->callEsi();
 
@@ -71,7 +85,7 @@ class UniverseApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger 
      * @return object
      */
     public function findConstellationById($constellationID) {
-        $this->esiRoute = 'universe/constellations/' . $constellationID . '/?datasource=tranquility';
+        $this->esiRoute = \preg_replace('/{constellation_id}/', $constellationID, $this->esiEndpoints['universe_constellations_constellationID']);
 
         $constellationData = $this->callEsi();
 
@@ -85,7 +99,7 @@ class UniverseApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger 
      * @return object
      */
     public function findRegionById($regionID) {
-        $this->esiRoute = 'universe/regions/' . $regionID . '/?datasource=tranquility';
+        $this->esiRoute = \preg_replace('/{region_id}/', $regionID, $this->esiEndpoints['universe_regions_regionID']);
 
         $regionData = $this->callEsi();
 
@@ -93,7 +107,7 @@ class UniverseApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger 
     }
 
     public function getIdFromName(array $names) {
-        $this->esiRoute = 'universe/ids/?datasource=tranquility';
+        $this->esiRoute = $this->esiEndpoints['universe_ids'];
 
         $nameData = $this->callEsi('post', $names);
 

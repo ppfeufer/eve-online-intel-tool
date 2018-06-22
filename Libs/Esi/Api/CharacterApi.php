@@ -23,13 +23,25 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api;
 
 class CharacterApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger {
     /**
+     * Used ESI enpoints in this class
+     *
+     * @var array ESI enpoints
+     */
+    protected $esiEndpoints = [
+        'characters_characterId' => 'characters/{character_id}/?datasource=tranquility',
+        'characters_portrait' => 'characters/{character_id}/portrait/?datasource=tranquility',
+        'characters_affiliation' => 'characters/affiliation/?datasource=tranquility'
+    ];
+
+    /**
      * Find character data by charater ID
      *
      * @param int $characterID
      * @return object
      */
     public function findById($characterID) {
-        $this->esiRoute = 'characters/' . $characterID . '/?datasource=tranquility';
+//        $this->esiRoute = 'characters/' . $characterID . '/?datasource=tranquility';
+        $this->esiRoute = \preg_replace('/{character_id}/', $characterID, $this->esiEndpoints['characters_characterId']);
 
         $characterData = $this->callEsi();
 
@@ -43,7 +55,8 @@ class CharacterApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger
      * @return object
      */
     public function findAffiliation($characterIds = []) {
-        $this->esiRoute = 'characters/affiliation/?datasource=tranquility';
+//        $this->esiRoute = 'characters/affiliation/?datasource=tranquility';
+        $this->esiRoute = $this->esiEndpoints['characters_affiliation'];
 
         $affiliationData = $this->callEsi('post', $characterIds);
 
