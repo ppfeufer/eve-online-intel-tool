@@ -33,3 +33,4 @@ After activating the Plugin, create a page called "Intel" and set the "EVE Intel
 ### Additional Information
 - [License](LICENSE)
 - [Changelog](CHANGELOG.md)
+- [Discord](https://discord.gg/YymuCZa)
