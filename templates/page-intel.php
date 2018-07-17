@@ -41,8 +41,6 @@ if($serverRequest === 'POST' && !empty($formAction) && $formAction === 'new_inte
                             }
 
                             \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/intel-form-explanation');
-
-                            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/testing-phase-warning');
                             ?>
                         </div>
                         <div class="col-lg-8">
@@ -57,4 +55,5 @@ if($serverRequest === 'POST' && !empty($formAction) && $formAction === 'new_inte
     </div> <!--/.row -->
 </div><!-- /.container -->
 
-<?php \get_footer(); ?>
+<?php
+\get_footer();
