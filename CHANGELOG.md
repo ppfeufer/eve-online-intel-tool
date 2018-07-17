@@ -2,10 +2,19 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.7.0...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.0.0...development)
+- in development
+
+## [v1.0.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.0.0) - 2018-07-17
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.7.0...v1.0.0)
+### Added
+- Versions to ESI calls
+
 ### Changed
 - Image server URL
 - ESI endpoint handling
+- Simplified DataTable handling
+- Ending test period after more than a year I guess it's stable for its first official release v1.0.0
 
 ## [v0.7.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.7.0) - 2018-06-20
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.3...v0.7.0)
