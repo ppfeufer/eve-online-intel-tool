@@ -5,8 +5,8 @@
  * Inspired by: http://www.wp-load.com/register-settings-api/
  *
  * Usage:
- * 		$settingsApi = new SettingsApi($settingsFilterName, $defaultOptions);
- * 		$settingsApi->init();
+ *      $settingsApi = new SettingsApi($settingsFilterName, $defaultOptions);
+ *      $settingsApi->init();
  *
  * @version 0.1
  */
@@ -107,7 +107,7 @@ class SettingsApi {
                  * Set capabilities
                  * If none is set, 'manage_options' will be default
                  */
-                $options['capability'] = (!empty($options['capability']) ) ? $options['capability'] : 'manage_options';
+                $options['capability'] = (!empty($options['capability'])) ? $options['capability'] : 'manage_options';
 
                 /**
                  * Set type
@@ -117,15 +117,19 @@ class SettingsApi {
                  *      theme   => Adds the options page to Appearance menu
                  *      plugin  => Adds the options page to Settings menu
                  */
-                $options['type'] = (!empty($options['type']) ) ? $options['type'] : 'plugin';
+                $options['type'] = (!empty($options['type'])) ? $options['type'] : 'plugin';
 
                 switch($options['type']) {
                     // Adding theme settings page
                     case 'theme':
                         \add_theme_page(
-                            $options['page_title'], $options['menu_title'], $options['capability'], $menu_slug, [
-                            $this,
-                            'renderOptions'
+                            $options['page_title'],
+                            $options['menu_title'],
+                            $options['capability'],
+                            $menu_slug,
+                            [
+                                $this,
+                                'renderOptions'
                             ]
                         );
                         break;
@@ -133,9 +137,13 @@ class SettingsApi {
                     // Adding plugin settings page
                     case 'plugin':
                         \add_options_page(
-                            $options['page_title'], $options['menu_title'], $options['capability'], $menu_slug, [
-                            $this,
-                            'renderOptions'
+                            $options['page_title'],
+                            $options['menu_title'],
+                            $options['capability'],
+                            $menu_slug,
+                            [
+                                $this,
+                                'renderOptions'
                             ]
                         );
                         break;
@@ -152,7 +160,7 @@ class SettingsApi {
             if(!empty($settings['tabs']) && \is_array($settings['tabs'])) {
                 foreach($settings['tabs'] as $tabId => $item) {
                     $sanitizedTabId = \sanitize_title($tabId);
-                    $tab_description = (!empty($item['tab_description']) ) ? $item['tab_description'] : '';
+                    $tab_description = (!empty($item['tab_description'])) ? $item['tab_description'] : '';
                     $this->section_id = $sanitizedTabId;
                     $settingArgs = [
                         'option_group' => 'section_page_' . $pageId . '_' . $sanitizedTabId,
@@ -176,7 +184,7 @@ class SettingsApi {
                         foreach($item['fields'] as $fieldId => $field) {
                             if(\is_array($field)) {
                                 $sanitizedFieldId = \sanitize_title($fieldId);
-                                $title = (!empty($field['title']) ) ? $field['title'] : '';
+                                $title = (!empty($field['title'])) ? $field['title'] : '';
                                 $field['field_id'] = $sanitizedFieldId;
                                 $field['option_name'] = $settings['option_name'];
                                 $fieldArgs = [
@@ -190,8 +198,8 @@ class SettingsApi {
 
                                 \add_settings_field(
                                     $fieldArgs['id'], $fieldArgs['title'], [
-                                    $this,
-                                    $fieldArgs['callback']
+                                        $this,
+                                        $fieldArgs['callback']
                                     ], $fieldArgs['menu_page'], $fieldArgs['section'], $fieldArgs['args']
                                 );
                             }
@@ -239,7 +247,7 @@ class SettingsApi {
     public function isSettingsPage() {
         $menus = [];
         $getPageFiltered = \filter_input(\INPUT_GET, 'page');
-        $getPage = (!empty($getPageFiltered) ) ? $getPageFiltered : '';
+        $getPage = (!empty($getPageFiltered)) ? $getPageFiltered : '';
 
         foreach($this->settingsArray as $menu => $page) {
             $menus[] = $menu;
@@ -368,7 +376,7 @@ class SettingsApi {
      */
     public function getTerms() {
         $items = [];
-        $taxonomies = (!empty($this->args['taxonomies']) ) ? $this->args['taxonomies'] : null;
+        $taxonomies = (!empty($this->args['taxonomies'])) ? $this->args['taxonomies'] : null;
         $args = (!empty($this->args['args'])) ? $this->args['args'] : null;
         $terms = \get_terms($taxonomies, $args);
 
@@ -487,7 +495,7 @@ class SettingsApi {
      * @return string
      */
     public function selected($key) {
-        if($this->valueType() == 'array') {
+        if($this->valueType() === 'array') {
             return $this->multiselectedValue($key);
         } else {
             return $this->selectedValue($key);
@@ -539,7 +547,7 @@ class SettingsApi {
         if($this->valueType() === 'array') {
             $checked = (!empty($value[$slug]) && $value[$slug] === 'yes') ? ' checked="checked"' : '';
         } else {
-            $checked = (!empty($value) && $slug == $value) ? ' checked="checked"' : '';
+            $checked = (!empty($value) && $slug === $value) ? ' checked="checked"' : '';
         }
 
         return $checked;
@@ -638,7 +646,7 @@ class SettingsApi {
 
         $returnValue = $optionName . '[' . $this->args['field_id'] . ']';
 
-        if($this->valueType() == 'array') {
+        if($this->valueType() === 'array') {
             $returnValue = $optionName . '[' . $this->args['field_id'] . '][' . $slug . ']';
         }
 
@@ -654,7 +662,7 @@ class SettingsApi {
     public function size($items) {
         $size = '';
 
-        if($this->args['type'] == 'multiselect') {
+        if($this->args['type'] === 'multiselect') {
             if(!empty($this->args['size'])) {
                 $count = $this->args['size'];
             } else {
@@ -693,7 +701,7 @@ class SettingsApi {
 
                 case 'select':
                 case 'multiselect':
-                    $multiple = ($args['type'] == 'multiselect') ? ' multiple' : '';
+                    $multiple = ($args['type'] === 'multiselect') ? ' multiple' : '';
                     $items = $this->get($args);
                     $out .= '<select' . $multiple . ' name="' . $this->name() . '"' . $this->size($items) . '>';
 
@@ -730,7 +738,7 @@ class SettingsApi {
 
                 case 'checkbox':
                     if($this->hasItems()) {
-                        $horizontal = (isset($args['align']) && (string) $args['align'] == 'horizontal') ? ' class="horizontal"' : '';
+                        $horizontal = (isset($args['align']) && (string) $args['align'] === 'horizontal') ? ' class="horizontal"' : '';
 
                         $out .= '<ul class="settings-group settings-type-' . $args['type'] . '">';
 
@@ -896,11 +904,11 @@ class SettingsApi {
             $tab_count = \count($settings['tabs']);
             ?>
             <div class="wrap">
-                    <?php
-                    if(!empty($settings['before_tabs_text'])) {
-                        echo $settings['before_tabs_text'];
-                    }
-                    ?>
+                <?php
+                if(!empty($settings['before_tabs_text'])) {
+                    echo $settings['before_tabs_text'];
+                }
+                ?>
                 <form action='options.php' method='post'>
                     <?php
                     if($tab_count > 1) {
@@ -912,7 +920,7 @@ class SettingsApi {
                         foreach($settings['tabs'] as $settingsId => $section) {
                             $sanitizedId = \sanitize_title($settingsId);
                             $tabTitle = (!empty($section['tab_title'])) ? $section['tab_title'] : $sanitizedId;
-                            $active = ($i == 0) ? ' nav-tab-active' : '';
+                            $active = ($i === 0) ? ' nav-tab-active' : '';
 
                             echo '<a class="nav-tab nav-tab-' . $sanitizedId . $active . '" href="#tab-content-' . $sanitizedId . '">' . $tabTitle . '</a>';
 
@@ -939,7 +947,7 @@ class SettingsApi {
                         $sanitizedId = \sanitize_title($settingsId);
                         $pageId = $pageFiltered . '_' . $sanitizedId;
 
-                        $display = ($i == 0) ? ' style="display: block;"' : ' style="display:none;"';
+                        $display = ($i === 0) ? ' style="display: block;"' : ' style="display:none;"';
 
                         echo '<div class="tab-content" id="tab-content-' . $sanitizedId . '"' . $display . '>';
                         echo \settings_fields('section_page_' . $pageFiltered . '_' . $sanitizedId);
