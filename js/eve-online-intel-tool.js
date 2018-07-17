@@ -6,7 +6,7 @@ jQuery(document).ready(function($) {
      */
     if(!Clipboard.isSupported()) {
         $('.eve-intel-copy-to-clipboard').remove();
-    } // if(!Clipboard.isSupported())
+    }
 
     /**
      * Closing the message
@@ -23,7 +23,7 @@ jQuery(document).ready(function($) {
                 $(this).remove();
             });
         });
-    } // function closeCopyMessageElement(element)
+    }
 
     /**
      * Show message when copy action was successfull
@@ -38,7 +38,7 @@ jQuery(document).ready(function($) {
         closeCopyMessageElement('.alert-copy-success');
 
         return;
-    } // function showSuccess(message, element)
+    }
 
     /**
      * Show message when copy action was not successfull
@@ -53,7 +53,7 @@ jQuery(document).ready(function($) {
         closeCopyMessageElement('.alert-copy-error');
 
         return;
-    } // function showError(message, element)
+    }
 
     /**
      * Copy permalink to clipboard
@@ -95,20 +95,25 @@ jQuery(document).ready(function($) {
      */
     var dataTables = $('.table-sortable');
     dataTables.each(function() {
+        // build options
         if(typeof ($(this).data('haspaging')) !== 'undefined' && $(this).data('haspaging') === 'no') {
-            $($(this)).DataTable({
+            var dataTableOptions = {
                 language: eveIntelToolL10n.dataTables.translation,
                 paging: false,
+                lengthChange: false,
                 dom:
                     '<\'row\'<\'col-sm-12\'f>>' +
                     '<\'row\'<\'col-sm-12\'tr>>' +
                     '<\'row\'<\'col-sm-12\'i>>'
-            });
+            };
         } else {
-            $($(this)).DataTable({
+            var dataTableOptions = {
                 language: eveIntelToolL10n.dataTables.translation
-            });
-        } // if(typeof($(this).data('haspaging')) !== 'undefined' && $(this).data('haspaging') === 'no')
+            };
+        }
+
+        // initialize the table
+        $($(this)).DataTable(dataTableOptions);
     });
 
     /**
@@ -153,7 +158,7 @@ jQuery(document).ready(function($) {
 
                             // Removing loader animation
                             $('.authenticating-form').remove();
-                        } // if(result !== null)
+                        }
                     },
                     error: function(jqXHR, textStatus, errorThrow) {
                         console.log('Ajax request - ' + textStatus + ': ' + errorThrow);
@@ -166,7 +171,7 @@ jQuery(document).ready(function($) {
          * Call the ajax to get the nonce
          */
         getEveIntelFormNonce.ajaxCall();
-    } // if($('form#new_intel').length)
+    }
 
 
     /**
@@ -186,7 +191,7 @@ jQuery(document).ready(function($) {
                     success: function(result) {
                         if(result !== null) {
                             $('img[data-eveid="' + data.eveID + '"]').attr('src', result);
-                        } // if(result !== null)
+                        }
                     },
                     error: function(jqXHR, textStatus, errorThrow) {
                         console.log('Ajax request - ' + textStatus + ': ' + errorThrow);
@@ -202,8 +207,8 @@ jQuery(document).ready(function($) {
             $(eveImages).each(function() {
                 getEveIntelEntityImage.ajaxCall($(this)[0]);
             });
-        } // if(typeof eveImages !== 'undefined')
-    } // if($('.eve-intel-result').length)
+        }
+    }
 
     var cSpeed = 5;
     var cWidth = 127;
@@ -239,11 +244,11 @@ jQuery(document).ready(function($) {
         if(cIndex >= cTotalFrames) {
             cXpos = 0;
             cIndex = 0;
-        } // if(cIndex >= cTotalFrames)
+        }
 
         if($('#new_intel .loaderImage')) {
             $('#new_intel .loaderImage').css('backgroundPosition', (-cXpos) + 'px 0');
-        } // if($('#new_intel .loaderImage'))
+        }
 
         cPreloaderTimeout = setTimeout(continueAnimation, SECONDS_BETWEEN_FRAMES * 1000);
     };

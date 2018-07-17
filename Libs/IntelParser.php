@@ -124,7 +124,7 @@ class IntelParser {
          * mac -> linux
          * windows -> linux
          */
-        $cleanedScanData = Helper\IntelHelper::getInstance()->fixLineBreaks($scanData);
+        $cleanedScanData = Helper\StringHelper::getInstance()->fixLineBreaks($scanData);
 
         switch($cleanedScanData) {
             case '':
@@ -206,7 +206,7 @@ class IntelParser {
             }
 
             $metaData = [
-                'eve-intel-tool_dscan-rawData' => \maybe_serialize(Helper\IntelHelper::getInstance()->fixLineBreaks($scanData)),
+                'eve-intel-tool_dscan-rawData' => \maybe_serialize(Helper\StringHelper::getInstance()->fixLineBreaks($scanData)),
                 'eve-intel-tool_dscan-all' => \maybe_serialize($parsedDscanData['all']),
                 'eve-intel-tool_dscan-onGrid' => \maybe_serialize($parsedDscanData['onGrid']),
                 'eve-intel-tool_dscan-offGrid' => \maybe_serialize($parsedDscanData['offGrid']),

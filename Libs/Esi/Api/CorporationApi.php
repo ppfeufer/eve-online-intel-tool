@@ -23,13 +23,24 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api;
 
 class CorporationApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger {
     /**
+     * Used ESI enpoints in this class
+     *
+     * @var array ESI enpoints
+     */
+    protected $esiEndpoints = [
+        'corporations_corporationId' => 'corporations/{corporation_id}/?datasource=tranquility',
+        'corporations_icons' => 'corporations/{corporation_id}/icons/?datasource=tranquility'
+    ];
+
+    /**
      * Find corporation data by corporation ID
      *
      * @param int $corporationID
      * @return object
      */
     public function findById($corporationID) {
-        $this->esiRoute = 'corporations/' . $corporationID . '/?datasource=tranquility';
+        $this->esiRoute = \preg_replace('/{corporation_id}/', $corporationID, $this->esiEndpoints['corporations_corporationId']);
+        $this->esiVersion = 'v4';
 
         $corporationData = $this->callEsi();
 

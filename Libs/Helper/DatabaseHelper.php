@@ -110,11 +110,11 @@ class DatabaseHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singleton
         $tableName = $this->wpdb->base_prefix . 'eveIntelPilots';
 
         $sql = "CREATE TABLE $tableName (
-			character_id bigint(11),
-			name varchar(255),
-			lastUpdated varchar(255),
-			PRIMARY KEY id (character_id)
-		) $charsetCollate;";
+            character_id bigint(11),
+            name varchar(255),
+            lastUpdated varchar(255),
+            PRIMARY KEY id (character_id)
+        ) $charsetCollate;";
 
         require_once(\ABSPATH . 'wp-admin/includes/upgrade.php');
 

@@ -30,11 +30,11 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
     private $esi = null;
 
     /**
-     * Intel Helper
+     * String Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\IntelHelper
+     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\StringHelper
      */
-    private $intelHelper = null;
+    private $stringHelper = null;
 
     /**
      * Constructor
@@ -43,7 +43,7 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
         parent::__construct();
 
         $this->esi = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
-        $this->intelHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\IntelHelper::getInstance();
+        $this->stringHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\StringHelper::getInstance();
     }
 
     /**
@@ -59,7 +59,7 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
          * mac -> linux
          * windows -> linux
          */
-        $cleanedScanData = $this->intelHelper->fixLineBreaks($scanData);
+        $cleanedScanData = $this->stringHelper->fixLineBreaks($scanData);
 
         $dscanDetailShipsAll = [];
         $dscanDetailShipsOnGrid = [];

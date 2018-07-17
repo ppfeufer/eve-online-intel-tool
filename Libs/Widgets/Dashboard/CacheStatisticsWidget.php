@@ -51,23 +51,23 @@ class CacheStatisticsWidget {
         echo '<p>';
         echo '<span class="eve-intel-widget-row">';
         echo '<span class="eve-intel-widget-column eve-intel-column-2">'
-        . $this->renderPilotsRowHtml()
-        . $this->renderCorporationsRowHtml()
-        . '</span>';
+            . $this->renderPilotsRowHtml()
+            . $this->renderCorporationsRowHtml()
+            . '</span>';
         echo '<span class="eve-intel-widget-column eve-intel-column-2">'
-        . $this->renderAlliancesRowHtml()
-        . $this->renderShipsRowHtml()
-        . '</span>';
+            . $this->renderAlliancesRowHtml()
+            . $this->renderShipsRowHtml()
+            . '</span>';
         echo '</span>';
 
         echo '<span class="eve-intel-widget-row">';
         echo '<span class="eve-intel-widget-column eve-intel-column-2">'
-        . $this->renderSystemsRowHtml()
-        . $this->renderConstellationsRowHtml()
-        . '</span>';
+            . $this->renderSystemsRowHtml()
+            . $this->renderConstellationsRowHtml()
+            . '</span>';
         echo '<span class="eve-intel-widget-column eve-intel-column-2">'
-        . $this->renderRegionsRowHtml()
-        . '</span>';
+            . $this->renderRegionsRowHtml()
+            . '</span>';
         echo '</span>';
         echo '<p>';
     }

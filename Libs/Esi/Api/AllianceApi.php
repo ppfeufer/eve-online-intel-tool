@@ -23,13 +23,24 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api;
 
 class AllianceApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger {
     /**
+     * Used ESI enpoints in this class
+     *
+     * @var array ESI enpoints
+     */
+    protected $esiEndpoints = [
+        'alliances_allianceId' => 'alliances/{alliance_id}/?datasource=tranquility',
+        'alliances_icons' => 'alliances/{alliance_id}/icons/?datasource=tranquility'
+    ];
+
+    /**
      * Find alliance data by alliance ID
      *
      * @param int $allianceID
      * @return object
      */
     public function findById($allianceID) {
-        $this->esiRoute = 'alliances/' . $allianceID . '/?datasource=tranquility';
+        $this->esiRoute = \preg_replace('/{alliance_id}/', $allianceID, $this->esiEndpoints['alliances_allianceId']);
+        $this->esiVersion = 'v3';
 
         $allianceData = $this->callEsi();
 

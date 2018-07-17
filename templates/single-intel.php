@@ -180,4 +180,5 @@ $pluginSettings = \get_option(\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\P
     </div> <!--/.row -->
 </div><!-- container -->
 
-<?php \get_footer(); ?>
+<?php
+\get_footer();
