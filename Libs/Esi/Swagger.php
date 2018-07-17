@@ -27,7 +27,14 @@ class Swagger {
      *
      * @var string
      */
-    public $esiUrl = 'https://esi.evetech.net/latest/';
+    public $esiUrl = 'https://esi.evetech.net/';
+
+    /**
+     * ESI Version
+     *
+     * @var string
+     */
+    public $esiVersion = 'latest/';
 
     /**
      * ESI route
@@ -58,13 +65,16 @@ class Swagger {
      * @return stdClass Object
      */
     public function callEsi($method = 'get', $parameter = []) {
+        $esiUrl = \trailingslashit($this->esiUrl . $this->esiVersion);
+        $callUrl = $esiUrl . $this->esiRoute;
+
         switch($method) {
             case 'get':
-                $data = $this->remoteHelper->getRemoteData($this->esiUrl . $this->esiRoute);
+                $data = $this->remoteHelper->getRemoteData($callUrl);
                 break;
 
             case 'post':
-                $data = $this->remoteHelper->getRemoteData($this->esiUrl . $this->esiRoute, $parameter, $method);
+                $data = $this->remoteHelper->getRemoteData($callUrl, $parameter, $method);
                 break;
         } // switch($method)
 

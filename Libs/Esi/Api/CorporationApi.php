@@ -39,8 +39,8 @@ class CorporationApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagg
      * @return object
      */
     public function findById($corporationID) {
-//        $this->esiRoute = 'corporations/' . $corporationID . '/?datasource=tranquility';
         $this->esiRoute = \preg_replace('/{corporation_id}/', $corporationID, $this->esiEndpoints['corporations_corporationId']);
+        $this->esiVersion = 'v4';
 
         $corporationData = $this->callEsi();
 

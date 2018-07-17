@@ -39,8 +39,8 @@ class AllianceApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger 
      * @return object
      */
     public function findById($allianceID) {
-//        $this->esiRoute = 'alliances/' . $allianceID . '/?datasource=tranquility';
         $this->esiRoute = \preg_replace('/{alliance_id}/', $allianceID, $this->esiEndpoints['alliances_allianceId']);
+        $this->esiVersion = 'v3';
 
         $allianceData = $this->callEsi();
 
