@@ -34,13 +34,7 @@ class TemplateLoader {
         $this->templates = [];
 
         // Add a filter to the attributes metabox to inject template into the cache.
-        if(\version_compare(\floatval(\get_bloginfo('version')), '4.7', '<')) {
-            // 4.6 and older
-            \add_filter('page_attributes_dropdown_pages_args', [$this, 'registerProjectTemplates']);
-        } else {
-            // Add a filter to the wp 4.7 version attributes metabox
-            \add_filter('theme_page_templates', [$this, 'addNewTemplate']);
-        }
+        \add_filter('theme_page_templates', [$this, 'addNewTemplate']);
 
         // Add a filter to the save post to inject out template into the page cache
         \add_filter('wp_insert_post_data', [$this, 'registerProjectTemplates']);

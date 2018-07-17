@@ -51,4 +51,19 @@ class StringHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
 
         return $string;
     }
+
+    /**
+     * Correcting line breaks
+     *
+     * mac -> linux
+     * windows -> linux
+     *
+     * @param string $scanData
+     * @return string
+     */
+    public function fixLineBreaks($scanData) {
+        $cleanedScanData = \str_replace("\r", "\n", \str_replace("\r\n", "\n", $scanData)); // mac -> linux
+
+        return $cleanedScanData;
+    }
 }

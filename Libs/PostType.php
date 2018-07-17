@@ -100,12 +100,12 @@ class PostType {
         \wp_insert_term('Local Scan', 'intel_category', [
             'slug' => 'local'
         ]);
-        \wp_insert_term('Personal Mining Ledger', 'intel_category', [
-            'slug' => 'miningledger'
-        ]);
-        \wp_insert_term('Corporation Mining Ledger', 'intel_category', [
-            'slug' => 'corpminingledger'
-        ]);
+//        \wp_insert_term('Personal Mining Ledger', 'intel_category', [
+//            'slug' => 'miningledger'
+//        ]);
+//        \wp_insert_term('Corporation Mining Ledger', 'intel_category', [
+//            'slug' => 'corpminingledger'
+//        ]);
     }
 
     public function createPermalinks($postLink, $post) {

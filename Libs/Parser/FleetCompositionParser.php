@@ -30,11 +30,11 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
     private $esi = null;
 
     /**
-     * Intel Helper
+     * String Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\IntelHelper
+     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\StringHelper
      */
-    private $intelHelper = null;
+    private $stringHelper = null;
 
     /**
      * Local Parser
@@ -50,7 +50,7 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
         parent::__construct();
 
         $this->esi = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
-        $this->intelHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\IntelHelper::getInstance();
+        $this->stringHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\StringHelper::getInstance();
         $this->localParser = LocalScanParser::getInstance();
     }
 
@@ -72,7 +72,7 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
          * mac -> linux
          * windows -> linux
          */
-        $cleanedScanData = $this->intelHelper->fixLineBreaks($scanData);
+        $cleanedScanData = $this->stringHelper->fixLineBreaks($scanData);
 
         $pilotListRaw = null;
         $fleetInformation = [];
