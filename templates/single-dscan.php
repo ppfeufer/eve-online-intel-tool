@@ -13,27 +13,34 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
 ?>
 
 <header class="page-title">
-    <h1>
-        <?php
-        echo \__('D-Scan', 'eve-online-intel-tool');
+    <h1><?php echo \__('D-Scan', 'eve-online-intel-tool'); ?></h1>
 
-        if(!\is_null($systemName)) {
-            echo '<br><small>' . \__('Solar System:', 'eve-online-intel-tool') . ' ' . $systemName . '</small>';
-
+    <?php
+    if(!\is_null($systemName)) {
+        ?>
+        <div class="eve-intel-dscan-system-header row">
+            <div class="col-md-4"><p><?php echo \__('Solar System:', 'eve-online-intel-tool') . ' ' . $systemName; ?></p></div>
+            <?php
             if(!\is_null($constellationName)) {
-                echo '<small> - ' . $constellationName . '</small>';
+                ?>
+                <div class="col-md-4"><p><?php echo \__('Constellation:', 'eve-online-intel-tool') . ' ' . $constellationName; ?></p></div>
+                <?php
             }
 
             if(!\is_null($regionName)) {
-                echo '<small> - ' . $regionName . '</small>';
+                ?>
+                <div class="col-md-4"><p><?php echo \__('Region:', 'eve-online-intel-tool') . ' ' . $regionName; ?></p></div>
+                <?php
             }
-        }
-        ?>
-    </h1>
+            ?>
+        </div>
+        <?php
+    }
 
-    <?php
     if(!empty($intelData['eveTime'])) {
-        echo '<small>' . \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $intelData['eveTime'] . '</small>';
+        ?>
+        <div><p><small><?php echo \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $intelData['eveTime']; ?></small></p></div>
+        <?php
     }
 
     \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/extra/buttons');

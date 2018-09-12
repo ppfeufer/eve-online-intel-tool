@@ -3,13 +3,13 @@
 ?>
 
 <header class="page-title">
-    <h1>
-        <?php echo \__('Chat Scan', 'eve-online-intel-tool'); ?>
-    </h1>
+    <h1><?php echo \__('Chat Scan', 'eve-online-intel-tool'); ?></h1>
 
     <?php
     if(!empty($intelData['eveTime'])) {
-        echo '<small>' . \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $intelData['eveTime'] . '</small>';
+        ?>
+        <div><p><small><?php echo \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $intelData['eveTime']; ?></small></p></div>
+        <?php
     }
 
     \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/extra/buttons');
