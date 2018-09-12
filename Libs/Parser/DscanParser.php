@@ -211,33 +211,38 @@ class DscanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
      * @return type
      */
     public function getSystemInformationBySystemName($systemName) {
+        $returnValue = null;
         $systemData = $this->esi->getIdFromName([\trim($systemName)], 'systems');
 
-        $systemData = $this->esi->getSystemData($systemData['0']->id);
-        $constellationName = null;
-        $regionName = null;
+        if(!\is_null($systemData)) {
+            $systemData = $this->esi->getSystemData($systemData['0']->id);
+            $constellationName = null;
+            $regionName = null;
 
-        // Get the constellation data
-        $constellationData = $this->esi->getConstellationData($systemData['data']->constellation_id);
+            // Get the constellation data
+            $constellationData = $this->esi->getConstellationData($systemData['data']->constellation_id);
 
-        // Set the constellation name
-        if(!\is_null($constellationData)) {
-            $constellationName = $constellationData['data']->name;
+            // Set the constellation name
+            if(!\is_null($constellationData)) {
+                $constellationName = $constellationData['data']->name;
 
-            // Get the region data
-            $regionData = $this->esi->getRegionData($constellationData['data']->region_id);
+                // Get the region data
+                $regionData = $this->esi->getRegionData($constellationData['data']->region_id);
 
-            // Set the region name
-            if(!\is_null($regionData)) {
-                $regionName = $regionData['data']->name;
+                // Set the region name
+                if(!\is_null($regionData)) {
+                    $regionName = $regionData['data']->name;
+                }
             }
+
+            $returnValue = [
+                 'systemName' => $systemName,
+                 'constellationName' => $constellationName,
+                 'regionName' => $regionName
+             ];
         }
 
-       return [
-            'systemName' => $systemName,
-            'constellationName' => $constellationName,
-            'regionName' => $regionName
-        ];
+        return $returnValue;
     }
 
     /**

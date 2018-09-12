@@ -8,6 +8,9 @@
 - Links to dotlan and zkillboard on all alliance and corporation lists
 - Links to evewho and zkillboard on all pilot lists
 
+### Fixed
+- Possible bug in system detection
+
 ### Removed
 - Dashboard Widget as it doesn't hold any useful information, so no need to waste time loading the dashboard
 
