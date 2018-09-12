@@ -44,17 +44,4 @@
         ]);
         ?>
     </div>
-
-    <!--
-    // Loot / Salvage
-    -->
-    <div class="col-md-4 col-sm-6 col-lg-3">
-        <?php
-//        \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/dscan/structures-on-grid', [
-//            'title' => \__('Loot / Salvage', 'eve-online-intel-tool'),
-//            'structures' => $intelData['dscanLootsalvage'],
-//            'pluginSettings' => $pluginSettings
-//        ]);
-        ?>
-    </div>
 </div>
