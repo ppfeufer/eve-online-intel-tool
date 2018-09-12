@@ -12,7 +12,7 @@
         echo '<small>' . \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $intelData['eveTime'] . '</small>';
     }
 
-    \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('extra/buttons');
+    \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/extra/buttons');
     ?>
 </header>
 
@@ -22,7 +22,7 @@
             <div class="local-scan-result row">
                 <div class="col-md-6 col-lg-3">
                     <?php
-                    \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/alliance-participation',[
+                    \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/participation/alliance-participation', [
                         'allianceCount' => \count($intelData['localDataAllianceList']),
                         'allianceParticipation' => $intelData['localDataAllianceParticipation'],
                         'pluginSettings' => $pluginSettings
@@ -32,7 +32,7 @@
 
                 <div class="col-md-6 col-lg-3">
                     <?php
-                    \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/corporation-participation',[
+                    \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/participation/corporation-participation', [
                         'corporationCount' => \count($intelData['localDataCorporationList']),
                         'corporationParticipation' => $intelData['localDataCorporationParticipation'],
                         'pluginSettings' => $pluginSettings
@@ -42,7 +42,7 @@
 
                 <div class="col-md-12 col-lg-6">
                     <?php
-                    \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/pilot-participation',[
+                    \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/participation/pilot-participation', [
                         'pilotCount' => \count($intelData['localDataPilotList']),
                         'pilotParticipation' => $intelData['localDataPilotDetails'],
                         'pluginSettings' => $pluginSettings

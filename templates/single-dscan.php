@@ -36,7 +36,7 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
         echo '<small>' . \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $intelData['eveTime'] . '</small>';
     }
 
-    \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('extra/buttons');
+    \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/extra/buttons');
     ?>
 </header>
 
@@ -47,7 +47,7 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
             /**
              * D-Scan Breakdown
              */
-            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/dscan-breakdown',[
+            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/dscandata/dscan-breakdown', [
                 'countAll' => $countAll,
                 'countOnGrid' => $countOnGrid,
                 'countOffGrid' => $countOffGrid,
@@ -59,7 +59,7 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
              * Interesting on grid
              */
             if(!empty($intelData['dscanUpwellStructures']) || !empty($intelData['dscanDeployables'])) {
-                \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/interesting-on-grid-breakdown',[
+                \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/dscandata/interesting-on-grid-breakdown', [
                     'countAll' => $countAll,
                     'countOnGrid' => $countOnGrid,
                     'countOffGrid' => $countOffGrid,

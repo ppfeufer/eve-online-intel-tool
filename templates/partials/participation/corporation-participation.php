@@ -15,7 +15,7 @@ if(!empty($corporationParticipation)) {
                     <tr data-highlight="alliance-<?php echo $corporation['allianceID']; ?>">
                         <td>
                             <?php
-                            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/corporation-logo', [
+                            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/corporation/corporation-logo', [
                                 'data' => $corporation,
                                 'pluginSettings' => $pluginSettings
                             ]);

@@ -15,7 +15,7 @@ if(\is_array($fleetOverview) && \count($fleetOverview)) {
                 <tr data-highlight="shiptype-<?php echo \sanitize_title($data['shipType']); ?>">
                     <td>
                         <?php
-                        \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/pilot-avatar', [
+                        \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/pilot/pilot-avatar', [
                             'data' => [
                                 'characterID' => $data['pilotID'],
                                 'characterName' => $data['pilotName']

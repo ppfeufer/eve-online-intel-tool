@@ -18,7 +18,7 @@ if(!empty($pilotParticipation)) {
                 <tr data-highlight="alliance-<?php echo $pilot['allianceID']; ?>">
                     <td>
                         <?php
-                        \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/pilot-avatar', [
+                        \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/pilot/pilot-avatar', [
                             'data' => $pilot,
                             'pluginSettings' => $pluginSettings
                         ]);
@@ -30,7 +30,7 @@ if(!empty($pilotParticipation)) {
                     <td>
                         <?php
                         if(!\is_null($pilot['allianceID']) && $pilot['allianceID'] !== 0) {
-                            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/alliance-logo', [
+                            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/alliance/alliance-logo', [
                                 'data' => $pilot,
                                 'pluginSettings' => $pluginSettings
                             ]);
@@ -42,7 +42,7 @@ if(!empty($pilotParticipation)) {
 
                     <td>
                         <?php
-                        \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/corporation-logo', [
+                        \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/corporation/corporation-logo', [
                             'data' => $pilot,
                             'pluginSettings' => $pluginSettings
                         ]);

@@ -37,15 +37,15 @@ if($serverRequest === 'POST' && !empty($formAction) && $formAction === 'new_inte
                         <div class="col-lg-4">
                             <?php
                             if($failedIntel === true) {
-                                \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/parse-error');
+                                \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/intel-form/parse-error');
                             }
 
-                            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/intel-form-explanation');
+                            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/intel-form/intel-form-explanation');
                             ?>
                         </div>
                         <div class="col-lg-8">
                             <?php
-                            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/intel-form');
+                            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/intel-form/intel-form');
                             ?>
                         </div>
                     </div>
