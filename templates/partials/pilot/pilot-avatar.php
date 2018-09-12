@@ -40,4 +40,4 @@ if(isset($pluginSettings['image-cache']['yes']) && $pluginSettings['image-cache'
 }
 ?>
 
-<img class="eve-image" data-eveid="<?php echo $data['characterID']; ?>" src="<?php echo $imagePilot; ?>" alt="<?php echo $data['characterName']; ?>" width="32" heigh="32">
+<span class="eve-intel-pilot-avatar-wrapper"><img class="eve-image" data-eveid="<?php echo $data['characterID']; ?>" src="<?php echo $imagePilot; ?>" alt="<?php echo $data['characterName']; ?>" width="32" heigh="32"></span>

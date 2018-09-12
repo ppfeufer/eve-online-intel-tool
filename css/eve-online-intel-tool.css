@@ -48,6 +48,23 @@
         margin-top: 2rem;
         border-bottom: 1px solid #ededed;
     }
+
+    .eve-intel-alliance-logo-wrapper, .eve-intel-corporation-logo-wrapper, .eve-intel-pilot-avatar-wrapper, .eve-intel-ship-image-wrapper {
+        display: inline-block;
+        margin-right: 8px;
+        margin-right: 0.5rem;
+    }
+
+    .eve-intel-alliance-information-wrapper, .eve-intel-corporation-information-wrapper, .eve-intel-pilot-information-wrapper {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .eve-intel-alliance-name-wrapper, .eve-intel-alliance-links-wrapper,
+    .eve-intel-corporation-name-wrapper, .eve-intel-corporation-links-wrapper,
+    .eve-intel-pilot-name-wrapper, .eve-intel-pilot-links-wrapper {
+        display: block;
+    }
 }
 
 /* Highlighting
@@ -110,10 +127,10 @@
         padding-right: 1rem;
     }
 
-    .table-eve-intel .eve-image {
+/*    .table-eve-intel .eve-image {
         margin-right: 8px;
         margin-right: 0.5rem;
-    }
+    }*/
 }
 
 /*

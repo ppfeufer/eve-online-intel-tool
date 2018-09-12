@@ -19,9 +19,16 @@ if(!empty($corporationParticipation)) {
                                 'data' => $corporation,
                                 'pluginSettings' => $pluginSettings
                             ]);
-
-                            echo $corporation['corporationName'];
                             ?>
+
+                            <span class="eve-intel-corporation-information-wrapper">
+                                <span class="eve-intel-corporation-name-wrapper">
+                                    <?php echo $corporation['corporationName']; ?>
+                                </span>
+                                <span class="eve-intel-corporation-links-wrapper">
+                                    <small><a class="eve-intel-information-link" href="https://evemaps.dotlan.net/alliance/<?php echo \str_replace(' ', '_', $corporation['corporationName']); ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="eve-intel-information-link" href="https://zkillboard.com/corporation/<?php echo $corporation['corporationName']; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a></small>
+                                </span>
+                            </span>
                         </td>
                         <td class="table-data-count">
                             <?php echo $corporation['count']; ?>

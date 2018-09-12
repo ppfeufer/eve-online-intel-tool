@@ -19,9 +19,16 @@ if(!empty($allianceParticipation)) {
                                 'data' => $alliance,
                                 'pluginSettings' => $pluginSettings
                             ]);
-
-                            echo $alliance['allianceName'];
                             ?>
+
+                            <span class="eve-intel-alliance-information-wrapper">
+                                <span class="eve-intel-alliance-name-wrapper">
+                                    <?php echo $alliance['allianceName']; ?>
+                                </span>
+                                <span class="eve-intel-alliance-links-wrapper">
+                                    <small><a class="eve-intel-information-link" href="https://evemaps.dotlan.net/alliance/<?php echo \str_replace(' ', '_', $alliance['allianceName']); ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="eve-intel-information-link" href="https://zkillboard.com/alliance/<?php echo $alliance['allianceName']; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a></small>
+                                </span>
+                            </span>
                         </td>
                         <td class="table-data-count">
                             <?php echo $alliance['count']; ?>

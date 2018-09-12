@@ -3,6 +3,11 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.0.0...development)
+### Added
+- Links to dotlan and zkillboard in d-scan system information header (Issue #59)
+- Links to dotlan and zkillboard on all alliance and corporation lists
+- Links to evewho and zkillboard on all pilot lists
+
 ### Removed
 - Dashboard Widget as it doesn't hold any useful information, so no need to waste time loading the dashboard
 
