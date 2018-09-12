@@ -34,3 +34,5 @@ After activating the Plugin, create a page called "Intel" and set the "EVE Intel
 - [License](LICENSE)
 - [Changelog](CHANGELOG.md)
 - [Discord](https://discord.gg/YymuCZa)
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/97ad9ac1b1c84efeacd1f59dfd115c37)](https://www.codacy.com/app/ppfeufer/eve-online-intel-tool?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ppfeufer/eve-online-intel-tool&amp;utm_campaign=Badge_Grade)
