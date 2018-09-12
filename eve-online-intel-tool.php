@@ -80,7 +80,6 @@ class EveOnlineIntelTool {
 
         if(\is_admin()) {
             new Libs\Admin\PluginSettings;
-            new Libs\Widgets\Dashboard\CacheStatisticsWidget;
 
             $this->initGitHubUpdater();
         }
