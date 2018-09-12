@@ -95,9 +95,11 @@ jQuery(document).ready(function($) {
      */
     var dataTables = $('.table-sortable');
     dataTables.each(function() {
+        var dataTableOptions;
+
         // build options
         if(typeof ($(this).data('haspaging')) !== 'undefined' && $(this).data('haspaging') === 'no') {
-            var dataTableOptions = {
+            dataTableOptions = {
                 language: eveIntelToolL10n.dataTables.translation,
                 paging: false,
                 lengthChange: false,
@@ -107,7 +109,7 @@ jQuery(document).ready(function($) {
                     '<\'row\'<\'col-sm-12\'i>>'
             };
         } else {
-            var dataTableOptions = {
+            dataTableOptions = {
                 language: eveIntelToolL10n.dataTables.translation
             };
         }
@@ -130,15 +132,8 @@ jQuery(document).ready(function($) {
      * Get this to work with data tables pagination, so it's deactivated for now
      */
     $('tr[data-highlight]').on('click', function(e) {
-//        if (e.target !== this) {
-//            console.log(e.target);
-//        }
-
-        console.log($(this).attr("class"));
-
         $('tr[data-highlight="' + $(this).data('highlight') + '"]').toggleClass('dataHighlightSticky');
     }).on('click', '.eve-intel-information-link', function(e) {
-        // clicked on descendant div
         e.stopPropagation();
     });
 
