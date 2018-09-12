@@ -19,17 +19,32 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
     if(!\is_null($systemName)) {
         ?>
         <div class="eve-intel-dscan-system-header row">
-            <div class="col-md-4"><p><?php echo \__('Solar System:', 'eve-online-intel-tool') . ' ' . $systemName; ?></p></div>
+            <div class="col-md-4">
+                <p>
+                    <?php echo \__('Solar System:', 'eve-online-intel-tool') . ' ' . $systemName; ?><br>
+                    <small><a href="https://evemaps.dotlan.net/map/<?php echo $regionName; ?>/<?php echo $systemName; ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a></small> | <small><a href="https://zkillboard.com/system/<?php echo $systemName; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a></small>
+                </p>
+            </div>
             <?php
             if(!\is_null($constellationName)) {
                 ?>
-                <div class="col-md-4"><p><?php echo \__('Constellation:', 'eve-online-intel-tool') . ' ' . $constellationName; ?></p></div>
+                <div class="col-md-4">
+                    <p>
+                        <?php echo \__('Constellation:', 'eve-online-intel-tool') . ' ' . $constellationName; ?><br>
+                        <small><a href="https://evemaps.dotlan.net/map/<?php echo $regionName; ?>/<?php echo $constellationName; ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a></small> | <small><a href="https://zkillboard.com/constellation/<?php echo $constellationName; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a></small>
+                    </p>
+                </div>
                 <?php
             }
 
             if(!\is_null($regionName)) {
                 ?>
-                <div class="col-md-4"><p><?php echo \__('Region:', 'eve-online-intel-tool') . ' ' . $regionName; ?></p></div>
+                <div class="col-md-4">
+                    <p>
+                        <?php echo \__('Region:', 'eve-online-intel-tool') . ' ' . $regionName; ?><br>
+                        <small><a href="https://evemaps.dotlan.net/map/<?php echo $regionName; ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a></small> | <small><a href="https://zkillboard.com/region/<?php echo $regionName; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a></small>
+                    </p>
+                </div>
                 <?php
             }
             ?>
