@@ -131,7 +131,7 @@ jQuery(document).ready(function($) {
      * todo:
      * Get this to work with data tables pagination, so it's deactivated for now
      */
-    $('tr[data-highlight]').on('click', function(e) {
+    $('tr[data-highlight]').on('click', function() {
         $('tr[data-highlight="' + $(this).data('highlight') + '"]').toggleClass('dataHighlightSticky');
     }).on('click', '.eve-intel-information-link', function(e) {
         e.stopPropagation();
