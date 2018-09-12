@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) 2017 Rounon Dax
  *
@@ -16,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\ResourceLoader;
 
 \defined('ABSPATH') or die();
@@ -25,36 +25,50 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\ResourceLoader;
  * CSS Loader
  */
 class CssLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AssetsInterface {
-	/**
-	 * Initialize the loader
-	 */
-	public function init() {
-		\add_action('wp_enqueue_scripts', [$this, 'enqueue'], 99);
-		\add_action('admin_init', [$this, 'enqueueAdmin'], 99);
-	} // public function init()
+    /**
+     * Plugin Helper
+     *
+     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper
+     */
+    private $pluginHelper = null;
 
-	/**
-	 * Load the styles
-	 */
-	public function enqueue() {
-		/**
-		 * Only in Frontend
-		 */
-		if(!\is_admin()) {
-			/**
-			 * load only when needed
-			 */
-			if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('intel')) || \get_post_type() === 'intel' || \is_post_type_archive('intel') === true) {
-				\wp_enqueue_style('bootstrap', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('bootstrap/css/bootstrap.min.css'));
-				\wp_enqueue_style('data-tables-bootstrap', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('css/data-tables/dataTables.bootstrap.min.css'));
-				\wp_enqueue_style('eve-online-intel-tool', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('css/eve-online-intel-tool.min.css'));
-			} // if(\is_page(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::getPosttypeSlug('fittings')) || \get_post_type() === 'fitting')
-		} // if(!\is_admin())
-	} // public function enqueue()
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->pluginHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance();
+    }
 
-	public function enqueueAdmin() {
-		if(\is_admin()) {
-			\wp_enqueue_style('eve-online-intel-tool-dashboard-widgets', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('css/admin/eve-online-intel-tool-dashboard-widgets.min.css'));
-		} // END if(\is_admin())
-	} // END public function enqueueAdmin()
-} // class CssLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AssetsInterface
+    /**
+     * Initialize the loader
+     */
+    public function init() {
+        \add_action('wp_enqueue_scripts', [$this, 'enqueue'], 99);
+        \add_action('admin_init', [$this, 'enqueueAdmin'], 99);
+    }
+
+    /**
+     * Load the styles
+     */
+    public function enqueue() {
+        /**
+         * Only in Frontend
+         */
+        if(!\is_admin()) {
+            /**
+             * load only when needed
+             */
+            if(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::isPostTypePage() === true) {
+                \wp_enqueue_style('bootstrap', $this->pluginHelper->getPluginUri('bootstrap/css/bootstrap.min.css'));
+                \wp_enqueue_style('data-tables-bootstrap', $this->pluginHelper->getPluginUri('css/data-tables/dataTables.bootstrap.min.css'));
+                \wp_enqueue_style('eve-online-intel-tool', $this->pluginHelper->getPluginUri('css/eve-online-intel-tool.min.css'));
+            }
+        }
+    }
+
+    public function enqueueAdmin() {
+        if(\is_admin()) {
+            \wp_enqueue_style('eve-online-intel-tool-dashboard-widgets', $this->pluginHelper->getPluginUri('css/admin/eve-online-intel-tool-dashboard-widgets.min.css'));
+        }
+    }
+}

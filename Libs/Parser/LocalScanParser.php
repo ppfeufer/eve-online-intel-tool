@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) 2017 Rounon Dax
  *
@@ -16,250 +17,269 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Parser;
 
 \defined('ABSPATH') or die();
 
 class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
-	/**
-	 * EVE Swagger Interface
-	 *
-	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper
-	 */
-	private $esi = null;
+    /**
+     * EVE Swagger Interface
+     *
+     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper
+     */
+    private $esiHelper = null;
 
-	/**
-	 * Constructor
-	 */
-	protected function __construct() {
-		parent::__construct();
+    /**
+     * String Helper
+     *
+     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\StringHelper
+     */
+    private $stringHelper = null;
 
-		$this->esi = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
-	} // protected function __construct()
+    /**
+     * Constructor
+     */
+    protected function __construct() {
+        parent::__construct();
 
-	public function parseLocalScan($scanData) {
-		$returnValue = null;
-		$localArray = $this->getLocalArray($scanData);
+        $this->esiHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
+        $this->stringHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\StringHelper::getInstance();
+    }
 
-		if(!\is_null($localArray)) {
-			$employementData = $this->getParticipation($localArray['pilotDetails']);
+    public function parseLocalScan($scanData) {
+        $returnValue = null;
+        $localArray = $this->getLocalArray($scanData);
 
-			$returnValue = [
-				'rawData' => $scanData,
-				'pilotDetails' => (!\is_null($localArray)) ? $localArray['pilotDetails'] : null,
-				'characterList' => (!\is_null($localArray)) ? $localArray['pilotList'] : null,
-				'corporationList' => (!\is_null($employementData)) ? $employementData['corporationList'] : null,
-				'allianceList' => (!\is_null($employementData)) ? $employementData['allianceList'] : null,
-				'corporationParticipation' => (!\is_null($employementData)) ? $employementData['corporationParticipation'] : null,
-				'allianceParticipation' => (!\is_null($employementData)) ? $employementData['allianceParticipation'] : null
-			];
-		} // if(!\is_null($localArray))
+        if(!\is_null($localArray)) {
+            $employementData = $this->getParticipation($localArray['pilotDetails']);
 
-		return $returnValue;
-	} // END public function parseDscan($scanData)
+            $returnValue = [
+                'rawData' => $scanData,
+                'pilotDetails' => (!\is_null($localArray)) ? $localArray['pilotDetails'] : null,
+                'characterList' => (!\is_null($localArray)) ? $localArray['pilotList'] : null,
+                'corporationList' => (!\is_null($employementData)) ? $employementData['corporationList'] : null,
+                'allianceList' => (!\is_null($employementData)) ? $employementData['allianceList'] : null,
+                'corporationParticipation' => (!\is_null($employementData)) ? $employementData['corporationParticipation'] : null,
+                'allianceParticipation' => (!\is_null($employementData)) ? $employementData['allianceParticipation'] : null
+            ];
+        }
 
-	/**
-	 * Parsing the scan data and get an array with every pilots data
-	 *
-	 * @param string $scanData
-	 * @return array
-	 */
-	public function getLocalArray($scanData) {
-		$returnValue = null;
+        return $returnValue;
+    }
 
-		/**
-		 * Correcting line breaks
-		 *
-		 * mac -> linux
-		 * windows -> linux
-		 */
-		$cleanedScanData = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\IntelHelper::getInstance()->fixLineBreaks($scanData);
+    /**
+     * Parsing the scan data and get an array with every pilots data
+     *
+     * @param string $scanData
+     * @return array
+     */
+    public function getLocalArray($scanData) {
+        $returnValue = null;
 
-		$pilotList = [];
-		$pilotDetails = [];
-		$arrayCharacterIds = [];
-		$characterIdSet = 0;
-		$nameIterationCounter = 0;
+        /**
+         * Correcting line breaks
+         *
+         * mac -> linux
+         * windows -> linux
+         */
+        $cleanedScanData = $this->stringHelper->fixLineBreaks($scanData);
 
-		foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
-			/**
-			 * Is this a new character, or do we already have that one in our array?
-			 */
-			if(!isset($arrayCharacterIds[\trim($line)])) {
-				/**
-				 * Grabbing character information
-				 */
-				$characterID = $this->esi->getEveIdFromName(\trim($line), 'character');
+        $pilotList = [];
+        $pilotDetails = [];
+        $arrayCharacterIds = [];
+        $characterIdChunkSize = 100;
+        $scanDataArraySanitized = [];
 
-				if(!\is_null($characterID)) {
-					$arrayCharacterIds[$characterIdSet][\trim($line)] = $characterID;
-					$pilotList[$characterID] = $line;
-				} // END if(!\is_null($characterID))
-			} // if(!isset($arrayCharacterIds[\trim($line)]))
+        $scanDataArray = \explode("\n", \trim($cleanedScanData));
 
-			/**
-			 * Determine our ID set
-			 *
-			 * Every ID set is about 500 IDs large
-			 * So, even Jita local should be getting parsed now,
-			 * still takes 20 minutes though ...
-			 */
-			$nameIterationCounter++;
-			if($nameIterationCounter % 500 == 0) {
-				$characterIdSet++;
-			} // if($counter % 4 == 0)
-		} // foreach(\explode("\n", \trim($cleanedScanData)) as $line)
+        // making sure we don't have any multiples
+        foreach($scanDataArray as $line) {
+            if(!isset($arrayCharacterIds[\trim($line)])) {
+                $scanDataArraySanitized[\trim($line)] = $line;
+            }
+        }
 
-		// loop through the ID sets to get the affiliation data
-		foreach($arrayCharacterIds as $idSet) {
-			$characterData = $this->esi->getCharacterAffiliation($idSet);
+        // running ESI in chunks to get the IDs to the names
+        foreach(\array_chunk($scanDataArraySanitized, $characterIdChunkSize, true) as $nameSet) {
+            $esiData = $this->esiHelper->getIdFromName($nameSet, 'characters');
 
-			foreach($characterData['data'] as $affiliatedIds) {
-				$pilotDetails[$affiliatedIds->character_id] = [
-					'characterID' => $affiliatedIds->character_id,
-					'characterName' => $pilotList[$affiliatedIds->character_id]
-				];
+            if(!\is_null($esiData)) {
+                foreach($esiData as $characterData) {
+                    $nameToIdSet[] = $characterData->id;
+                    $pilotList[$characterData->id] = $characterData->name;
+                }
 
-				/**
-				 * Grabbing corporation information
-				 */
-				if(isset($affiliatedIds->corporation_id)) {
-					$corporationSheet = $this->esi->getCorporationData($affiliatedIds->corporation_id);
+                $characterAffiliationData = $this->esiHelper->getCharacterAffiliation($nameToIdSet);
 
-					if(!empty($corporationSheet['data']) && !isset($corporationSheet['data']->error)) {
-						$pilotDetails[$affiliatedIds->character_id]['corporationID'] = $affiliatedIds->corporation_id;
-						$pilotDetails[$affiliatedIds->character_id]['corporationName'] = $corporationSheet['data']->corporation_name;
-						$pilotDetails[$affiliatedIds->character_id]['corporationTicker'] = $corporationSheet['data']->ticker;
-					} // if(!empty($corporationSheet['data']) && !isset($corporationSheet['data']->error))
-				} // if(isset($affiliatedIds->corporation_id))
+                foreach($characterAffiliationData['data'] as $affiliatedIds) {
+                    $pilotDetails[$affiliatedIds->character_id] = [
+                        'characterID' => $affiliatedIds->character_id,
+                        'characterName' => $pilotList[$affiliatedIds->character_id]
+                    ];
 
-				/**
-				 * Grabbing alliance information
-				 */
-				if(isset($affiliatedIds->alliance_id)) {
-					$allianceSheet = $this->esi->getAllianceData($affiliatedIds->alliance_id);
+                    /**
+                     * Grabbing corporation information
+                     */
+                    if(!empty($affiliatedIds->corporation_id)) {
+                        $corporationSheet = $this->esiHelper->getCorporationData($affiliatedIds->corporation_id);
+                        if(!empty($corporationSheet['data']) && !isset($corporationSheet['data']->error)) {
+                            $pilotDetails[$affiliatedIds->character_id]['corporationID'] = $affiliatedIds->corporation_id;
+                            $pilotDetails[$affiliatedIds->character_id]['corporationName'] = $corporationSheet['data']->corporation_name;
+                            $pilotDetails[$affiliatedIds->character_id]['corporationTicker'] = $corporationSheet['data']->ticker;
+                        }
+                    }
 
-					if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error)) {
-						$pilotDetails[$affiliatedIds->character_id]['allianceID'] = $affiliatedIds->alliance_id;
-						$pilotDetails[$affiliatedIds->character_id]['allianceName'] = $allianceSheet['data']->alliance_name;
-						$pilotDetails[$affiliatedIds->character_id]['allianceTicker'] = $allianceSheet['data']->ticker;
-					} // if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error))
-				} // if(isset($affiliatedIds->alliance_id))
-			} // foreach($characterData['data'] as $affiliatedIds)
-		} // foreach($arrayCharacterIds as $idSet)
+                    /**
+                     * Grabbing alliance information
+                     */
+                    if(!empty($affiliatedIds->alliance_id)) {
+                        $allianceSheet = $this->esiHelper->getAllianceData($affiliatedIds->alliance_id);
 
-		if(\count($pilotDetails) > 0) {
-			$returnValue = [
-				'pilotList' => $pilotList,
-				'pilotDetails' => $pilotDetails
-			];
-		} // if(\count($pilotDetails) > 0)
+                        if(!empty($allianceSheet['data']) && !isset($allianceSheet['data']->error)) {
+                            $pilotDetails[$affiliatedIds->character_id]['allianceID'] = $affiliatedIds->alliance_id;
+                            $pilotDetails[$affiliatedIds->character_id]['allianceName'] = $allianceSheet['data']->alliance_name;
+                            $pilotDetails[$affiliatedIds->character_id]['allianceTicker'] = $allianceSheet['data']->ticker;
+                        }
+                    }
+                }
+            }
+        }
 
-		return $returnValue;
-	} // public function getLocalArray($scanData)
+        if(\count($pilotDetails) > 0) {
+            $returnValue = [
+                'pilotList' => $pilotList,
+                'pilotDetails' => $pilotDetails
+            ];
+        }
 
-	/**
-	 * Getting the corporation and alliances involved
-	 *
-	 * @param array $pilotDetails
-	 * @return array
-	 */
-	public function getParticipation(array $pilotDetails) {
-		$returnValue = null;
-		$employementList = [];
-		$corporationList = [];
-		$corporationParticipation = [];
-		$allianceList = [];
-		$allianceParticipation = [];
-		$counter = [];
+        return $returnValue;
+    }
 
-		foreach($pilotDetails as $pilotSheet) {
-			/**
-			 * Corporation list
-			 */
-			if(isset($pilotSheet['corporationID'])) {
-				if(!isset($counter[\sanitize_title($pilotSheet['corporationName'])])) {
-					$counter[\sanitize_title($pilotSheet['corporationName'])] = 0;
-				} // if(!isset($counter[\sanitize_title($pilotSheet['corporationName'])]))
+    /**
+     * Getting the corporation and alliances involved
+     *
+     * @param array $pilotDetails
+     * @return array
+     */
+    public function getParticipation(array $pilotDetails) {
+        $returnValue = null;
+        $employementList = [];
+        $corporationList = [];
+        $corporationParticipation = [];
+        $allianceList = [];
+        $allianceParticipation = [];
+        $counter = [];
 
-				$counter[\sanitize_title($pilotSheet['corporationName'])]++;
+        foreach($pilotDetails as $pilotSheet) {
+            /**
+             * Corporation list
+             */
+            if(isset($pilotSheet['corporationID'])) {
+                if(!isset($counter[\sanitize_title($pilotSheet['corporationName'])])) {
+                    $counter[\sanitize_title($pilotSheet['corporationName'])] = 0;
+                }
 
-				$corporationList[\sanitize_title($pilotSheet['corporationName'])] = [
-					'corporationID' => $pilotSheet['corporationID'],
-					'corporationName' => $pilotSheet['corporationName'],
-					'corporationTicker' => $pilotSheet['corporationTicker'],
-					'allianceID' => (isset($pilotSheet['allianceID'])) ? $pilotSheet['allianceID'] : null,
-					'allianceName' => (isset($pilotSheet['allianceName'])) ? $pilotSheet['allianceName'] : null,
-					'allianceTicker' => (isset($pilotSheet['allianceTicker'])) ? $pilotSheet['allianceTicker'] : null
-				];
+                $counter[\sanitize_title($pilotSheet['corporationName'])] ++;
 
-				$corporationParticipation[\sanitize_title($pilotSheet['corporationName'])] = [
-					'count' => $counter[\sanitize_title($pilotSheet['corporationName'])],
-					'corporationID' => $pilotSheet['corporationID'],
-					'corporationName' => $pilotSheet['corporationName'],
-					'corporationTicker' => $pilotSheet['corporationTicker'],
-					'allianceID' => (isset($pilotSheet['allianceID'])) ? $pilotSheet['allianceID'] : null,
-					'allianceName' => (isset($pilotSheet['allianceName'])) ? $pilotSheet['allianceName'] : null,
-					'allianceTicker' => (isset($pilotSheet['allianceTicker'])) ? $pilotSheet['allianceTicker'] : null
-				];
-			} // END if(isset($pilotSheet['corporationID']))
+                $corporationList[\sanitize_title($pilotSheet['corporationName'])] = [
+                    'corporationID' => $pilotSheet['corporationID'],
+                    'corporationName' => $pilotSheet['corporationName'],
+                    'corporationTicker' => $pilotSheet['corporationTicker'],
+                    'allianceID' => (isset($pilotSheet['allianceID'])) ? $pilotSheet['allianceID'] : 0,
+                    'allianceName' => (isset($pilotSheet['allianceName'])) ? $pilotSheet['allianceName'] : null,
+                    'allianceTicker' => (isset($pilotSheet['allianceTicker'])) ? $pilotSheet['allianceTicker'] : null
+                ];
 
-			/**
-			 * Alliance List
-			 */
-			if(isset($pilotSheet['allianceID'])) {
-				if(!isset($counter[\sanitize_title($pilotSheet['allianceName'])])) {
-					$counter[\sanitize_title($pilotSheet['allianceName'])] = 0;
-				} // if(!isset($counter[\sanitize_title($pilotSheet['allianceName'])]))
+                $corporationParticipation[\sanitize_title($pilotSheet['corporationName'])] = [
+                    'count' => $counter[\sanitize_title($pilotSheet['corporationName'])],
+                    'corporationID' => $pilotSheet['corporationID'],
+                    'corporationName' => $pilotSheet['corporationName'],
+                    'corporationTicker' => $pilotSheet['corporationTicker'],
+                    'allianceID' => (isset($pilotSheet['allianceID'])) ? $pilotSheet['allianceID'] : 0,
+                    'allianceName' => (isset($pilotSheet['allianceName'])) ? $pilotSheet['allianceName'] : null,
+                    'allianceTicker' => (isset($pilotSheet['allianceTicker'])) ? $pilotSheet['allianceTicker'] : null
+                ];
+            }
 
-				$counter[\sanitize_title($pilotSheet['allianceName'])]++;
+            /**
+             * Alliance List
+             */
+            if(isset($pilotSheet['allianceID'])) {
+                if(!isset($counter[\sanitize_title($pilotSheet['allianceName'])])) {
+                    $counter[\sanitize_title($pilotSheet['allianceName'])] = 0;
+                }
 
-				$allianceList[\sanitize_title($pilotSheet['allianceName'])] = [
-					'allianceID' => $pilotSheet['allianceID'],
-					'allianceName' => $pilotSheet['allianceName'],
-					'allianceTicker' => $pilotSheet['allianceTicker']
-				];
+                $counter[\sanitize_title($pilotSheet['allianceName'])] ++;
 
-				$allianceParticipation[\sanitize_title($pilotSheet['allianceName'])] = [
-					'count' => $counter[\sanitize_title($pilotSheet['allianceName'])],
-					'allianceID' => $pilotSheet['allianceID'],
-					'allianceName' => $pilotSheet['allianceName'],
-					'allianceTicker' => $pilotSheet['allianceTicker']
-				];
-			} // if(isset($pilotSheet['characterData']->corporation_id))
-		} // foreach($pilotDetails as $pilotSheet)
+                $allianceList[\sanitize_title($pilotSheet['allianceName'])] = [
+                    'allianceID' => $pilotSheet['allianceID'],
+                    'allianceName' => $pilotSheet['allianceName'],
+                    'allianceTicker' => $pilotSheet['allianceTicker']
+                ];
 
-		\ksort($corporationList);
-		\ksort($corporationParticipation);
-		\ksort($allianceList);
-		\ksort($allianceParticipation);
+                $allianceParticipation[\sanitize_title($pilotSheet['allianceName'])] = [
+                    'count' => $counter[\sanitize_title($pilotSheet['allianceName'])],
+                    'allianceID' => $pilotSheet['allianceID'],
+                    'allianceName' => $pilotSheet['allianceName'],
+                    'allianceTicker' => $pilotSheet['allianceTicker']
+                ];
+            }
 
-		/**
-		 * Sorting corporations
-		 */
-		$employementList['corporationList'] = $corporationList;
-		foreach($corporationParticipation as $corporation) {
-			$employementList['corporationParticipation'][$corporation['count']][\sanitize_title($corporation['corporationName'])] = $corporation;
-		} // foreach($corporationParticipation as $corporation)
+            /**
+             * Unaffiliated pilots with no alliance
+             */
+            if(!isset($pilotSheet['allianceID'])) {
+                if(!isset($counter[\sanitize_title('Unaffiliated / No Alliance')])) {
+                    $counter[\sanitize_title('Unaffiliated / No Alliance')] = 0;
+                }
 
-		/**
-		 * Sorting alliances
-		 */
-		$employementList['allianceList'] = $allianceList;
-		foreach($allianceParticipation as $alliance) {
-			$employementList['allianceParticipation'][$alliance['count']][\sanitize_title($alliance['allianceName'])] = $alliance;
-		} // foreach($allianceParticipation as $alliance)
+                $counter[\sanitize_title('Unaffiliated / No Alliance')] ++;
 
-		\krsort($employementList['corporationParticipation']);
-		\krsort($employementList['allianceParticipation']);
+                $allianceList[\sanitize_title('Unaffiliated / No Alliance')] = [
+                    'allianceID' => 0,
+                    'allianceName' => \__('Unaffiliated / No Alliance', 'eve-online-intel-tool'),
+                    'allianceTicker' => null
+                ];
 
-		if(\count($employementList) > 0) {
-			$returnValue = $employementList;
-		} // if(\count($employementList) > 0)
+                $allianceParticipation[\sanitize_title('Unaffiliated / No Alliance')] = [
+                    'count' => $counter[\sanitize_title('Unaffiliated / No Alliance')],
+                    'allianceID' => 0,
+                    'allianceName' => \__('Unaffiliated / No Alliance', 'eve-online-intel-tool'),
+                    'allianceTicker' => null
+                ];
+            }
+        }
 
-		unset($counter);
+        \ksort($corporationList);
+        \ksort($corporationParticipation);
+        \ksort($allianceList);
+        \ksort($allianceParticipation);
 
-		return $returnValue;
-	} // public function getCorporationAndAllianceList(array $pilotDetails)
-} // class LocalScanParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton
+        /**
+         * Sorting corporations
+         */
+        $employementList['corporationList'] = $corporationList;
+        foreach($corporationParticipation as $corporation) {
+            $employementList['corporationParticipation'][$corporation['count']][\sanitize_title($corporation['corporationName'])] = $corporation;
+        }
+
+        /**
+         * Sorting alliances
+         */
+        $employementList['allianceList'] = $allianceList;
+        foreach($allianceParticipation as $alliance) {
+            $employementList['allianceParticipation'][$alliance['count']][\sanitize_title($alliance['allianceName'])] = $alliance;
+        }
+
+        \krsort($employementList['corporationParticipation']);
+        \krsort($employementList['allianceParticipation']);
+
+        if(\count($employementList) > 0) {
+            $returnValue = $employementList;
+        }
+
+        unset($counter);
+
+        return $returnValue;
+    }
+}

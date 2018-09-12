@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) 2017 Rounon Dax
  *
@@ -16,149 +17,181 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Parser;
 
 \defined('ABSPATH') or die();
 
 class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
-	/**
-	 * EVE Swagger Interface
-	 *
-	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper
-	 */
-	private $esi = null;
+    /**
+     * EVE Swagger Interface
+     *
+     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper
+     */
+    private $esi = null;
 
-	/**
-	 * Constructor
-	 */
-	protected function __construct() {
-		parent::__construct();
+    /**
+     * String Helper
+     *
+     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\StringHelper
+     */
+    private $stringHelper = null;
 
-		$this->esi = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
-	} // END protected function __construct()
+    /**
+     * Local Parser
+     *
+     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Parser\LocalScanParser
+     */
+    private $localParser = null;
 
-	public function parseFleetCompositionScan($scanData) {
-		$returnData = null;
-		$fleetCompArray = $this->getFleetCompositionArray($scanData);
+    /**
+     * Constructor
+     */
+    protected function __construct() {
+        parent::__construct();
 
-		if(!\is_null($fleetCompArray)) {
-			$returnData = $fleetCompArray;
-		}
+        $this->esi = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
+        $this->stringHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\StringHelper::getInstance();
+        $this->localParser = LocalScanParser::getInstance();
+    }
 
-		return $returnData;
-	}
+    public function parseFleetCompositionScan($scanData) {
+        $returnData = null;
+        $fleetCompArray = $this->getFleetCompositionArray($scanData);
 
-	public function getFleetCompositionArray($scanData) {
-		/**
-		 * Correcting line breaks
-		 *
-		 * mac -> linux
-		 * windows -> linux
-		 */
-		$cleanedScanData = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\IntelHelper::getInstance()->fixLineBreaks($scanData);
+        if(!\is_null($fleetCompArray)) {
+            $returnData = $fleetCompArray;
+        }
 
-		$pilotListRaw = null;
-		$fleetComposition = [];
-		$fleetInformation = [];
-		$counter = [];
+        return $returnData;
+    }
 
-		foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
-			/**
-			 * Break the text down into an array
-			 *
-			 * Array
-			 *	(
-			 *		[0] => Pilot Name
-			 *		[1] => System (Docked)
-			 *		[2] => Ship Class
-			 *		[3] => Ship Type
-			 *		[4] => Position in Fleet
-			 *		[5] => Skills (FC - WC - SC)
-			 *		[6] => Wing Name / Squad Name
-			 *	)
-			 */
-			$lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
+    public function getFleetCompositionArray($scanData) {
+        /**
+         * Correcting line breaks
+         *
+         * mac -> linux
+         * windows -> linux
+         */
+        $cleanedScanData = $this->stringHelper->fixLineBreaks($scanData);
 
-			// get the fleet boss
-			if(\preg_match('/.* \(Boss\)/', $lineDetailsArray['4'])) {
-				$fleetInformation['fleetBoss'] = $lineDetailsArray['0'];
-			} // END if(\preg_match('/* \(Boss\)/', $lineDetailsArray['0']))
+        $pilotListRaw = null;
+        $fleetInformation = [];
+        $counter = [];
 
-			// get count of docked pilots
-			if(!isset($fleetInformation['pilots']['docked'])) {
-				$fleetInformation['pilots']['docked'] = 0;
-			} // END if(!isset($fleetInformation['pilots']['docked']))
+        foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
+            /**
+             * Break the text down into an array
+             *
+             * Array
+             *  (
+             *      [0] => Pilot Name
+             *      [1] => System (Docked)
+             *      [2] => Ship Class
+             *      [3] => Ship Type
+             *      [4] => Position in Fleet
+             *      [5] => Skills (FC - WC - SC)
+             *      [6] => Wing Name / Squad Name
+             *  )
+             */
+            $lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
 
-			if(\preg_match('/.* \(Docked\)/', $lineDetailsArray['1'])) {
-				$fleetInformation['pilots']['docked']++;
-			}
+            // get the fleet boss
+            if(\preg_match('/.* \(Boss\)/', $lineDetailsArray['4'])) {
+                $fleetInformation['fleetBoss'] = $lineDetailsArray['0'];
+            }
 
-			// get count of pilots in space
-			if(!isset($fleetInformation['pilots']['inSpace'])) {
-				$fleetInformation['pilots']['inSpace'] = 0;
-			} // END if(!isset($fleetInformation['pilots']['inSpace']))
+            // get count of docked pilots
+            if(!isset($fleetInformation['pilots']['docked'])) {
+                $fleetInformation['pilots']['docked'] = 0;
+            }
 
-			if(!\preg_match('/.* \(Docked\)/', $lineDetailsArray['1'])) {
-				$fleetInformation['pilots']['inSpace']++;
-			}
+            if(\preg_match('/.* \(Docked\)/', $lineDetailsArray['1'])) {
+                $fleetInformation['pilots']['docked'] ++;
+            }
 
-			// build a list of pilot names
-			$pilotListRaw .= $lineDetailsArray['0'] . "\n";
+            // get count of pilots in space
+            if(!isset($fleetInformation['pilots']['inSpace'])) {
+                $fleetInformation['pilots']['inSpace'] = 0;
+            }
 
-			// Pilot Details
-			$pilotOverview[\sanitize_title($lineDetailsArray['0'])] = [
-				'pilotName' => $lineDetailsArray['0'],
-				'pilotID' => $this->esi->getEveIdFromName($lineDetailsArray['0'], 'character'),
-				'system' => $lineDetailsArray['1'],
-				'shipClass' => $lineDetailsArray['2'],
-				'shipType' => $lineDetailsArray['3'],
-//				'positionInFleet' => $lineDetailsArray['4'],
-//				'skills' => $lineDetailsArray['5'],
-//				'fleetHirarchy' => $lineDetailsArray['6']
-			];
+            if(!\preg_match('/.* \(Docked\)/', $lineDetailsArray['1'])) {
+                $fleetInformation['pilots']['inSpace'] ++;
+            }
 
-			// Ship Classes
-			if(!isset($counter['class'][\sanitize_title($lineDetailsArray['2'])])) {
-				$counter['class'][\sanitize_title($lineDetailsArray['2'])] = 0;
-			} // END if(!isset($counter[\sanitize_title($pilotSheet['corporationName'])]))
+            // build a list of pilot names
+            $pilotListRaw .= $lineDetailsArray['0'] . "\n";
 
-			$counter['class'][\sanitize_title($lineDetailsArray['2'])]++;
-			$shipClassBreakdown[\sanitize_title($lineDetailsArray['2'])] = [
-				'shipName' => $lineDetailsArray['2'],
-				'shipID' => $this->esi->getEveIdFromName($lineDetailsArray['2'], 'inventorytype'),
-				'shipTypeSanitized' => \sanitize_title($lineDetailsArray['3']),
-				'count' => $counter['class'][\sanitize_title($lineDetailsArray['2'])]
-			];
+            // Pilot Details
+            $pilotOverview[$lineDetailsArray['0']] = [
+                'pilotName' => $lineDetailsArray['0'],
+                'system' => $lineDetailsArray['1'],
+                'shipClass' => $lineDetailsArray['2'],
+                'shipType' => $lineDetailsArray['3'],
 
-			// Ship Types
-			if(!isset($counter['type'][\sanitize_title($lineDetailsArray['3'])])) {
-				$counter['type'][\sanitize_title($lineDetailsArray['3'])] = 0;
-			} // END if(!isset($counter[\sanitize_title($pilotSheet['corporationName'])]))
+                'positionInFleet' => $lineDetailsArray['4'],
+                'skills' => $lineDetailsArray['5'],
+                'fleetHirarchy' => $lineDetailsArray['6']
+            ];
 
-			$counter['type'][\sanitize_title($lineDetailsArray['3'])]++;
-			$shipTypeBreakdown[\sanitize_title($lineDetailsArray['3'])] = [
-				'type' => $lineDetailsArray['3'],
-				'shipTypeSanitized' => \sanitize_title($lineDetailsArray['3']),
-				'count' => $counter['type'][\sanitize_title($lineDetailsArray['3'])]
-			];
-		} // END foreach(\explode("\n", \trim($cleanedScanData)) as $line)
+            $pilotNames[$lineDetailsArray['0']] = $lineDetailsArray['0'];
+            $shipClasses[$lineDetailsArray['2']] = $lineDetailsArray['2'];
+        }
 
-		$fleetComposition = [
-			'overview' => $pilotOverview,
-			'shipClasses' => $shipClassBreakdown,
-			'shipTypes' => $shipTypeBreakdown
-		];
+        // Get pilot IDs
+        $pilotEsiData = $this->esi->getIdFromName($pilotNames, 'characters');
+        foreach($pilotEsiData as $pilotIdData) {
+            $pilotOverview[$pilotIdData->name]['pilotID'] = $pilotIdData->id;
+        }
 
-		$participationData = LocalScanParser::getInstance()->parseLocalScan($pilotListRaw);
+        // Get ship class IDs
+        $shipEsiData = $this->esi->getIdFromName($shipClasses, 'inventory_types');
+        foreach($pilotOverview as &$pilot) {
 
-		$returnData = [
-			'rawData' => $cleanedScanData,
-			'fleetInformation' => $fleetInformation,
-			'fleetCompositionData' => $fleetComposition,
-			'participationData' => $participationData
-		];
+            foreach($shipEsiData as $shipData) {
+                if($shipData->name === $pilot['shipClass']) {
+                    // Ship Classes
+                    if(!isset($counter['class'][\sanitize_title($shipData->name)])) {
+                        $counter['class'][\sanitize_title($shipData->name)] = 0;
+                    }
 
-		return $returnData;
-	}
-} // END class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton
+                    $counter['class'][\sanitize_title($shipData->name)] ++;
+                    $shipClassBreakdown[\sanitize_title($shipData->name)] = [
+                        'shipName' => $shipData->name,
+                        'shipID' => $shipData->id,
+                        'shipTypeSanitized' => \sanitize_title($pilot['shipType']),
+                        'count' => $counter['class'][\sanitize_title($shipData->name)]
+                    ];
+
+                    // Ship Types
+                    if(!isset($counter['type'][\sanitize_title($pilot['shipType'])])) {
+                        $counter['type'][\sanitize_title($pilot['shipType'])] = 0;
+                    }
+
+                    $counter['type'][\sanitize_title($pilot['shipType'])] ++;
+                    $shipTypeBreakdown[\sanitize_title($pilot['shipType'])] = [
+                        'type' => $pilot['shipType'],
+                        'shipTypeSanitized' => \sanitize_title($pilot['shipType']),
+                        'count' => $counter['type'][\sanitize_title($pilot['shipType'])]
+                    ];
+                }
+            }
+        }
+
+        $fleetComposition = [
+            'overview' => $pilotOverview,
+            'shipClasses' => $shipClassBreakdown,
+            'shipTypes' => $shipTypeBreakdown
+        ];
+
+        $participationData = $this->localParser->parseLocalScan($pilotListRaw);
+
+        $returnData = [
+            'rawData' => $cleanedScanData,
+            'fleetInformation' => $fleetInformation,
+            'fleetCompositionData' => $fleetComposition,
+            'participationData' => $participationData
+        ];
+
+        return $returnData;
+    }
+}

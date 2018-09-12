@@ -1,137 +1,140 @@
 <?php
+
 /**
  * Plugin Name: EVE Online Intel Tool for WordPress
  * Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
  * GitHub Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
  * Description: An EVE Online Intel Tool for WordPress. Parsing D-Scans, Local and Fleet Compositions. (Best with a theme running with <a href="http://getbootstrap.com/">Bootstrap</a>)
- * Version: 0.4.7
+ * Version: 1.0.0
  * Author: Rounon Dax
  * Author URI: https://yulaifederation.net
  * Text Domain: eve-online-intel-tool
  * Domain Path: /l10n
  */
-
 namespace WordPress\Plugin\EveOnlineIntelTool;
+
+\defined('ABSPATH') or die();
+
 const WP_GITHUB_FORCE_UPDATE = true;
 
 // Include the autoloader so we can dynamically include the rest of the classes.
 require_once(\trailingslashit(\dirname(__FILE__)) . 'inc/autoloader.php');
 
 class EveOnlineIntelTool {
-	/**
-	 * Textdomain
-	 *
-	 * @var string
-	 */
-	private $textDomain = null;
+    /**
+     * Textdomain
+     *
+     * @var string
+     */
+    private $textDomain = null;
 
-	/**
-	 * Localization Directory
-	 *
-	 * @var string
-	 */
-	private $localizationDirectory = null;
+    /**
+     * Localization Directory
+     *
+     * @var string
+     */
+    private $localizationDirectory = null;
 
-	/**
-	 * Database version
-	 *
-	 * @var string
-	 */
-	private $databaseVersion = null;
+    /**
+     * Database version
+     *
+     * @var string
+     */
+    private $databaseVersion = null;
 
-	/**
-	 * Plugin constructor
-	 *
-	 * @param boolean $init
-	 */
-	public function __construct() {
-		/**
-		 * Initializing Variables
-		 */
-		$this->textDomain = 'eve-online-intel-tool';
-		$this->localizationDirectory = \basename(\dirname(__FILE__)) . '/l10n/';
+    /**
+     * Plugin constructor
+     */
+    public function __construct() {
+        /**
+         * Initializing Variables
+         */
+        $this->textDomain = 'eve-online-intel-tool';
+        $this->localizationDirectory = \basename(\dirname(__FILE__)) . '/l10n/';
 
-		$this->databaseVersion = '20171010';
-	} // END public function __construct()
+        $this->databaseVersion = '20171104';
+    }
 
-	/**
-	 * Initialize the plugin
-	 */
-	public function init() {
-		$this->loadTextDomain();
+    /**
+     * Initialize the plugin
+     */
+    public function init() {
+        $this->loadTextDomain();
 
-		new Libs\PostType;
-		new Libs\Ajax\FormNonce;
-		new Libs\Ajax\ImageLazyLoad;
+        new Libs\PostType;
+        new Libs\Ajax\FormNonce;
+        new Libs\Ajax\ImageLazyLoad;
 
-		new Libs\WpHooks([
-			'newDatabaseVersion' => $this->databaseVersion
-		]);
+        $widgets = new Libs\Widgets;
+        $widgets->init();
 
-		$jsLoader = new Libs\ResourceLoader\JavascriptLoader;
-		$jsLoader->init();
+        new Libs\WpHooks([
+            'newDatabaseVersion' => $this->databaseVersion
+        ]);
 
-		$cssLoader = new Libs\ResourceLoader\CssLoader;
-		$cssLoader->init();
+        $jsLoader = new Libs\ResourceLoader\JavascriptLoader;
+        $jsLoader->init();
 
-		if(\is_admin()) {
-			new Libs\Admin\PluginSettings;
-			new Libs\Widgets\Dashboard\CacheStatisticsWidget;
+        $cssLoader = new Libs\ResourceLoader\CssLoader;
+        $cssLoader->init();
 
-			$this->initGitHubUpdater();
-		} // if(\is_admin())
-	} // public function init()
+        if(\is_admin()) {
+            new Libs\Admin\PluginSettings;
+            new Libs\Widgets\Dashboard\CacheStatisticsWidget;
 
-	/**
-	 * Initializing the GitHub Updater
-	 */
-	private function initGitHubUpdater() {
-		new Libs\TemplateLoader;
+            $this->initGitHubUpdater();
+        }
+    }
 
-		/**
-		 * Check Github for updates
-		 */
-		$githubConfig = [
-			'slug' => \plugin_basename(__FILE__),
-//			'proper_folder_name' => \dirname(\plugin_basename(__FILE__)),
-			'proper_folder_name' => Libs\Helper\PluginHelper::getInstance()->getPluginDirName(),
-			'api_url' => 'https://api.github.com/repos/ppfeufer/eve-online-intel-tool',
-			'raw_url' => 'https://raw.github.com/ppfeufer/eve-online-intel-tool/master',
-			'github_url' => 'https://github.com/ppfeufer/eve-online-intel-tool',
-			'zip_url' => 'https://github.com/ppfeufer/eve-online-intel-tool/archive/master.zip',
-			'sslverify' => true,
-			'requires' => '4.7',
-			'tested' => '4.9-alpha',
-			'readme' => 'README.md',
-			'access_token' => '',
-		];
+    /**
+     * Initializing the GitHub Updater
+     */
+    private function initGitHubUpdater() {
+        new Libs\TemplateLoader;
 
-		new Libs\GithubUpdater($githubConfig);
-	} // private function initGitHubUpdater()
+        /**
+         * Check Github for updates
+         */
+        $githubConfig = [
+            'slug' => \plugin_basename(__FILE__),
+            'proper_folder_name' => Libs\Helper\PluginHelper::getInstance()->getPluginDirName(),
+            'api_url' => 'https://api.github.com/repos/ppfeufer/eve-online-intel-tool',
+            'raw_url' => 'https://raw.github.com/ppfeufer/eve-online-intel-tool/master',
+            'github_url' => 'https://github.com/ppfeufer/eve-online-intel-tool',
+            'zip_url' => 'https://github.com/ppfeufer/eve-online-intel-tool/archive/master.zip',
+            'sslverify' => true,
+            'requires' => '4.7',
+            'tested' => '4.9',
+            'readme' => 'README.md',
+            'access_token' => '',
+        ];
 
-	/**
-	 * Setting up our text domain for translations
-	 */
-	public function loadTextDomain() {
-		if(\function_exists('\load_plugin_textdomain')) {
-			\load_plugin_textdomain($this->textDomain, false, $this->localizationDirectory);
-		} // if(function_exists('\load_plugin_textdomain'))
-	} // public function addTextDomain()
-} // class EveOnlineIntelTool
+        new Libs\GithubUpdater($githubConfig);
+    }
+
+    /**
+     * Setting up our text domain for translations
+     */
+    public function loadTextDomain() {
+        if(\function_exists('\load_plugin_textdomain')) {
+            \load_plugin_textdomain($this->textDomain, false, $this->localizationDirectory);
+        }
+    }
+}
 
 /**
  * Start the show ....
  */
 function initializePlugin() {
-	$eveIntelTool = new EveOnlineIntelTool;
+    $eveIntelTool = new EveOnlineIntelTool;
 
-	/**
-	 * Initialize the plugin
-	 *
-	 * @todo https://premium.wpmudev.org/blog/activate-deactivate-uninstall-hooks/
-	 */
-	$eveIntelTool->init();
-} // function initializePlugin()
+    /**
+     * Initialize the plugin
+     *
+     * @todo https://premium.wpmudev.org/blog/activate-deactivate-uninstall-hooks/
+     */
+    $eveIntelTool->init();
+}
 
 // Start the show
 initializePlugin();

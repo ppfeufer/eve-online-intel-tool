@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) 2017 Rounon Dax
  *
@@ -16,43 +17,44 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Helper;
 
 \defined('ABSPATH') or die();
 
 class RemoteHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
-	/**
-	 * Getting data from a remote source
-	 *
-	 * @param string $url
-	 * @param array $parameter
-	 * @return mixed
-	 */
-	public function getRemoteData($url, $parameter = [], $method = 'get') {
-		$params = '';
+    /**
+     * Getting data from a remote source
+     *
+     * @param string $url
+     * @param array $parameter
+     * @return mixed
+     */
+    public function getRemoteData($url, $parameter = [], $method = 'get') {
+        $returnValue = null;
+        $params = '';
 
+        switch($method) {
+            case 'get':
+                if(\count($parameter) > 0) {
+                    $params = '?' . \http_build_query($parameter);
+                }
 
-		switch($method) {
-			case 'get':
-				if(\count($parameter) > 0) {
-					$params = '?' . \http_build_query($parameter);
-				} // END if(\count($parameter > 0))
+                $remoteData = \wp_remote_get($url . $params);
+                break;
 
-				$remoteData = \wp_remote_get($url . $params);
-				break;
+            case 'post':
+                $remoteData = \wp_remote_post($url, [
+                    'headers' => ['Content-Type' => 'application/json; charset=utf-8'],
+                    'body' => \json_encode($parameter),
+                    'method' => 'POST'
+                ]);
+                break;
+        }
 
-			case 'post':
-				$remoteData = \wp_remote_post($url, [
-					'headers' => ['Content-Type' => 'application/json; charset=utf-8'],
-					'body'  => \json_encode($parameter),
-					'method' => 'POST'
-				]);
-				break;
-		}
+        if(\wp_remote_retrieve_response_code($remoteData) === 200) {
+            $returnValue = \json_decode(\wp_remote_retrieve_body($remoteData));
+        }
 
-		$data = \wp_remote_retrieve_body($remoteData);
-
-		return $data;
-	} // END private function getRemoteData($url, array $parameter)
-} // END class RemoteHelper extends \WordPress\Plugin\EveOnlineTranquilityStatus\Singletons\AbstractSingleton
+        return $returnValue;
+    }
+}

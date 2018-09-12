@@ -2,9 +2,106 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.7...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.0.0...development)
+- in development
+
+## [v1.0.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.0.0) - 2018-07-17
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.7.0...v1.0.0)
 ### Added
-- Dashboard widget - Cache Statisctics
+- Versions to ESI calls
+
+### Changed
+- Image server URL
+- ESI endpoint handling
+- Simplified DataTable handling
+- Ending test period after more than a year I guess it's stable for its first official release v1.0.0
+
+## [v0.7.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.7.0) - 2018-06-20
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.3...v0.7.0)
+### Added
+- Quick Intel Sidebar Widget (Issue #62)
+
+### Changed
+- Replaced /search/ endpoint from local scan with /universe/ids/ endpoint
+- Replaced /search/ endpoint from d-scan with /universe/ids/ endpoint
+- Replaced /search/ endpoint from fleet scan with /universe/ids/ endpoint
+
+### Removed
+- Usage of SearchApi
+
+## [v0.6.3](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.6.3) - 2018-06-18
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.2...v0.6.3)
+### Added
+- Faction Fortizars to structures that can hold the system name
+
+### Changed
+- Refactored the D-Scan pareser a little bit
+
+## [v0.6.2](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.6.2) - 2018-05-29
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.1...v0.6.2)
+### Changed
+- Changed ESI URL to the new one
+
+## [v0.6.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.6.1) - 2018-02-07
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.6.0...v0.6.1)
+### Changed
+- Drastically reduced the ESI Client to what we really need
+
+## [v0.6.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.6.0) - 2017-12-24
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.5.1...v0.6.0)
+### Added
+- noindex and nofollow to the intel pages header. Google doesn't need to index or follow them.
+- Proper ESI Client
+
+### Changed
+- D-Scan using ESI Client now
+- Fleet Composition Scan using ESI Client now
+- Chat Scan using ESI Client now
+- Simplified the way to determin if we are on the right post type to make sure our styles and javascript will be loaded properly
+
+### Removed
+- A lot of unused variables and functions
+
+## [v0.5.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.5.1) - 2017-11-17
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.5.0...v0.5.1)
+### Added
+- 30 days as option for image cache
+
+### Removed
+- Loot and salvage to D-Scan when on grid (to much to filter, to many stuff in that category ...)
+
+## [v0.5.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.5.0) - 2017-11-17
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.9...v0.5.0)
+### Added
+- Upwell structures to D-Scan when on grid
+- Deployable structures to D-Scan when on grid
+- Starbases and modules to D-Scan when on grid
+- Loot and salvage to D-Scan when on grid (wrecks and stuff / basically d-scan data Provi style :-P)
+
+### Changed
+- Database cache to 6 months instead of 1
+- Simplified code to reduce the load on the affiliation endpoint
+
+### Updated
+- German translation
+
+## [v0.4.9](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.9) - 2017-11-07
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.8...v0.4.9)
+### Added
+- Count of unaffiliated pilots (pilots who are not in any alliance) in alliance breakdown for chat scans
+- Issue template for GitHub
+
+### Updated
+- German translation
+
+## [v0.4.8](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.8) - 2017-11-04
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.7...v0.4.8)
+### Fixed
+- Region names in D-Scans
+
+### Added
+- Dashboard Widget - Cache Statistics
+- Database cache for systems, constellations and regions to reduce the number of ESI calls for D-Scans over time
 
 ## [v0.4.7](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.4.7) - 2017-11-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.4.6...v0.4.7)
@@ -160,7 +257,7 @@
 ## [v0.1.5](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v0.1.5) - 2017-09-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.1.4...v0.1.5)
 ### Added
-- General Fleet information to teh fleet scan, as in how many pilots in total, how many are docked, how many are in space.
+- General Fleet information to the fleet scan, as in how many pilots in total, how many are docked, how many are in space.
 
 ### Fixed
 - Regular Expression for detecting fleet scans. I really hate this stuff ...

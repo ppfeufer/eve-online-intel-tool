@@ -19,7 +19,7 @@ Works best with the [EVE Online WordPress Theme](https://github.com/ppfeufer/eve
 
 ### Requirements
 - WordPress 4.7 or newer
-- PHP 7
+- PHP 7.1 or newer
 
 ### Installation
 - Simply [download the archive](https://github.com/ppfeufer/eve-online-intel-tool/archive/master.zip) or one of the [releases](https://github.com/ppfeufer/eve-online-intel-tool/releases)
@@ -33,3 +33,4 @@ After activating the Plugin, create a page called "Intel" and set the "EVE Intel
 ### Additional Information
 - [License](LICENSE)
 - [Changelog](CHANGELOG.md)
+- [Discord](https://discord.gg/YymuCZa)

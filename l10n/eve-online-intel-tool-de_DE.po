@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EVE Online Intel Tool for WordPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-23 09:23+0000\n"
-"PO-Revision-Date: 2017-10-23 09:27+0000\n"
+"POT-Creation-Date: 2017-11-17 09:28+0000\n"
+"PO-Revision-Date: 2017-11-17 09:28+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German\n"
 "Language: de-DE\n"
@@ -13,37 +13,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco - https://localise.biz/"
 
-#: Libs/Admin/PluginSettings.php:122
-msgid "Lazy-Load images"
-msgstr "Bilder verzögert laden"
+#: templates/data/interesting-on-grid-breakdown.php:41
+msgid "POS / POS Modules"
+msgstr "POS / POS Module"
 
-#: Libs/Admin/PluginSettings.php:123
-msgid ""
-"Start loading EVE related images (Pilot-Avatars, Corp-Logos and Alliance-"
-"Logos) after the result page has been loaded. This might speed things a bit "
-"up, especially when using the image cache and new images have to be "
-"downloaded and cached first. <small><strong>(Only works when using the image "
-"cache.)</strong></small><br><strong>!!! DO NOT USE IT WHEN YOU HAVE A STATIC "
-"PAGE CACHE !!!</strong>"
-msgstr ""
-"Lader Bilder (Piloten Avatare, Corporation und Allianz Logos) verzögert, "
-"nachdem die Ergebnisseite geladen ist. Dies mag einiges etwas beschleunigen, "
-"besondern wenn der Bild Cache genutzt wird. <small><strong>(Funktioniert "
-"wirklich nur mit dem Bild Cache.)</strong></small><br><strong>!!! NICHT "
-"VERWENDEN WENN BEREITS EIN STATISCHER CACHE FÜR DIE SEITE GENUTZT WIRD !!!"
-"</strong>"
-
-#: Libs/Admin/PluginSettings.php:126
-msgid "Use a lazy loading mechanism for EVE related images."
-msgstr "Nutze einen Mechanismus der das Laden der Bilder verzögert."
-
-#: Libs/ResourceLoader/JavascriptLoader.php:78
-msgid "Showing _END_ entries"
-msgstr "Zeige _END_ Einträge"
-
-#: Libs/ResourceLoader/JavascriptLoader.php:80
-msgid "(filtered from _MAX_ total entries)"
-msgstr "(Gefiltert aus _MAX_ Einträgen)"
+#: templates/data/interesting-on-grid-breakdown.php:54
+msgid "Loot / Salvage"
+msgstr "Loot / Salvage"
 
 #: Libs/GithubUpdater.php:466
 msgid ""
@@ -140,25 +116,14 @@ msgstr "System:"
 msgid "EVE Time:"
 msgstr "EVE Zeit:"
 
-#: templates/single-dscan.php:53
-msgid "All"
-msgstr "Alle"
-
-#: templates/single-dscan.php:67
-msgid "On Grid"
-msgstr "On Grid"
-
-#: templates/single-dscan.php:81
-msgid "Off Grid"
-msgstr "Off Grid"
-
-#: templates/single-dscan.php:95 templates/single-fleetcomposition.php:60
-msgid "Ship Types"
-msgstr "Schiffstypen"
-
 #: templates/single-fleetcomposition.php:45
 msgid "Ship Classes"
 msgstr "Schiffsklassen"
+
+#: templates/single-fleetcomposition.php:60
+#: templates/data/dscan-breakdown.php:50
+msgid "Ship Types"
+msgstr "Schiffstypen"
 
 #: templates/single-local.php:7
 msgid "Chat Scan"
@@ -199,7 +164,7 @@ msgid ""
 msgstr ""
 "Wähle dies wenn Du Bilder zwischenspeichern möchtest (Piloten-Avatare, Corp- "
 "und Allianzlogos, Schiffsbilder und so weiter). Die Bilder werden dann von "
-"CCP's Imagesverer heruntergeladen und auf Deinem Server abgelegt und von "
+"CCP's Imageserver heruntergeladen und auf Deinem Server abgelegt und von "
 "dort aus in die Webseite eingebunden, wenn benötigt."
 
 #: Libs/Admin/PluginSettings.php:118
@@ -207,6 +172,30 @@ msgid "Use a serverside cache for images fetched from CCP's image server."
 msgstr ""
 "Nutze einen serverseitigen Cache für Bilder die sonst von CCP's Imageserver "
 "geladen werden."
+
+#: Libs/Admin/PluginSettings.php:122
+msgid "Lazy-Load images"
+msgstr "Bilder verzögert laden"
+
+#: Libs/Admin/PluginSettings.php:123
+msgid ""
+"Start loading EVE related images (Pilot-Avatars, Corp-Logos and Alliance-"
+"Logos) after the result page has been loaded. This might speed things a bit "
+"up, especially when using the image cache and new images have to be "
+"downloaded and cached first. <small><strong>(Only works when using the image "
+"cache.)</strong></small><br><strong>!!! DO NOT USE IT WHEN YOU HAVE A STATIC "
+"PAGE CACHE !!!</strong>"
+msgstr ""
+"Lader Bilder (Piloten Avatare, Corporation und Allianz Logos) verzögert, "
+"nachdem die Ergebnisseite geladen ist. Dies mag einiges etwas beschleunigen, "
+"besondern wenn der Bild Cache genutzt wird. <small><strong>(Funktioniert "
+"wirklich nur mit dem Bild Cache.)</strong></small><br><strong>!!! NICHT "
+"VERWENDEN WENN BEREITS EIN STATISCHER CACHE FÜR DIE SEITE GENUTZT WIRD !!!"
+"</strong>"
+
+#: Libs/Admin/PluginSettings.php:126
+msgid "Use a lazy loading mechanism for EVE related images."
+msgstr "Nutze einen Mechanismus der das Laden der Bilder verzögert."
 
 #: Libs/Admin/PluginSettings.php:130
 msgid "Image Cache Time"
@@ -232,6 +221,10 @@ msgstr "15 Tage"
 msgid "20 days"
 msgstr "20 Tage"
 
+#: Libs/Parser/LocalScanParser.php:233 Libs/Parser/LocalScanParser.php:240
+msgid "Unaffiliated / No Alliance"
+msgstr "Keine Allianzzugehörigkeit"
+
 #: Libs/ResourceLoader/JavascriptLoader.php:68
 msgid "Permalink successfully copied"
 msgstr "Link erfolgreich kopiert"
@@ -254,11 +247,19 @@ msgstr "."
 
 #: Libs/ResourceLoader/JavascriptLoader.php:77
 msgid "No data available in table"
-msgstr "Keine daten in dieser Tabelle"
+msgstr "Keine Daten in dieser Tabelle"
+
+#: Libs/ResourceLoader/JavascriptLoader.php:78
+msgid "Showing _END_ entries"
+msgstr "Zeige _END_ Einträge"
 
 #: Libs/ResourceLoader/JavascriptLoader.php:79
 msgid "No records available"
 msgstr "Keine Daten verfügbar"
+
+#: Libs/ResourceLoader/JavascriptLoader.php:80
+msgid "(filtered from _MAX_ total entries)"
+msgstr "(Gefiltert aus _MAX_ Einträgen)"
 
 #: Libs/ResourceLoader/JavascriptLoader.php:82
 msgid "Show _MENU_"
@@ -319,6 +320,7 @@ msgstr "Allianz Name"
 #: templates/data/alliance-participation.php:9
 #: templates/data/corporation-participation.php:9
 #: templates/data/ship-classes.php:9 templates/data/ship-types.php:9
+#: templates/data/structures-on-grid.php:10
 msgid "Count"
 msgstr "Anzahl"
 
@@ -329,6 +331,18 @@ msgstr "Corporation Übersicht"
 #: templates/data/corporation-participation.php:8
 msgid "Corporation Name"
 msgstr "Corporation Name"
+
+#: templates/data/dscan-breakdown.php:8
+msgid "All"
+msgstr "Alle"
+
+#: templates/data/dscan-breakdown.php:22
+msgid "On Grid"
+msgstr "On Grid"
+
+#: templates/data/dscan-breakdown.php:36
+msgid "Off Grid"
+msgstr "Off Grid"
 
 #: templates/data/fleet-composition.php:1
 msgid "Who is flying what"
@@ -373,6 +387,18 @@ msgstr "Piloten gedockt"
 msgid "Pilots in space"
 msgstr "Piloten im Weltraum"
 
+#: templates/data/interesting-on-grid-breakdown.php:5
+msgid "Interesting On Grid"
+msgstr "Interessantes auf dem Grid"
+
+#: templates/data/interesting-on-grid-breakdown.php:15
+msgid "Upwell Structures"
+msgstr "Upwell Strukturen"
+
+#: templates/data/interesting-on-grid-breakdown.php:28
+msgid "Deployables"
+msgstr "Mobile Strukturen"
+
 #: templates/data/pilot-participation.php:1
 msgid "Pilots Breakdown"
 msgstr "Piloten Übersicht"
@@ -389,6 +415,10 @@ msgstr "Corporation"
 msgid "Ship Type"
 msgstr "Schiffstyp"
 
+#: templates/data/structures-on-grid.php:9
+msgid "Structure Type"
+msgstr "Struktur Typ"
+
 #: templates/extra/buttons.php:4
 msgid "New Scan"
 msgstr "Neuer Scan"
@@ -396,6 +426,42 @@ msgstr "Neuer Scan"
 #: templates/extra/buttons.php:7
 msgid "Copy Permalink"
 msgstr "Link kopieren"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:46
+msgid "EVE Intel Tool :: Cache Statistics"
+msgstr "EVE Intel Tool :: Cache Statistiken"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:55
+msgid "Your EVE intel database cache"
+msgstr "EVE Intel Tool Datenbank Cache"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:89
+msgid "Pilots"
+msgstr "Piloten"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:103
+msgid "Corporations"
+msgstr "Corporationen"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:117
+msgid "Alliances"
+msgstr "Allianzen"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:131
+msgid "Ships"
+msgstr "Schiffe"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:145
+msgid "Systems"
+msgstr "Systeme"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:159
+msgid "Constellations"
+msgstr "Konstellationen"
+
+#: Libs/Widgets/Dashboard/CacheStatisticsWidget.php:173
+msgid "Regions"
+msgstr "Regionen"
 
 #. Name of the plugin
 msgid "EVE Online Intel Tool for WordPress"

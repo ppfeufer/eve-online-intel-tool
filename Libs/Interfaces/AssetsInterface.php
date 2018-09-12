@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) 2017 Rounon Dax
  *
@@ -16,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces;
 
 \defined('ABSPATH') or die();
@@ -26,7 +26,7 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces;
  * stylesheets, JavaScript, or other assets should implement.
  */
 interface AssetsInterface {
-	public function init();
+    public function init();
 
-	public function enqueue();
-} // END interface AssetsInterface
+    public function enqueue();
+}

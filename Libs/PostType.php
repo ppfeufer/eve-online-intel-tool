@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) 2017 Rounon Dax
  *
@@ -16,7 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs;
 
 \defined('ABSPATH') or die();
@@ -25,163 +25,189 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs;
  * Managing the custom post type
  */
 class PostType {
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		\add_action('init', [$this, 'registerCustomPostType']);
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        \add_action('init', [$this, 'registerCustomPostType']);
 
-		\add_filter('template_include', [$this, 'templateLoader']);
-		\add_filter('page_template', [$this, 'registerPageTemplate']);
+        \add_filter('template_include', [$this, 'templateLoader']);
+        \add_filter('page_template', [$this, 'registerPageTemplate']);
 
-		\add_filter('post_type_link', [$this, 'createPermalinks'], 1, 2);
-	} // END public function __construct()
+        \add_filter('post_type_link', [$this, 'createPermalinks'], 1, 2);
+    }
 
-	/**
-	 * Registering the custom post type
-	 */
-	public static function registerCustomPostType() {
-		$cptSlug = self::getPosttypeSlug('intel');
+    /**
+     * Registering the custom post type
+     */
+    public static function registerCustomPostType() {
+        $cptSlug = self::getPosttypeSlug('intel');
 
-		$argsTaxonomyCategory = [
-			'label' => \__('Category', 'eve-online-intel-tool'),
-//			'labels' => $labelsShip,
-			'public' => false,
-			'hierarchical' => true,
-			'show_ui' => true,
-			'show_in_nav_menus' => false,
-			'show_in_menu' => false,
-			'args' => [
-				'orderby' => 'term_order'
-			],
-			'rewrite' => [
-				'slug' => 'intel',
-				'with_front' => false
-			],
-			'query_var' => true
-		];
+        $argsTaxonomyCategory = [
+            'label' => \__('Category', 'eve-online-intel-tool'),
+            'public' => false,
+            'hierarchical' => true,
+            'show_ui' => true,
+            'show_in_nav_menus' => false,
+            'show_in_menu' => false,
+            'args' => [
+                'orderby' => 'term_order'
+            ],
+            'rewrite' => [
+                'slug' => 'intel',
+                'with_front' => false
+            ],
+            'query_var' => true
+        ];
 
-		\register_taxonomy('intel_category', ['intel'], $argsTaxonomyCategory);
+        \register_taxonomy('intel_category', ['intel'], $argsTaxonomyCategory);
 
-		\register_post_type('intel', [
-			'labels' => [
-				'name' => \__('Intel', 'eve-online-intel-tool'),
-				'singular_name' => \__('Intel', 'eve-online-intel-tool')
-			],
-			'public' => true,
-			'show_ui' => true,
-			'show_in_menu' => true,
-			'supports' => [
-				'title',
-				'custom-fields',
-				'category'
-			],
-			'rewrite' => [
-				'slug' => $cptSlug . '/%intel_category%',
-				'with_front' => true
-			],
-			'has_archive' => 'intel'
-		]);
+        \register_post_type('intel', [
+            'labels' => [
+                'name' => \__('Intel', 'eve-online-intel-tool'),
+                'singular_name' => \__('Intel', 'eve-online-intel-tool')
+            ],
+            'public' => true,
+            'show_ui' => true,
+            'show_in_menu' => true,
+            'supports' => [
+                'title',
+                'custom-fields',
+                'category'
+            ],
+            'rewrite' => [
+                'slug' => $cptSlug . '/%intel_category%',
+                'with_front' => true
+            ],
+            'has_archive' => 'intel'
+        ]);
 
-		// Adding our default categories ...
-		\wp_insert_term('D-Scan', 'intel_category', [
-			'slug' => 'dscan'
-		]);
-		\wp_insert_term('Fleet Composition', 'intel_category', [
-			'slug' => 'fleetcomposition'
-		]);
-		\wp_insert_term('Local Scan', 'intel_category', [
-			'slug' => 'local'
-		]);
-	} // END public function customPostType()
+        /**
+         * Adding our default categories ...
+         *
+         * » D-Scan
+         * » Fleet Composition
+         * » Local/Chat Scan
+         * » Personal Mining Ledger
+         * » Corporation Mining Ledger
+         */
+        \wp_insert_term('D-Scan', 'intel_category', [
+            'slug' => 'dscan'
+        ]);
+        \wp_insert_term('Fleet Composition', 'intel_category', [
+            'slug' => 'fleetcomposition'
+        ]);
+        \wp_insert_term('Local Scan', 'intel_category', [
+            'slug' => 'local'
+        ]);
+//        \wp_insert_term('Personal Mining Ledger', 'intel_category', [
+//            'slug' => 'miningledger'
+//        ]);
+//        \wp_insert_term('Corporation Mining Ledger', 'intel_category', [
+//            'slug' => 'corpminingledger'
+//        ]);
+    }
 
-	public function createPermalinks($post_link, $post) {
-		if(\is_object($post) && $post->post_type === 'intel') {
-			$terms = \wp_get_object_terms($post->ID, 'intel_category');
+    public function createPermalinks($postLink, $post) {
+        $returnValue = $postLink;
 
-			if($terms) {
-				return \str_replace('%intel_category%' , $terms[0]->slug , $post_link);
-			} // END if($terms)
-		} // END if(\is_object($post) && $post->post_type === 'intel')
+        if(\is_object($post) && $post->post_type === 'intel') {
+            $terms = \wp_get_object_terms($post->ID, 'intel_category');
 
-		return $post_link;
-	} // END public function createPermalinks($post_link, $post)
+            if($terms) {
+                $returnValue = \str_replace('%intel_category%', $terms[0]->slug, $postLink);
+            }
+        }
 
-	/**
-	 * Getting the slug for the custom post type
-	 *
-	 * If the pages for looping the custom post types have not the same name
-	 * as the custom post type, we need to find its slug to get it working.
-	 *
-	 * @param string $postType
-	 */
-	public static function getPosttypeSlug($postType) {
-		global $wpdb;
+        return $returnValue;
+    }
 
-		$var_qry = '
-			SELECT
-				' . $wpdb->posts . '.post_name as post_name
-			FROM
-				' . $wpdb->posts . ',
-				' . $wpdb->postmeta . '
-			WHERE
-				' . $wpdb->postmeta . '.meta_key = "_wp_page_template"
-				AND ' . $wpdb->postmeta . '.meta_value = "../templates/page-' . $postType . '.php"
-				AND ' . $wpdb->posts . '.ID = ' . $wpdb->postmeta . '.post_id;';
+    /**
+     * Getting the slug for the custom post type
+     *
+     * If the pages for looping the custom post types have not the same name
+     * as the custom post type, we need to find its slug to get it working.
+     *
+     * @param string $postType
+     */
+    public static function getPosttypeSlug($postType) {
+        global $wpdb;
 
-		$slugData = $wpdb->get_var($var_qry);
+        $var_qry = '
+            SELECT
+                ' . $wpdb->posts . '.post_name as post_name
+            FROM
+                ' . $wpdb->posts . ',
+                ' . $wpdb->postmeta . '
+            WHERE
+                ' . $wpdb->postmeta . '.meta_key = "_wp_page_template"
+                AND ' . $wpdb->postmeta . '.meta_value = "../templates/page-' . $postType . '.php"
+                AND ' . $wpdb->posts . '.post_type = "page"
+                AND ' . $wpdb->posts . '.ID = ' . $wpdb->postmeta . '.post_id;';
 
-		/**
-		 * Returning the slug or, if not found the name of custom post type
-		 */
-		if(!empty($slugData)) {
-			return $slugData;
-		} else {
-			return $postType;
-		} // END if(!empty($var_sSlugData))
-	} // END private function _getPosttypeSlug($var_sPosttype)
+        $slugData = $wpdb->get_var($var_qry);
 
-	/**
-	 * Template loader.
-	 *
-	 * The template loader will check if WP is loading a template
-	 * for a specific Post Type and will try to load the template
-	 * from out 'templates' directory.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param	string	$template	Template file that is being loaded.
-	 * @return	string				Template file that should be loaded.
-	 */
-	public function templateLoader($template) {
-		$templateFile = null;
+        /**
+         * Returning the slug or, if not found the name of custom post type
+         */
+        if(!empty($slugData)) {
+            return $slugData;
+        } else {
+            return $postType;
+        }
+    }
 
-		if(\is_singular('intel')) {
-			$templateFile = 'single-intel.php';
-		} elseif(\is_archive() && (\get_post_type() === 'intel' || \is_post_type_archive('intel') === true)) {
-			$templateFile = 'page-intel.php';
-		} // END if(\is_singular('fitting'))
+    /**
+     * Template loader.
+     *
+     * The template loader will check if WP is loading a template
+     * for a specific Post Type and will try to load the template
+     * from out 'templates' directory.
+     *
+     * @since 1.0.0
+     *
+     * @param	string	$template	Template file that is being loaded.
+     * @return	string				Template file that should be loaded.
+     */
+    public function templateLoader($template) {
+        $templateFile = null;
 
-		if($templateFile !== null) {
-			if(\file_exists(Helper\TemplateHelper::locateTemplate($templateFile))) {
-				$template = Helper\TemplateHelper::locateTemplate($templateFile);
-			} // END if(\file_exists(Helper\TemplateHelper::locateTemplate($file)))
-		} // END if($templateFile !== null)
+        if(\is_singular('intel')) {
+            $templateFile = 'single-intel.php';
+        } elseif(\is_archive() && (\get_post_type() === 'intel' || \is_post_type_archive('intel') === true)) {
+            $templateFile = 'page-intel.php';
+        }
 
-		return $template;
-	} // END function templateLoader($template)
+        if($templateFile !== null) {
+            if(\file_exists(Helper\TemplateHelper::locateTemplate($templateFile))) {
+                $template = Helper\TemplateHelper::locateTemplate($templateFile);
+            }
+        }
 
-	/**
-	 * Registering a page template
-	 *
-	 * @param string $pageTemplate
-	 * @return string
-	 */
-	public function registerPageTemplate($pageTemplate) {
-		if(\is_page(self::getPosttypeSlug('intel'))) {
-			$pageTemplate = Helper\PluginHelper::getInstance()->getPluginPath('templates/page-intel.php');
-		} // END if(\is_page($this->getPosttypeSlug('intel')))
+        return $template;
+    }
 
-		return $pageTemplate;
-	} // END public function registerPageTemplate($pageTemplate)
-} // END class PostType
+    /**
+     * Registering a page template
+     *
+     * @param string $pageTemplate
+     * @return string
+     */
+    public function registerPageTemplate($pageTemplate) {
+        if(\is_page(self::getPosttypeSlug('intel'))) {
+            $pageTemplate = Helper\PluginHelper::getInstance()->getPluginPath('templates/page-intel.php');
+        }
+
+        return $pageTemplate;
+    }
+
+    public static function isPostTypePage() {
+        $returnValue = false;
+
+        if(\is_page(self::getPosttypeSlug('intel')) || \get_post_type() === 'intel' || \is_post_type_archive('intel') === true) {
+            $returnValue = true;
+        }
+
+        return $returnValue;
+    }
+}

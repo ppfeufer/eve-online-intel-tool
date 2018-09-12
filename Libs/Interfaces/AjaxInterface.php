@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) 2017 Rounon Dax
  *
@@ -16,19 +17,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces;
 
 \defined('ABSPATH') or die();
 
 interface AjaxInterface {
-	/**
-	 * Initialize Actions and Filter
-	 */
-	public function initActions();
+    /**
+     * Initialize Actions and Filter
+     */
+    public function initActions();
 
-	/**
-	 * Execute the ajax call
-	 */
-	public function ajaxAction();
-} // END interface AjaxInterface
+    /**
+     * Execute the ajax call
+     */
+    public function ajaxAction();
+}

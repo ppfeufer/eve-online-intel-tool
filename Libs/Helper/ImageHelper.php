@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) 2017 Rounon Dax
  *
@@ -16,174 +17,173 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Helper;
 
 \defined('ABSPATH') or die();
 
 class ImageHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
-	/**
-	 * base URL to CCP's image server
-	 *
-	 * @var var
-	 */
-	public $imageserverUrl = null;
+    /**
+     * base URL to CCP's image server
+     *
+     * @var var
+     */
+    public $imageserverUrl = null;
 
-	/**
-	 * Array with possible end point on CCP's image server
-	 *
-	 * @var array
-	 */
-	public $imageserverEndpoints = null;
+    /**
+     * Array with possible end point on CCP's image server
+     *
+     * @var array
+     */
+    public $imageserverEndpoints = null;
 
-	/**
-	 * Plugin Helper
-	 *
-	 * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper
-	 */
-	public $pluginHelper = null;
+    /**
+     * Plugin Helper
+     *
+     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper
+     */
+    public $pluginHelper = null;
 
-	/**
-	 * Plugin Settings
-	 *
-	 * @var array
-	 */
-	public $pluginSettings = null;
+    /**
+     * Plugin Settings
+     *
+     * @var array
+     */
+    public $pluginSettings = null;
 
-	/**
-	 * The Construtor
-	 */
-	protected function __construct() {
-		parent::__construct();
+    /**
+     * The Construtor
+     */
+    protected function __construct() {
+        parent::__construct();
 
-		if(!$this->pluginHelper instanceof \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper) {
-			$this->pluginHelper = PluginHelper::getInstance();
-			$this->pluginSettings = $this->pluginHelper->getPluginSettings();
-		}
+        if(!$this->pluginHelper instanceof \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper) {
+            $this->pluginHelper = PluginHelper::getInstance();
+            $this->pluginSettings = $this->pluginHelper->getPluginSettings();
+        }
 
-		$this->imageserverUrl = 'https://image.eveonline.com/';
-		$this->imageserverEndpoints = $this->getImageserverEndpoints();
-	} // END public function __construct()
+        $this->imageserverUrl = 'https://imageserver.eveonline.com/';
+        $this->imageserverEndpoints = $this->getImageserverEndpoints();
+    }
 
-	/**
-	 * Assigning Imagesever Endpoints
-	 */
-	public function getImageserverEndpoints() {
-		return [
-			'alliance' => 'Alliance/',
-			'corporation' => 'Corporation/',
-			'character' => 'Character/',
-			'item' => 'Type/',
-			'ship' => 'Type/',
-			'inventory' => 'InventoryType/' // all the other stuff
-		];
-	} // END private function setImageserverEndpoints()
+    /**
+     * Assigning Imagesever Endpoints
+     */
+    public function getImageserverEndpoints() {
+        return [
+            'alliance' => 'Alliance/',
+            'corporation' => 'Corporation/',
+            'character' => 'Character/',
+            'item' => 'Type/',
+            'ship' => 'Type/',
+            'inventory' => 'InventoryType/' // all the other stuff
+        ];
+    }
 
-	/**
-	 * Getting the EVE API Url
-	 *
-	 * @param string $type
-	 * @return string The EVE API Url
-	 */
-	public function getImageServerUrl($type = null) {
-		$endpoint = '';
+    /**
+     * Getting the EVE API Url
+     *
+     * @param string $type
+     * @return string The EVE API Url
+     */
+    public function getImageServerUrl($type = null) {
+        $endpoint = '';
 
-		if($type !== null) {
-			$endpoint = $this->imageserverEndpoints[$type];
-		} // END if($type !== null)
+        if($type !== null) {
+            $endpoint = $this->imageserverEndpoints[$type];
+        }
 
-		return $this->imageserverUrl . $endpoint;
-	} // END public function getImageServerUrl()
+        return $this->imageserverUrl . $endpoint;
+    }
 
-	/**
-	 * Getting the cached URL for a remote image
-	 *
-	 * @param string $cacheType The subdirectory in the image cache filesystem
-	 * @param string $remoteImageUrl The URL for the remote image
-	 * @return string The cached Image URL
-	 */
-	public function getLocalCacheImageUriForRemoteImage($cacheType = null, $remoteImageUrl = null) {
-		$returnValue = $remoteImageUrl;
+    /**
+     * Getting the cached URL for a remote image
+     *
+     * @param string $cacheType The subdirectory in the image cache filesystem
+     * @param string $remoteImageUrl The URL for the remote image
+     * @return string The cached Image URL
+     */
+    public function getLocalCacheImageUriForRemoteImage($cacheType = null, $remoteImageUrl = null) {
+        $returnValue = $remoteImageUrl;
 
-		if(isset($this->pluginSettings['image-cache']['yes']) && $this->pluginSettings['image-cache']['yes'] === 'yes') {
-			// Check if we should use image cache
-			$explodedImageUrl = \explode('/', $remoteImageUrl);
-			$imageFilename = \end($explodedImageUrl);
-			$cachedImage = CacheHelper::getInstance()->getImageCacheUri() . $cacheType . '/' . $imageFilename;
+        if(isset($this->pluginSettings['image-cache']['yes']) && $this->pluginSettings['image-cache']['yes'] === 'yes') {
+            // Check if we should use image cache
+            $explodedImageUrl = \explode('/', $remoteImageUrl);
+            $imageFilename = \end($explodedImageUrl);
+            $cachedImage = CacheHelper::getInstance()->getImageCacheUri() . $cacheType . '/' . $imageFilename;
 
-			// if we don't have the image cached already
-			if(CacheHelper::getInstance()->checkCachedImage($cacheType, $imageFilename) === false) {
-				/**
-				 * Check if the content dir is writable and cache the image.
-				 * Otherwise set the remote image as return value.
-				 */
-				if(\is_dir(CacheHelper::getInstance()->getImageCacheDir() . $cacheType) && \is_writable(CacheHelper::getInstance()->getImageCacheDir() . $cacheType)) {
-					if(CacheHelper::getInstance()->cacheRemoteImageFile($cacheType, $remoteImageUrl) === true) {
-						$returnValue = $cachedImage;
-					}
-				} // END if(\is_dir(CacheHelper::getImageCacheDir() . $cacheType) && \is_writable(CacheHelper::getImageCacheDir() . $cacheType))
-			} else {
-				$returnValue = $cachedImage;
-			} // END if(CacheHelper::checkCachedImage($cacheType, $imageName) === false)
-		}
+            // if we don't have the image cached already
+            if(CacheHelper::getInstance()->checkCachedImage($cacheType, $imageFilename) === false) {
+                /**
+                 * Check if the content dir is writable and cache the image.
+                 * Otherwise set the remote image as return value.
+                 */
+                if(\is_dir(CacheHelper::getInstance()->getImageCacheDir() . $cacheType) && \is_writable(CacheHelper::getInstance()->getImageCacheDir() . $cacheType)) {
+                    if(CacheHelper::getInstance()->cacheRemoteImageFile($cacheType, $remoteImageUrl) === true) {
+                        $returnValue = $cachedImage;
+                    }
+                }
+            } else {
+                $returnValue = $cachedImage;
+            }
+        }
 
-		return $returnValue;
-	} // END public static function getLocalCacheImageUri($cacheType = null, $remoteImageUrl = null)
+        return $returnValue;
+    }
 
-	/**
-	 * Compressing an image
-	 *
-	 * @param string $source the image source
-	 * @param string $destination the path where to save the image
-	 * @param int $quality Image quality in a range from 0 to 100 (default 75)
-	 * @return string
-	 */
-	public function compressImage($source, $destination = null, $quality = 75) {
-		$returnValue = false;
+    /**
+     * Compressing an image
+     *
+     * @param string $source the image source
+     * @param string $destination the path where to save the image
+     * @param int $quality Image quality in a range from 0 to 100 (default 75)
+     * @return string
+     */
+    public function compressImage($source, $destination = null, $quality = 75) {
+        $returnValue = false;
 
-		/**
-		 * In this case, we optimiza an already saved image ....
-		 */
-		if($destination === null) {
-			$destination = $source;
-		} // END if($destination === null)
+        /**
+         * In this case, we optimiza an already saved image ....
+         */
+        if($destination === null) {
+            $destination = $source;
+        }
 
-		$info = \getimagesize($source);
+        $info = \getimagesize($source);
 
-		switch($info['mime']) {
-			case 'image/jpeg':
-				$image = \imagecreatefromjpeg($source);
+        switch($info['mime']) {
+            case 'image/jpeg':
+                $image = \imagecreatefromjpeg($source);
 
-				/**
-				 * compressing the stuff
-				 *
-				 * ranges from 0 (worst quality, smaller file)
-				 * to 100 (best quality, biggest file).
-				 * The default is the default IJG quality value (about 75).
-				 */
-				$returnValue = \imagejpeg($image, $destination, $quality);
-				break;
+                /**
+                 * compressing the stuff
+                 *
+                 * ranges from 0 (worst quality, smaller file)
+                 * to 100 (best quality, biggest file).
+                 * The default is the default IJG quality value (about 75).
+                 */
+                $returnValue = \imagejpeg($image, $destination, $quality);
+                break;
 
-			case 'image/png':
-				$image = \imagecreatefrompng($source);
+            case 'image/png':
+                $image = \imagecreatefrompng($source);
 
-				\imageAlphaBlending($image, true);
-				\imageSaveAlpha($image, true);
+                \imageAlphaBlending($image, true);
+                \imageSaveAlpha($image, true);
 
-				/**
-				 * chang to png qulity
-				 *
-				 * Compression level: from 0 (no compression) to 9.
-				 */
-				$pngQuality = 9 - (($quality * 9 ) / 100 );
+                /**
+                 * chang to png qulity
+                 *
+                 * Compression level: from 0 (no compression) to 9.
+                 */
+                $pngQuality = 9 - (($quality * 9 ) / 100 );
 
-				$returnValue = \imagePng($image, $destination, $pngQuality);
-				break;
-		} // END switch($info['mime'])
+                $returnValue = \imagePng($image, $destination, $pngQuality);
+                break;
+        }
 
-		\imagedestroy($image);
+        \imagedestroy($image);
 
-		// return destination file
-		return $returnValue;
-	} // END public function compressImage($sourceUrl, $destinationUrl, $quality)
-} // END class ImageHelper
+        // return destination file
+        return $returnValue;
+    }
+}

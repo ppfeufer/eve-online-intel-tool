@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) 2017 Rounon Dax
  *
@@ -16,27 +17,44 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Ajax;
 
 \defined('ABSPATH') or die();
 
 class ImageLazyLoad implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface {
-	public function __construct() {
-		$this->initActions();
-	} // END public function __construct()
+    /**
+     * ImageHelper
+     *
+     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper
+     */
+    private $imageHelper = null;
 
-	public function ajaxAction() {
-		$imageUri = \filter_input(\INPUT_POST, 'imageUri');
-		$entityType = \filter_input(\INPUT_POST, 'entityType');
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->imageHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance();
 
-		$image = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage($entityType, $imageUri);
+        $this->initActions();
+    }
 
-		\wp_send_json($image);
-	}
+    /**
+     * Ajax Action
+     */
+    public function ajaxAction() {
+        $imageUri = \filter_input(\INPUT_POST, 'imageUri');
+        $entityType = \filter_input(\INPUT_POST, 'entityType');
 
-	public function initActions() {
-		\add_action('wp_ajax_nopriv_get-eve-intel-entity-image', [$this, 'ajaxAction']);
-		\add_action('wp_ajax_get-eve-intel-entity-image', [$this, 'ajaxAction']);
-	}
+        $image = $this->imageHelper->getLocalCacheImageUriForRemoteImage($entityType, $imageUri);
+
+        \wp_send_json($image);
+    }
+
+    /**
+     * Initialize WP Actions
+     */
+    public function initActions() {
+        \add_action('wp_ajax_nopriv_get-eve-intel-entity-image', [$this, 'ajaxAction']);
+        \add_action('wp_ajax_get-eve-intel-entity-image', [$this, 'ajaxAction']);
+    }
 }
