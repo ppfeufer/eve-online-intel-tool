@@ -47,7 +47,7 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
             /**
              * D-Scan Breakdown
              */
-            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/dscandata/dscan-breakdown', [
+            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/dscan/dscan-breakdown', [
                 'countAll' => $countAll,
                 'countOnGrid' => $countOnGrid,
                 'countOffGrid' => $countOffGrid,
@@ -59,7 +59,7 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
              * Interesting on grid
              */
             if(!empty($intelData['dscanUpwellStructures']) || !empty($intelData['dscanDeployables'])) {
-                \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/dscandata/interesting-on-grid-breakdown', [
+                \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/dscan/interesting-on-grid-breakdown', [
                     'countAll' => $countAll,
                     'countOnGrid' => $countOnGrid,
                     'countOffGrid' => $countOffGrid,
