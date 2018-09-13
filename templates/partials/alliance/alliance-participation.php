@@ -3,7 +3,7 @@
 if(!empty($allianceParticipation)) {
     ?>
     <div class="table-responsive table-local-scan table-local-scan-alliances table-eve-intel">
-        <table class="table table-condensed table-sortable" data-haspaging="no" data-order='[[ 1, "desc" ]]'>
+        <table class="table table-condensed table-sortable eve-intel-alliance-participation-list" data-haspaging="no" data-order='[[ 1, "desc" ]]'>
             <thead>
                 <th><?php echo \__('Alliance Name', 'eve-online-intel-tool'); ?></th>
                 <th><?php echo \__('Count', 'eve-online-intel-tool'); ?></th>
@@ -12,7 +12,7 @@ if(!empty($allianceParticipation)) {
             foreach($allianceParticipation as $allianceList) {
                 foreach($allianceList as $alliance) {
                     ?>
-                    <tr data-highlight="alliance-<?php echo $alliance['allianceID']; ?>">
+                    <tr class="eve-intel-alliance-participation-item eve-intel-alliance-id-<?php echo $alliance['allianceID']; ?>" data-highlight="alliance-<?php echo $alliance['allianceID']; ?>">
                         <td>
                             <?php
                             \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/alliance/alliance-logo', [
@@ -25,9 +25,15 @@ if(!empty($allianceParticipation)) {
                                 <span class="eve-intel-alliance-name-wrapper">
                                     <?php echo $alliance['allianceName']; ?>
                                 </span>
-                                <span class="eve-intel-alliance-links-wrapper">
-                                    <small><a class="eve-intel-information-link" href="https://evemaps.dotlan.net/alliance/<?php echo \str_replace(' ', '_', $alliance['allianceName']); ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="eve-intel-information-link" href="https://zkillboard.com/alliance/<?php echo $alliance['allianceName']; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a></small>
-                                </span>
+                                <?php
+                                if($alliance['allianceID'] !== 0) {
+                                    ?>
+                                    <span class="eve-intel-alliance-links-wrapper">
+                                        <small><a class="eve-intel-information-link" href="https://evemaps.dotlan.net/alliance/<?php echo \str_replace(' ', '_', $alliance['allianceName']); ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="eve-intel-information-link" href="https://zkillboard.com/alliance/<?php echo $alliance['allianceName']; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a></small>
+                                    </span>
+                                    <?php
+                                }
+                                ?>
                             </span>
                         </td>
                         <td class="table-data-count">

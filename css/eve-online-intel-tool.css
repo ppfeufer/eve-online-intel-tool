@@ -60,6 +60,10 @@
         vertical-align: top;
     }
 
+    .eve-intel-alliance-id-0 .eve-intel-alliance-information-wrapper {
+        vertical-align: inherit;
+    }
+
     .eve-intel-alliance-name-wrapper, .eve-intel-alliance-links-wrapper,
     .eve-intel-corporation-name-wrapper, .eve-intel-corporation-links-wrapper,
     .eve-intel-pilot-name-wrapper, .eve-intel-pilot-links-wrapper {
