@@ -5,7 +5,7 @@
 
     <span class="eve-intel-corporation-links-wrapper">
         <small>
-        <?php
+            <?php
             /**
              * See if we have a NPC corp or a player corp
              *
