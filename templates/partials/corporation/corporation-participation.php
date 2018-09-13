@@ -3,7 +3,7 @@
 if(!empty($corporationParticipation)) {
     ?>
     <div class="table-responsive table-local-scan table-local-scan-corporation table-eve-intel">
-        <table class="table table-condensed table-sortable" data-haspaging="no" data-order='[[ 1, "desc" ]]'>
+        <table class="table table-condensed table-sortable eve-intel-corporation-participation-list" data-haspaging="no" data-order='[[ 1, "desc" ]]'>
             <thead>
                 <th><?php echo \__('Corporation Name', 'eve-online-intel-tool'); ?></th>
                 <th><?php echo \__('Count', 'eve-online-intel-tool'); ?></th>
@@ -12,7 +12,7 @@ if(!empty($corporationParticipation)) {
             foreach($corporationParticipation as $corporationList) {
                 foreach($corporationList as $corporation) {
                     ?>
-                    <tr data-highlight="alliance-<?php echo $corporation['allianceID']; ?>">
+                    <tr class="eve-intel-corporation-participation-item eve-intel-alliance-id-<?php echo $corporation['allianceID']; ?> eve-intel-corporation-id-<?php echo $corporation['corporationID']; ?>" data-highlight="alliance-<?php echo $corporation['allianceID']; ?>">
                         <td>
                             <?php
                             \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/corporation/corporation-logo', [
@@ -26,7 +26,7 @@ if(!empty($corporationParticipation)) {
                                     <?php echo $corporation['corporationName']; ?>
                                 </span>
                                 <span class="eve-intel-corporation-links-wrapper">
-                                    <small><a class="eve-intel-information-link" href="https://evemaps.dotlan.net/corp/<?php echo \str_replace(' ', '_', $corporation['corporationName']); ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="eve-intel-information-link" href="https://zkillboard.com/corporation/<?php echo $corporation['corporationName']; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a></small>
+                                    <small><a class="eve-intel-information-link" href="https://evemaps.dotlan.net/corp/<?php echo \str_replace(' ', '_', $corporation['corporationName']); ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="eve-intel-information-link" href="https://zkillboard.com/corporation/<?php echo $corporation['corporationID']; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a></small>
                                 </span>
                             </span>
                         </td>

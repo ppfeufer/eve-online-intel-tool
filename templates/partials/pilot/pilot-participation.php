@@ -3,7 +3,7 @@
 if(!empty($pilotParticipation)) {
     ?>
     <div class="table-responsive table-local-scan table-local-scan-pilots table-eve-intel">
-        <table class="table table-sortable table-condensed table-pilot-participation" data-haspaging="no">
+        <table class="table table-sortable table-condensed eve-intel-pilot-participation-list" data-haspaging="no">
             <thead>
                 <th><?php echo \__('Name', 'eve-online-intel-tool'); ?></th>
                 <th><?php echo \__('Alliance', 'eve-online-intel-tool'); ?></th>
@@ -15,7 +15,7 @@ if(!empty($pilotParticipation)) {
                     $pilot['allianceID'] = 0;
                 }
                 ?>
-                <tr data-highlight="alliance-<?php echo $pilot['allianceID']; ?>">
+                <tr class="eve-intel-corporation-participation-item eve-intel-alliance-id-<?php echo $pilot['allianceID']; ?> eve-intel-corporation-id-<?php echo $pilot['corporationID']; ?> eve-intel-pilot-id-<?php echo $pilot['characterID']; ?>" data-highlight="alliance-<?php echo $pilot['allianceID']; ?>">
                     <td>
                         <?php
                         \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/pilot/pilot-avatar', [
@@ -29,7 +29,7 @@ if(!empty($pilotParticipation)) {
                                 <?php echo $pilot['characterName']; ?>
                             </span>
                             <span class="eve-intel-pilot-links-wrapper">
-                                <small><a class="eve-intel-information-link" href="https://evewho.com/pilot/<?php echo \urlencode($pilot['characterName']); ?>" target="_blank">evewho <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="eve-intel-information-link" href="https://zkillboard.com/character/<?php echo $pilot['characterName']; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a></small>
+                                <small><a class="eve-intel-information-link" href="https://evewho.com/pilot/<?php echo \urlencode($pilot['characterName']); ?>" target="_blank">evewho <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="eve-intel-information-link" href="https://zkillboard.com/character/<?php echo $pilot['characterID']; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a></small>
                             </span>
                         </span>
                     </td>
