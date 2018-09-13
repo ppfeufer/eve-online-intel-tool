@@ -16,6 +16,8 @@
 ### Fixed
 - Possible bug in system detection
 
+## [v1.0.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.0.0) - 2018-07-17
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.7.0...v1.0.0)
 ### Removed
 - Dashboard Widget as it doesn't hold any useful information, so no need to waste time loading the dashboard
 ### Added
