@@ -39,7 +39,6 @@ class TemplateLoader {
         // Add a filter to the save post to inject out template into the page cache
         \add_filter('wp_insert_post_data', [$this, 'registerProjectTemplates']);
 
-
         // Add a filter to the template include to determine if the page has our
         // template assigned and return it's path
         \add_filter('template_include', [$this, 'viewProjectTemplate']);
