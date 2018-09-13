@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EVE Online Intel Tool for WordPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-13 09:40+0000\n"
-"PO-Revision-Date: 2018-09-13 09:43+0000\n"
+"POT-Creation-Date: 2018-09-13 09:52+0000\n"
+"PO-Revision-Date: 2018-09-13 09:52+0000\n"
 "Last-Translator: ppfeufer <develop@ppfeufer.de>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -31,6 +31,10 @@ msgstr "Schiffsklassen"
 #: templates/partials/dscan/dscan-breakdown.php:50
 msgid "Ship Types"
 msgstr "Schiffstypen"
+
+#: templates/single-fleetcomposition.php:85
+msgid "Participation Details"
+msgstr "Beteiligung"
 
 #: templates/single-local.php:6
 msgid "Chat Scan"
