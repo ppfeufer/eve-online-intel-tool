@@ -7,6 +7,7 @@
 - Links to dotlan and zkillboard in d-scan system information header (Issue #59)
 - Links to dotlan and zkillboard on all alliance and corporation lists
 - Links to evewho and zkillboard on all pilot lists
+- Highlight NPC corps (Issue #69)
 
 ### Fixed
 - Possible bug in system detection
