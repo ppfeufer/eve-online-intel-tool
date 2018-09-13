@@ -3,7 +3,7 @@
 if(!empty($corporationParticipation)) {
     ?>
     <div class="table-responsive table-local-scan table-local-scan-corporation table-eve-intel">
-        <table class="table table-condensed table-sortable" data-haspaging="no" data-order='[[ 1, "desc" ]]'>
+        <table class="table table-condensed table-sortable eve-intel-corporation-participation-list" data-haspaging="no" data-order='[[ 1, "desc" ]]'>
             <thead>
                 <th><?php echo \__('Corporation Name', 'eve-online-intel-tool'); ?></th>
                 <th><?php echo \__('Count', 'eve-online-intel-tool'); ?></th>
@@ -12,15 +12,17 @@ if(!empty($corporationParticipation)) {
             foreach($corporationParticipation as $corporationList) {
                 foreach($corporationList as $corporation) {
                     ?>
-                    <tr data-highlight="alliance-<?php echo $corporation['allianceID']; ?>">
+                    <tr class="eve-intel-corporation-participation-item eve-intel-alliance-id-<?php echo $corporation['allianceID']; ?> eve-intel-corporation-id-<?php echo $corporation['corporationID']; ?>" data-highlight="alliance-<?php echo $corporation['allianceID']; ?>">
                         <td>
                             <?php
-                            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/corporation-logo', [
+                            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/corporation/corporation-logo', [
                                 'data' => $corporation,
                                 'pluginSettings' => $pluginSettings
                             ]);
 
-                            echo $corporation['corporationName'];
+                            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/corporation/corporation-information', [
+                                'data' => $corporation
+                            ]);
                             ?>
                         </td>
                         <td class="table-data-count">

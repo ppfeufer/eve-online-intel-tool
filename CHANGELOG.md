@@ -2,8 +2,22 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.0.0...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.1.0...development)
 - in development
+
+## [v1.1.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.1.0) - 2018-09-13
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.0.0...v1.1.0)
+### Added
+- Links to dotlan and zkillboard in d-scan system information header (Issue #59)
+- Links to dotlan and zkillboard on all alliance and corporation lists
+- Links to evewho and zkillboard on all pilot lists
+- Highlight NPC corps (Issue #69)
+
+### Fixed
+- Possible bug in system detection
+
+### Removed
+- Dashboard Widget as it doesn't hold any useful information, so no need to waste time loading the dashboard
 
 ## [v1.0.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.0.0) - 2018-07-17
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.7.0...v1.0.0)

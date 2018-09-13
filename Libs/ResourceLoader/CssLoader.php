@@ -44,7 +44,6 @@ class CssLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\
      */
     public function init() {
         \add_action('wp_enqueue_scripts', [$this, 'enqueue'], 99);
-        \add_action('admin_init', [$this, 'enqueueAdmin'], 99);
     }
 
     /**
@@ -59,16 +58,11 @@ class CssLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\
              * load only when needed
              */
             if(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::isPostTypePage() === true) {
+                \wp_enqueue_style('font-awesome', $this->pluginHelper->getPluginUri('font-awesome/css/font-awesome.min.css'));
                 \wp_enqueue_style('bootstrap', $this->pluginHelper->getPluginUri('bootstrap/css/bootstrap.min.css'));
                 \wp_enqueue_style('data-tables-bootstrap', $this->pluginHelper->getPluginUri('css/data-tables/dataTables.bootstrap.min.css'));
                 \wp_enqueue_style('eve-online-intel-tool', $this->pluginHelper->getPluginUri('css/eve-online-intel-tool.min.css'));
             }
-        }
-    }
-
-    public function enqueueAdmin() {
-        if(\is_admin()) {
-            \wp_enqueue_style('eve-online-intel-tool-dashboard-widgets', $this->pluginHelper->getPluginUri('css/admin/eve-online-intel-tool-dashboard-widgets.min.css'));
         }
     }
 }

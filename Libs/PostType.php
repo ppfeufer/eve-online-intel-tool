@@ -88,8 +88,6 @@ class PostType {
          * » D-Scan
          * » Fleet Composition
          * » Local/Chat Scan
-         * » Personal Mining Ledger
-         * » Corporation Mining Ledger
          */
         \wp_insert_term('D-Scan', 'intel_category', [
             'slug' => 'dscan'
@@ -100,12 +98,6 @@ class PostType {
         \wp_insert_term('Local Scan', 'intel_category', [
             'slug' => 'local'
         ]);
-//        \wp_insert_term('Personal Mining Ledger', 'intel_category', [
-//            'slug' => 'miningledger'
-//        ]);
-//        \wp_insert_term('Corporation Mining Ledger', 'intel_category', [
-//            'slug' => 'corpminingledger'
-//        ]);
     }
 
     public function createPermalinks($postLink, $post) {

@@ -3,7 +3,7 @@
 if(!empty($pilotParticipation)) {
     ?>
     <div class="table-responsive table-local-scan table-local-scan-pilots table-eve-intel">
-        <table class="table table-sortable table-condensed table-pilot-participation" data-haspaging="no">
+        <table class="table table-sortable table-condensed eve-intel-pilot-participation-list" data-haspaging="no">
             <thead>
                 <th><?php echo \__('Name', 'eve-online-intel-tool'); ?></th>
                 <th><?php echo \__('Alliance', 'eve-online-intel-tool'); ?></th>
@@ -15,22 +15,27 @@ if(!empty($pilotParticipation)) {
                     $pilot['allianceID'] = 0;
                 }
                 ?>
-                <tr data-highlight="alliance-<?php echo $pilot['allianceID']; ?>">
+                <tr class="eve-intel-corporation-participation-item eve-intel-alliance-id-<?php echo $pilot['allianceID']; ?> eve-intel-corporation-id-<?php echo $pilot['corporationID']; ?> eve-intel-pilot-id-<?php echo $pilot['characterID']; ?>" data-highlight="alliance-<?php echo $pilot['allianceID']; ?>">
                     <td>
                         <?php
-                        \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/pilot-avatar', [
+                        \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/pilot/pilot-avatar', [
                             'data' => $pilot,
                             'pluginSettings' => $pluginSettings
                         ]);
 
-                        echo $pilot['characterName'];
+                        \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/pilot/pilot-information', [
+                            'data' => [
+                                'characterID' => $pilot['characterID'],
+                                'characterName' => $pilot['characterName']
+                            ]
+                        ]);
                         ?>
                     </td>
 
                     <td>
                         <?php
                         if(!\is_null($pilot['allianceID']) && $pilot['allianceID'] !== 0) {
-                            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/alliance-logo', [
+                            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/alliance/alliance-logo', [
                                 'data' => $pilot,
                                 'pluginSettings' => $pluginSettings
                             ]);
@@ -42,7 +47,7 @@ if(!empty($pilotParticipation)) {
 
                     <td>
                         <?php
-                        \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/corporation-logo', [
+                        \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/corporation/corporation-logo', [
                             'data' => $pilot,
                             'pluginSettings' => $pluginSettings
                         ]);

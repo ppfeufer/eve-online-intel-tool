@@ -13,30 +13,52 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
 ?>
 
 <header class="page-title">
-    <h1>
-        <?php
-        echo \__('D-Scan', 'eve-online-intel-tool');
+    <h1><?php echo \__('D-Scan', 'eve-online-intel-tool'); ?></h1>
 
-        if(!\is_null($systemName)) {
-            echo '<br><small>' . \__('Solar System:', 'eve-online-intel-tool') . ' ' . $systemName . '</small>';
-
+    <?php
+    if(!\is_null($systemName)) {
+        ?>
+        <div class="eve-intel-dscan-system-header row">
+            <div class="col-md-4">
+                <p>
+                    <?php echo \__('Solar System:', 'eve-online-intel-tool') . ' ' . $systemName; ?><br>
+                    <small><a href="https://evemaps.dotlan.net/map/<?php echo $regionName; ?>/<?php echo $systemName; ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a></small> | <small><a href="https://zkillboard.com/system/<?php echo $systemName; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a></small>
+                </p>
+            </div>
+            <?php
             if(!\is_null($constellationName)) {
-                echo '<small> - ' . $constellationName . '</small>';
+                ?>
+                <div class="col-md-4">
+                    <p>
+                        <?php echo \__('Constellation:', 'eve-online-intel-tool') . ' ' . $constellationName; ?><br>
+                        <small><a href="https://evemaps.dotlan.net/map/<?php echo $regionName; ?>/<?php echo $constellationName; ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a></small> | <small><a href="https://zkillboard.com/constellation/<?php echo $constellationName; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a></small>
+                    </p>
+                </div>
+                <?php
             }
 
             if(!\is_null($regionName)) {
-                echo '<small> - ' . $regionName . '</small>';
+                ?>
+                <div class="col-md-4">
+                    <p>
+                        <?php echo \__('Region:', 'eve-online-intel-tool') . ' ' . $regionName; ?><br>
+                        <small><a href="https://evemaps.dotlan.net/map/<?php echo $regionName; ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a></small> | <small><a href="https://zkillboard.com/region/<?php echo $regionName; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a></small>
+                    </p>
+                </div>
+                <?php
             }
-        }
-        ?>
-    </h1>
-
-    <?php
-    if(!empty($intelData['eveTime'])) {
-        echo '<small>' . \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $intelData['eveTime'] . '</small>';
+            ?>
+        </div>
+        <?php
     }
 
-    \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('extra/buttons');
+    if(!empty($intelData['eveTime'])) {
+        ?>
+        <div><p><small><?php echo \__('EVE Time:', 'eve-online-intel-tool') . ' ' . $intelData['eveTime']; ?></small></p></div>
+        <?php
+    }
+
+    \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/extra/buttons');
     ?>
 </header>
 
@@ -47,7 +69,7 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
             /**
              * D-Scan Breakdown
              */
-            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/dscan-breakdown',[
+            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/dscan/dscan-breakdown', [
                 'countAll' => $countAll,
                 'countOnGrid' => $countOnGrid,
                 'countOffGrid' => $countOffGrid,
@@ -59,7 +81,7 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
              * Interesting on grid
              */
             if(!empty($intelData['dscanUpwellStructures']) || !empty($intelData['dscanDeployables'])) {
-                \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('data/interesting-on-grid-breakdown',[
+                \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/dscan/interesting-on-grid-breakdown', [
                     'countAll' => $countAll,
                     'countOnGrid' => $countOnGrid,
                     'countOffGrid' => $countOffGrid,

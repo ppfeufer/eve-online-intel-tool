@@ -977,9 +977,6 @@ class SettingsApi {
      */
     public function enqueueScripts() {
         if($this->isSettingsPage() === true) {
-//            \wp_enqueue_media();
-//            \wp_enqueue_script('wp-color-picker');
-//            \wp_enqueue_script('jquery-ui-datepicker');
             \wp_enqueue_script(
                 'settings-api', (\WP_DEBUG === true) ? $this->pluginHelper->getPluginUri('js/settings-api.js') : $this->pluginHelper->getPluginUri('js/settings-api.min.js')
             );
@@ -991,12 +988,6 @@ class SettingsApi {
      */
     public function enqueueStyles() {
         if($this->isSettingsPage() === true) {
-//            \wp_enqueue_style('wp-color-picker');
-//            \wp_enqueue_style('jquery-ui', $this->pluginHelper->getPluginUri('css/jquery-ui.min.css'));
-//            \wp_enqueue_style(
-//                'font-awesome',
-//                (\WP_DEBUG === true) ? $this->pluginHelper->getPluginUri('css/font-awesome.css') : $this->pluginHelper->getPluginUri('css/font-awesome.min.css')
-//            );
             \wp_enqueue_style(
                 'settings-api', (\WP_DEBUG === true) ? $this->pluginHelper->getPluginUri('css/settings-api.css') : $this->pluginHelper->getPluginUri('css/settings-api.min.css')
             );

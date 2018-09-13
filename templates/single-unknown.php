@@ -3,9 +3,7 @@
 ?>
 
 <header class="page-title">
-    <h1>
-        <?php echo \__('Unknown Data Provided', 'eve-online-intel-tool'); ?>
-    </h1>
+    <h1><?php echo \__('Unknown Data Provided', 'eve-online-intel-tool'); ?></h1>
 </header>
 
 <article id="post-<?php \the_ID(); ?>" <?php \post_class('clearfix content-single template-single-unknown'); ?>>
