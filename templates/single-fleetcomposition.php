@@ -79,6 +79,14 @@
             </div>
 
             <div class="fleetcomposition-result row">
+                <div class="clearfix">
+                    <div class="col-sm-6 col-md-4 col-lg-3 clearfix">
+                        <header class="eve-intel-section-header">
+                            <h3><?php echo \__('Participation Details', 'eve-online-intel-tool'); ?></h3>
+                        </header>
+                    </div>
+                </div>
+
                 <!--
                 // Alliance participation
                 -->
