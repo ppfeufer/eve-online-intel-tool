@@ -23,7 +23,7 @@ if(\is_array($fleetOverview) && \count($fleetOverview)) {
                             'pluginSettings' => $pluginSettings
                         ]);
 
-                        \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/pilot/pilot-info-links', [
+                        \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/pilot/pilot-information', [
                             'data' => [
                                 'characterID' => $data['pilotID'],
                                 'characterName' => $data['pilotName']
