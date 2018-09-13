@@ -20,6 +20,7 @@
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v0.7.0...v1.0.0)
 ### Removed
 - Dashboard Widget as it doesn't hold any useful information, so no need to waste time loading the dashboard
+
 ### Added
 - Versions to ESI calls
 
