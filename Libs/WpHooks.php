@@ -63,7 +63,7 @@ class WpHooks {
         \register_activation_hook($this->pluginFile, [$this, 'checkDatabaseForUpdates']);
         \register_activation_hook($this->pluginFile, [$this, 'flushRewriteRulesOnActivation']);
 
-        \register_deactivation_hook($this->pluginFile, '\flush_rewrite_rules');
+        \register_deactivation_hook($this->pluginFile, [$this, 'flushRewriteRulesOnDeactivation']);
     }
 
     /**
@@ -71,6 +71,13 @@ class WpHooks {
      */
     public function initActions() {
         \add_action('wp_head', [$this, 'noindexForIntelPages']);
+
+        /**
+         * in case of plugin update this need to be fired
+         * since the activation doesn't fire on update
+         * thx wordpress for removing update hooks ...
+         */
+        \add_action('plugins_loaded', [$this, 'checkDatabaseForUpdates']);
     }
 
     /**
@@ -97,6 +104,14 @@ class WpHooks {
     public function flushRewriteRulesOnActivation() {
         PostType::registerCustomPostType();
 
+        \flush_rewrite_rules();
+    }
+
+    /**
+     * Hook: flushRewriteRulesOnDeactivation
+     * Fired on: register_deactivation_hook
+     */
+    public function flushRewriteRulesOnDeactivation() {
         \flush_rewrite_rules();
     }
 }

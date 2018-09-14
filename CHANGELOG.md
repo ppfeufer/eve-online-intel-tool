@@ -2,8 +2,13 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.1.0...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.1.1...development)
 - in development
+
+## [v1.1.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.1.1) - 2018-09-14
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.1.0...v1.1.1)
+### Fixed
+- Activation hook is apparently not being fired on plugin update, so we have to apply a little workaround here. Thanks WordPress for removing that hook ...
 
 ## [v1.1.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.1.0) - 2018-09-13
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.0.0...v1.1.0)
