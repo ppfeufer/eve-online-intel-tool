@@ -54,6 +54,7 @@ class WpHooks {
     public function init() {
         $this->initHooks();
         $this->initActions();
+        $this->initFilter();
     }
 
     /**
@@ -78,6 +79,33 @@ class WpHooks {
          * thx wordpress for removing update hooks ...
          */
         \add_action('plugins_loaded', [$this, 'checkDatabaseForUpdates']);
+    }
+
+    /**
+     * Initializing our filter
+     */
+    public function initFilter() {
+        \add_filter('plugin_row_meta', [$this, 'addPluginRowMeta'], 10, 2);
+    }
+
+    /**
+     * Ading some links to the plugin row meta data
+     *
+     * @param array $links
+     * @param string $file
+     * @return array
+     */
+    public function addPluginRowMeta($links, $file) {
+        if(\strpos($file, 'eve-online-intel-tool.php') !== false) {
+            $new_links = [
+                'issue_tracker' => '<a href="https://github.com/ppfeufer/eve-online-intel-tool/issues" target="_blank">GitHub Issue Tracker</a>',
+                'support_discord' => '<a href="https://discord.gg/YymuCZa" target="_blank">Support Discord</a>'
+            ];
+
+            $links = \array_merge($links, $new_links);
+        }
+
+        return $links;
     }
 
     /**
