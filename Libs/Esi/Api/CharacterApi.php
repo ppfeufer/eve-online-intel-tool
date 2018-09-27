@@ -40,8 +40,12 @@ class CharacterApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger
      * @return object
      */
     public function findById($characterID) {
-        $this->esiRoute = \preg_replace('/{character_id}/', $characterID, $this->esiEndpoints['characters_characterId']);
-        $this->esiVersion = 'v4';
+        $this->setEsiMethod('get');
+        $this->setEsiRoute($this->esiEndpoints['characters_characterId']);
+        $this->setEsiRouteParameter([
+            '/{character_id}/' => $characterID
+        ]);
+        $this->setEsiVersion('v4');
 
         $characterData = $this->callEsi();
 
@@ -55,10 +59,12 @@ class CharacterApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger
      * @return object
      */
     public function findAffiliation($characterIds = []) {
-        $this->esiRoute = $this->esiEndpoints['characters_affiliation'];
-        $this->esiVersion = 'v1';
+        $this->setEsiMethod('post');
+        $this->setEsiPostParameter($characterIds);
+        $this->setEsiRoute($this->esiEndpoints['characters_affiliation']);
+        $this->setEsiVersion('v1');
 
-        $affiliationData = $this->callEsi('post', $characterIds);
+        $affiliationData = $this->callEsi();
 
         return $affiliationData;
     }
