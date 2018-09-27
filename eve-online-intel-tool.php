@@ -59,6 +59,10 @@ class EveOnlineIntelTool {
      * Initialize the plugin
      */
     public function init() {
+        new Libs\WpHooks([
+            'newDatabaseVersion' => $this->databaseVersion
+        ]);
+
         $this->loadTextDomain();
 
         new Libs\PostType;
@@ -67,10 +71,6 @@ class EveOnlineIntelTool {
 
         $widgets = new Libs\Widgets;
         $widgets->init();
-
-        new Libs\WpHooks([
-            'newDatabaseVersion' => $this->databaseVersion
-        ]);
 
         $jsLoader = new Libs\ResourceLoader\JavascriptLoader;
         $jsLoader->init();
