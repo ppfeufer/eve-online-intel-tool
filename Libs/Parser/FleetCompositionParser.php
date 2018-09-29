@@ -17,29 +17,29 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Parser;
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
 \defined('ABSPATH') or die();
 
-class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+class FleetCompositionParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
     /**
      * EVE Swagger Interface
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper
      */
     private $esi = null;
 
     /**
      * String Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\StringHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper
      */
     private $stringHelper = null;
 
     /**
      * Local Parser
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Parser\LocalScanParser
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\LocalScanParser
      */
     private $localParser = null;
 
@@ -49,8 +49,8 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
     protected function __construct() {
         parent::__construct();
 
-        $this->esi = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
-        $this->stringHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\StringHelper::getInstance();
+        $this->esi = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
+        $this->stringHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper::getInstance();
         $this->localParser = LocalScanParser::getInstance();
     }
 

@@ -17,7 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Admin;
+
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Admin;
 
 \defined('ABSPATH') or die();
 
@@ -35,7 +36,7 @@ class PluginSettings {
     /**
      * Plugin Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper
      */
     private $pluginHelper = null;
 
@@ -50,7 +51,7 @@ class PluginSettings {
      * Constructor
      */
     public function __construct() {
-        $this->pluginHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance();
+        $this->pluginHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance();
         $this->settingsFilter = 'register_eve_online_intel_tool_settings';
         $this->defaultOptions = $this->pluginHelper->getPluginDefaultSettings();
 

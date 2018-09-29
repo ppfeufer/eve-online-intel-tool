@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api;
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Api;
 
 \defined('ABSPATH') or die();
 
-class UniverseApi extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Swagger {
+class UniverseApi extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Swagger {
     /**
      * Used ESI enpoints in this class
      *

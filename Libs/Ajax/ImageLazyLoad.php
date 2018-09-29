@@ -17,15 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Ajax;
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax;
 
 \defined('ABSPATH') or die();
 
-class ImageLazyLoad implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface {
+class ImageLazyLoad implements \WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface {
     /**
      * ImageHelper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper
      */
     private $imageHelper = null;
 
@@ -33,7 +33,7 @@ class ImageLazyLoad implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfa
      * Constructor
      */
     public function __construct() {
-        $this->imageHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance();
+        $this->imageHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance();
 
         $this->initActions();
     }

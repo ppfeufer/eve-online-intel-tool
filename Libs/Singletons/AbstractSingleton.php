@@ -1,6 +1,6 @@
 <?php
 
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons;
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons;
 
 \defined('ABSPATH') or die();
 

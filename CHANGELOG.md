@@ -4,6 +4,7 @@
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.1.1...development)
 ### Changed
+- Namespaces to match WordPress's fodler structure (Plugin » Plugins)
 - ESI client refactored
 
 ## [v1.1.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.1.1) - 2018-09-14

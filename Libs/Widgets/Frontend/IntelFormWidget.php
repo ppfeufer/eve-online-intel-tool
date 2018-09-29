@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Widgets\Frontend;
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Widgets\Frontend;
 
 \defined('ABSPATH') or die();
 
@@ -75,7 +75,7 @@ class IntelFormWidget extends \WP_Widget {
         echo \__('EVE Quick Intel', 'eve-online-intel-tool');
         echo $args['after_title'];
 
-        \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/intel-form', [
+        \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/intel-form', [
             'textareaRows' => 7
         ]);
 

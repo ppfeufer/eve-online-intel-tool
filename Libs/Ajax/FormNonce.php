@@ -17,11 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Ajax;
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax;
 
 \defined('ABSPATH') or die();
 
-class FormNonce implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface {
+class FormNonce implements \WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface {
     /**
      * Constructor
      */

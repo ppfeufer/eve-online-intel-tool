@@ -15,7 +15,7 @@ if(\is_array($structures) && \count($structures) > 0) {
                 <tr data-highlight="shiptype-<?php echo $data['shipTypeSanitized']; ?>">
                     <td>
                         <?php
-                        \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/ship/ship-image', [
+                        \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/ship/ship-image', [
                             'data' => [
                                 'shipID' => $data['type_id'],
                                 'shipName' => $data['type']

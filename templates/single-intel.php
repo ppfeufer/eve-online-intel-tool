@@ -156,12 +156,12 @@ switch($termObject['0']->slug) {
 // If the jSon format is requested
 $getData = \filter_input(INPUT_GET, 'data');
 if(isset($getData) && $getData = 'json') {
-    \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('json-api/json-data', [
+    \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('json-api/json-data', [
         'jsonData' => \json_encode($jsonData)
     ]);
 }
 
-$pluginSettings = \get_option(\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getOptionFieldName(), \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginDefaultSettings());
+$pluginSettings = \get_option(\WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getOptionFieldName(), \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginDefaultSettings());
 
 \get_header();
 ?>
@@ -171,7 +171,7 @@ $pluginSettings = \get_option(\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\P
     <div class="main-content clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12 content-wrapper">
             <div class="content content-inner content-archive eve-intel-result">
-                <?php \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('single-' . $intelType, [
+                <?php \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('single-' . $intelType, [
                     'intelData' => $intelData,
                     'pluginSettings' => $pluginSettings
                 ]); ?>

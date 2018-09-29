@@ -10,7 +10,7 @@
  *
  * @version 0.1
  */
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Admin;
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Admin;
 
 \defined('ABSPATH') or die();
 
@@ -46,14 +46,14 @@ class SettingsApi {
     /**
      * Plugin Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper
      */
     private $pluginHelper = null;
 
     /**
      * Plugin Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\StringHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper
      */
     private $stringHelper = null;
 
@@ -64,8 +64,8 @@ class SettingsApi {
      * @param array $defaultOptions Your default options array
      */
     public function __construct($settingsFilter, $defaultOptions) {
-        $this->pluginHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance();
-        $this->stringHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\StringHelper::getInstance();
+        $this->pluginHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance();
+        $this->stringHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper::getInstance();
         $this->settingsFilter = $settingsFilter;
         $this->optionsDefault = $defaultOptions;
     }

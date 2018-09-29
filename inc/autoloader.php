@@ -1,14 +1,14 @@
 <?php
 
-namespace WordPress\Plugin\EveOnlineIntelTool;
+namespace WordPress\Plugins\EveOnlineIntelTool;
 
 \defined('ABSPATH') or die();
 
-\spl_autoload_register('\WordPress\Plugin\EveOnlineIntelTool\autoload');
+\spl_autoload_register('\WordPress\Plugins\EveOnlineIntelTool\autoload');
 
 function autoload($className) {
     // If the specified $className does not include our namespace, duck out.
-    if(\strpos($className, 'WordPress\Plugin\EveOnlineIntelTool') === false) {
+    if(\strpos($className, 'WordPress\Plugins\EveOnlineIntelTool') === false) {
         return;
     }
 

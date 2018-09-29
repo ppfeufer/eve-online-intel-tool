@@ -18,14 +18,14 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Helper;
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
 \defined('ABSPATH') or die();
 
 /**
  * Helper Class for manipulating and/or checking strings
  */
-class StructureHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+class StructureHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
     /**
      * Creating an array of Upwell structure IDs
      *

@@ -8,7 +8,7 @@ $formAction = \filter_input(\INPUT_POST, 'action');
 
 $failedIntel = false;
 if($serverRequest === 'POST' && !empty($formAction) && $formAction === 'new_intel') {
-    $parsedIntel = new \WordPress\Plugin\EveOnlineIntelTool\Libs\IntelParser;
+    $parsedIntel = new \WordPress\Plugins\EveOnlineIntelTool\Libs\IntelParser;
 
     if($parsedIntel->postID !== null) {
         $link = \get_permalink($parsedIntel->postID);
@@ -37,15 +37,15 @@ if($serverRequest === 'POST' && !empty($formAction) && $formAction === 'new_inte
                         <div class="col-lg-4">
                             <?php
                             if($failedIntel === true) {
-                                \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/intel-form/parse-error');
+                                \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/intel-form/parse-error');
                             }
 
-                            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/intel-form/intel-form-explanation');
+                            \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/intel-form/intel-form-explanation');
                             ?>
                         </div>
                         <div class="col-lg-8">
                             <?php
-                            \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/intel-form/intel-form');
+                            \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/intel-form/intel-form');
                             ?>
                         </div>
                     </div>

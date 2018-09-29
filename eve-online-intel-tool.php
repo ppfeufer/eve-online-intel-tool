@@ -11,7 +11,7 @@
  * Text Domain: eve-online-intel-tool
  * Domain Path: /l10n
  */
-namespace WordPress\Plugin\EveOnlineIntelTool;
+namespace WordPress\Plugins\EveOnlineIntelTool;
 
 \defined('ABSPATH') or die();
 

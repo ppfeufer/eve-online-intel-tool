@@ -1,6 +1,6 @@
 <?php
 
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs;
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
 \defined('ABSPATH') or die();
 
@@ -135,7 +135,7 @@ class GithubUpdater {
      * @return bool overrule or not
      */
     public function overruleTransients() {
-        return (\defined('\WordPress\Plugin\EveOnlineIntelTool\WP_GITHUB_FORCE_UPDATE') && \WordPress\Plugin\EveOnlineIntelTool\WP_GITHUB_FORCE_UPDATE);
+        return (\defined('\WordPress\Plugins\EveOnlineIntelTool\WP_GITHUB_FORCE_UPDATE') && \WordPress\Plugins\EveOnlineIntelTool\WP_GITHUB_FORCE_UPDATE);
     }
 
     /**

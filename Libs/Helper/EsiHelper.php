@@ -22,11 +22,11 @@
  *
  * Getting some stuff from CCP's EVE API
  */
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Helper;
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
 \defined('ABSPATH') or die();
 
-class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
     /**
      * Image Server URL
      *
@@ -44,14 +44,14 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
     /**
      * Plugin Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper
      */
     private $imageHelper = null;
 
     /**
      * Plugin Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper
      */
     private $pluginHelper = null;
 
@@ -65,49 +65,49 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
     /**
      * Cache Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\CacheHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\CacheHelper
      */
     private $cacheHelper = null;
 
     /**
      * Remote Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\RemoteHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\RemoteHelper
      */
     private $remoteHelper = null;
 
     /**
      * Database Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\DatabaseHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\DatabaseHelper
      */
     private $databaseHelper = null;
 
     /**
      * ESI Character API
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api\CharacterApi
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Api\CharacterApi
      */
     private $characterApi = null;
 
     /**
      * ESI Corporation API
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api\CorporationApi
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Api\CorporationApi
      */
     private $corporationApi = null;
 
     /**
      * ESI Alliance API
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api\AllianceApi
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Api\AllianceApi
      */
     private $allianceApi = null;
 
     /**
      * ESI Universe API
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api\UniverseApi
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Api\UniverseApi
      */
     private $universeApi = null;
 
@@ -117,12 +117,12 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
     protected function __construct() {
         parent::__construct();
 
-        if(!$this->pluginHelper instanceof \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper) {
+        if(!$this->pluginHelper instanceof \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper) {
             $this->pluginHelper = PluginHelper::getInstance();
             $this->pluginSettings = $this->pluginHelper->getPluginSettings();
         }
 
-        if(!$this->imageHelper instanceof \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper) {
+        if(!$this->imageHelper instanceof \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper) {
             $this->imageHelper = ImageHelper::getInstance();
             $this->imageserverEndpoints = $this->imageHelper->getImageserverEndpoints();
             $this->imageserverUrl = $this->imageHelper->getImageServerUrl();
@@ -135,10 +135,10 @@ class EsiHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\Abs
         /**
          * ESI API Client
          */
-        $this->characterApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api\CharacterApi;
-        $this->corporationApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api\CorporationApi;
-        $this->allianceApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api\AllianceApi;
-        $this->universeApi = new \WordPress\Plugin\EveOnlineIntelTool\Libs\Esi\Api\UniverseApi;
+        $this->characterApi = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Api\CharacterApi;
+        $this->corporationApi = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Api\CorporationApi;
+        $this->allianceApi = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Api\AllianceApi;
+        $this->universeApi = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Api\UniverseApi;
     }
 
     /**

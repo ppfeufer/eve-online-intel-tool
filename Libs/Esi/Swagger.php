@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Esi;
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Esi;
 
 \defined('ABSPATH') or die();
 
@@ -67,7 +67,7 @@ class Swagger {
     /**
      * Remote Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\RemoteHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\RemoteHelper
      */
     protected $remoteHelper = null;
 
@@ -75,7 +75,7 @@ class Swagger {
      * Constructor
      */
     public function __construct() {
-        $this->remoteHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\RemoteHelper::getInstance();
+        $this->remoteHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\RemoteHelper::getInstance();
     }
 
     /**
@@ -84,8 +84,8 @@ class Swagger {
      * @return stdClass Object
      */
     public function callEsi() {
-        if(!\is_a($this->remoteHelper, '\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\RemoteHelper')) {
-            $this->remoteHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\RemoteHelper::getInstance();
+        if(!\is_a($this->remoteHelper, '\WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\RemoteHelper')) {
+            $this->remoteHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\RemoteHelper::getInstance();
         }
 
         $esiUrl = \trailingslashit($this->getEsiUrl() . $this->getEsiVersion());

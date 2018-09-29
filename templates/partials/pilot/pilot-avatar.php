@@ -1,5 +1,5 @@
 <?php
-$imagePilot = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('character') . $data['characterID'] . '_32.jpg';
+$imagePilot = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('character') . $data['characterID'] . '_32.jpg';
 
 if(isset($pluginSettings['image-cache']['yes']) && $pluginSettings['image-cache']['yes'] === 'yes') {
     $lazyLoading = false;
@@ -8,12 +8,12 @@ if(isset($pluginSettings['image-cache']['yes']) && $pluginSettings['image-cache'
      * If lazy loading is used and the image
      * cache is no longer valid
      */
-    if(isset($pluginSettings['image-lazy-load']['yes']) && $pluginSettings['image-lazy-load']['yes'] === 'yes' && \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\CacheHelper::getInstance()->checkCachedImage('character', $data['characterID'] . '_32.jpg') === false) {
-        $imagePilot = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('images/dummy-pilot.jpg');
+    if(isset($pluginSettings['image-lazy-load']['yes']) && $pluginSettings['image-lazy-load']['yes'] === 'yes' && \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\CacheHelper::getInstance()->checkCachedImage('character', $data['characterID'] . '_32.jpg') === false) {
+        $imagePilot = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('images/dummy-pilot.jpg');
 
         $jsonDataPilot = \json_encode([
             'entityType' => 'character',
-            'imageUri' => \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('character') . $data['characterID'] . '_32.jpg',
+            'imageUri' => \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('character') . $data['characterID'] . '_32.jpg',
             'eveID' => $data['characterID']
         ]);
 
@@ -35,7 +35,7 @@ if(isset($pluginSettings['image-cache']['yes']) && $pluginSettings['image-cache'
      * is still valid load the image directly
      */
     if($lazyLoading === false) {
-        $imagePilot = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('character', \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('character') . $data['characterID'] . '_32.jpg');
+        $imagePilot = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('character', \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('character') . $data['characterID'] . '_32.jpg');
     }
 }
 ?>
