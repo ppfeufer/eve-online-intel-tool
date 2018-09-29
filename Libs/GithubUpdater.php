@@ -39,13 +39,13 @@ class GithubUpdater {
      * @var $config the config for the updater
      * @access public
      */
-    var $config;
+    public $config;
 
     /**
      * @var $missingConfig any config that is missing from the initialization of this instance
      * @access public
      */
-    var $missingConfig;
+    public $missingConfig;
 
     /**
      * @var $githubData temporiraly store the data fetched from GitHub, allows us to only load the data once per class instance
