@@ -117,12 +117,14 @@ class LocalScanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singlet
                         'characterID' => $affiliatedIds->getCharacterId(),
                         'characterName' => $pilotList[$affiliatedIds->getCharacterId()]
                     ];
+
                     /**
                      * Grabbing corporation information
                      */
                     if(!\is_null($affiliatedIds->getCorporationId())) {
                         /* @var $corporationSheet \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Corporation\CorporationsCorporationId */
                         $corporationSheet = $this->esiHelper->getCorporationData($affiliatedIds->getCorporationId());
+
                         if(!\is_null($corporationSheet)) {
                             $pilotDetails[$affiliatedIds->getCharacterId()]['corporationID'] = $affiliatedIds->getCorporationId();
                             $pilotDetails[$affiliatedIds->getCharacterId()]['corporationName'] = $corporationSheet->getName();

@@ -107,7 +107,7 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
     /**
      * ESI Universe API
      *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Api\UniverseApi
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Repository\UniverseRepository
      */
     private $universeApi = null;
 
@@ -204,8 +204,6 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
                     \maybe_serialize($characterData),
                     \strtotime('+1 week')
                 ]);
-
-                $characterData = $this->databaseHelper->getCachedDataFromDb('characters/' . $characterID);
             }
         }
 
@@ -292,7 +290,6 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
      * @return object
      */
     public function getCorporationData($corporationID) {
-        /* @var $corporationData \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Corporation\CorporationsCorporationId */
         $corporationData = $this->databaseHelper->getCachedDataFromDb('corporations/' . $corporationID);
 
         if(\is_null($corporationData) || empty($corporationData->corporation_name)) {

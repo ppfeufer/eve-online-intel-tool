@@ -51,6 +51,7 @@ class IntelParser {
      */
     public function __construct() {
         $nonce = \filter_input(\INPUT_POST, '_wpnonce');
+
         if(!\wp_verify_nonce($nonce, 'eve-online-intel-tool-new-intel-form')) {
             die('Busted!');
         }

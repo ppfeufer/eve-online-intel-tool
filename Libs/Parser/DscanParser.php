@@ -214,6 +214,7 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
     public function getSystemInformationBySystemName($systemName) {
         $returnValue = null;
         $systemShortData = $this->esi->getIdFromName([\trim($systemName)], 'systems');
+
         if(!\is_null($systemShortData)) {
             /* @var $systemData \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseSystemsSystemId */
             $systemData = $this->esi->getSystemData($systemShortData['0']->getId());
@@ -239,10 +240,10 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
             }
 
             $returnValue = [
-                 'systemName' => $systemName,
-                 'constellationName' => $constellationName,
-                 'regionName' => $regionName
-             ];
+                'systemName' => $systemName,
+                'constellationName' => $constellationName,
+                'regionName' => $regionName
+            ];
         }
 
         return $returnValue;
@@ -333,7 +334,7 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
         if($dscanArray['offGrid']['count'] !== 0) {
             $dscanOffGrid = $this->parseScanArray($dscanArray['offGrid']);
             $returnData['offGrid'] = $dscanOffGrid;
-        } // if($dscanArray['onGrid']['count'] !== 0)
+        }
 
         $returnData['system'] = $dscanArray['system'];
 
@@ -355,7 +356,7 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
             if($scanResult['shipClass']->getcategoryId() === 6) {
                 if(!isset($count[\sanitize_title($scanResult['shipClass']->getName())])) {
                     $count[\sanitize_title($scanResult['shipClass']->getName())] = 0;
-                } // if(!isset($count[\sanitize_title($scanResult['shipClass']->getName())]))
+                }
 
                 $count[\sanitize_title($scanResult['shipClass']->getName())] ++;
 

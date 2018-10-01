@@ -50,7 +50,7 @@ class DatabaseHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singleto
     }
 
     /**
-     * Returniong the database version field name
+     * Returning the database version field name
      *
      * @return string
      */
