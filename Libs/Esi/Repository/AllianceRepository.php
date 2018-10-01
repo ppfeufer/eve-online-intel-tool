@@ -17,28 +17,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Api;
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Repository;
 
 \defined('ABSPATH') or die();
 
-class AllianceApi extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Swagger {
+class AllianceRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Swagger {
     /**
      * Used ESI enpoints in this class
      *
      * @var array ESI enpoints
      */
     protected $esiEndpoints = [
+        /**
+         * Public information about an alliance
+         */
         'alliances_allianceId' => 'alliances/{alliance_id}/?datasource=tranquility',
-        'alliances_icons' => 'alliances/{alliance_id}/icons/?datasource=tranquility'
     ];
 
     /**
-     * Find alliance data by alliance ID
+     * Public information about an alliance
      *
      * @param int $allianceID
-     * @return object
+     * @return \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Alliance\AlliancesAllianceId
      */
-    public function findById($allianceID) {
+    public function alliancesAllianceId($allianceID) {
+        $returnValue = null;
+
         $this->setEsiMethod('get');
         $this->setEsiRoute($this->esiEndpoints['alliances_allianceId']);
         $this->setEsiRouteParameter([
@@ -48,6 +52,11 @@ class AllianceApi extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Swagger
 
         $allianceData = $this->callEsi();
 
-        return $allianceData;
+        if(!\is_null($allianceData)) {
+            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
+            $returnValue = $jsonMapper->map(\json_decode($allianceData), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Alliance\AlliancesAllianceId);
+        }
+
+        return $returnValue;
     }
 }

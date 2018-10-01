@@ -17,11 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Api;
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Repository;
 
 \defined('ABSPATH') or die();
 
-class CharacterApi extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Swagger {
+class CharacterRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Swagger {
     /**
      * Used ESI enpoints in this class
      *
@@ -29,7 +29,6 @@ class CharacterApi extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Swagge
      */
     protected $esiEndpoints = [
         'characters_characterId' => 'characters/{character_id}/?datasource=tranquility',
-        'characters_portrait' => 'characters/{character_id}/portrait/?datasource=tranquility',
         'characters_affiliation' => 'characters/affiliation/?datasource=tranquility'
     ];
 
@@ -37,9 +36,11 @@ class CharacterApi extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Swagge
      * Find character data by charater ID
      *
      * @param int $characterID
-     * @return object
+     * @return \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Character\CharactersCharacterId
      */
-    public function findById($characterID) {
+    public function charactersCharacterId($characterID) {
+        $returnValue = null;
+
         $this->setEsiMethod('get');
         $this->setEsiRoute($this->esiEndpoints['characters_characterId']);
         $this->setEsiRouteParameter([
@@ -49,16 +50,23 @@ class CharacterApi extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Swagge
 
         $characterData = $this->callEsi();
 
-        return $characterData;
+        if(!\is_null($characterData)) {
+            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
+            $returnValue = $jsonMapper->map(\json_decode($characterData), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Character\CharactersCharacterId);
+        }
+
+        return $returnValue;
     }
 
     /**
      * Find character affiliation
      *
      * @param array $characterIds
-     * @return object
+     * @return array
      */
-    public function findAffiliation($characterIds = []) {
+    public function charactersAffiliation($characterIds = []) {
+        $returnValue = null;
+
         $this->setEsiMethod('post');
         $this->setEsiPostParameter($characterIds);
         $this->setEsiRoute($this->esiEndpoints['characters_affiliation']);
@@ -66,6 +74,11 @@ class CharacterApi extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Swagge
 
         $affiliationData = $this->callEsi();
 
-        return $affiliationData;
+        if(!\is_null($affiliationData)) {
+            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
+            $returnValue = $jsonMapper->mapArray(\json_decode($affiliationData), [], '\\WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Character\CharactersAffiliation');
+        }
+
+        return $returnValue;
     }
 }
