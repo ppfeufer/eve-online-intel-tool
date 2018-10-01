@@ -3,10 +3,10 @@
 /**
  * Copyright (C) 2017 Rounon Dax
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,32 +14,32 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Parser;
+
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
 \defined('ABSPATH') or die();
 
-class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+class FleetCompositionParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
     /**
      * EVE Swagger Interface
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper
      */
     private $esi = null;
 
     /**
      * String Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\StringHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper
      */
     private $stringHelper = null;
 
     /**
      * Local Parser
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Parser\LocalScanParser
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\LocalScanParser
      */
     private $localParser = null;
 
@@ -49,8 +49,8 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
     protected function __construct() {
         parent::__construct();
 
-        $this->esi = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
-        $this->stringHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\StringHelper::getInstance();
+        $this->esi = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
+        $this->stringHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper::getInstance();
         $this->localParser = LocalScanParser::getInstance();
     }
 
@@ -130,7 +130,7 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
 
                 'positionInFleet' => $lineDetailsArray['4'],
                 'skills' => $lineDetailsArray['5'],
-                'fleetHirarchy' => $lineDetailsArray['6']
+                'fleetHirarchy' => (isset($lineDetailsArray['6'])) ? $lineDetailsArray['6'] : \__('Fleet Command', 'eve-online-intel-tool')
             ];
 
             $pilotNames[$lineDetailsArray['0']] = $lineDetailsArray['0'];
@@ -140,26 +140,26 @@ class FleetCompositionParser extends \WordPress\Plugin\EveOnlineIntelTool\Libs\S
         // Get pilot IDs
         $pilotEsiData = $this->esi->getIdFromName($pilotNames, 'characters');
         foreach($pilotEsiData as $pilotIdData) {
-            $pilotOverview[$pilotIdData->name]['pilotID'] = $pilotIdData->id;
+            $pilotOverview[$pilotIdData->getName()]['pilotID'] = $pilotIdData->getId();
         }
 
         // Get ship class IDs
-        $shipEsiData = $this->esi->getIdFromName($shipClasses, 'inventory_types');
-        foreach($pilotOverview as &$pilot) {
+        $shipEsiData = $this->esi->getIdFromName($shipClasses, 'inventoryTypes');
 
+        foreach($pilotOverview as $pilot) {
             foreach($shipEsiData as $shipData) {
-                if($shipData->name === $pilot['shipClass']) {
+                if($shipData->getName() === $pilot['shipClass']) {
                     // Ship Classes
-                    if(!isset($counter['class'][\sanitize_title($shipData->name)])) {
-                        $counter['class'][\sanitize_title($shipData->name)] = 0;
+                    if(!isset($counter['class'][\sanitize_title($shipData->getName())])) {
+                        $counter['class'][\sanitize_title($shipData->getName())] = 0;
                     }
 
-                    $counter['class'][\sanitize_title($shipData->name)] ++;
-                    $shipClassBreakdown[\sanitize_title($shipData->name)] = [
-                        'shipName' => $shipData->name,
-                        'shipID' => $shipData->id,
+                    $counter['class'][\sanitize_title($shipData->getName())] ++;
+                    $shipClassBreakdown[\sanitize_title($shipData->getName())] = [
+                        'shipName' => $shipData->getName(),
+                        'shipID' => $shipData->getId(),
                         'shipTypeSanitized' => \sanitize_title($pilot['shipType']),
-                        'count' => $counter['class'][\sanitize_title($shipData->name)]
+                        'count' => $counter['class'][\sanitize_title($shipData->getName())]
                     ];
 
                     // Ship Types

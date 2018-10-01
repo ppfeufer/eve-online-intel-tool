@@ -1,4 +1,22 @@
 <?php
+
+/**
+ * Copyright (C) 2017 ppfeufer
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 /**
  * WordPress Settings API
  * by H.-Peter Pfeufer
@@ -10,7 +28,8 @@
  *
  * @version 0.1
  */
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Admin;
+
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Admin;
 
 \defined('ABSPATH') or die();
 
@@ -46,14 +65,14 @@ class SettingsApi {
     /**
      * Plugin Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper
      */
     private $pluginHelper = null;
 
     /**
      * Plugin Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\StringHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper
      */
     private $stringHelper = null;
 
@@ -64,8 +83,8 @@ class SettingsApi {
      * @param array $defaultOptions Your default options array
      */
     public function __construct($settingsFilter, $defaultOptions) {
-        $this->pluginHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance();
-        $this->stringHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\StringHelper::getInstance();
+        $this->pluginHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance();
+        $this->stringHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper::getInstance();
         $this->settingsFilter = $settingsFilter;
         $this->optionsDefault = $defaultOptions;
     }

@@ -3,10 +3,10 @@
 /**
  * Copyright (C) 2017 Rounon Dax
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,10 +14,10 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Helper;
+
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
 \defined('ABSPATH') or die();
 
@@ -27,7 +27,7 @@ namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Helper;
 require_once(\ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php');
 require_once(\ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php');
 
-class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+class CacheHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
     /**
      * The base directoy of our cache
      *
@@ -38,20 +38,20 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
     /**
      * Plugin Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper
      */
     private $pluginHelper = null;
 
     /**
      * Image Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper
      */
     private $imageHelper = null;
 
     /**
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\RemoteHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\RemoteHelper
      */
     private $remoteHelper = null;
 
@@ -68,13 +68,13 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
     protected function __construct() {
         parent::__construct();
 
-        if(!$this->imageHelper instanceof \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\ImageHelper) {
+        if(!$this->imageHelper instanceof \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper) {
             $this->imageHelper = ImageHelper::getInstance();
         }
 
         $this->remoteHelper = RemoteHelper::getInstance();
 
-        if(!$this->pluginHelper instanceof \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper) {
+        if(!$this->pluginHelper instanceof \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper) {
             $this->pluginHelper = PluginHelper::getInstance();
             $this->pluginSettings = $this->pluginHelper->getPluginSettings();
         }
@@ -135,7 +135,7 @@ class CacheHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\A
 
     /**
      * creating our needed cache directories under:
-     * 		/wp-content/cache/plugin/«plugin-name»/
+     *      /wp-content/cache/plugin/«plugin-name»/
      *
      * @param string $directory The Directory to create
      */

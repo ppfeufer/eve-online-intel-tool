@@ -1,6 +1,6 @@
 <?php
 
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs;
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
 \defined('ABSPATH') or die();
 
@@ -39,13 +39,13 @@ class GithubUpdater {
      * @var $config the config for the updater
      * @access public
      */
-    var $config;
+    public $config;
 
     /**
      * @var $missingConfig any config that is missing from the initialization of this instance
      * @access public
      */
-    var $missingConfig;
+    public $missingConfig;
 
     /**
      * @var $githubData temporiraly store the data fetched from GitHub, allows us to only load the data once per class instance
@@ -135,7 +135,7 @@ class GithubUpdater {
      * @return bool overrule or not
      */
     public function overruleTransients() {
-        return (\defined('\WordPress\Plugin\EveOnlineIntelTool\WP_GITHUB_FORCE_UPDATE') && \WordPress\Plugin\EveOnlineIntelTool\WP_GITHUB_FORCE_UPDATE);
+        return (\defined('\WordPress\Plugins\EveOnlineIntelTool\WP_GITHUB_FORCE_UPDATE') && \WordPress\Plugins\EveOnlineIntelTool\WP_GITHUB_FORCE_UPDATE);
     }
 
     /**

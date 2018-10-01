@@ -5,13 +5,31 @@
  * Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
  * GitHub Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
  * Description: An EVE Online Intel Tool for WordPress. Parsing D-Scans, Local and Fleet Compositions. (Best with a theme running with <a href="http://getbootstrap.com/">Bootstrap</a>)
- * Version: 1.1.1
+ * Version: 1.2.0
  * Author: Rounon Dax
  * Author URI: https://yulaifederation.net
  * Text Domain: eve-online-intel-tool
  * Domain Path: /l10n
  */
-namespace WordPress\Plugin\EveOnlineIntelTool;
+
+/**
+ * Copyright (C) 2017 Rounon Dax
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+namespace WordPress\Plugins\EveOnlineIntelTool;
 
 \defined('ABSPATH') or die();
 
@@ -52,13 +70,17 @@ class EveOnlineIntelTool {
         $this->textDomain = 'eve-online-intel-tool';
         $this->localizationDirectory = \basename(\dirname(__FILE__)) . '/l10n/';
 
-        $this->databaseVersion = '20171104';
+        $this->databaseVersion = 20181001;
     }
 
     /**
      * Initialize the plugin
      */
     public function init() {
+        new Libs\WpHooks([
+            'newDatabaseVersion' => $this->databaseVersion
+        ]);
+
         $this->loadTextDomain();
 
         new Libs\PostType;
@@ -67,10 +89,6 @@ class EveOnlineIntelTool {
 
         $widgets = new Libs\Widgets;
         $widgets->init();
-
-        new Libs\WpHooks([
-            'newDatabaseVersion' => $this->databaseVersion
-        ]);
 
         $jsLoader = new Libs\ResourceLoader\JavascriptLoader;
         $jsLoader->init();

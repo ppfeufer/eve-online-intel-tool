@@ -1,4 +1,22 @@
 <?php
+
+/**
+ * Copyright (C) 2017 Rounon Dax
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 \defined('ABSPATH') or die();
 
 // get the intel type
@@ -156,12 +174,12 @@ switch($termObject['0']->slug) {
 // If the jSon format is requested
 $getData = \filter_input(INPUT_GET, 'data');
 if(isset($getData) && $getData = 'json') {
-    \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('json-api/json-data', [
+    \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('json-api/json-data', [
         'jsonData' => \json_encode($jsonData)
     ]);
 }
 
-$pluginSettings = \get_option(\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getOptionFieldName(), \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginDefaultSettings());
+$pluginSettings = \get_option(\WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getOptionFieldName(), \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginDefaultSettings());
 
 \get_header();
 ?>
@@ -171,7 +189,7 @@ $pluginSettings = \get_option(\WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\P
     <div class="main-content clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12 content-wrapper">
             <div class="content content-inner content-archive eve-intel-result">
-                <?php \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('single-' . $intelType, [
+                <?php \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('single-' . $intelType, [
                     'intelData' => $intelData,
                     'pluginSettings' => $pluginSettings
                 ]); ?>

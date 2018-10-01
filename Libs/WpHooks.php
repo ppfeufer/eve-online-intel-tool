@@ -3,10 +3,10 @@
 /**
  * Copyright (C) 2017 Rounon Dax
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,10 +14,10 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs;
+
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
 \defined('ABSPATH') or die();
 
@@ -54,6 +54,7 @@ class WpHooks {
     public function init() {
         $this->initHooks();
         $this->initActions();
+        $this->initFilter();
     }
 
     /**
@@ -78,6 +79,33 @@ class WpHooks {
          * thx wordpress for removing update hooks ...
          */
         \add_action('plugins_loaded', [$this, 'checkDatabaseForUpdates']);
+    }
+
+    /**
+     * Initializing our filter
+     */
+    public function initFilter() {
+        \add_filter('plugin_row_meta', [$this, 'addPluginRowMeta'], 10, 2);
+    }
+
+    /**
+     * Ading some links to the plugin row meta data
+     *
+     * @param array $links
+     * @param string $file
+     * @return array
+     */
+    public function addPluginRowMeta($links, $file) {
+        if(\strpos($file, 'eve-online-intel-tool.php') !== false) {
+            $new_links = [
+                'issue_tracker' => '<a href="https://github.com/ppfeufer/eve-online-intel-tool/issues" target="_blank">GitHub Issue Tracker</a>',
+                'support_discord' => '<a href="https://discord.gg/YymuCZa" target="_blank">Support Discord</a>'
+            ];
+
+            $links = \array_merge($links, $new_links);
+        }
+
+        return $links;
     }
 
     /**

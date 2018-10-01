@@ -3,10 +3,10 @@
 /**
  * Copyright (C) 2017 Rounon Dax
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,14 +14,14 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\Helper;
+
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
 \defined('ABSPATH') or die();
 
-class RemoteHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+class RemoteHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
     /**
      * Getting data from a remote source
      *
@@ -29,7 +29,7 @@ class RemoteHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
      * @param array $parameter
      * @return mixed
      */
-    public function getRemoteData($url, $parameter = [], $method = 'get') {
+    public function getRemoteData($url, $method = 'get', $parameter = []) {
         $returnValue = null;
         $params = '';
 
@@ -52,7 +52,7 @@ class RemoteHelper extends \WordPress\Plugin\EveOnlineIntelTool\Libs\Singletons\
         }
 
         if(\wp_remote_retrieve_response_code($remoteData) === 200) {
-            $returnValue = \json_decode(\wp_remote_retrieve_body($remoteData));
+            $returnValue = \wp_remote_retrieve_body($remoteData);
         }
 
         return $returnValue;

@@ -3,10 +3,10 @@
 /**
  * Copyright (C) 2017 Rounon Dax
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,21 +14,21 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-namespace WordPress\Plugin\EveOnlineIntelTool\Libs\ResourceLoader;
+
+namespace WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader;
 
 \defined('ABSPATH') or die();
 
 /**
  * CSS Loader
  */
-class CssLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\AssetsInterface {
+class CssLoader implements \WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces\AssetsInterface {
     /**
      * Plugin Helper
      *
-     * @var \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper
      */
     private $pluginHelper = null;
 
@@ -36,7 +36,7 @@ class CssLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\
      * Constructor
      */
     public function __construct() {
-        $this->pluginHelper = \WordPress\Plugin\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance();
+        $this->pluginHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance();
     }
 
     /**
@@ -57,7 +57,7 @@ class CssLoader implements \WordPress\Plugin\EveOnlineIntelTool\Libs\Interfaces\
             /**
              * load only when needed
              */
-            if(\WordPress\Plugin\EveOnlineIntelTool\Libs\PostType::isPostTypePage() === true) {
+            if(\WordPress\Plugins\EveOnlineIntelTool\Libs\PostType::isPostTypePage() === true) {
                 \wp_enqueue_style('font-awesome', $this->pluginHelper->getPluginUri('font-awesome/css/font-awesome.min.css'));
                 \wp_enqueue_style('bootstrap', $this->pluginHelper->getPluginUri('bootstrap/css/bootstrap.min.css'));
                 \wp_enqueue_style('data-tables-bootstrap', $this->pluginHelper->getPluginUri('css/data-tables/dataTables.bootstrap.min.css'));
