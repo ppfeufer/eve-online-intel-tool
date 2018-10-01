@@ -8,7 +8,7 @@
 ## [v1.2.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.2.0) - 2018-10-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.1.1...v1.2.0)
 ### Changed
-- Namespaces to match WordPress's fodler structure (Plugin » Plugins)
+- Namespaces to match WordPress's folder structure (Plugin » Plugins)
 - ESI client completely refactored
 - Cache database refactored
 
