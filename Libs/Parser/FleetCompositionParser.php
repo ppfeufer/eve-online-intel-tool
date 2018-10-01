@@ -57,7 +57,7 @@ class FleetCompositionParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\
     public function parseFleetCompositionScan($scanData) {
         $returnData = null;
         $fleetCompArray = $this->getFleetCompositionArray($scanData);
-  
+
         if(!\is_null($fleetCompArray)) {
             $returnData = $fleetCompArray;
         }
@@ -146,7 +146,7 @@ class FleetCompositionParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\
         // Get ship class IDs
         $shipEsiData = $this->esi->getIdFromName($shipClasses, 'inventoryTypes');
 
-        foreach($pilotOverview as &$pilot) {
+        foreach($pilotOverview as $pilot) {
             foreach($shipEsiData as $shipData) {
                 if($shipData->getName() === $pilot['shipClass']) {
                     // Ship Classes
