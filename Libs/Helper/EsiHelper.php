@@ -152,44 +152,34 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
         $shipData = null;
         $shipClassData = null;
 
-        $resultDB = $this->databaseHelper->getShipDataFromDb($shipID);
-
-        if(\is_null($resultDB)) {
+        /* @var $shipData \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseTypesTypeId */
+        $shipData = $this->databaseHelper->getCachedDataFromDb('universe/types/' . $shipID);
+        if(\is_null($shipData)) {
             $shipData = $this->universeApi->universeTypesTypeId($shipID);
-            $shipClassData = $this->universeApi->universeGroupsGroupId($shipData->group_id);
 
-            if(!\is_null($shipData) && !\is_null($shipClassData)) {
-                $this->databaseHelper->writeShipDataToDb([
-                    $shipData->type_id,
-                    $shipData->name,
-                    $shipClassData->name,
-                    $shipClassData->category_id,
-                    \gmdate('Y-m-d H:i:s', \time())
-                ]);
-
-                unset($shipData);
-                unset($shipClassData);
-
-                $resultDB = $this->databaseHelper->getShipDataFromDb($shipID);
-            }
+            $this->databaseHelper->writeCacheDataToDb([
+                'universe/types/' . $shipID,
+                \maybe_serialize($shipData),
+                \strtotime('+10 years')
+            ]);
         }
 
-        if(!\is_null($resultDB)) {
-            $shipData = new \stdClass();
-            $shipData->type_id = $resultDB->ship_id;
-            $shipData->name = $resultDB->class;
+        /* @var $shipClassData \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseGroupsGroupId */
+        $shipClassData = $this->databaseHelper->getCachedDataFromDb('universe/groups/' . $shipData->getGroupId());
+        if(\is_null($shipClassData)) {
+            $shipClassData = $this->universeApi->universeGroupsGroupId($shipData->getGroupId());
 
-            $shipClassData = new \stdClass();
-            $shipClassData->name = $resultDB->type;
-            $shipClassData->category_id = (int) $resultDB->category_id;
+            $this->databaseHelper->writeCacheDataToDb([
+                'universe/groups/' . $shipData->getGroupId(),
+                \maybe_serialize($shipClassData),
+                \strtotime('+10 years')
+            ]);
         }
 
         if(!\is_null($shipData) && !\is_null($shipClassData)) {
             $returnData = [
-                'data' => [
-                    'shipData' => $shipData,
-                    'shipTypeData' => $shipClassData
-                ]
+                'shipData' => $shipData,
+                'shipTypeData' => $shipClassData
             ];
         }
 
@@ -352,27 +342,21 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
      * @return array
      */
     public function getSystemData($systemID) {
-        $systemData = $this->databaseHelper->getSystemDataFromDb($systemID);
+        $systemData = $this->databaseHelper->getCachedDataFromDb('universe/systems/' . $systemID);
 
         if(\is_null($systemData) || empty($systemData->name)) {
             $systemData = $this->universeApi->universeSystemsSystemId($systemID);
 
             if(!\is_null($systemData)) {
-                $this->databaseHelper->writeSystemDataToDb([
-                    $systemID,
-                    $systemData->name,
-                    $systemData->constellation_id,
-                    $systemData->star_id,
-                    \gmdate('Y-m-d H:i:s', \time())
+                $this->databaseHelper->writeCacheDataToDb([
+                    'universe/systems/' . $systemID,
+                    \maybe_serialize($systemData),
+                    \strtotime('+10 years')
                 ]);
-
-                $systemData = $this->databaseHelper->getSystemDataFromDb($systemID);
             }
         }
 
-        return [
-            'data' => $systemData
-        ];
+        return $systemData;
     }
 
     /**
@@ -382,26 +366,21 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
      * @return array
      */
     public function getConstellationData($constellationID) {
-        $constellationData = $this->databaseHelper->getConstellationDataFromDb($constellationID);
+        $constellationData = $this->databaseHelper->getCachedDataFromDb('universe/constellations/' . $constellationID);
 
-        if(\is_null($constellationData) || empty($constellationData->name)) {
+        if(\is_null($constellationData)) {
             $constellationData = $this->universeApi->universeConstellationsConstellationId($constellationID);
 
             if(!\is_null($constellationData)) {
-                $this->databaseHelper->writeConstellationDataToDb([
-                    $constellationID,
-                    $constellationData->name,
-                    $constellationData->region_id,
-                    \gmdate('Y-m-d H:i:s', \time())
+                $this->databaseHelper->writeCacheDataToDb([
+                    'universe/constellations/' . $constellationID,
+                    \maybe_serialize($constellationData),
+                    \strtotime('+10 years')
                 ]);
-
-                $constellationData = $this->databaseHelper->getConstellationDataFromDb($constellationID);
             }
         }
 
-        return [
-            'data' => $constellationData
-        ];
+        return $constellationData;
     }
 
     /**
@@ -411,24 +390,20 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
      * @return array
      */
     public function getRegionData($regionID) {
-        $regionData = $this->databaseHelper->getRegionDataFromDb($regionID);
+        $regionData = $this->databaseHelper->getCachedDataFromDb('universe/regions/' . $regionID);
 
         if(\is_null($regionData) || empty($regionData->name)) {
             $regionData = $this->universeApi->universeRegionsRegionId($regionID);
 
             if(!\is_null($regionData)) {
-                $this->databaseHelper->writeRegionDataToDb([
-                    $regionID,
-                    $regionData->name,
-                    \gmdate('Y-m-d H:i:s', \time())
+                $this->databaseHelper->writeCacheDataToDb([
+                    'universe/regions/' . $regionID,
+                    \maybe_serialize($regionData),
+                    \strtotime('+10 years')
                 ]);
-
-                $regionData = $this->databaseHelper->getRegionDataFromDb($regionID);
             }
         }
 
-        return [
-            'data' => $regionData
-        ];
+        return $regionData;
     }
 }

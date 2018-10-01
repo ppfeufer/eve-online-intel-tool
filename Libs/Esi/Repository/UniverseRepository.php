@@ -43,6 +43,8 @@ class UniverseRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\
      * @return object
      */
     public function universeTypesTypeId($typeID) {
+        $returnValue = null;
+
         $this->setEsiMethod('get');
         $this->setEsiRoute($this->esiEndpoints['universe_types_typeID']);
         $this->setEsiRouteParameter([
@@ -67,6 +69,8 @@ class UniverseRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\
      * @return object
      */
     public function universeGroupsGroupId($groupID) {
+        $returnValue = null;
+
         $this->setEsiMethod('get');
         $this->setEsiRoute($this->esiEndpoints['universe_groups_groupID']);
         $this->setEsiRouteParameter([
@@ -76,7 +80,12 @@ class UniverseRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\
 
         $groupData = $this->callEsi();
 
-        return $groupData;
+        if(!\is_null($groupData)) {
+            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
+            $returnValue = $jsonMapper->map(\json_decode($groupData), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseGroupsGroupId);
+        }
+
+        return $returnValue;
     }
 
     /**
@@ -86,6 +95,8 @@ class UniverseRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\
      * @return object
      */
     public function universeSystemsSystemId($systemID) {
+        $returnData = null;
+
         $this->setEsiMethod('get');
         $this->setEsiRoute($this->esiEndpoints['universe_systems_systemID']);
         $this->setEsiRouteParameter([
@@ -110,8 +121,10 @@ class UniverseRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\
      * @return object
      */
     public function universeConstellationsConstellationId($constellationID) {
+        $returnData = null;
+
         $this->setEsiMethod('get');
-        $this->setEsiRoute($constellationID, $this->esiEndpoints['universe_constellations_constellationID']);
+        $this->setEsiRoute($this->esiEndpoints['universe_constellations_constellationID']);
         $this->setEsiRouteParameter([
             '/{constellation_id}/' => $constellationID
         ]);
@@ -119,7 +132,12 @@ class UniverseRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\
 
         $constellationData = $this->callEsi();
 
-        return $constellationData;
+        if(!\is_null($constellationData)) {
+            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
+            $returnData = $jsonMapper->map(\json_decode($constellationData), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseConstellationsConstellationId);
+        }
+
+        return $returnData;
     }
 
     /**
@@ -129,6 +147,8 @@ class UniverseRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\
      * @return object
      */
     public function universeRegionsRegionId($regionID) {
+        $returnData = null;
+
         $this->setEsiMethod('get');
         $this->setEsiRoute($this->esiEndpoints['universe_regions_regionID']);
         $this->setEsiRouteParameter([
@@ -138,7 +158,12 @@ class UniverseRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\
 
         $regionData = $this->callEsi();
 
-        return $regionData;
+        if(!\is_null($regionData)) {
+            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
+            $returnData = $jsonMapper->map(\json_decode($regionData), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseRegionsRegionId);
+        }
+
+        return $returnData;
     }
 
     /**
@@ -148,6 +173,8 @@ class UniverseRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\
      * @return object
      */
     public function universeIds(array $names) {
+        $returnData = null;
+
         $this->setEsiMethod('post');
         $this->setEsiPostParameter($names);
         $this->setEsiRoute($this->esiEndpoints['universe_ids']);

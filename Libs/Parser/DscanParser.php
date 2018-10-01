@@ -68,13 +68,14 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
         foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
             $lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
 
+            /* @var $shipData['shipData'] \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseTypesTypeId */
+            /* @var $shipData['shipTypeData'] \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseGroupsGroupId */
             $shipData = $this->esi->getShipData($lineDetailsArray['0']);
-
-            if($shipData['data']['shipData'] !== null && $shipData['data']['shipTypeData'] !== null) {
+            if(!\is_null($shipData['shipData']) && !\is_null($shipData['shipTypeData'])) {
                 $dscanDetailShipsAll[] = [
                     'dscanData' => $lineDetailsArray,
-                    'shipData' => $shipData['data']['shipData'],
-                    'shipClass' => $shipData['data']['shipTypeData']
+                    'shipData' => $shipData['shipData'],
+                    'shipClass' => $shipData['shipTypeData']
                 ];
 
                 /**
@@ -83,14 +84,14 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
                 if($lineDetailsArray['3'] === '-') {
                     $dscanDetailShipsOffGrid[] = [
                         'dscanData' => $lineDetailsArray,
-                        'shipData' => $shipData['data']['shipData'],
-                        'shipClass' => $shipData['data']['shipTypeData']
+                        'shipData' => $shipData['shipData'],
+                        'shipClass' => $shipData['shipTypeData']
                     ];
                 } else {
                     $dscanDetailShipsOnGrid[] = [
                         'dscanData' => $lineDetailsArray,
-                        'shipData' => $shipData['data']['shipData'],
-                        'shipClass' => $shipData['data']['shipTypeData']
+                        'shipData' => $shipData['shipData'],
+                        'shipClass' => $shipData['shipTypeData']
                     ];
                 }
             }
@@ -212,26 +213,28 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
      */
     public function getSystemInformationBySystemName($systemName) {
         $returnValue = null;
-        $systemData = $this->esi->getIdFromName([\trim($systemName)], 'systems');
-
-        if(!\is_null($systemData)) {
-            $systemData = $this->esi->getSystemData($systemData['0']->id);
+        $systemShortData = $this->esi->getIdFromName([\trim($systemName)], 'systems');
+        if(!\is_null($systemShortData)) {
+            /* @var $systemData \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseSystemsSystemId */
+            $systemData = $this->esi->getSystemData($systemShortData['0']->getId());
             $constellationName = null;
             $regionName = null;
 
             // Get the constellation data
-            $constellationData = $this->esi->getConstellationData($systemData['data']->constellation_id);
+            /* @var $constellationData \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseConstellationsConstellationId */
+            $constellationData = $this->esi->getConstellationData($systemData->getConstellationId());
 
             // Set the constellation name
             if(!\is_null($constellationData)) {
-                $constellationName = $constellationData['data']->name;
+                $constellationName = $constellationData->getName();
 
                 // Get the region data
-                $regionData = $this->esi->getRegionData($constellationData['data']->region_id);
+                /* @var $regionData \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseRegionsRegionId */
+                $regionData = $this->esi->getRegionData($constellationData->getRegionId());
 
                 // Set the region name
                 if(!\is_null($regionData)) {
-                    $regionName = $regionData['data']->name;
+                    $regionName = $regionData->getName();
                 }
             }
 
@@ -259,7 +262,7 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
         $shipCounter = 0;
 
         foreach($dscanArray['data'] as $item) {
-            switch($item['shipClass']->category_id) {
+            switch($item['shipClass']->getCategoryId()) {
                 // only ships
                 case 6:
                     /**
@@ -271,8 +274,8 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
                     /**
                      * Counter Ship Classes
                      */
-                    $countShipClasses['shipClass_' . \sanitize_title((string) $item['shipClass']->name)]['shipClass'] = (string) $item['shipClass']->name;
-                    $countShipClasses['shipClass_' . \sanitize_title((string) $item['shipClass']->name)]['counter'][] = '';
+                    $countShipClasses['shipClass_' . \sanitize_title((string) $item['shipClass']->getName())]['shipClass'] = (string) $item['shipClass']->getName();
+                    $countShipClasses['shipClass_' . \sanitize_title((string) $item['shipClass']->getName())]['counter'][] = '';
 
                     /**
                      * Ship breakdown
@@ -280,8 +283,8 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
                     $dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipID'] = $item['dscanData']['0'];
                     $dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipName'] = $item['dscanData']['2'];
                     $dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['count'] = \count($count[$item['dscanData']['0']]['all']);
-                    $dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipClass'] = $item['shipClass']->name;
-                    $dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipTypeSanitized'] = \sanitize_title((string) $item['shipClass']->name);
+                    $dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipClass'] = $item['shipClass']->getName();
+                    $dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipTypeSanitized'] = \sanitize_title((string) $item['shipClass']->getName());
                     break;
 
                 default:
@@ -311,7 +314,6 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
         $dscanOffGrid = null;
 
         $dscanArray = $this->getDscanArray($scanData);
-
         if($dscanArray['all']['count'] !== 0) {
             $dscanAll = $this->parseScanArray($dscanArray['all']);
             $returnData['all'] = $dscanAll;
@@ -350,17 +352,17 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
 
         foreach($dscanArray as $scanResult) {
             // Ships only ...
-            if($scanResult['shipClass']->category_id === 6) {
-                if(!isset($count[\sanitize_title($scanResult['shipClass']->name)])) {
-                    $count[\sanitize_title($scanResult['shipClass']->name)] = 0;
-                } // if(!isset($count[\sanitize_title($scanResult['shipClass']->name)]))
+            if($scanResult['shipClass']->getcategoryId() === 6) {
+                if(!isset($count[\sanitize_title($scanResult['shipClass']->getName())])) {
+                    $count[\sanitize_title($scanResult['shipClass']->getName())] = 0;
+                } // if(!isset($count[\sanitize_title($scanResult['shipClass']->getName())]))
 
-                $count[\sanitize_title($scanResult['shipClass']->name)] ++;
+                $count[\sanitize_title($scanResult['shipClass']->getName())] ++;
 
-                $shipTypeArray[\sanitize_title($scanResult['shipClass']->name)] = [
-                    'type' => $scanResult['shipClass']->name,
-                    'shipTypeSanitized' => \sanitize_title($scanResult['shipClass']->name),
-                    'count' => $count[\sanitize_title($scanResult['shipClass']->name)]
+                $shipTypeArray[\sanitize_title($scanResult['shipClass']->getName())] = [
+                    'type' => $scanResult['shipClass']->getName(),
+                    'shipTypeSanitized' => \sanitize_title($scanResult['shipClass']->getName()),
+                    'count' => $count[\sanitize_title($scanResult['shipClass']->getName())]
                 ];
             }
         }
@@ -383,7 +385,7 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
 
         foreach($dscanArray as $scanResult) {
             // Upwell structures on grid only ...
-            if($scanResult['shipClass']->category_id === 65 && $scanResult['dscanData']['3'] !== '-') {
+            if($scanResult['shipClass']->getCategoryId() === 65 && $scanResult['dscanData']['3'] !== '-') {
                 $dscanRangeArray = \explode(' ', $scanResult['dscanData']['3']);
                 $range = (int) \number_format((float) \str_replace('.', '', $dscanRangeArray['0']), 0, '', '');
 
@@ -395,13 +397,13 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
                  * @todo: localized strings for 'km' or 'm'
                  */
                 if($range <= $gridSize && \preg_match('/km|m/', $dscanRangeArray['1'])) {
-                    if(!isset($count[\sanitize_title($scanResult['shipData']->name)])) {
-                        $count[\sanitize_title($scanResult['shipData']->name)] = 0;
+                    if(!isset($count[\sanitize_title($scanResult['shipData']->getName())])) {
+                        $count[\sanitize_title($scanResult['shipData']->getName())] = 0;
                     }
 
-                    $count[\sanitize_title($scanResult['shipData']->name)] ++;
+                    $count[\sanitize_title($scanResult['shipData']->getName())] ++;
 
-                    $shipTypeArray[\sanitize_title($scanResult['shipData']->name)] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->name)]);
+                    $shipTypeArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]);
                 }
             }
         }
@@ -423,14 +425,14 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
 
         foreach($dscanArray as $scanResult) {
             // Deployable structures on grid only ...
-            if($scanResult['shipClass']->category_id === 22 && $scanResult['dscanData']['3'] !== '-') {
-                if(!isset($count[\sanitize_title($scanResult['shipData']->name)])) {
-                    $count[\sanitize_title($scanResult['shipData']->name)] = 0;
+            if($scanResult['shipClass']->getCategoryId() === 22 && $scanResult['dscanData']['3'] !== '-') {
+                if(!isset($count[\sanitize_title($scanResult['shipData']->getName())])) {
+                    $count[\sanitize_title($scanResult['shipData']->getName())] = 0;
                 }
 
-                $count[\sanitize_title($scanResult['shipData']->name)] ++;
+                $count[\sanitize_title($scanResult['shipData']->getName())] ++;
 
-                $shipTypeArray[\sanitize_title($scanResult['shipData']->name)] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->name)]);
+                $shipTypeArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]);
             }
         }
 
@@ -454,14 +456,14 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
 
         foreach($dscanArray as $scanResult) {
             // Deployable structures on grid only ...
-            if($scanResult['shipClass']->category_id === 2 && $scanResult['dscanData']['3'] !== '-' && !\in_array($scanResult['shipClass']->name, $exclude)) {
-                if(!isset($count[\sanitize_title($scanResult['shipData']->name)])) {
-                    $count[\sanitize_title($scanResult['shipData']->name)] = 0;
+            if($scanResult['shipClass']->getCategoryId() === 2 && $scanResult['dscanData']['3'] !== '-' && !\in_array($scanResult['shipClass']->getName(), $exclude)) {
+                if(!isset($count[\sanitize_title($scanResult['shipData']->getName())])) {
+                    $count[\sanitize_title($scanResult['shipData']->getName())] = 0;
                 }
 
-                $count[\sanitize_title($scanResult['shipData']->name)] ++;
+                $count[\sanitize_title($scanResult['shipData']->getName())] ++;
 
-                $lootSalvageArray[\sanitize_title($scanResult['shipData']->name)] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->name)]);
+                $lootSalvageArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]);
             }
         }
 
@@ -482,14 +484,14 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
 
         foreach($dscanArray as $scanResult) {
             // Deployable structures on grid only ...
-            if($scanResult['shipClass']->category_id === 23 && $scanResult['dscanData']['3'] !== '-') {
-                if(!isset($count[\sanitize_title($scanResult['shipData']->name)])) {
-                    $count[\sanitize_title($scanResult['shipData']->name)] = 0;
+            if($scanResult['shipClass']->getCategoryId() === 23 && $scanResult['dscanData']['3'] !== '-') {
+                if(!isset($count[\sanitize_title($scanResult['shipData']->getName())])) {
+                    $count[\sanitize_title($scanResult['shipData']->getName())] = 0;
                 }
 
-                $count[\sanitize_title($scanResult['shipData']->name)] ++;
+                $count[\sanitize_title($scanResult['shipData']->getName())] ++;
 
-                $starbaseArray[\sanitize_title($scanResult['shipData']->name)] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->name)]);
+                $starbaseArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]);
             }
         }
 
@@ -507,9 +509,9 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
      */
     private function getScanResultDetails(array $scanResult, int $count) {
         return [
-            'type' => $scanResult['shipData']->name,
-            'type_id' => $scanResult['shipData']->type_id,
-            'shipTypeSanitized' => \sanitize_title($scanResult['shipData']->name),
+            'type' => $scanResult['shipData']->getName(),
+            'type_id' => $scanResult['shipData']->getTypeId(),
+            'shipTypeSanitized' => \sanitize_title($scanResult['shipData']->getName()),
             'count' => $count
         ];
     }
