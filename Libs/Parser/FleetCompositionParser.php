@@ -57,7 +57,7 @@ class FleetCompositionParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\
     public function parseFleetCompositionScan($scanData) {
         $returnData = null;
         $fleetCompArray = $this->getFleetCompositionArray($scanData);
-
+  
         if(!\is_null($fleetCompArray)) {
             $returnData = $fleetCompArray;
         }
@@ -130,7 +130,7 @@ class FleetCompositionParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\
 
                 'positionInFleet' => $lineDetailsArray['4'],
                 'skills' => $lineDetailsArray['5'],
-                'fleetHirarchy' => $lineDetailsArray['6']
+                'fleetHirarchy' => (isset($lineDetailsArray['6'])) ? $lineDetailsArray['6'] : \__('Fleet Command', 'eve-online-intel-tool')
             ];
 
             $pilotNames[$lineDetailsArray['0']] = $lineDetailsArray['0'];
@@ -140,26 +140,26 @@ class FleetCompositionParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\
         // Get pilot IDs
         $pilotEsiData = $this->esi->getIdFromName($pilotNames, 'characters');
         foreach($pilotEsiData as $pilotIdData) {
-            $pilotOverview[$pilotIdData->name]['pilotID'] = $pilotIdData->id;
+            $pilotOverview[$pilotIdData->getName()]['pilotID'] = $pilotIdData->getId();
         }
 
         // Get ship class IDs
-        $shipEsiData = $this->esi->getIdFromName($shipClasses, 'inventory_types');
-        foreach($pilotOverview as &$pilot) {
+        $shipEsiData = $this->esi->getIdFromName($shipClasses, 'inventoryTypes');
 
+        foreach($pilotOverview as &$pilot) {
             foreach($shipEsiData as $shipData) {
-                if($shipData->name === $pilot['shipClass']) {
+                if($shipData->getName() === $pilot['shipClass']) {
                     // Ship Classes
-                    if(!isset($counter['class'][\sanitize_title($shipData->name)])) {
-                        $counter['class'][\sanitize_title($shipData->name)] = 0;
+                    if(!isset($counter['class'][\sanitize_title($shipData->getName())])) {
+                        $counter['class'][\sanitize_title($shipData->getName())] = 0;
                     }
 
-                    $counter['class'][\sanitize_title($shipData->name)] ++;
-                    $shipClassBreakdown[\sanitize_title($shipData->name)] = [
-                        'shipName' => $shipData->name,
-                        'shipID' => $shipData->id,
+                    $counter['class'][\sanitize_title($shipData->getName())] ++;
+                    $shipClassBreakdown[\sanitize_title($shipData->getName())] = [
+                        'shipName' => $shipData->getName(),
+                        'shipID' => $shipData->getId(),
                         'shipTypeSanitized' => \sanitize_title($pilot['shipType']),
-                        'count' => $counter['class'][\sanitize_title($shipData->name)]
+                        'count' => $counter['class'][\sanitize_title($shipData->getName())]
                     ];
 
                     // Ship Types
