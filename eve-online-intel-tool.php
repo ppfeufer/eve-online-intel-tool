@@ -70,7 +70,7 @@ class EveOnlineIntelTool {
         $this->textDomain = 'eve-online-intel-tool';
         $this->localizationDirectory = \basename(\dirname(__FILE__)) . '/l10n/';
 
-        $this->databaseVersion = '20171104';
+        $this->databaseVersion = 20181001;
     }
 
     /**
