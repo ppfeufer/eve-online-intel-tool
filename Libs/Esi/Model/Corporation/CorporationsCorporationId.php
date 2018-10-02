@@ -53,7 +53,7 @@ class CorporationsCorporationId {
      *
      * @var string
      */
-    protected $desctiption = null;
+    protected $description = null;
 
     /**
      * factionId
@@ -188,7 +188,7 @@ class CorporationsCorporationId {
      * @return string
      */
     public function getDescription() {
-        return $this->desctiption;
+        return $this->description;
     }
 
     /**
@@ -197,7 +197,7 @@ class CorporationsCorporationId {
      * @param string $description
      */
     public function setDescription($description) {
-        $this->desctiption = \strip_tags($description);
+        $this->description = \strip_tags($description);
     }
 
     /**
