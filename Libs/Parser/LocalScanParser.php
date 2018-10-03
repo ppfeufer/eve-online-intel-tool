@@ -87,7 +87,7 @@ class LocalScanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singlet
         $pilotList = [];
         $pilotDetails = [];
         $arrayCharacterIds = [];
-        $characterIdChunkSize = 100;
+        $characterIdChunkSize = 250;
         $scanDataArraySanitized = [];
 
         $scanDataArray = \explode("\n", \trim($cleanedScanData));
@@ -104,6 +104,8 @@ class LocalScanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singlet
             $esiData = $this->esiHelper->getIdFromName($nameSet, 'characters');
 
             if(!\is_null($esiData)) {
+                $nameToIdSet = null;
+
                 foreach($esiData as $characterData) {
                     /* @var $characterData \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseIds\Character */
                     $nameToIdSet[] = $characterData->getId();
