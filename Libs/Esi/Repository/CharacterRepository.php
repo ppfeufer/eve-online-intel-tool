@@ -29,18 +29,18 @@ class CharacterRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi
      */
     protected $esiEndpoints = [
         'characters_characterId' => 'characters/{character_id}/?datasource=tranquility',
+        'characters_characterId_corporationhistory' => 'characters/{character_id}/corporationhistory/?datasource=tranquility',
+        'characters_characterId_portrait' => 'characters/{character_id}/portrait/?datasource=tranquility',
         'characters_affiliation' => 'characters/affiliation/?datasource=tranquility'
     ];
 
     /**
-     * Find character data by charater ID
+     * Public information about a character
      *
-     * @param int $characterID
+     * @param int $characterID An EVE character ID
      * @return \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Character\CharactersCharacterId
      */
     public function charactersCharacterId($characterID) {
-        $returnValue = null;
-
         $this->setEsiMethod('get');
         $this->setEsiRoute($this->esiEndpoints['characters_characterId']);
         $this->setEsiRouteParameter([
@@ -48,37 +48,21 @@ class CharacterRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi
         ]);
         $this->setEsiVersion('v4');
 
-        $characterData = $this->callEsi();
-
-        if(!\is_null($characterData)) {
-            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
-            $returnValue = $jsonMapper->map(\json_decode($characterData), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Character\CharactersCharacterId);
-        }
-
-        return $returnValue;
+        return $this->map($this->callEsi(), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Character\CharactersCharacterId);
     }
 
     /**
-     * Find character affiliation
+     * Bulk lookup of character IDs to corporation, alliance and faction
      *
-     * @param array $characterIds
+     * @param array $characterIds The character IDs to fetch affiliations for. All characters must exist, or none will be returned
      * @return array
      */
     public function charactersAffiliation($characterIds = []) {
-        $returnValue = null;
-
         $this->setEsiMethod('post');
         $this->setEsiPostParameter($characterIds);
         $this->setEsiRoute($this->esiEndpoints['characters_affiliation']);
         $this->setEsiVersion('v1');
 
-        $affiliationData = $this->callEsi();
-
-        if(!\is_null($affiliationData)) {
-            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
-            $returnValue = $jsonMapper->mapArray(\json_decode($affiliationData), [], '\\WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Character\CharactersAffiliation');
-        }
-
-        return $returnValue;
+        return $this->mapArray($this->callEsi(), '\\WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Character\CharactersAffiliation');
     }
 }

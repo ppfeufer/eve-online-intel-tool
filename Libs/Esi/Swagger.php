@@ -84,6 +84,8 @@ class Swagger {
      * @return stdClass Object
      */
     public function callEsi() {
+        $returnValue = null;
+
         if(!\is_a($this->remoteHelper, '\WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\RemoteHelper')) {
             $this->remoteHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\RemoteHelper::getInstance();
         }
@@ -99,17 +101,17 @@ class Swagger {
 
         switch($this->getEsiMethod()) {
             case 'get':
-                $data = $this->remoteHelper->getRemoteData($callUrl);
+                $returnValue = $this->remoteHelper->getRemoteData($callUrl);
                 break;
 
             case 'post':
-                $data = $this->remoteHelper->getRemoteData($callUrl, $this->getEsiMethod(), $this->getEsiPostParameter());
+                $returnValue = $this->remoteHelper->getRemoteData($callUrl, $this->getEsiMethod(), $this->getEsiPostParameter());
                 break;
         }
 
         $this->resetFieldsToDefaults();
 
-        return $data;
+        return $returnValue;
     }
 
     /**
@@ -218,5 +220,33 @@ class Swagger {
      */
     public function setEsiVersion($esiVersion) {
         $this->esiVersion = $esiVersion;
+    }
+
+    /**
+     *
+     * @param string $jSon
+     * @param object $object
+     * @return object
+     */
+    public function map($jSon, $object) {
+        $returnValue = null;
+
+        if(!\is_null($jSon)) {
+            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
+            $returnValue = $jsonMapper->map(\json_decode($jSon), $object);
+        }
+
+        return $returnValue;
+    }
+
+    public function mapArray($jSon, $class) {
+        $returnValue = null;
+
+        if(!\is_null($jSon)) {
+            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
+            $returnValue = $jsonMapper->mapArray(\json_decode($jSon), [], $class);
+        }
+
+        return $returnValue;
     }
 }

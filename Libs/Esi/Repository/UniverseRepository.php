@@ -28,165 +28,169 @@ class UniverseRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\
      * @var array ESI enpoints
      */
     protected $esiEndpoints = [
+        'universe_ancestries' => 'universe/ancestries/?datasource=tranquility',
+        'universe_asteroidBelts_asteroidBeltId' => 'universe/asteroid_belts/{asteroid_belt_id}/?datasource=tranquility',
+        'universe_bloodlines' => 'universe/bloodlines/?datasource=tranquility',
+        'universe_categories' => 'universe/categories/?datasource=tranquility',
+        'universe_categories_categoryId' => 'universe/categories/{category_id}/?datasource=tranquility',
+        'universe_constellations' => 'universe/constellations/?datasource=tranquility',
+        'universe_constellations_constellationId' => 'universe/constellations/{constellation_id}/?datasource=tranquility',
+        'universe_factions' => 'universe/factions/?datasource=tranquility',
+        'universe_graphics' => 'universe/graphics/?datasource=tranquility',
+        'universe_graphics_graphicId' => 'universe/graphics/{graphic_id}/?datasource=tranquility',
+        'universe_groups' => 'universe/groups/?datasource=tranquility',
+        'universe_groups_groupId' => 'universe/groups/{group_id}/?datasource=tranquility',
         'universe_ids' => 'universe/ids/?datasource=tranquility',
-        'universe_types_typeID' => 'universe/types/{type_id}/?datasource=tranquility',
-        'universe_systems_systemID' => 'universe/systems/{system_id}/?datasource=tranquility',
-        'universe_groups_groupID' => 'universe/groups/{group_id}/?datasource=tranquility',
-        'universe_constellations_constellationID' => 'universe/constellations/{constellation_id}/?datasource=tranquility',
-        'universe_regions_regionID' => 'universe/regions/{region_id}/?datasource=tranquility',
+        'universe_moons_moonId' => 'universe/moons/{moon_id}/?datasource=tranquility',
+        'universe_names' => 'universe/names/?datasource=tranquility',
+        'universe_planets_planetId' => 'universe/planets/{planet_id}/?datasource=tranquility',
+        'universe_races' => 'universe/races/?datasource=tranquility',
+        'universe_regions' => 'universe/regions/?datasource=tranquility',
+        'universe_regions_regionId' => 'universe/regions/{region_id}/?datasource=tranquility',
+        'universe_stargates_stargateId' => 'universe/stargates/{stargate_id}/?datasource=tranquility',
+        'universe_stars_starId' => 'universe/stars/{star_id}/?datasource=tranquility',
+        'universe_stations_stationId' => 'universe/stations/{station_id}/?datasource=tranquility',
+        'universe_structures' => 'universe/structures/?datasource=tranquility',
+        'universe_systemJumps' => 'universe/system_jumps/?datasource=tranquility',
+        'universe_systemKills' => 'universe/system_kills/?datasource=tranquility',
+        'universe_systems' => 'universe/systems/?datasource=tranquility',
+        'universe_systems_systemId' => 'universe/systems/{system_id}/?datasource=tranquility',
+        'universe_types' => 'universe/types/?datasource=tranquility',
+        'universe_types_typeId' => 'universe/types/{type_id}/?datasource=tranquility',
     ];
 
     /**
-     * Find type data by type ID
+     * Get all character ancestries
      *
-     * @param int $typeID
-     * @return object
+     * @return array of \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseAncestries
      */
-    public function universeTypesTypeId($typeID) {
-        $returnValue = null;
-
+    public function universeAncestries() {
         $this->setEsiMethod('get');
-        $this->setEsiRoute($this->esiEndpoints['universe_types_typeID']);
-        $this->setEsiRouteParameter([
-            '/{type_id}/' => $typeID
-        ]);
-        $this->setEsiVersion('v3');
+        $this->setEsiRoute($this->esiEndpoints['universe_ancestries']);
+        $this->setEsiVersion('v1');
 
-        $typeData = $this->callEsi();
-
-        if(!\is_null($typeData)) {
-            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
-            $returnValue = $jsonMapper->map(\json_decode($typeData), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseTypesTypeId);
-        }
-
-        return $returnValue;
+        return $this->mapArray($this->callEsi(), '\\WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseAncestries');
     }
 
     /**
-     * Find group data by group ID
+     * Get information on an asteroid belt
      *
-     * @param int $groupID
-     * @return object
+     * @param int $asteroidBeltId
+     * @return \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseConstellationsConstellationId
      */
-    public function universeGroupsGroupId($groupID) {
-        $returnValue = null;
-
+    public function universeAsteroidBeltsAsteroidBeltId($asteroidBeltId) {
         $this->setEsiMethod('get');
-        $this->setEsiRoute($this->esiEndpoints['universe_groups_groupID']);
+        $this->setEsiRoute($this->esiEndpoints['universe_asteroidBelts_asteroidBeltId']);
         $this->setEsiRouteParameter([
-            '/{group_id}/' => $groupID
+            '/{asteroid_belt_id}/' => $asteroidBeltId
         ]);
         $this->setEsiVersion('v1');
 
-        $groupData = $this->callEsi();
-
-        if(!\is_null($groupData)) {
-            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
-            $returnValue = $jsonMapper->map(\json_decode($groupData), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseGroupsGroupId);
-        }
-
-        return $returnValue;
+        return $this->map($this->callEsi(), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseConstellationsConstellationId);
     }
 
     /**
-     * Find system data by system ID
+     * Get information on a constellation
      *
-     * @param int $systemID
-     * @return object
+     * @param int $constellationId An EVE constellation ID
+     * @return \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseConstellationsConstellationId
      */
-    public function universeSystemsSystemId($systemID) {
-        $returnData = null;
-
+    public function universeConstellationsConstellationId($constellationId) {
         $this->setEsiMethod('get');
-        $this->setEsiRoute($this->esiEndpoints['universe_systems_systemID']);
+        $this->setEsiRoute($this->esiEndpoints['universe_constellations_constellationId']);
         $this->setEsiRouteParameter([
-            '/{system_id}/' => $systemID
-        ]);
-        $this->setEsiVersion('v4');
-
-        $systemData = $this->callEsi();
-
-        if(!\is_null($systemData)) {
-            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
-            $returnData = $jsonMapper->map(\json_decode($systemData), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseSystemsSystemId);
-        }
-
-        return $returnData;
-    }
-
-    /**
-     * Find constellation data by constellation ID
-     *
-     * @param int $constellationID
-     * @return object
-     */
-    public function universeConstellationsConstellationId($constellationID) {
-        $returnData = null;
-
-        $this->setEsiMethod('get');
-        $this->setEsiRoute($this->esiEndpoints['universe_constellations_constellationID']);
-        $this->setEsiRouteParameter([
-            '/{constellation_id}/' => $constellationID
+            '/{constellation_id}/' => $constellationId
         ]);
         $this->setEsiVersion('v1');
 
-        $constellationData = $this->callEsi();
-
-        if(!\is_null($constellationData)) {
-            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
-            $returnData = $jsonMapper->map(\json_decode($constellationData), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseConstellationsConstellationId);
-        }
-
-        return $returnData;
+        return $this->map($this->callEsi(), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseConstellationsConstellationId);
     }
 
     /**
-     * Find region data by region ID
+     * Get information on an item group
      *
-     * @param int $regionID
-     * @return object
+     * @param int $groupId An Eve item group ID
+     * @return \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseGroupsGroupId
      */
-    public function universeRegionsRegionId($regionID) {
-        $returnData = null;
-
+    public function universeGroupsGroupId($groupId) {
         $this->setEsiMethod('get');
-        $this->setEsiRoute($this->esiEndpoints['universe_regions_regionID']);
+        $this->setEsiRoute($this->esiEndpoints['universe_groups_groupId']);
         $this->setEsiRouteParameter([
-            '/{region_id}/' => $regionID
+            '/{group_id}/' => $groupId
         ]);
         $this->setEsiVersion('v1');
 
-        $regionData = $this->callEsi();
-
-        if(!\is_null($regionData)) {
-            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
-            $returnData = $jsonMapper->map(\json_decode($regionData), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseRegionsRegionId);
-        }
-
-        return $returnData;
+        return $this->map($this->callEsi(), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseGroupsGroupId);
     }
 
     /**
-     * Get the ID of a name in EVE
+     * Resolve a set of names to IDs in the following categories:
+     * agents, alliances, characters, constellations, corporations factions,
+     * inventory_types, regions, stations, and systems.
      *
-     * @param array $names
-     * @return object
+     * Only exact matches will be returned.
+     * All names searched for are cached for 12 hours
+     *
+     * @param array $names The names to resolve
+     * @return \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseIds
      */
     public function universeIds(array $names) {
-        $returnData = null;
-
         $this->setEsiMethod('post');
         $this->setEsiPostParameter($names);
         $this->setEsiRoute($this->esiEndpoints['universe_ids']);
         $this->setEsiVersion('v1');
 
-        $nameData = $this->callEsi();
+        return $this->map($this->callEsi(), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseIds);
+    }
 
-        if(!\is_null($nameData)) {
-            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
-            $returnData = $jsonMapper->map(\json_decode($nameData), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseIds);
-        }
+    /**
+     * Get information on a region
+     *
+     * @param int $regionId An EVE region ID
+     * @return \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseRegionsRegionId
+     */
+    public function universeRegionsRegionId($regionId) {
+        $this->setEsiMethod('get');
+        $this->setEsiRoute($this->esiEndpoints['universe_regions_regionId']);
+        $this->setEsiRouteParameter([
+            '/{region_id}/' => $regionId
+        ]);
+        $this->setEsiVersion('v1');
 
-        return $returnData;
+        return $this->map($this->callEsi(), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseRegionsRegionId);
+    }
+
+    /**
+     * Get information on a solar system
+     *
+     * @param int $systemId An EVE solar system ID
+     * @return \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseSystemsSystemId
+     */
+    public function universeSystemsSystemId($systemId) {
+        $this->setEsiMethod('get');
+        $this->setEsiRoute($this->esiEndpoints['universe_systems_systemId']);
+        $this->setEsiRouteParameter([
+            '/{system_id}/' => $systemId
+        ]);
+        $this->setEsiVersion('v4');
+
+        return $this->map($this->callEsi(), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseSystemsSystemId);
+    }
+
+    /**
+     * Get information on a type
+     *
+     * @param int $typeId An Eve item type ID
+     * @return \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseTypesTypeId
+     */
+    public function universeTypesTypeId($typeId) {
+        $this->setEsiMethod('get');
+        $this->setEsiRoute($this->esiEndpoints['universe_types_typeId']);
+        $this->setEsiRouteParameter([
+            '/{type_id}/' => $typeId
+        ]);
+        $this->setEsiVersion('v3');
+
+        return $this->map($this->callEsi(), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseTypesTypeId);
     }
 }

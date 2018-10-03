@@ -28,21 +28,19 @@ class AllianceRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\
      * @var array ESI enpoints
      */
     protected $esiEndpoints = [
-        /**
-         * Public information about an alliance
-         */
+        'alliances' => 'alliances/?datasource=tranquility',
         'alliances_allianceId' => 'alliances/{alliance_id}/?datasource=tranquility',
+        'alliances_allianceId_corporations' => 'alliances/{alliance_id}/corporations/?datasource=tranquility',
+        'alliances_allianceId_icons' => 'alliances/{alliance_id}/icons/?datasource=tranquility'
     ];
 
     /**
      * Public information about an alliance
      *
-     * @param int $allianceID
+     * @param int $allianceID An EVE alliance ID
      * @return \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Alliance\AlliancesAllianceId
      */
     public function alliancesAllianceId($allianceID) {
-        $returnValue = null;
-
         $this->setEsiMethod('get');
         $this->setEsiRoute($this->esiEndpoints['alliances_allianceId']);
         $this->setEsiRouteParameter([
@@ -50,13 +48,6 @@ class AllianceRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\
         ]);
         $this->setEsiVersion('v3');
 
-        $allianceData = $this->callEsi();
-
-        if(!\is_null($allianceData)) {
-            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
-            $returnValue = $jsonMapper->map(\json_decode($allianceData), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Alliance\AlliancesAllianceId);
-        }
-
-        return $returnValue;
+        return $this->map($this->callEsi(), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Alliance\AlliancesAllianceId);
     }
 }

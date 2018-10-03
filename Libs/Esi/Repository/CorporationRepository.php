@@ -28,18 +28,19 @@ class CorporationRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\E
      * @var array ESI enpoints
      */
     protected $esiEndpoints = [
-        'corporations_corporationId' => 'corporations/{corporation_id}/?datasource=tranquility'
+        'corporations_corporationId' => 'corporations/{corporation_id}/?datasource=tranquility',
+        'corporations_corporationId_alliancehistory' => 'corporations/{corporation_id}/alliancehistory/?datasource=tranquility',
+        'corporations_corporationId_icons' => 'corporations/{corporation_id}/icons/?datasource=tranquility',
+        'corporations_npccorps' => 'corporations/npccorps/?datasource=tranquility',
     ];
 
     /**
-     * Find corporation data by corporation ID
+     * Public information about a corporation
      *
-     * @param int $corporationID
-     * @return object
+     * @param int $corporationID An EVE corporation ID
+     * @return \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Corporation\CorporationsCorporationId
      */
     public function corporationsCorporationId($corporationID) {
-        $returnValue = null;
-
         $this->setEsiMethod('get');
         $this->setEsiRoute($this->esiEndpoints['corporations_corporationId']);
         $this->setEsiRouteParameter([
@@ -47,13 +48,6 @@ class CorporationRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\E
         ]);
         $this->setEsiVersion('v4');
 
-        $corporationData = $this->callEsi();
-
-        if(!\is_null($corporationData)) {
-            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
-            $returnValue = $jsonMapper->map(\json_decode($corporationData), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Corporation\CorporationsCorporationId);
-        }
-
-        return $returnValue;
+        return $this->map($this->callEsi(), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Corporation\CorporationsCorporationId);
     }
 }
