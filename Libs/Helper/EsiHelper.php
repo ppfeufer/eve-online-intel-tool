@@ -86,28 +86,28 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
     /**
      * ESI Character API
      *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Repository\CharacterRepository
+     * @var \WordPress\EsiClient\Repository\CharacterRepository
      */
     private $characterApi = null;
 
     /**
      * ESI Corporation API
      *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Repository\CorporationRepository
+     * @var \WordPress\EsiClient\Repository\CorporationRepository
      */
     private $corporationApi = null;
 
     /**
      * ESI Alliance API
      *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Repository\AllianceRepository
+     * @var \WordPress\EsiClient\Repository\AllianceRepository
      */
     private $allianceApi = null;
 
     /**
      * ESI Universe API
      *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Repository\UniverseRepository
+     * @var \WordPress\EsiClient\Repository\UniverseRepository
      */
     private $universeApi = null;
 
@@ -135,10 +135,10 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
         /**
          * ESI API Client
          */
-        $this->characterApi = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Repository\CharacterRepository;
-        $this->corporationApi = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Repository\CorporationRepository;
-        $this->allianceApi = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Repository\AllianceRepository;
-        $this->universeApi = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Repository\UniverseRepository;
+        $this->characterApi = new \WordPress\EsiClient\Repository\CharacterRepository;
+        $this->corporationApi = new \WordPress\EsiClient\Repository\CorporationRepository;
+        $this->allianceApi = new \WordPress\EsiClient\Repository\AllianceRepository;
+        $this->universeApi = new \WordPress\EsiClient\Repository\UniverseRepository;
     }
 
     /**
@@ -150,13 +150,13 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
     public function getShipData($shipId) {
         $returnData = null;
 
-        /* @var $shipClassData \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseTypesTypeId */
+        /* @var $shipClassData \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId */
         $shipClassData = $this->getShipClassDataFromShipId($shipId);
 
         $shipTypeData = null;
 
         if(!\is_null($shipClassData->getGroupId())) {
-            /* @var $shipTypeData \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseGroupsGroupId */
+            /* @var $shipTypeData \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId */
             $shipTypeData = $this->getShipTypeDataFromShipClass($shipClassData);
         }
 
@@ -174,10 +174,10 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
      * Getting ship class data by ship id
      *
      * @param int $shipId
-     * @return \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseTypesTypeId
+     * @return \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId
      */
     public function getShipClassDataFromShipId($shipId) {
-        /* @var $shipClassData \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseTypesTypeId */
+        /* @var $shipClassData \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId */
         $shipClassData = $this->databaseHelper->getCachedDataFromDb('universe/types/' . $shipId);
 
         if(\is_null($shipClassData)) {
@@ -186,7 +186,7 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
             $this->databaseHelper->writeCacheDataToDb([
                 'universe/types/' . $shipId,
                 \maybe_serialize($shipClassData),
-                \strtotime('+10 years')
+                \strtotime('+1 week')
             ]);
         }
 
@@ -196,11 +196,11 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
     /**
      * Get ship type data by ship class
      *
-     * @param \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseTypesTypeId $shipData
-     * @return \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseGroupsGroupId
+     * @param \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId $shipData
+     * @return \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId
      */
-    public function getShipTypeDataFromShipClass(\WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseTypesTypeId $shipData) {
-        /* @var $shipTypeData \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseGroupsGroupId */
+    public function getShipTypeDataFromShipClass(\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId $shipData) {
+        /* @var $shipTypeData \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId */
         $shipTypeData = $this->databaseHelper->getCachedDataFromDb('universe/groups/' . $shipData->getGroupId());
 
         if(\is_null($shipTypeData)) {
@@ -209,7 +209,7 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
             $this->databaseHelper->writeCacheDataToDb([
                 'universe/groups/' . $shipData->getGroupId(),
                 \maybe_serialize($shipTypeData),
-                \strtotime('+10 years')
+                \strtotime('+1 week')
             ]);
         }
 
@@ -238,7 +238,7 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
     public function getIdFromName(array $names, $type) {
         $returnData = null;
 
-        /* @var $esiData \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseIds */
+        /* @var $esiData \WordPress\EsiClient\Model\Universe\UniverseIds */
         $esiData = $this->universeApi->universeIds(\array_values($names));
 
         switch($type) {

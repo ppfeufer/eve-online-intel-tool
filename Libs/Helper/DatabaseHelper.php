@@ -87,6 +87,16 @@ class DatabaseHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singleto
         if($currentVersion < 20181001) {
             $this->removeOldTables();
         }
+
+        /**
+         * Truncate the cache table after this version.
+         *
+         * We switched to a common ESI client with its own namespaces,
+         * so we cannot use the older cached entries any longer.
+         */
+        if($currentVersion < 20181003) {
+            $this->truncateEsiCacheTable();
+        }
     }
 
     /**
@@ -119,6 +129,13 @@ class DatabaseHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singleto
             $sql = "DROP TABLE IF EXISTS $tableToDrop;";
             $this->wpdb->query($sql);
         }
+    }
+
+    private function truncateEsiCacheTable() {
+        $table = $this->wpdb->base_prefix . 'eveOnlineEsiCache';
+        $sql = "TRUNCATE TABLE $table;";
+
+        $this->wpdb->query($sql);
     }
 
     private function createEsiCacheTable() {
@@ -162,7 +179,6 @@ class DatabaseHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singleto
 
     /**
      * Write cache data into the DB
-     *
      *
      * @param array $data ([esi_route, value, valid_until])
      */
