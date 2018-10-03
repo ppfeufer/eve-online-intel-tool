@@ -2,13 +2,18 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.2.0...development)
-- in development
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.2.1...development)
+-in development
+
+## [v1.2.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.2.1) - 2018-10-03
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.2.0...v1.2.1)
+### Fixed
+- An issue where large chat scans were capped at 1000 results. Now you can also get the full list of Jita local :-)
 
 ## [v1.2.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.2.0) - 2018-10-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.1.1...v1.2.0)
 ### Changed
-- Namespaces to match WordPress's fodler structure (Plugin » Plugins)
+- Namespaces to match WordPress's folder structure (Plugin » Plugins)
 - ESI client completely refactored
 - Cache database refactored
 

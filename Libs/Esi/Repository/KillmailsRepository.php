@@ -31,9 +31,14 @@ class KillmailsRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi
         'killmails_killmailId_killmailHash' => 'killmails/{killmail_id}/{killmail_hash}/?datasource=tranquility'
     ];
 
+    /**
+     * Return a single killmail from its ID and hash
+     *
+     * @param int $killmailID The killmail ID to be queried
+     * @param string $killmailHash The killmail hash for verification
+     * @return \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Killmails\KillmailsKillmailId
+     */
     public function killmailsKillmailIdKillmailHash($killmailID, $killmailHash) {
-        $returnData = null;
-
         $this->setEsiMethod('get');
         $this->setEsiRoute($this->esiEndpoints['killmails_killmailId_killmailHash']);
         $this->setEsiRouteParameter([
@@ -42,13 +47,6 @@ class KillmailsRepository extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi
         ]);
         $this->setEsiVersion('v1');
 
-        $killmailData = $this->callEsi();
-
-        if(!\is_null($killmailData)) {
-            $jsonMapper = new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Mapper\JsonMapper;
-            $returnData = $jsonMapper->map(\json_decode($killmailData), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Killmails\KillmailsKillmailId);
-        }
-
-        return $returnData;
+        return $this->map($this->callEsi(), new \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Killmails\KillmailsKillmailId);
     }
 }
