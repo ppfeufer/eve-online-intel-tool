@@ -19,8 +19,8 @@
 
 namespace WordPress\EsiClient\Model\Universe\UniverseIds;
 
-if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseIds\Character')) {
-    class Character {
+if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseIds\Characters')) {
+    class Characters {
         /**
          * id
          *

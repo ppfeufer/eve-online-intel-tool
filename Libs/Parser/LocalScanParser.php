@@ -107,7 +107,7 @@ class LocalScanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singlet
                 $nameToIdSet = null;
 
                 foreach($esiData as $characterData) {
-                    /* @var $characterData \WordPress\EsiClient\Model\Universe\UniverseIds\Character */
+                    /* @var $characterData \WordPress\EsiClient\Model\Universe\UniverseIds\Characters */
                     $nameToIdSet[] = $characterData->getId();
                     $pilotList[$characterData->getId()] = $characterData->getName();
                 }

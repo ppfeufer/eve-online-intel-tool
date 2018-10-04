@@ -148,7 +148,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseIds')) {
         public function setCharacters(array $characters) {
             $mapper = new \WordPress\EsiClient\Mapper\JsonMapper;
 
-            $this->characters = $mapper->mapArray($characters, [], '\\WordPress\EsiClient\Model\Universe\UniverseIds\Character');
+            $this->characters = $mapper->mapArray($characters, [], '\\WordPress\EsiClient\Model\Universe\UniverseIds\Characters');
         }
 
         /**

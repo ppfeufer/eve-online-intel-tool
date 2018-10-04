@@ -79,6 +79,8 @@ class WpHooks {
          * thx wordpress for removing update hooks ...
          */
         \add_action('plugins_loaded', [$this, 'checkDatabaseForUpdates']);
+
+        \add_action('widgets_init', [Widgets::getInstance(), 'registerWidgets']);
     }
 
     /**

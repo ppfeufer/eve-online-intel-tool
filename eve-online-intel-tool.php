@@ -86,8 +86,8 @@ class EveOnlineIntelTool {
         new Libs\Ajax\FormNonce;
         new Libs\Ajax\ImageLazyLoad;
 
-        $widgets = new Libs\Widgets;
-        $widgets->init();
+//        $widgets = new Libs\Widgets;
+//        $widgets->init();
 
         $jsLoader = new Libs\ResourceLoader\JavascriptLoader;
         $jsLoader->init();
