@@ -204,27 +204,4 @@ class CacheHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
 
         return $returnValue;
     }
-
-    /**
-     * Getting transient cache information / data
-     *
-     * @param string $transientName
-     * @return mixed
-     */
-    public function getTransientCache($transientName) {
-        $data = \get_transient($transientName);
-
-        return $data;
-    }
-
-    /**
-     * Setting the transient cahe
-     *
-     * @param string $transientName cache name
-     * @param mixed $data the data that is needed to be cached
-     * @param type $time cache time in hours (default: 2)
-     */
-    public function setTransientCache($transientName, $data, $time = 2) {
-        \set_transient($transientName, $data, $time * \HOUR_IN_SECONDS);
-    }
 }
