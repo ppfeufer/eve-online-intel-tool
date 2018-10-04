@@ -693,7 +693,7 @@ class JsonMapper {
      *
      * @return array
      */
-    protected static function parseAnnotations($docblock) {
+    protected function parseAnnotations($docblock) {
         $annotations = [];
         // Strip away the docblock header and footer
         // to ease parsing of one line annotations
