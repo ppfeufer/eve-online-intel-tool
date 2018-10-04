@@ -21,6 +21,9 @@ namespace WordPress\Plugins\EveOnlineIntelTool;
 
 \defined('ABSPATH') or die();
 
+/**
+ * Autoloading plugin classes
+ */
 \spl_autoload_register('\WordPress\Plugins\EveOnlineIntelTool\autoload');
 
 function autoload($className) {
@@ -70,6 +73,9 @@ function autoload($className) {
     }
 }
 
+/**
+ * Autoloading ESI classes
+ */
 \spl_autoload_register('\WordPress\Plugins\EveOnlineIntelTool\autoloadEsiClient');
 
 function autoloadEsiClient($className) {

@@ -160,7 +160,7 @@ class DatabaseHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singleto
      * @param string $route
      * @return Esi Object
      */
-    public function getCachedDataFromDb($route) {
+    public function getCachedEsiDataFromDb($route) {
         $returnValue = null;
 
         $cacheResult = $this->wpdb->get_results($this->wpdb->prepare(
@@ -182,7 +182,7 @@ class DatabaseHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singleto
      *
      * @param array $data ([esi_route, value, valid_until])
      */
-    public function writeCacheDataToDb(array $data) {
+    public function writeEsiCacheDataToDb(array $data) {
         $this->wpdb->query($this->wpdb->prepare(
             'REPLACE INTO ' . $this->wpdb->base_prefix . 'eveOnlineEsiCache' . ' (esi_route, value, valid_until) VALUES (%s, %s, %s)', $data
         ));
