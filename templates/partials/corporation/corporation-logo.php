@@ -17,7 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$imageCorporation = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('corporation') . $data['corporationID'] . '_32.png';
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\CacheHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+
+$imageCorporation = ImageHelper::getInstance()->getImageServerUrl('corporation') . $data['corporationID'] . '_32.png';
 
 if(isset($pluginSettings['image-cache']['yes']) && $pluginSettings['image-cache']['yes'] === 'yes') {
     $lazyLoading = false;
@@ -26,12 +30,12 @@ if(isset($pluginSettings['image-cache']['yes']) && $pluginSettings['image-cache'
      * If lazy loading is used and the image
      * cache is no longer valid
      */
-    if(isset($pluginSettings['image-lazy-load']['yes']) && $pluginSettings['image-lazy-load']['yes'] === 'yes' && \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\CacheHelper::getInstance()->checkCachedImage('corporation', $data['corporationID'] . '_32.png') === false) {
-        $imageCorporation = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('images/dummy-corporation.png');
+    if(isset($pluginSettings['image-lazy-load']['yes']) && $pluginSettings['image-lazy-load']['yes'] === 'yes' && CacheHelper::getInstance()->checkCachedImage('corporation', $data['corporationID'] . '_32.png') === false) {
+        $imageCorporation = PluginHelper::getInstance()->getPluginUri('images/dummy-corporation.png');
 
         $jsonDataPilot = \json_encode([
             'entityType' => 'corporation',
-            'imageUri' => \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('corporation') . $data['corporationID'] . '_32.png',
+            'imageUri' => ImageHelper::getInstance()->getImageServerUrl('corporation') . $data['corporationID'] . '_32.png',
             'eveID' => $data['corporationID']
         ]);
 
@@ -53,7 +57,7 @@ if(isset($pluginSettings['image-cache']['yes']) && $pluginSettings['image-cache'
      * is still valid load the image directly
      */
     if($lazyLoading === false) {
-        $imageCorporation = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('corporation', \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('corporation') . $data['corporationID'] . '_32.png');
+        $imageCorporation = ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('corporation', ImageHelper::getInstance()->getImageServerUrl('corporation') . $data['corporationID'] . '_32.png');
     }
 }
 ?>

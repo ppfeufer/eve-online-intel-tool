@@ -19,20 +19,24 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+
 \defined('ABSPATH') or die();
 
-class FleetCompositionParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+class FleetCompositionParser extends AbstractSingleton {
     /**
      * EVE Swagger Interface
      *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper
+     * @var EsiHelper
      */
     private $esi = null;
 
     /**
      * String Helper
      *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper
+     * @var StringHelper
      */
     private $stringHelper = null;
 
@@ -49,9 +53,9 @@ class FleetCompositionParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\
     protected function __construct() {
         parent::__construct();
 
-        $this->esi = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
-        $this->stringHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper::getInstance();
-        $this->localParser = LocalScanParser::getInstance();
+        $this->esi = EsiHelper::getInstance();
+        $this->stringHelper = StringHelper::getInstance();
+        $this->localParser = \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\LocalScanParser::getInstance();
     }
 
     public function parseFleetCompositionScan($scanData) {

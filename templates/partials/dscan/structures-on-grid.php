@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
+
 ?>
 <header class="entry-header"><h2 class="entry-title"><?php echo $title; ?><?php if(isset($count)) {echo ' (' . $count . ')';} ?></h2></header>
 
@@ -35,7 +37,7 @@ if(\is_array($structures) && \count($structures) > 0) {
                 <tr data-highlight="shiptype-<?php echo $data['shipTypeSanitized']; ?>">
                     <td>
                         <?php
-                        \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/ship/ship-image', [
+                        TemplateHelper::getTemplate('partials/ship/ship-image', [
                             'data' => [
                                 'shipID' => $data['type_id'],
                                 'shipName' => $data['type']

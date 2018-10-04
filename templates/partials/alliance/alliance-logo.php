@@ -17,7 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$imageAlliance = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('alliance') . $data['allianceID'] . '_32.png';
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\CacheHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+
+$imageAlliance = ImageHelper::getInstance()->getImageServerUrl('alliance') . $data['allianceID'] . '_32.png';
 
 if(isset($pluginSettings['image-cache']['yes']) && $pluginSettings['image-cache']['yes'] === 'yes') {
     $lazyLoading = false;
@@ -26,12 +30,12 @@ if(isset($pluginSettings['image-cache']['yes']) && $pluginSettings['image-cache'
      * If lazy loading is used and the image
      * cache is no longer valid
      */
-    if(isset($pluginSettings['image-lazy-load']['yes']) && $pluginSettings['image-lazy-load']['yes'] === 'yes' && \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\CacheHelper::getInstance()->checkCachedImage('alliance', $data['allianceID'] . '_32.png') === false) {
-        $imageAlliance = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('images/dummy-alliance.png');
+    if(isset($pluginSettings['image-lazy-load']['yes']) && $pluginSettings['image-lazy-load']['yes'] === 'yes' && CacheHelper::getInstance()->checkCachedImage('alliance', $data['allianceID'] . '_32.png') === false) {
+        $imageAlliance = PluginHelper::getInstance()->getPluginUri('images/dummy-alliance.png');
 
         $jsonDataAlliance = \json_encode([
             'entityType' => 'alliance',
-            'imageUri' => \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('alliance') . $data['allianceID'] . '_32.png',
+            'imageUri' => ImageHelper::getInstance()->getImageServerUrl('alliance') . $data['allianceID'] . '_32.png',
             'eveID' => $data['allianceID']
         ]);
         ?>
@@ -53,7 +57,7 @@ if(isset($pluginSettings['image-cache']['yes']) && $pluginSettings['image-cache'
      * is still valid load the image directly
      */
     if($lazyLoading === false) {
-        $imageAlliance = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('alliance', \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('alliance') . $data['allianceID'] . '_32.png');
+        $imageAlliance = ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('alliance', ImageHelper::getInstance()->getImageServerUrl('alliance') . $data['allianceID'] . '_32.png');
     }
 }
 ?>

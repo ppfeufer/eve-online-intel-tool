@@ -19,12 +19,14 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+
 \defined('ABSPATH') or die();
 
 /**
  * Helper Class for manipulating and/or checking strings
  */
-class StringHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+class StringHelper extends AbstractSingleton {
     /**
      * Make a string camelCase
      *

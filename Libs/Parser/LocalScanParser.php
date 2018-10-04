@@ -19,20 +19,28 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
+use \WordPress\EsiClient\Model\Alliance\AlliancesAllianceId;
+use \WordPress\EsiClient\Model\Character\CharactersAffiliation;
+use \WordPress\EsiClient\Model\Corporation\CorporationsCorporationId;
+use \WordPress\EsiClient\Model\Universe\UniverseIds\Characters;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+
 \defined('ABSPATH') or die();
 
-class LocalScanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+class LocalScanParser extends AbstractSingleton {
     /**
      * EVE Swagger Interface
      *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper
+     * @var EsiHelper
      */
     private $esiHelper = null;
 
     /**
      * String Helper
      *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper
+     * @var StringHelper
      */
     private $stringHelper = null;
 
@@ -42,8 +50,8 @@ class LocalScanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singlet
     protected function __construct() {
         parent::__construct();
 
-        $this->esiHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
-        $this->stringHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper::getInstance();
+        $this->esiHelper = EsiHelper::getInstance();
+        $this->stringHelper = StringHelper::getInstance();
     }
 
     public function parseLocalScan($scanData) {
@@ -107,14 +115,14 @@ class LocalScanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singlet
                 $nameToIdSet = null;
 
                 foreach($esiData as $characterData) {
-                    /* @var $characterData \WordPress\EsiClient\Model\Universe\UniverseIds\Characters */
+                    /* @var $characterData Characters */
                     $nameToIdSet[] = $characterData->getId();
                     $pilotList[$characterData->getId()] = $characterData->getName();
                 }
 
                 $characterAffiliationData = $this->esiHelper->getCharacterAffiliation($nameToIdSet);
                 foreach($characterAffiliationData as $affiliatedIds) {
-                    /* @var $affiliatedIds \WordPress\EsiClient\Model\Character\CharactersAffiliation */
+                    /* @var $affiliatedIds CharactersAffiliation */
                     $pilotDetails[$affiliatedIds->getCharacterId()] = [
                         'characterID' => $affiliatedIds->getCharacterId(),
                         'characterName' => $pilotList[$affiliatedIds->getCharacterId()]
@@ -124,7 +132,7 @@ class LocalScanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singlet
                      * Grabbing corporation information
                      */
                     if(!\is_null($affiliatedIds->getCorporationId())) {
-                        /* @var $corporationSheet \WordPress\EsiClient\Model\Corporation\CorporationsCorporationId */
+                        /* @var $corporationSheet CorporationsCorporationId */
                         $corporationSheet = $this->esiHelper->getCorporationData($affiliatedIds->getCorporationId());
 
                         if(!\is_null($corporationSheet)) {
@@ -138,7 +146,7 @@ class LocalScanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singlet
                      * Grabbing alliance information
                      */
                     if(!\is_null($affiliatedIds->getAllianceId())) {
-                        /* @var $allianceSheet \WordPress\EsiClient\Model\Alliance\AlliancesAllianceId */
+                        /* @var $allianceSheet AlliancesAllianceId */
                         $allianceSheet = $this->esiHelper->getAllianceData($affiliatedIds->getAllianceId());
 
                         if(!\is_null($allianceSheet)) {

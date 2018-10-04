@@ -19,20 +19,30 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
+use \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId;
+use \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId;
+use \WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId;
+use \WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId;
+use \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StructureHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+
 \defined('ABSPATH') or die();
 
-class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+class DscanParser extends AbstractSingleton {
     /**
      * EVE Swagger Interface
      *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper
+     * @var EsiHelper
      */
     private $esi = null;
 
     /**
      * String Helper
      *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper
+     * @var StringHelper
      */
     private $stringHelper = null;
 
@@ -42,8 +52,8 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
     protected function __construct() {
         parent::__construct();
 
-        $this->esi = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
-        $this->stringHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper::getInstance();
+        $this->esi = EsiHelper::getInstance();
+        $this->stringHelper = StringHelper::getInstance();
     }
 
     /**
@@ -68,8 +78,8 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
         foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
             $lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
 
-            /* @var $shipData['shipData'] \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId */
-            /* @var $shipData['shipTypeData'] \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId */
+            /* @var $shipData['shipData'] UniverseTypesTypeId */
+            /* @var $shipData['shipTypeData'] UniverseGroupsGroupId */
             $shipData = $this->esi->getShipData($lineDetailsArray['0']);
             if(!\is_null($shipData['shipData']) && !\is_null($shipData['shipTypeData'])) {
                 $dscanDetailShipsAll[] = [
@@ -162,7 +172,7 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
         $systemFound = false;
         $systemName = null;
 
-        $upwellStructureIds = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StructureHelper::getInstance()->getUpwellStructureIds();
+        $upwellStructureIds = StructureHelper::getInstance()->getUpwellStructureIds();
 
         foreach(\explode("\n", \trim($scandata)) as $line) {
             $lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
@@ -216,13 +226,13 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
         $systemShortData = $this->esi->getIdFromName([\trim($systemName)], 'systems');
 
         if(!\is_null($systemShortData)) {
-            /* @var $systemData \WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId */
+            /* @var $systemData UniverseSystemsSystemId */
             $systemData = $this->esi->getSystemData($systemShortData['0']->getId());
             $constellationName = null;
             $regionName = null;
 
             // Get the constellation data
-            /* @var $constellationData \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId */
+            /* @var $constellationData UniverseConstellationsConstellationId */
             $constellationData = $this->esi->getConstellationData($systemData->getConstellationId());
 
             // Set the constellation name
@@ -230,7 +240,7 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
                 $constellationName = $constellationData->getName();
 
                 // Get the region data
-                /* @var $regionData \WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId */
+                /* @var $regionData UniverseRegionsRegionId */
                 $regionData = $this->esi->getRegionData($constellationData->getRegionId());
 
                 // Set the region name

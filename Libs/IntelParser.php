@@ -19,6 +19,11 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\DscanParser;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\FleetCompositionParser;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\LocalScanParser;
+
 \defined('ABSPATH') or die();
 
 /**
@@ -117,7 +122,7 @@ class IntelParser {
          * mac -> linux
          * windows -> linux
          */
-        $cleanedScanData = Helper\StringHelper::getInstance()->fixLineBreaks($scanData);
+        $cleanedScanData = StringHelper::getInstance()->fixLineBreaks($scanData);
 
         switch($cleanedScanData) {
             case '':
@@ -162,7 +167,7 @@ class IntelParser {
     private function saveDscanData($scanData) {
         $returnData = null;
 
-        $parsedDscanData = Parser\DscanParser::getInstance()->parseDscan($scanData);
+        $parsedDscanData = DscanParser::getInstance()->parseDscan($scanData);
 
         if($parsedDscanData !== null) {
             $postName = $this->uniqueID;
@@ -185,7 +190,7 @@ class IntelParser {
             }
 
             $metaData = [
-                'eve-intel-tool_dscan-rawData' => \maybe_serialize(Helper\StringHelper::getInstance()->fixLineBreaks($scanData)),
+                'eve-intel-tool_dscan-rawData' => \maybe_serialize(StringHelper::getInstance()->fixLineBreaks($scanData)),
                 'eve-intel-tool_dscan-all' => \maybe_serialize($parsedDscanData['all']),
                 'eve-intel-tool_dscan-onGrid' => \maybe_serialize($parsedDscanData['onGrid']),
                 'eve-intel-tool_dscan-offGrid' => \maybe_serialize($parsedDscanData['offGrid']),
@@ -212,7 +217,7 @@ class IntelParser {
      */
     private function saveFleetComositionData($scanData) {
         $returnData = null;
-        $parsedFleetComposition = Parser\FleetCompositionParser::getInstance()->parseFleetCompositionScan($scanData);
+        $parsedFleetComposition = FleetCompositionParser::getInstance()->parseFleetCompositionScan($scanData);
 
         if($parsedFleetComposition !== null) {
             $postName = $this->uniqueID;
@@ -246,7 +251,7 @@ class IntelParser {
     private function saveLocalScanData($scanData) {
         $returnData = null;
 
-        $parsedLocalData = Parser\LocalScanParser::getInstance()->parseLocalScan($scanData);
+        $parsedLocalData = LocalScanParser::getInstance()->parseLocalScan($scanData);
 
         if($parsedLocalData !== null) {
             $postName = $this->uniqueID;

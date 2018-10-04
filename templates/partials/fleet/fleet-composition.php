@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
+
 ?>
 <header class="entry-header"><h2 class="entry-title"><?php echo \__('Who is flying what', 'eve-online-intel-tool'); ?></h2></header>
 <?php
@@ -35,7 +37,7 @@ if(\is_array($fleetOverview) && \count($fleetOverview)) {
                 <tr data-highlight="shiptype-<?php echo \sanitize_title($data['shipType']); ?>">
                     <td>
                         <?php
-                        \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/pilot/pilot-avatar', [
+                        TemplateHelper::getTemplate('partials/pilot/pilot-avatar', [
                             'data' => [
                                 'characterID' => $data['pilotID'],
                                 'characterName' => $data['pilotName']
@@ -43,7 +45,7 @@ if(\is_array($fleetOverview) && \count($fleetOverview)) {
                             'pluginSettings' => $pluginSettings
                         ]);
 
-                        \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/pilot/pilot-information', [
+                        TemplateHelper::getTemplate('partials/pilot/pilot-information', [
                             'data' => [
                                 'characterID' => $data['pilotID'],
                                 'characterName' => $data['pilotName']

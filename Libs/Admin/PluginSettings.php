@@ -19,6 +19,8 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Admin;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+
 \defined('ABSPATH') or die();
 
 /**
@@ -35,7 +37,7 @@ class PluginSettings {
     /**
      * Plugin Helper
      *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper
+     * @var PluginHelper
      */
     private $pluginHelper = null;
 
@@ -50,7 +52,7 @@ class PluginSettings {
      * Constructor
      */
     public function __construct() {
-        $this->pluginHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance();
+        $this->pluginHelper = PluginHelper::getInstance();
         $this->settingsFilter = 'register_eve_online_intel_tool_settings';
         $this->defaultOptions = $this->pluginHelper->getPluginDefaultSettings();
 

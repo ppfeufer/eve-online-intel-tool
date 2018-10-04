@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
+
 \defined('ABSPATH') or die();
 
 // Counter
@@ -76,7 +78,7 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
         <?php
     }
 
-    \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/extra/buttons');
+    TemplateHelper::getTemplate('partials/extra/buttons');
     ?>
 </header>
 
@@ -87,7 +89,7 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
             /**
              * D-Scan Breakdown
              */
-            \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/dscan/dscan-breakdown', [
+            TemplateHelper::getTemplate('partials/dscan/dscan-breakdown', [
                 'countAll' => $countAll,
                 'countOnGrid' => $countOnGrid,
                 'countOffGrid' => $countOffGrid,
@@ -99,7 +101,7 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
              * Interesting on grid
              */
             if(!empty($intelData['dscanUpwellStructures']) || !empty($intelData['dscanDeployables'])) {
-                \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/dscan/interesting-on-grid-breakdown', [
+                TemplateHelper::getTemplate('partials/dscan/interesting-on-grid-breakdown', [
                     'countAll' => $countAll,
                     'countOnGrid' => $countOnGrid,
                     'countOffGrid' => $countOffGrid,

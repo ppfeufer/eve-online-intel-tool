@@ -19,6 +19,9 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
+
 \defined('ABSPATH') or die();
 
 /**
@@ -171,8 +174,8 @@ class PostType {
         }
 
         if($templateFile !== null) {
-            if(\file_exists(Helper\TemplateHelper::locateTemplate($templateFile))) {
-                $template = Helper\TemplateHelper::locateTemplate($templateFile);
+            if(\file_exists(TemplateHelper::locateTemplate($templateFile))) {
+                $template = TemplateHelper::locateTemplate($templateFile);
             }
         }
 
@@ -187,7 +190,7 @@ class PostType {
      */
     public function registerPageTemplate($pageTemplate) {
         if(\is_page(self::getPosttypeSlug('intel'))) {
-            $pageTemplate = Helper\PluginHelper::getInstance()->getPluginPath('templates/page-intel.php');
+            $pageTemplate = PluginHelper::getInstance()->getPluginPath('templates/page-intel.php');
         }
 
         return $pageTemplate;

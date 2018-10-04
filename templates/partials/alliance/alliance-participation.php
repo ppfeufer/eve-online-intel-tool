@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
+
 ?>
 <header class="entry-header"><h2 class="entry-title"><?php echo \__('Alliances Breakdown', 'eve-online-intel-tool'); ?> (<?php echo $allianceCount; ?>)</h2></header>
 <?php
@@ -35,12 +37,12 @@ if(!empty($allianceParticipation)) {
                     <tr class="eve-intel-alliance-participation-item eve-intel-alliance-id-<?php echo $alliance['allianceID']; ?>" data-highlight="alliance-<?php echo $alliance['allianceID']; ?>">
                         <td>
                             <?php
-                            \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/alliance/alliance-logo', [
+                            TemplateHelper::getTemplate('partials/alliance/alliance-logo', [
                                 'data' => $alliance,
                                 'pluginSettings' => $pluginSettings
                             ]);
 
-                            \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/alliance/alliance-information', [
+                            TemplateHelper::getTemplate('partials/alliance/alliance-information', [
                                 'data' => $alliance
                             ]);
                             ?>

@@ -31,6 +31,17 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Admin\PluginSettings;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\FormNonce;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\ImageLazyLoad;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\GithubUpdater;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\PostType;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\CssLoader;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\JavascriptLoader;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\TemplateLoader;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\WpHooks;
+
 \defined('ABSPATH') or die();
 
 const WP_GITHUB_FORCE_UPDATE = true;
@@ -76,27 +87,27 @@ class EveOnlineIntelTool {
      * Initialize the plugin
      */
     public function init() {
-        new Libs\WpHooks([
+        new WpHooks([
             'newDatabaseVersion' => $this->databaseVersion
         ]);
 
         $this->loadTextDomain();
 
-        new Libs\PostType;
-        new Libs\Ajax\FormNonce;
-        new Libs\Ajax\ImageLazyLoad;
+        new PostType;
+        new FormNonce;
+        new ImageLazyLoad;
 
 //        $widgets = new Libs\Widgets;
 //        $widgets->init();
 
-        $jsLoader = new Libs\ResourceLoader\JavascriptLoader;
+        $jsLoader = new JavascriptLoader;
         $jsLoader->init();
 
-        $cssLoader = new Libs\ResourceLoader\CssLoader;
+        $cssLoader = new CssLoader;
         $cssLoader->init();
 
         if(\is_admin()) {
-            new Libs\Admin\PluginSettings;
+            new PluginSettings;
 
             $this->initGitHubUpdater();
         }
@@ -106,14 +117,14 @@ class EveOnlineIntelTool {
      * Initializing the GitHub Updater
      */
     private function initGitHubUpdater() {
-        new Libs\TemplateLoader;
+        new TemplateLoader;
 
         /**
          * Check Github for updates
          */
         $githubConfig = [
             'slug' => \plugin_basename(__FILE__),
-            'proper_folder_name' => Libs\Helper\PluginHelper::getInstance()->getPluginDirName(),
+            'proper_folder_name' => PluginHelper::getInstance()->getPluginDirName(),
             'api_url' => 'https://api.github.com/repos/ppfeufer/eve-online-intel-tool',
             'raw_url' => 'https://raw.github.com/ppfeufer/eve-online-intel-tool/master',
             'github_url' => 'https://github.com/ppfeufer/eve-online-intel-tool',
@@ -125,7 +136,7 @@ class EveOnlineIntelTool {
             'access_token' => '',
         ];
 
-        new Libs\GithubUpdater($githubConfig);
+        new GithubUpdater($githubConfig);
     }
 
     /**

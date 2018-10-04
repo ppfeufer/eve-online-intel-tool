@@ -19,6 +19,8 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+
 \defined('ABSPATH') or die();
 
 /**
@@ -27,7 +29,7 @@ namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 require_once(\ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php');
 require_once(\ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php');
 
-class CacheHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+class CacheHelper extends AbstractSingleton {
     /**
      * The base directoy of our cache
      *

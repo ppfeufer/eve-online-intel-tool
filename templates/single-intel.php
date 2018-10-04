@@ -17,6 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
+
 \defined('ABSPATH') or die();
 
 // get the intel type
@@ -174,12 +177,12 @@ switch($termObject['0']->slug) {
 // If the jSon format is requested
 $getData = \filter_input(INPUT_GET, 'data');
 if(isset($getData) && $getData = 'json') {
-    \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('json-api/json-data', [
+    TemplateHelper::getTemplate('json-api/json-data', [
         'jsonData' => \json_encode($jsonData)
     ]);
 }
 
-$pluginSettings = \get_option(\WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getOptionFieldName(), \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginDefaultSettings());
+$pluginSettings = \get_option(PluginHelper::getInstance()->getOptionFieldName(), PluginHelper::getInstance()->getPluginDefaultSettings());
 
 \get_header();
 ?>
@@ -189,7 +192,7 @@ $pluginSettings = \get_option(\WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\
     <div class="main-content clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12 content-wrapper">
             <div class="content content-inner content-archive eve-intel-result">
-                <?php \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('single-' . $intelType, [
+                <?php TemplateHelper::getTemplate('single-' . $intelType, [
                     'intelData' => $intelData,
                     'pluginSettings' => $pluginSettings
                 ]); ?>

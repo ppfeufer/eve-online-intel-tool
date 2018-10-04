@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
+
 \defined('ABSPATH') or die();
 ?>
 
@@ -30,7 +32,7 @@
         <?php
     }
 
-    \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/extra/buttons');
+    TemplateHelper::getTemplate('partials/extra/buttons');
     ?>
 </header>
 
@@ -40,7 +42,7 @@
             <div class="local-scan-result row">
                 <div class="col-md-6 col-lg-3">
                     <?php
-                    \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/alliance/alliance-participation', [
+                    TemplateHelper::getTemplate('partials/alliance/alliance-participation', [
                         'allianceCount' => \count($intelData['localDataAllianceList']),
                         'allianceParticipation' => $intelData['localDataAllianceParticipation'],
                         'pluginSettings' => $pluginSettings
@@ -50,7 +52,7 @@
 
                 <div class="col-md-6 col-lg-3">
                     <?php
-                    \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/corporation/corporation-participation', [
+                    TemplateHelper::getTemplate('partials/corporation/corporation-participation', [
                         'corporationCount' => \count($intelData['localDataCorporationList']),
                         'corporationParticipation' => $intelData['localDataCorporationParticipation'],
                         'pluginSettings' => $pluginSettings
@@ -60,7 +62,7 @@
 
                 <div class="col-md-12 col-lg-6">
                     <?php
-                    \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/pilot/pilot-participation', [
+                    TemplateHelper::getTemplate('partials/pilot/pilot-participation', [
                         'pilotCount' => \count($intelData['localDataPilotList']),
                         'pilotParticipation' => $intelData['localDataPilotDetails'],
                         'pluginSettings' => $pluginSettings

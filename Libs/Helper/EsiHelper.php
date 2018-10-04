@@ -24,9 +24,18 @@
  */
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
+use \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId;
+use \WordPress\EsiClient\Model\Universe\UniverseIds;
+use \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId;
+use \WordPress\EsiClient\Repository\AllianceRepository;
+use \WordPress\EsiClient\Repository\CharacterRepository;
+use \WordPress\EsiClient\Repository\CorporationRepository;
+use \WordPress\EsiClient\Repository\UniverseRepository;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+
 \defined('ABSPATH') or die();
 
-class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+class EsiHelper extends AbstractSingleton {
     /**
      * Image Server URL
      *
@@ -86,28 +95,28 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
     /**
      * ESI Character API
      *
-     * @var \WordPress\EsiClient\Repository\CharacterRepository
+     * @var CharacterRepository
      */
     private $characterApi = null;
 
     /**
      * ESI Corporation API
      *
-     * @var \WordPress\EsiClient\Repository\CorporationRepository
+     * @var CorporationRepository
      */
     private $corporationApi = null;
 
     /**
      * ESI Alliance API
      *
-     * @var \WordPress\EsiClient\Repository\AllianceRepository
+     * @var AllianceRepository
      */
     private $allianceApi = null;
 
     /**
      * ESI Universe API
      *
-     * @var \WordPress\EsiClient\Repository\UniverseRepository
+     * @var UniverseRepository
      */
     private $universeApi = null;
 
@@ -135,10 +144,10 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
         /**
          * ESI API Client
          */
-        $this->characterApi = new \WordPress\EsiClient\Repository\CharacterRepository;
-        $this->corporationApi = new \WordPress\EsiClient\Repository\CorporationRepository;
-        $this->allianceApi = new \WordPress\EsiClient\Repository\AllianceRepository;
-        $this->universeApi = new \WordPress\EsiClient\Repository\UniverseRepository;
+        $this->characterApi = new CharacterRepository;
+        $this->corporationApi = new CorporationRepository;
+        $this->allianceApi = new AllianceRepository;
+        $this->universeApi = new UniverseRepository;
     }
 
     /**
@@ -150,13 +159,13 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
     public function getShipData($shipId) {
         $returnData = null;
 
-        /* @var $shipClassData \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId */
+        /* @var $shipClassData UniverseTypesTypeId */
         $shipClassData = $this->getShipClassDataFromShipId($shipId);
 
         $shipTypeData = null;
 
         if(!\is_null($shipClassData->getGroupId())) {
-            /* @var $shipTypeData \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId */
+            /* @var $shipTypeData UniverseGroupsGroupId */
             $shipTypeData = $this->getShipTypeDataFromShipClass($shipClassData);
         }
 
@@ -174,10 +183,10 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
      * Getting ship class data by ship id
      *
      * @param int $shipId
-     * @return \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId
+     * @return UniverseTypesTypeId
      */
     public function getShipClassDataFromShipId($shipId) {
-        /* @var $shipClassData \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId */
+        /* @var $shipClassData UniverseTypesTypeId */
         $shipClassData = $this->databaseHelper->getCachedEsiDataFromDb('universe/types/' . $shipId);
 
         if(\is_null($shipClassData)) {
@@ -196,11 +205,11 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
     /**
      * Get ship type data by ship class
      *
-     * @param \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId $shipData
-     * @return \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId
+     * @param UniverseTypesTypeId $shipData
+     * @return UniverseGroupsGroupId
      */
-    public function getShipTypeDataFromShipClass(\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId $shipData) {
-        /* @var $shipTypeData \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId */
+    public function getShipTypeDataFromShipClass(UniverseTypesTypeId $shipData) {
+        /* @var $shipTypeData UniverseGroupsGroupId */
         $shipTypeData = $this->databaseHelper->getCachedEsiDataFromDb('universe/groups/' . $shipData->getGroupId());
 
         if(\is_null($shipTypeData)) {
@@ -238,7 +247,7 @@ class EsiHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\Ab
     public function getIdFromName(array $names, $type) {
         $returnData = null;
 
-        /* @var $esiData \WordPress\EsiClient\Model\Universe\UniverseIds */
+        /* @var $esiData UniverseIds */
         $esiData = $this->universeApi->universeIds(\array_values($names));
 
         switch($type) {

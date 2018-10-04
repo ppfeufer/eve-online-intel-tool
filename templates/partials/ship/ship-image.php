@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$image = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('ship', \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('ship') . $data['shipID'] . '_32.png');
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper;
+
+$image = ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('ship', ImageHelper::getInstance()->getImageServerUrl('ship') . $data['shipID'] . '_32.png');
 ?>
 <span class="eve-intel-ship-image-wrapper"><img class="eve-image" data-eveid="<?php echo $data['shipID']; ?>" src="<?php echo $image; ?>" alt="<?php echo $data['shipName']; ?>" width="32" heigh="32"></span>

@@ -19,6 +19,9 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\DatabaseHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+
 \defined('ABSPATH') or die();
 
 class WpHooks {
@@ -42,7 +45,7 @@ class WpHooks {
      * @param array $parameter array with parameters
      */
     public function __construct(array $parameter) {
-        $this->pluginFile = Helper\PluginHelper::getInstance()->getPluginPath('eve-online-intel-tool.php');
+        $this->pluginFile = PluginHelper::getInstance()->getPluginPath('eve-online-intel-tool.php');
         $this->newDatabaseVersion = (isset($parameter['newDatabaseVersion'])) ? $parameter['newDatabaseVersion'] : null;
 
         $this->init();
@@ -124,7 +127,7 @@ class WpHooks {
      * Fired on: register_activation_hook
      */
     public function checkDatabaseForUpdates() {
-        Helper\DatabaseHelper::getInstance()->checkDatabase($this->newDatabaseVersion);
+        DatabaseHelper::getInstance()->checkDatabase($this->newDatabaseVersion);
     }
 
     /**

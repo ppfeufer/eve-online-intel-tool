@@ -19,13 +19,16 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface;
+
 \defined('ABSPATH') or die();
 
-class ImageLazyLoad implements \WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface {
+class ImageLazyLoad implements AjaxInterface {
     /**
      * ImageHelper
      *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper
+     * @var ImageHelper
      */
     private $imageHelper = null;
 
@@ -33,7 +36,7 @@ class ImageLazyLoad implements \WordPress\Plugins\EveOnlineIntelTool\Libs\Interf
      * Constructor
      */
     public function __construct() {
-        $this->imageHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance();
+        $this->imageHelper = ImageHelper::getInstance();
 
         $this->initActions();
     }

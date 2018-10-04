@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
+
 ?>
 <header class="entry-header"><h2 class="entry-title"><?php echo \__('Pilots Breakdown', 'eve-online-intel-tool'); ?> (<?php echo $pilotCount; ?>)</h2></header>
 <?php
@@ -38,12 +40,12 @@ if(!empty($pilotParticipation)) {
                 <tr class="eve-intel-corporation-participation-item eve-intel-alliance-id-<?php echo $pilot['allianceID']; ?> eve-intel-corporation-id-<?php echo $pilot['corporationID']; ?> eve-intel-pilot-id-<?php echo $pilot['characterID']; ?>" data-highlight="alliance-<?php echo $pilot['allianceID']; ?>">
                     <td>
                         <?php
-                        \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/pilot/pilot-avatar', [
+                        TemplateHelper::getTemplate('partials/pilot/pilot-avatar', [
                             'data' => $pilot,
                             'pluginSettings' => $pluginSettings
                         ]);
 
-                        \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/pilot/pilot-information', [
+                        TemplateHelper::getTemplate('partials/pilot/pilot-information', [
                             'data' => [
                                 'characterID' => $pilot['characterID'],
                                 'characterName' => $pilot['characterName']
@@ -55,7 +57,7 @@ if(!empty($pilotParticipation)) {
                     <td>
                         <?php
                         if(!\is_null($pilot['allianceID']) && $pilot['allianceID'] !== 0) {
-                            \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/alliance/alliance-logo', [
+                            TemplateHelper::getTemplate('partials/alliance/alliance-logo', [
                                 'data' => $pilot,
                                 'pluginSettings' => $pluginSettings
                             ]);
@@ -67,7 +69,7 @@ if(!empty($pilotParticipation)) {
 
                     <td>
                         <?php
-                        \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/corporation/corporation-logo', [
+                        TemplateHelper::getTemplate('partials/corporation/corporation-logo', [
                             'data' => $pilot,
                             'pluginSettings' => $pluginSettings
                         ]);
