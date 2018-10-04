@@ -3,7 +3,13 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.2.1...development)
--in development
+### Changed
+- Esi client again, so I can use one for all my plugins and don't have to tweak it for every plugin individually
+
+### Removed
+- Plugin settings as they don't make any sense at all
+- Image cache, CCP has a good image CDN, let's use that
+- Some older JavaScripts for some lazy loading attempts
 
 ## [v1.2.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.2.1) - 2018-10-03
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.2.0...v1.2.1)
