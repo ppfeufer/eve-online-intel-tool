@@ -41,8 +41,7 @@ if(!empty($pilotParticipation)) {
                     <td>
                         <?php
                         TemplateHelper::getTemplate('partials/pilot/pilot-avatar', [
-                            'data' => $pilot,
-                            'pluginSettings' => $pluginSettings
+                            'data' => $pilot
                         ]);
 
                         TemplateHelper::getTemplate('partials/pilot/pilot-information', [
@@ -58,8 +57,7 @@ if(!empty($pilotParticipation)) {
                         <?php
                         if(!\is_null($pilot['allianceID']) && $pilot['allianceID'] !== 0) {
                             TemplateHelper::getTemplate('partials/alliance/alliance-logo', [
-                                'data' => $pilot,
-                                'pluginSettings' => $pluginSettings
+                                'data' => $pilot
                             ]);
 
                             echo $pilot['allianceTicker'];
@@ -70,8 +68,7 @@ if(!empty($pilotParticipation)) {
                     <td>
                         <?php
                         TemplateHelper::getTemplate('partials/corporation/corporation-logo', [
-                            'data' => $pilot,
-                            'pluginSettings' => $pluginSettings
+                            'data' => $pilot
                         ]);
 
                         echo $pilot['corporationTicker'];

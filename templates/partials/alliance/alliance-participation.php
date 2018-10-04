@@ -38,8 +38,7 @@ if(!empty($allianceParticipation)) {
                         <td>
                             <?php
                             TemplateHelper::getTemplate('partials/alliance/alliance-logo', [
-                                'data' => $alliance,
-                                'pluginSettings' => $pluginSettings
+                                'data' => $alliance
                             ]);
 
                             TemplateHelper::getTemplate('partials/alliance/alliance-information', [

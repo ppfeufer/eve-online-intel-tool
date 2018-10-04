@@ -47,8 +47,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                 if(\is_array($intelData['shipTypes']) && \count($intelData['shipTypes'])) {
                     TemplateHelper::getTemplate('partials/fleet/fleet-information', [
                         'pilotCount' => \count($intelData['pilotList']),
-                        'fleetInformation' => $intelData['fleetInformation'],
-                        'pluginSettings' => $pluginSettings
+                        'fleetInformation' => $intelData['fleetInformation']
                     ]);
                 }
                 ?>
@@ -63,8 +62,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                     if(\is_array($intelData['shipClasses']) && \count($intelData['shipClasses'])) {
                         TemplateHelper::getTemplate('partials/ship/ship-classes', [
                             'title' => \__('Ship Classes', 'eve-online-intel-tool'),
-                            'shipClassList' => $intelData['shipClasses'],
-                            'pluginSettings' => $pluginSettings
+                            'shipClassList' => $intelData['shipClasses']
                         ]);
                     }
                     ?>
@@ -78,8 +76,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                     if(\is_array($intelData['shipTypes']) && \count($intelData['shipTypes'])) {
                         TemplateHelper::getTemplate('partials/ship/ship-types', [
                             'title' => \__('Ship Types', 'eve-online-intel-tool'),
-                            'shipTypeList' => $intelData['shipTypes'],
-                            'pluginSettings' => $pluginSettings
+                            'shipTypeList' => $intelData['shipTypes']
                         ]);
                     }
                     ?>
@@ -91,8 +88,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                 <div class="col-md-12 col-lg-6">
                     <?php
                     TemplateHelper::getTemplate('partials/fleet/fleet-composition', [
-                        'fleetOverview' => $intelData['fleetOverview'],
-                        'pluginSettings' => $pluginSettings
+                        'fleetOverview' => $intelData['fleetOverview']
                     ]);
                     ?>
                 </div>
@@ -114,8 +110,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                     <?php
                     TemplateHelper::getTemplate('partials/alliance/alliance-participation', [
                         'allianceCount' => \count($intelData['allianceList']),
-                        'allianceParticipation' => $intelData['allianceParticipation'],
-                        'pluginSettings' => $pluginSettings
+                        'allianceParticipation' => $intelData['allianceParticipation']
                     ]);
                     ?>
                 </div>
@@ -127,8 +122,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                     <?php
                     TemplateHelper::getTemplate('partials/corporation/corporation-participation', [
                         'corporationCount' => \count($intelData['corporationList']),
-                        'corporationParticipation' => $intelData['corporationParticipation'],
-                        'pluginSettings' => $pluginSettings
+                        'corporationParticipation' => $intelData['corporationParticipation']
                     ]);
                     ?>
                 </div>
@@ -140,8 +134,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                     <?php
                     TemplateHelper::getTemplate('partials/pilot/pilot-participation', [
                         'pilotCount' => \count($intelData['pilotList']),
-                        'pilotParticipation' => $intelData['pilotParticipation'],
-                        'pluginSettings' => $pluginSettings
+                        'pilotParticipation' => $intelData['pilotParticipation']
                     ]);
                     ?>
                 </div>

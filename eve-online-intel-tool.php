@@ -31,9 +31,7 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Admin\PluginSettings;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\FormNonce;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\ImageLazyLoad;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\GithubUpdater;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\PostType;
@@ -95,10 +93,6 @@ class EveOnlineIntelTool {
 
         new PostType;
         new FormNonce;
-        new ImageLazyLoad;
-
-//        $widgets = new Libs\Widgets;
-//        $widgets->init();
 
         $jsLoader = new JavascriptLoader;
         $jsLoader->init();
@@ -107,7 +101,7 @@ class EveOnlineIntelTool {
         $cssLoader->init();
 
         if(\is_admin()) {
-            new PluginSettings;
+            new TemplateLoader;
 
             $this->initGitHubUpdater();
         }
@@ -117,8 +111,6 @@ class EveOnlineIntelTool {
      * Initializing the GitHub Updater
      */
     private function initGitHubUpdater() {
-        new TemplateLoader;
-
         /**
          * Check Github for updates
          */

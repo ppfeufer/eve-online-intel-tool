@@ -37,7 +37,7 @@ class DscanParser extends AbstractSingleton {
      *
      * @var EsiHelper
      */
-    private $esi = null;
+    private $esiHelper = null;
 
     /**
      * String Helper
@@ -52,7 +52,7 @@ class DscanParser extends AbstractSingleton {
     protected function __construct() {
         parent::__construct();
 
-        $this->esi = EsiHelper::getInstance();
+        $this->esiHelper = EsiHelper::getInstance();
         $this->stringHelper = StringHelper::getInstance();
     }
 
@@ -80,7 +80,8 @@ class DscanParser extends AbstractSingleton {
 
             /* @var $shipData['shipData'] UniverseTypesTypeId */
             /* @var $shipData['shipTypeData'] UniverseGroupsGroupId */
-            $shipData = $this->esi->getShipData($lineDetailsArray['0']);
+            $shipData = $this->esiHelper->getShipData($lineDetailsArray['0']);
+
             if(!\is_null($shipData['shipData']) && !\is_null($shipData['shipTypeData'])) {
                 $dscanDetailShipsAll[] = [
                     'dscanData' => $lineDetailsArray,
@@ -223,17 +224,17 @@ class DscanParser extends AbstractSingleton {
      */
     public function getSystemInformationBySystemName($systemName) {
         $returnValue = null;
-        $systemShortData = $this->esi->getIdFromName([\trim($systemName)], 'systems');
+        $systemShortData = $this->esiHelper->getIdFromName([\trim($systemName)], 'systems');
 
         if(!\is_null($systemShortData)) {
             /* @var $systemData UniverseSystemsSystemId */
-            $systemData = $this->esi->getSystemData($systemShortData['0']->getId());
+            $systemData = $this->esiHelper->getSystemData($systemShortData['0']->getId());
             $constellationName = null;
             $regionName = null;
 
             // Get the constellation data
             /* @var $constellationData UniverseConstellationsConstellationId */
-            $constellationData = $this->esi->getConstellationData($systemData->getConstellationId());
+            $constellationData = $this->esiHelper->getConstellationData($systemData->getConstellationId());
 
             // Set the constellation name
             if(!\is_null($constellationData)) {
@@ -241,7 +242,7 @@ class DscanParser extends AbstractSingleton {
 
                 // Get the region data
                 /* @var $regionData UniverseRegionsRegionId */
-                $regionData = $this->esi->getRegionData($constellationData->getRegionId());
+                $regionData = $this->esiHelper->getRegionData($constellationData->getRegionId());
 
                 // Set the region name
                 if(!\is_null($regionData)) {
@@ -413,7 +414,6 @@ class DscanParser extends AbstractSingleton {
                     }
 
                     $count[\sanitize_title($scanResult['shipData']->getName())] ++;
-
                     $shipTypeArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]);
                 }
             }
@@ -442,7 +442,6 @@ class DscanParser extends AbstractSingleton {
                 }
 
                 $count[\sanitize_title($scanResult['shipData']->getName())] ++;
-
                 $shipTypeArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]);
             }
         }

@@ -31,7 +31,7 @@ class FleetCompositionParser extends AbstractSingleton {
      *
      * @var EsiHelper
      */
-    private $esi = null;
+    private $esiHelper = null;
 
     /**
      * String Helper
@@ -53,7 +53,7 @@ class FleetCompositionParser extends AbstractSingleton {
     protected function __construct() {
         parent::__construct();
 
-        $this->esi = EsiHelper::getInstance();
+        $this->esiHelper = EsiHelper::getInstance();
         $this->stringHelper = StringHelper::getInstance();
         $this->localParser = \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\LocalScanParser::getInstance();
     }
@@ -142,13 +142,14 @@ class FleetCompositionParser extends AbstractSingleton {
         }
 
         // Get pilot IDs
-        $pilotEsiData = $this->esi->getIdFromName($pilotNames, 'characters');
+        $pilotEsiData = $this->esiHelper->getIdFromName($pilotNames, 'characters');
+
         foreach($pilotEsiData as $pilotIdData) {
             $pilotOverview[$pilotIdData->getName()]['pilotID'] = $pilotIdData->getId();
         }
 
         // Get ship class IDs
-        $shipEsiData = $this->esi->getIdFromName($shipClasses, 'inventoryTypes');
+        $shipEsiData = $this->esiHelper->getIdFromName($shipClasses, 'inventoryTypes');
 
         foreach($pilotOverview as $pilot) {
             foreach($shipEsiData as $shipData) {

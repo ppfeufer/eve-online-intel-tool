@@ -37,55 +37,6 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 class EsiHelper extends AbstractSingleton {
     /**
-     * Image Server URL
-     *
-     * @var string
-     */
-    private $imageserverUrl = null;
-
-    /**
-     * Image Server Endpoints
-     *
-     * @var array
-     */
-    private $imageserverEndpoints = null;
-
-    /**
-     * Plugin Helper
-     *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper
-     */
-    private $imageHelper = null;
-
-    /**
-     * Plugin Helper
-     *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper
-     */
-    private $pluginHelper = null;
-
-    /**
-     * Plugin Settings
-     *
-     * @var array
-     */
-    private $pluginSettings = null;
-
-    /**
-     * Cache Helper
-     *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\CacheHelper
-     */
-    private $cacheHelper = null;
-
-    /**
-     * Remote Helper
-     *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\RemoteHelper
-     */
-    private $remoteHelper = null;
-
-    /**
      * Database Helper
      *
      * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\DatabaseHelper
@@ -126,20 +77,7 @@ class EsiHelper extends AbstractSingleton {
     protected function __construct() {
         parent::__construct();
 
-        if(!$this->pluginHelper instanceof \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper) {
-            $this->pluginHelper = PluginHelper::getInstance();
-            $this->pluginSettings = $this->pluginHelper->getPluginSettings();
-        }
-
-        if(!$this->imageHelper instanceof \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper) {
-            $this->imageHelper = ImageHelper::getInstance();
-            $this->imageserverEndpoints = $this->imageHelper->getImageserverEndpoints();
-            $this->imageserverUrl = $this->imageHelper->getImageServerUrl();
-        }
-
         $this->databaseHelper = DatabaseHelper::getInstance();
-        $this->cacheHelper = CacheHelper::getInstance();
-        $this->remoteHelper = RemoteHelper::getInstance();
 
         /**
          * ESI API Client

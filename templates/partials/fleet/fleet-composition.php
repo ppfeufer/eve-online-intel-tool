@@ -41,8 +41,7 @@ if(\is_array($fleetOverview) && \count($fleetOverview)) {
                             'data' => [
                                 'characterID' => $data['pilotID'],
                                 'characterName' => $data['pilotName']
-                            ],
-                            'pluginSettings' => $pluginSettings
+                            ]
                         ]);
 
                         TemplateHelper::getTemplate('partials/pilot/pilot-information', [

@@ -44,8 +44,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                     <?php
                     TemplateHelper::getTemplate('partials/alliance/alliance-participation', [
                         'allianceCount' => \count($intelData['localDataAllianceList']),
-                        'allianceParticipation' => $intelData['localDataAllianceParticipation'],
-                        'pluginSettings' => $pluginSettings
+                        'allianceParticipation' => $intelData['localDataAllianceParticipation']
                     ]);
                     ?>
                 </div>
@@ -54,8 +53,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                     <?php
                     TemplateHelper::getTemplate('partials/corporation/corporation-participation', [
                         'corporationCount' => \count($intelData['localDataCorporationList']),
-                        'corporationParticipation' => $intelData['localDataCorporationParticipation'],
-                        'pluginSettings' => $pluginSettings
+                        'corporationParticipation' => $intelData['localDataCorporationParticipation']
                     ]);
                     ?>
                 </div>
@@ -64,8 +62,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                     <?php
                     TemplateHelper::getTemplate('partials/pilot/pilot-participation', [
                         'pilotCount' => \count($intelData['localDataPilotList']),
-                        'pilotParticipation' => $intelData['localDataPilotDetails'],
-                        'pluginSettings' => $pluginSettings
+                        'pilotParticipation' => $intelData['localDataPilotDetails']
                     ]);
                     ?>
                 </div>

@@ -161,8 +161,8 @@ class PostType {
      *
      * @since 1.0.0
      *
-     * @param	string	$template	Template file that is being loaded.
-     * @return	string				Template file that should be loaded.
+     * @param string $template Template file that is being loaded.
+     * @return string Template file that should be loaded.
      */
     public function templateLoader($template) {
         $templateFile = null;

@@ -17,49 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\CacheHelper;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
 
 $imagePilot = ImageHelper::getInstance()->getImageServerUrl('character') . $data['characterID'] . '_32.jpg';
-
-if(isset($pluginSettings['image-cache']['yes']) && $pluginSettings['image-cache']['yes'] === 'yes') {
-    $lazyLoading = false;
-
-    /**
-     * If lazy loading is used and the image
-     * cache is no longer valid
-     */
-    if(isset($pluginSettings['image-lazy-load']['yes']) && $pluginSettings['image-lazy-load']['yes'] === 'yes' && CacheHelper::getInstance()->checkCachedImage('character', $data['characterID'] . '_32.jpg') === false) {
-        $imagePilot = PluginHelper::getInstance()->getPluginUri('images/dummy-pilot.jpg');
-
-        $jsonDataPilot = \json_encode([
-            'entityType' => 'character',
-            'imageUri' => ImageHelper::getInstance()->getImageServerUrl('character') . $data['characterID'] . '_32.jpg',
-            'eveID' => $data['characterID']
-        ]);
-
-        ?>
-        <script type="text/javascript">
-            if((eveImages instanceof Array) === false) {
-                var eveImages = [];
-            }
-
-            eveImages.push(<?php echo $jsonDataPilot; ?>);
-        </script>
-        <?php
-
-        $lazyLoading = true;
-    }
-
-    /**
-     * If lazy loading is not used or the image cache
-     * is still valid load the image directly
-     */
-    if($lazyLoading === false) {
-        $imagePilot = ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('character', ImageHelper::getInstance()->getImageServerUrl('character') . $data['characterID'] . '_32.jpg');
-    }
-}
 ?>
 
 <span class="eve-intel-pilot-avatar-wrapper"><img class="eve-image" data-eveid="<?php echo $data['characterID']; ?>" src="<?php echo $imagePilot; ?>" alt="<?php echo $data['characterName']; ?>" width="32" heigh="32"></span>

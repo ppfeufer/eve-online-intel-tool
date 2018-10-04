@@ -37,8 +37,7 @@ if(\is_array($shipClassList) && \count($shipClassList) > 0) {
                     <td>
                         <?php
                         TemplateHelper::getTemplate('partials/ship/ship-image', [
-                            'data' => $data,
-                            'pluginSettings' => $pluginSettings
+                            'data' => $data
                         ]);
 
                         echo $data['shipName'];

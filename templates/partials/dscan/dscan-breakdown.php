@@ -29,8 +29,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
         TemplateHelper::getTemplate('partials/ship/ship-classes', [
             'title' => \__('All', 'eve-online-intel-tool'),
             'count' => $countAll,
-            'shipClassList' => (!empty($intelData['dscanDataAll']['data'])) ? $intelData['dscanDataAll']['data'] : null,
-            'pluginSettings' => $pluginSettings
+            'shipClassList' => (!empty($intelData['dscanDataAll']['data'])) ? $intelData['dscanDataAll']['data'] : null
         ]);
         ?>
     </div>
@@ -43,8 +42,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
         TemplateHelper::getTemplate('partials/ship/ship-classes', [
             'title' => \__('On Grid', 'eve-online-intel-tool'),
             'count' => $countOnGrid,
-            'shipClassList' => (!empty($intelData['dscanDataOnGrid']['data'])) ? $intelData['dscanDataOnGrid']['data'] : null,
-            'pluginSettings' => $pluginSettings
+            'shipClassList' => (!empty($intelData['dscanDataOnGrid']['data'])) ? $intelData['dscanDataOnGrid']['data'] : null
         ]);
         ?>
     </div>
@@ -57,8 +55,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
         TemplateHelper::getTemplate('partials/ship/ship-classes', [
             'title' => \__('Off Grid', 'eve-online-intel-tool'),
             'count' => $countOffGrid,
-            'shipClassList' => (!empty($intelData['dscanDataOffGrid']['data'])) ? $intelData['dscanDataOffGrid']['data'] : null,
-            'pluginSettings' => $pluginSettings
+            'shipClassList' => (!empty($intelData['dscanDataOffGrid']['data'])) ? $intelData['dscanDataOffGrid']['data'] : null
         ]);
         ?>
     </div>
@@ -70,8 +67,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
         <?php
         TemplateHelper::getTemplate('partials/ship/ship-types', [
             'title' => \__('Ship Types', 'eve-online-intel-tool'),
-            'shipTypeList' => $intelData['dscanDataShipTypes'],
-            'pluginSettings' => $pluginSettings
+            'shipTypeList' => $intelData['dscanDataShipTypes']
         ]);
         ?>
     </div>

@@ -33,10 +33,10 @@ class TemplateHelper {
      *
      * @since 1.0.0
      *
-     * @param 	string 	$template_name			Template to load.
-     * @param 	string 	$template_path			Path to templates.
-     * @param 	string	$default_path			Default path to template files.
-     * @return 	string 							Path to the template file.
+     * @param string $template_name Template to load.
+     * @param string $template_path Path to templates.
+     * @param string $default_path Default path to template files.
+     * @return string Path to the template file.
      */
     public static function locateTemplate($template_name, $template_path = '', $default_path = '') {
         // Set variable to search in templates folder of theme.
@@ -77,10 +77,10 @@ class TemplateHelper {
      *
      * @see locateTemplate()
      *
-     * @param string 	$template_name			Template to load.
-     * @param array 	$args					Args passed for the template file.
-     * @param string 	$tempate_path			Path to templates.
-     * @param string	$default_path			Default path to template files.
+     * @param string $template_name Template to load.
+     * @param array $args Args passed for the template file.
+     * @param string $tempate_path Path to templates.
+     * @param string $default_path Default path to template files.
      */
     public static function getTemplate($template_name, $args = [], $tempate_path = '', $default_path = '') {
         if(\is_array($args) && isset($args)) {

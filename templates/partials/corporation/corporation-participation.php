@@ -38,8 +38,7 @@ if(!empty($corporationParticipation)) {
                         <td>
                             <?php
                             TemplateHelper::getTemplate('partials/corporation/corporation-logo', [
-                                'data' => $corporation,
-                                'pluginSettings' => $pluginSettings
+                                'data' => $corporation
                             ]);
 
                             TemplateHelper::getTemplate('partials/corporation/corporation-information', [

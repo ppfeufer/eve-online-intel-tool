@@ -121,6 +121,7 @@ class LocalScanParser extends AbstractSingleton {
                 }
 
                 $characterAffiliationData = $this->esiHelper->getCharacterAffiliation($nameToIdSet);
+
                 foreach($characterAffiliationData as $affiliatedIds) {
                     /* @var $affiliatedIds CharactersAffiliation */
                     $pilotDetails[$affiliatedIds->getCharacterId()] = [
@@ -273,6 +274,7 @@ class LocalScanParser extends AbstractSingleton {
          * Sorting corporations
          */
         $employementList['corporationList'] = $corporationList;
+
         foreach($corporationParticipation as $corporation) {
             $employementList['corporationParticipation'][$corporation['count']][\sanitize_title($corporation['corporationName'])] = $corporation;
         }
@@ -281,6 +283,7 @@ class LocalScanParser extends AbstractSingleton {
          * Sorting alliances
          */
         $employementList['allianceList'] = $allianceList;
+
         foreach($allianceParticipation as $alliance) {
             $employementList['allianceParticipation'][$alliance['count']][\sanitize_title($alliance['allianceName'])] = $alliance;
         }

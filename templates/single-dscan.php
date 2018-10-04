@@ -93,8 +93,7 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
                 'countAll' => $countAll,
                 'countOnGrid' => $countOnGrid,
                 'countOffGrid' => $countOffGrid,
-                'intelData' => $intelData,
-                'pluginSettings' => $pluginSettings
+                'intelData' => $intelData
             ]);
 
             /**
@@ -105,8 +104,7 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
                     'countAll' => $countAll,
                     'countOnGrid' => $countOnGrid,
                     'countOffGrid' => $countOffGrid,
-                    'intelData' => $intelData,
-                    'pluginSettings' => $pluginSettings
+                    'intelData' => $intelData
                 ]);
             }
             ?>

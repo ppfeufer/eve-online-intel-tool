@@ -28,6 +28,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
             </header>
         </div>
     </div>
+
     <!--
     // Upwell Structures
     -->
@@ -35,8 +36,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
         <?php
         TemplateHelper::getTemplate('partials/dscan/structures-on-grid', [
             'title' => \__('Upwell Structures', 'eve-online-intel-tool'),
-            'structures' => $intelData['dscanUpwellStructures'],
-            'pluginSettings' => $pluginSettings
+            'structures' => $intelData['dscanUpwellStructures']
         ]);
         ?>
     </div>
@@ -48,8 +48,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
         <?php
         TemplateHelper::getTemplate('partials/dscan/structures-on-grid', [
             'title' => \__('Deployables', 'eve-online-intel-tool'),
-            'structures' => $intelData['dscanDeployables'],
-            'pluginSettings' => $pluginSettings
+            'structures' => $intelData['dscanDeployables']
         ]);
         ?>
     </div>
@@ -61,8 +60,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
         <?php
         TemplateHelper::getTemplate('partials/dscan/structures-on-grid', [
             'title' => \__('POS / POS Modules', 'eve-online-intel-tool'),
-            'structures' => $intelData['dscanStarbaseModules'],
-            'pluginSettings' => $pluginSettings
+            'structures' => $intelData['dscanStarbaseModules']
         ]);
         ?>
     </div>

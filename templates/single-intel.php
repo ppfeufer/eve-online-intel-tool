@@ -182,8 +182,6 @@ if(isset($getData) && $getData = 'json') {
     ]);
 }
 
-$pluginSettings = \get_option(PluginHelper::getInstance()->getOptionFieldName(), PluginHelper::getInstance()->getPluginDefaultSettings());
-
 \get_header();
 ?>
 
@@ -192,10 +190,11 @@ $pluginSettings = \get_option(PluginHelper::getInstance()->getOptionFieldName(),
     <div class="main-content clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12 content-wrapper">
             <div class="content content-inner content-archive eve-intel-result">
-                <?php TemplateHelper::getTemplate('single-' . $intelType, [
-                    'intelData' => $intelData,
-                    'pluginSettings' => $pluginSettings
-                ]); ?>
+                <?php
+                TemplateHelper::getTemplate('single-' . $intelType, [
+                    'intelData' => $intelData
+                ]);
+                ?>
             </div> <!-- /.content -->
         </div> <!-- /.col -->
     </div> <!--/.row -->

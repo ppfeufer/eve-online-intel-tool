@@ -59,35 +59,4 @@ class PluginHelper extends AbstractSingleton {
     public function getPluginDirName() {
         return \dirname(\dirname(\dirname(\plugin_basename(__FILE__))));
     }
-
-    /**
-     * Returning the plugins default settings
-     *
-     * @return array
-     */
-    public function getPluginDefaultSettings() {
-        return [
-            'image-cache' => '',
-            'image-lazy-load' => '',
-            'image-cache-time' => '120'
-        ];
-    }
-
-    /**
-     * Getting the plugin settings
-     *
-     * @return array
-     */
-    public function getPluginSettings() {
-        return \get_option($this->getOptionFieldName(), $this->getPluginDefaultSettings());
-    }
-
-    /**
-     * Returning the options field name
-     *
-     * @return string
-     */
-    public function getOptionFieldName() {
-        return $this->optionFieldName;
-    }
 }

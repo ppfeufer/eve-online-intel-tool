@@ -41,8 +41,7 @@ if(\is_array($structures) && \count($structures) > 0) {
                             'data' => [
                                 'shipID' => $data['type_id'],
                                 'shipName' => $data['type']
-                            ],
-                            'pluginSettings' => $pluginSettings
+                            ]
                         ]);
 
                         echo $data['type'];
