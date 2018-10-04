@@ -19,181 +19,183 @@
 
 namespace WordPress\EsiClient\Model\Killmails;
 
-class KillmailsKillmailId {
-    /**
-     * attackers
-     *
-     * @var array
-     */
-    protected $attackers = null;
+if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId')) {
+    class KillmailsKillmailId {
+        /**
+         * attackers
+         *
+         * @var array
+         */
+        protected $attackers = null;
 
-    /**
-     * killmailId
-     *
-     * @var int
-     */
-    protected $killmailId = null;
+        /**
+         * killmailId
+         *
+         * @var int
+         */
+        protected $killmailId = null;
 
-    /**
-     * killmailTime
-     *
-     * @var \DateTime
-     */
-    protected $killmailTime = null;
+        /**
+         * killmailTime
+         *
+         * @var \DateTime
+         */
+        protected $killmailTime = null;
 
-    /**
-     * moonId
-     *
-     * @var int
-     */
-    protected $moonId = null;
+        /**
+         * moonId
+         *
+         * @var int
+         */
+        protected $moonId = null;
 
-    /**
-     * solarSystemId
-     *
-     * @var int
-     */
-    protected $solarSystemId = null;
+        /**
+         * solarSystemId
+         *
+         * @var int
+         */
+        protected $solarSystemId = null;
 
-    /**
-     * victim
-     *
-     * @var \WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Victim
-     */
-    protected $victim = null;
+        /**
+         * victim
+         *
+         * @var \WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Victim
+         */
+        protected $victim = null;
 
-    /**
-     * warId
-     *
-     * @var int
-     */
-    protected $warId = null;
+        /**
+         * warId
+         *
+         * @var int
+         */
+        protected $warId = null;
 
-    /**
-     * getAttackers
-     *
-     * @return array
-     */
-    public function getAttackers() {
-        return $this->attackers;
-    }
+        /**
+         * getAttackers
+         *
+         * @return array
+         */
+        public function getAttackers() {
+            return $this->attackers;
+        }
 
-    /**
-     * setAttackers
-     *
-     * @param array $attackers
-     */
-    public function setAttackers(array $attackers) {
-        $mapper = new \WordPress\EsiClient\Mapper\JsonMapper;
+        /**
+         * setAttackers
+         *
+         * @param array $attackers
+         */
+        public function setAttackers(array $attackers) {
+            $mapper = new \WordPress\EsiClient\Mapper\JsonMapper;
 
-        $this->attackers = $mapper->mapArray($attackers, [], '\\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Attacker');
-    }
+            $this->attackers = $mapper->mapArray($attackers, [], '\\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Attacker');
+        }
 
-    /**
-     * getKillmailId
-     *
-     * @return int
-     */
-    public function getKillmailId() {
-        return $this->killmailId;
-    }
+        /**
+         * getKillmailId
+         *
+         * @return int
+         */
+        public function getKillmailId() {
+            return $this->killmailId;
+        }
 
-    /**
-     * setKillmailId
-     *
-     * @param int $killmailId
-     */
-    public function setKillmailId($killmailId) {
-        $this->killmailId = $killmailId;
-    }
+        /**
+         * setKillmailId
+         *
+         * @param int $killmailId
+         */
+        public function setKillmailId($killmailId) {
+            $this->killmailId = $killmailId;
+        }
 
-    /**
-     * getKillmailTime
-     *
-     * @return \DateTime
-     */
-    public function getKillmailTime() {
-        return $this->killmailTime;
-    }
+        /**
+         * getKillmailTime
+         *
+         * @return \DateTime
+         */
+        public function getKillmailTime() {
+            return $this->killmailTime;
+        }
 
-    /**
-     * setKillmailTime
-     *
-     * @param \DateTime $killmailTime
-     */
-    public function setKillmailTime(\DateTime $killmailTime) {
-        $this->killmailTime = $killmailTime;
-    }
+        /**
+         * setKillmailTime
+         *
+         * @param \DateTime $killmailTime
+         */
+        public function setKillmailTime(\DateTime $killmailTime) {
+            $this->killmailTime = $killmailTime;
+        }
 
-    /**
-     * getMoonId
-     *
-     * @return int
-     */
-    public function getMoonId() {
-        return $this->moonId;
-    }
+        /**
+         * getMoonId
+         *
+         * @return int
+         */
+        public function getMoonId() {
+            return $this->moonId;
+        }
 
-    /**
-     * setMoonId
-     *
-     * @param int $moonId
-     */
-    public function setMoonId($moonId) {
-        $this->moonId = $moonId;
-    }
+        /**
+         * setMoonId
+         *
+         * @param int $moonId
+         */
+        public function setMoonId($moonId) {
+            $this->moonId = $moonId;
+        }
 
-    /**
-     * getSolarSystemId
-     *
-     * @return int
-     */
-    public function getSolarSystemId() {
-        return $this->solarSystemId;
-    }
+        /**
+         * getSolarSystemId
+         *
+         * @return int
+         */
+        public function getSolarSystemId() {
+            return $this->solarSystemId;
+        }
 
-    /**
-     * setSolarSystemId
-     *
-     * @param int $solarSystemId
-     */
-    public function setSolarSystemId($solarSystemId) {
-        $this->solarSystemId = $solarSystemId;
-    }
+        /**
+         * setSolarSystemId
+         *
+         * @param int $solarSystemId
+         */
+        public function setSolarSystemId($solarSystemId) {
+            $this->solarSystemId = $solarSystemId;
+        }
 
-    /**
-     * getVictim
-     *
-     * @return \WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Victim
-     */
-    public function getVictim() {
-        return $this->victim;
-    }
+        /**
+         * getVictim
+         *
+         * @return \WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Victim
+         */
+        public function getVictim() {
+            return $this->victim;
+        }
 
-    /**
-     * setVictim
-     *
-     * @param \WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Victim $victim
-     */
-    public function setVictim(\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Victim $victim) {
-        $this->victim = $victim;
-    }
+        /**
+         * setVictim
+         *
+         * @param \WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Victim $victim
+         */
+        public function setVictim(\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Victim $victim) {
+            $this->victim = $victim;
+        }
 
-    /**
-     * getWarId
-     *
-     * @return int
-     */
-    public function getWarId() {
-        return $this->warId;
-    }
+        /**
+         * getWarId
+         *
+         * @return int
+         */
+        public function getWarId() {
+            return $this->warId;
+        }
 
-    /**
-     * setWarId
-     *
-     * @param int $warId
-     */
-    public function setWarId($warId) {
-        $this->warId = $warId;
+        /**
+         * setWarId
+         *
+         * @param int $warId
+         */
+        public function setWarId($warId) {
+            $this->warId = $warId;
+        }
     }
 }

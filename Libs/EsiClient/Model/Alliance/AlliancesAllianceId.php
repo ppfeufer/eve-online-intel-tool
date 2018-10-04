@@ -19,154 +19,156 @@
 
 namespace WordPress\EsiClient\Model\Alliance;
 
-class AlliancesAllianceId {
-    /**
-     * creatorCorpId
-     *
-     * @var int
-     */
-    protected $creatorCorporationId = null;
+if(!\class_exists('\WordPress\EsiClient\Model\Alliance\AlliancesAllianceId')) {
+    class AlliancesAllianceId {
+        /**
+         * creatorCorpId
+         *
+         * @var int
+         */
+        protected $creatorCorporationId = null;
 
-    /**
-     * creatorId
-     *
-     * @var int
-     */
-    protected $creatorId = null;
+        /**
+         * creatorId
+         *
+         * @var int
+         */
+        protected $creatorId = null;
 
-    /**
-     * dateFounded
-     *
-     * @var \DateTime
-     */
-    protected $dateFounded = null;
+        /**
+         * dateFounded
+         *
+         * @var \DateTime
+         */
+        protected $dateFounded = null;
 
-    /**
-     * executorCorpId
-     *
-     * @var int
-     */
-    protected $executorCorporationId = null;
+        /**
+         * executorCorpId
+         *
+         * @var int
+         */
+        protected $executorCorporationId = null;
 
-    /**
-     * name
-     *
-     * @var string
-     */
-    protected $name = null;
+        /**
+         * name
+         *
+         * @var string
+         */
+        protected $name = null;
 
-    /**
-     * ticker
-     *
-     * @var string
-     */
-    protected $ticker = null;
+        /**
+         * ticker
+         *
+         * @var string
+         */
+        protected $ticker = null;
 
-    /**
-     * getCreatorCorpId
-     *
-     * @return int
-     */
-    public function getCreatorCorporationId() {
-        return $this->creatorCorporationId;
-    }
+        /**
+         * getCreatorCorpId
+         *
+         * @return int
+         */
+        public function getCreatorCorporationId() {
+            return $this->creatorCorporationId;
+        }
 
-    /**
-     * setCreatorCorpId
-     *
-     * @param int $creatorCorpId
-     */
-    public function setCreatorCorporationId($creatorCorpId) {
-        $this->creatorCorporationId = $creatorCorpId;
-    }
+        /**
+         * setCreatorCorpId
+         *
+         * @param int $creatorCorpId
+         */
+        public function setCreatorCorporationId($creatorCorpId) {
+            $this->creatorCorporationId = $creatorCorpId;
+        }
 
-    /**
-     * getCreatorId
-     *
-     * @return int
-     */
-    public function getCreatorId() {
-        return $this->creatorId;
-    }
+        /**
+         * getCreatorId
+         *
+         * @return int
+         */
+        public function getCreatorId() {
+            return $this->creatorId;
+        }
 
-    /**
-     * setCreatorId
-     *
-     * @param int $creatorId
-     */
-    public function setCreatorId($creatorId) {
-        $this->creatorId = $creatorId;
-    }
+        /**
+         * setCreatorId
+         *
+         * @param int $creatorId
+         */
+        public function setCreatorId($creatorId) {
+            $this->creatorId = $creatorId;
+        }
 
-    /**
-     * getDateFounded
-     *
-     * @return \DateTime
-     */
-    public function getDateFounded() {
-        return $this->dateFounded;
-    }
+        /**
+         * getDateFounded
+         *
+         * @return \DateTime
+         */
+        public function getDateFounded() {
+            return $this->dateFounded;
+        }
 
-    /**
-     * setDateFounded
-     *
-     * @param \DateTime $dateFounded
-     */
-    public function setDateFounded(\DateTime $dateFounded) {
-        $this->dateFounded = $dateFounded;
-    }
+        /**
+         * setDateFounded
+         *
+         * @param \DateTime $dateFounded
+         */
+        public function setDateFounded(\DateTime $dateFounded) {
+            $this->dateFounded = $dateFounded;
+        }
 
-    /**
-     * getExecutorCorpId
-     *
-     * @return int
-     */
-    public function getExecutorCorporationId() {
-        return $this->executorCorporationId;
-    }
+        /**
+         * getExecutorCorpId
+         *
+         * @return int
+         */
+        public function getExecutorCorporationId() {
+            return $this->executorCorporationId;
+        }
 
-    /**
-     * setExecutorCorpId
-     *
-     * @param int $executorCorpId
-     */
-    public function setExecutorCorporationId($executorCorpId) {
-        $this->executorCorporationId = $executorCorpId;
-    }
+        /**
+         * setExecutorCorpId
+         *
+         * @param int $executorCorpId
+         */
+        public function setExecutorCorporationId($executorCorpId) {
+            $this->executorCorporationId = $executorCorpId;
+        }
 
-    /**
-     * getName
-     *
-     * @return string
-     */
-    public function getName() {
-        return $this->name;
-    }
+        /**
+         * getName
+         *
+         * @return string
+         */
+        public function getName() {
+            return $this->name;
+        }
 
-    /**
-     * setName
-     *
-     * @param string $name
-     */
-    public function setName($name) {
-        $this->name = $name;
-    }
+        /**
+         * setName
+         *
+         * @param string $name
+         */
+        public function setName($name) {
+            $this->name = $name;
+        }
 
-    /**
-     * getTicker
-     *
-     * @return string
-     */
-    public function getTicker() {
-        return $this->ticker;
-    }
+        /**
+         * getTicker
+         *
+         * @return string
+         */
+        public function getTicker() {
+            return $this->ticker;
+        }
 
-    /**
-     * setTicker
-     *
-     * @param string $ticker
-     */
-    public function setTicker($ticker) {
-        $this->ticker = $ticker;
+        /**
+         * setTicker
+         *
+         * @param string $ticker
+         */
+        public function setTicker($ticker) {
+            $this->ticker = $ticker;
+        }
     }
 }

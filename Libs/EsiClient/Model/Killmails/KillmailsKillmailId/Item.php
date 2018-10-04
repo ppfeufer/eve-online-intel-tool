@@ -19,157 +19,159 @@
 
 namespace WordPress\EsiClient\Model\Killmails\KillmailsKillmailId;
 
-class Item {
-    /**
-     * flag
-     *
-     * Flag for the location of the item
-     *
-     * @var int
-     */
-    protected $flag = null;
+if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Item')) {
+    class Item {
+        /**
+         * flag
+         *
+         * Flag for the location of the item
+         *
+         * @var int
+         */
+        protected $flag = null;
 
-    /**
-     * itemTypeId
-     *
-     * @var int
-     */
-    protected $itemTypeId = null;
+        /**
+         * itemTypeId
+         *
+         * @var int
+         */
+        protected $itemTypeId = null;
 
-    /**
-     * items
-     *
-     * @var array
-     */
-    protected $items = null;
+        /**
+         * items
+         *
+         * @var array
+         */
+        protected $items = null;
 
-    /**
-     * quantityDestroyed
-     *
-     * @var int
-     */
-    protected $quantityDestroyed = null;
+        /**
+         * quantityDestroyed
+         *
+         * @var int
+         */
+        protected $quantityDestroyed = null;
 
-    /**
-     * quantityDropped
-     *
-     * @var int
-     */
-    protected $quantityDropped = null;
+        /**
+         * quantityDropped
+         *
+         * @var int
+         */
+        protected $quantityDropped = null;
 
-    /**
-     * singleton
-     * @var int
-     */
-    protected $singleton = null;
+        /**
+         * singleton
+         * @var int
+         */
+        protected $singleton = null;
 
-    /**
-     * getFlag
-     *
-     * @return int
-     */
-    public function getFlag() {
-        return $this->flag;
-    }
+        /**
+         * getFlag
+         *
+         * @return int
+         */
+        public function getFlag() {
+            return $this->flag;
+        }
 
-    /**
-     * setFlag
-     *
-     * @param int $flag
-     */
-    public function setFlag($flag) {
-        $this->flag = $flag;
-    }
+        /**
+         * setFlag
+         *
+         * @param int $flag
+         */
+        public function setFlag($flag) {
+            $this->flag = $flag;
+        }
 
-    /**
-     * getItemTypeId
-     *
-     * @return int
-     */
-    public function getItemTypeId() {
-        return $this->itemTypeId;
-    }
+        /**
+         * getItemTypeId
+         *
+         * @return int
+         */
+        public function getItemTypeId() {
+            return $this->itemTypeId;
+        }
 
-    /**
-     * setItemTypeId
-     *
-     * @param int $itemTypeId
-     */
-    public function setItemTypeId($itemTypeId) {
-        $this->itemTypeId = $itemTypeId;
-    }
+        /**
+         * setItemTypeId
+         *
+         * @param int $itemTypeId
+         */
+        public function setItemTypeId($itemTypeId) {
+            $this->itemTypeId = $itemTypeId;
+        }
 
-    /**
-     * getItems
-     *
-     * @return array
-     */
-    public function getItems() {
-        return $this->items;
-    }
+        /**
+         * getItems
+         *
+         * @return array
+         */
+        public function getItems() {
+            return $this->items;
+        }
 
-    /**
-     * setItems
-     *
-     * @param array $items
-     */
-    public function setItems(array $items) {
-        $mapper = new \WordPress\EsiClient\Mapper\JsonMapper;
+        /**
+         * setItems
+         *
+         * @param array $items
+         */
+        public function setItems(array $items) {
+            $mapper = new \WordPress\EsiClient\Mapper\JsonMapper;
 
-        $this->items = $mapper->mapArray($items, [], '\\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\ItemItems');
-    }
+            $this->items = $mapper->mapArray($items, [], '\\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\ItemItems');
+        }
 
-    /**
-     * getQuantityDestroyed
-     *
-     * @return int
-     */
-    public function getQuantityDestroyed() {
-        return $this->quantityDestroyed;
-    }
+        /**
+         * getQuantityDestroyed
+         *
+         * @return int
+         */
+        public function getQuantityDestroyed() {
+            return $this->quantityDestroyed;
+        }
 
-    /**
-     * setQuantityDestroyed
-     *
-     * @param int $quantityDestroyed
-     */
-    public function setQuantityDestroyed($quantityDestroyed = null) {
-        $this->quantityDestroyed = $quantityDestroyed;
-    }
+        /**
+         * setQuantityDestroyed
+         *
+         * @param int $quantityDestroyed
+         */
+        public function setQuantityDestroyed($quantityDestroyed = null) {
+            $this->quantityDestroyed = $quantityDestroyed;
+        }
 
-    /**
-     * getQuantityDropped
-     *
-     * @return int
-     */
-    public function getQuantityDropped() {
-        return $this->quantityDropped;
-    }
+        /**
+         * getQuantityDropped
+         *
+         * @return int
+         */
+        public function getQuantityDropped() {
+            return $this->quantityDropped;
+        }
 
-    /**
-     * setQuantityDropped
-     *
-     * @param int $quantityDropped
-     */
-    public function setQuantityDropped($quantityDropped = null) {
-        $this->quantityDropped = $quantityDropped;
-    }
+        /**
+         * setQuantityDropped
+         *
+         * @param int $quantityDropped
+         */
+        public function setQuantityDropped($quantityDropped = null) {
+            $this->quantityDropped = $quantityDropped;
+        }
 
-    /**
-     * getSingleton
-     *
-     * @return int
-     */
-    public function getSingleton() {
-        return $this->singleton;
-    }
+        /**
+         * getSingleton
+         *
+         * @return int
+         */
+        public function getSingleton() {
+            return $this->singleton;
+        }
 
-    /**
-     * setSingletion
-     *
-     * @param int $singleton
-     */
-    public function setSingleton($singleton) {
-        $this->singleton = $singleton;
+        /**
+         * setSingletion
+         *
+         * @param int $singleton
+         */
+        public function setSingleton($singleton) {
+            $this->singleton = $singleton;
+        }
     }
 }

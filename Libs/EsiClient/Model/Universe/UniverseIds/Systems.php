@@ -17,58 +17,58 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace WordPress\EsiClient\Model\Universe\UniverseTypesTypeId;
+namespace WordPress\EsiClient\Model\Universe\UniverseIds;
 
-if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId\DogmaAttribute')) {
-    class DogmaAttribute {
+if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseIds\Systems')) {
+    class Systems {
         /**
-         * attributeId
+         * id
          *
          * @var int
          */
-        protected $attributeId = null;
+        protected $id = null;
 
         /**
-         * value
+         * name
          *
-         * @var float
+         * @var string
          */
-        protected $value = null;
+        protected $name = null;
 
         /**
-         * getAttributeId
+         * getId
          *
          * @return int
          */
-        public function getAttributeId() {
-            return $this->attributeId;
+        public function getId() {
+            return $this->id;
         }
 
         /**
-         * setAttributeId
+         * setId
          *
-         * @param int $attributeId
+         * @param int $id
          */
-        public function setAttributeId($attributeId) {
-            $this->attributeId = $attributeId;
+        public function setId($id) {
+            $this->id = $id;
         }
 
         /**
-         * getValue
+         * getName
          *
-         * @return float
+         * @return string
          */
-        public function getValue() {
-            return $this->value;
+        public function getName() {
+            return $this->name;
         }
 
         /**
-         * setValue
+         * setName
          *
-         * @param float $value
+         * @param string $name
          */
-        public function setValue($value) {
-            $this->value = $value;
+        public function setName($name) {
+            $this->name = $name;
         }
     }
 }

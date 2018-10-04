@@ -19,254 +19,256 @@
 
 namespace WordPress\EsiClient\Model\Dogma;
 
-class DogmaAttributesAttributeId {
-    /**
-     * attributeId
-     *
-     * @var int
-     */
-    protected $attributeId = null;
+if(!\class_exists('\WordPress\EsiClient\Model\Dogma\DogmaAttributesAttributeId')) {
+    class DogmaAttributesAttributeId {
+        /**
+         * attributeId
+         *
+         * @var int
+         */
+        protected $attributeId = null;
 
-    /**
-     * defaultValue
-     *
-     * @var float
-     */
-    protected $defaultValue = null;
+        /**
+         * defaultValue
+         *
+         * @var float
+         */
+        protected $defaultValue = null;
 
-    /**
-     * description
-     *
-     * @var string
-     */
-    protected $description = null;
+        /**
+         * description
+         *
+         * @var string
+         */
+        protected $description = null;
 
-    /**
-     * displayName
-     *
-     * @var string
-     */
-    protected $displayName = null;
+        /**
+         * displayName
+         *
+         * @var string
+         */
+        protected $displayName = null;
 
-    /**
-     * highIsGood
-     *
-     * @var boolean
-     */
-    protected $highIsGood = null;
+        /**
+         * highIsGood
+         *
+         * @var boolean
+         */
+        protected $highIsGood = null;
 
-    /**
-     * iconId
-     *
-     * @var int
-     */
-    protected $iconId = null;
+        /**
+         * iconId
+         *
+         * @var int
+         */
+        protected $iconId = null;
 
-    /**
-     * name
-     *
-     * @var string
-     */
-    protected $name = null;
+        /**
+         * name
+         *
+         * @var string
+         */
+        protected $name = null;
 
-    /**
-     * published
-     *
-     * @var boolean
-     */
-    protected $published = null;
+        /**
+         * published
+         *
+         * @var boolean
+         */
+        protected $published = null;
 
-    /**
-     * stackable
-     *
-     * @var boolean
-     */
-    protected $stackable = null;
+        /**
+         * stackable
+         *
+         * @var boolean
+         */
+        protected $stackable = null;
 
-    /**
-     * unitId
-     *
-     * @var int
-     */
-    protected $unitId = null;
+        /**
+         * unitId
+         *
+         * @var int
+         */
+        protected $unitId = null;
 
-    /**
-     * getAttributeId
-     *
-     * @return int
-     */
-    public function getAttributeId() {
-        return $this->attributeId;
-    }
+        /**
+         * getAttributeId
+         *
+         * @return int
+         */
+        public function getAttributeId() {
+            return $this->attributeId;
+        }
 
-    /**
-     * setAttributeId
-     *
-     * @param int $attributeId
-     */
-    public function setAttributeId($attributeId) {
-        $this->attributeId = $attributeId;
-    }
+        /**
+         * setAttributeId
+         *
+         * @param int $attributeId
+         */
+        public function setAttributeId($attributeId) {
+            $this->attributeId = $attributeId;
+        }
 
-    /**
-     * getDefaultValue
-     *
-     * @return float
-     */
-    public function getDefaultValue() {
-        return $this->defaultValue;
-    }
+        /**
+         * getDefaultValue
+         *
+         * @return float
+         */
+        public function getDefaultValue() {
+            return $this->defaultValue;
+        }
 
-    /**
-     * setDefaultValue
-     *
-     * @param float $defaultValue
-     */
-    public function setDefaultValue($defaultValue) {
-        $this->defaultValue = $defaultValue;
-    }
+        /**
+         * setDefaultValue
+         *
+         * @param float $defaultValue
+         */
+        public function setDefaultValue($defaultValue) {
+            $this->defaultValue = $defaultValue;
+        }
 
-    /**
-     * getDescription
-     *
-     * @return string
-     */
-    public function getDescription() {
-        return $this->description;
-    }
+        /**
+         * getDescription
+         *
+         * @return string
+         */
+        public function getDescription() {
+            return $this->description;
+        }
 
-    /**
-     * setDescription
-     *
-     * @param string $description
-     */
-    public function setDescription($description) {
-        $this->description = $description;
-    }
+        /**
+         * setDescription
+         *
+         * @param string $description
+         */
+        public function setDescription($description) {
+            $this->description = $description;
+        }
 
-    /**
-     * getDisplayName
-     *
-     * @return string
-     */
-    public function getDisplayName() {
-        return $this->displayName;
-    }
+        /**
+         * getDisplayName
+         *
+         * @return string
+         */
+        public function getDisplayName() {
+            return $this->displayName;
+        }
 
-    /**
-     * setDisplayName
-     *
-     * @param string $displayName
-     */
-    public function setDisplayName($displayName) {
-        $this->displayName = $displayName;
-    }
+        /**
+         * setDisplayName
+         *
+         * @param string $displayName
+         */
+        public function setDisplayName($displayName) {
+            $this->displayName = $displayName;
+        }
 
-    /**
-     * getHighIsGood
-     *
-     * @return boolean
-     */
-    public function getHighIsGood() {
-        return $this->highIsGood;
-    }
+        /**
+         * getHighIsGood
+         *
+         * @return boolean
+         */
+        public function getHighIsGood() {
+            return $this->highIsGood;
+        }
 
-    /**
-     * setHighIsGood
-     *
-     * @param boolean $highIsGood
-     */
-    public function setHighIsGood($highIsGood) {
-        $this->highIsGood = $highIsGood;
-    }
+        /**
+         * setHighIsGood
+         *
+         * @param boolean $highIsGood
+         */
+        public function setHighIsGood($highIsGood) {
+            $this->highIsGood = $highIsGood;
+        }
 
-    /**
-     * getIconId
-     *
-     * @return int
-     */
-    public function getIconId() {
-        return $this->iconId;
-    }
+        /**
+         * getIconId
+         *
+         * @return int
+         */
+        public function getIconId() {
+            return $this->iconId;
+        }
 
-    /**
-     * setIconId
-     *
-     * @param int $iconId
-     */
-    public function setIconId($iconId) {
-        $this->iconId = $iconId;
-    }
+        /**
+         * setIconId
+         *
+         * @param int $iconId
+         */
+        public function setIconId($iconId) {
+            $this->iconId = $iconId;
+        }
 
-    /**
-     * getName
-     *
-     * @return string
-     */
-    public function getName() {
-        return $this->name;
-    }
+        /**
+         * getName
+         *
+         * @return string
+         */
+        public function getName() {
+            return $this->name;
+        }
 
-    /**
-     * setName
-     *
-     * @param string $name
-     */
-    public function setName($name) {
-        $this->name = $name;
-    }
+        /**
+         * setName
+         *
+         * @param string $name
+         */
+        public function setName($name) {
+            $this->name = $name;
+        }
 
-    /**
-     * getPublished
-     *
-     * @return boolean
-     */
-    public function getPublished() {
-        return $this->published;
-    }
+        /**
+         * getPublished
+         *
+         * @return boolean
+         */
+        public function getPublished() {
+            return $this->published;
+        }
 
-    /**
-     * setPublished
-     *
-     * @param boolean $published
-     */
-    public function setPublished($published) {
-        $this->published = $published;
-    }
+        /**
+         * setPublished
+         *
+         * @param boolean $published
+         */
+        public function setPublished($published) {
+            $this->published = $published;
+        }
 
-    /**
-     * getStackable
-     *
-     * @return boolean
-     */
-    public function getStackable() {
-        return $this->stackable;
-    }
+        /**
+         * getStackable
+         *
+         * @return boolean
+         */
+        public function getStackable() {
+            return $this->stackable;
+        }
 
-    /**
-     * setStackable
-     *
-     * @param boolean $stackable
-     */
-    public function setStackable($stackable) {
-        $this->stackable = $stackable;
-    }
+        /**
+         * setStackable
+         *
+         * @param boolean $stackable
+         */
+        public function setStackable($stackable) {
+            $this->stackable = $stackable;
+        }
 
-    /**
-     * getUnitId
-     *
-     * @return int
-     */
-    public function getUnitId() {
-        return $this->unitId;
-    }
+        /**
+         * getUnitId
+         *
+         * @return int
+         */
+        public function getUnitId() {
+            return $this->unitId;
+        }
 
-    /**
-     * setUnitId
-     *
-     * @param int $unitId
-     */
-    public function setUnitId($unitId) {
-        $this->unitId = $unitId;
+        /**
+         * setUnitId
+         *
+         * @param int $unitId
+         */
+        public function setUnitId($unitId) {
+            $this->unitId = $unitId;
+        }
     }
 }

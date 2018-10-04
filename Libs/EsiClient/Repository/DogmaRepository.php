@@ -21,48 +21,50 @@ namespace WordPress\EsiClient\Repository;
 
 \defined('ABSPATH') or die();
 
-class DogmaRepository extends \WordPress\EsiClient\Swagger {
-    /**
-     * Used ESI enpoints in this class
-     *
-     * @var array ESI enpoints
-     */
-    protected $esiEndpoints = [
-        'dogma_attributes' => 'dogma/attributes/?datasource=tranquility',
-        'dogma_attributes_attributeId' => 'dogma/attributes/{attribute_id}/?datasource=tranquility',
-        'dogma_dynamic_items_typeId_itemId' => 'dogma/dynamic/items/{type_id}/{item_id}/?datasource=tranquility',
-        'dogma_effects' => 'dogma/effects/?datasource=tranquility',
-        'dogma_effects_effectId' => 'dogma/effects/{effect_id}/?datasource=tranquility'
-    ];
+if(!\class_exists('\WordPress\EsiClient\Repository\DogmaRepository')) {
+    class DogmaRepository extends \WordPress\EsiClient\Swagger {
+        /**
+         * Used ESI enpoints in this class
+         *
+         * @var array ESI enpoints
+         */
+        protected $esiEndpoints = [
+            'dogma_attributes' => 'dogma/attributes/?datasource=tranquility',
+            'dogma_attributes_attributeId' => 'dogma/attributes/{attribute_id}/?datasource=tranquility',
+            'dogma_dynamic_items_typeId_itemId' => 'dogma/dynamic/items/{type_id}/{item_id}/?datasource=tranquility',
+            'dogma_effects' => 'dogma/effects/?datasource=tranquility',
+            'dogma_effects_effectId' => 'dogma/effects/{effect_id}/?datasource=tranquility'
+        ];
 
-    /**
-     * Get a list of dogma attribute ids
-     *
-     * @return object
-     */
-    public function dogmaAttributes() {
-        $this->setEsiRoute($this->esiEndpoints['dogma_attributes']);
-        $this->setEsiVersion('v1');
+        /**
+         * Get a list of dogma attribute ids
+         *
+         * @return object
+         */
+        public function dogmaAttributes() {
+            $this->setEsiRoute($this->esiEndpoints['dogma_attributes']);
+            $this->setEsiVersion('v1');
 
-        $typeData = $this->callEsi();
+            $typeData = $this->callEsi();
 
-        return $typeData;
-    }
+            return $typeData;
+        }
 
-    /**
-     * Get information on a dogma attribute
-     *
-     * @param int $attributeId A dogma attribute ID
-     * @return \WordPress\EsiClient\Model\Dogma\DogmaAttributesAttributeId
-     */
-    public function dogmaAttributesAttributeId($attributeId) {
-        $this->setEsiMethod('get');
-        $this->setEsiRoute($this->esiEndpoints['dogma_attributes_attributeId']);
-        $this->setEsiRouteParameter([
-            '/{attribute_id}/' => $attributeId
-        ]);
-        $this->setEsiVersion('v1');
+        /**
+         * Get information on a dogma attribute
+         *
+         * @param int $attributeId A dogma attribute ID
+         * @return \WordPress\EsiClient\Model\Dogma\DogmaAttributesAttributeId
+         */
+        public function dogmaAttributesAttributeId($attributeId) {
+            $this->setEsiMethod('get');
+            $this->setEsiRoute($this->esiEndpoints['dogma_attributes_attributeId']);
+            $this->setEsiRouteParameter([
+                '/{attribute_id}/' => $attributeId
+            ]);
+            $this->setEsiVersion('v1');
 
-        return $this->map($this->callEsi(), new \WordPress\EsiClient\Model\Dogma\DogmaAttributesAttributeId);
+            return $this->map($this->callEsi(), new \WordPress\EsiClient\Model\Dogma\DogmaAttributesAttributeId);
+        }
     }
 }

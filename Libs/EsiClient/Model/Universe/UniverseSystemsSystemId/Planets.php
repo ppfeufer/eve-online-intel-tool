@@ -19,79 +19,81 @@
 
 namespace WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId;
 
-class Planets {
-    /**
-     * asteroidBelts
-     *
-     * @var array
-     */
-    protected $asteroidBelts = null;
+if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId\Planets')) {
+    class Planets {
+        /**
+         * asteroidBelts
+         *
+         * @var array
+         */
+        protected $asteroidBelts = null;
 
-    /**
-     * moons
-     *
-     * @var array
-     */
-    protected $moons = null;
+        /**
+         * moons
+         *
+         * @var array
+         */
+        protected $moons = null;
 
-    /**
-     * planetId
-     *
-     * @var int
-     */
-    protected $planetId = null;
+        /**
+         * planetId
+         *
+         * @var int
+         */
+        protected $planetId = null;
 
-    /**
-     * getAsteroidBelts
-     *
-     * @return array
-     */
-    public function getAsteroidBelts() {
-        return $this->asteroidBelts;
-    }
+        /**
+         * getAsteroidBelts
+         *
+         * @return array
+         */
+        public function getAsteroidBelts() {
+            return $this->asteroidBelts;
+        }
 
-    /**
-     * setAsteroidBelts
-     *
-     * @param array $asteroidBelts
-     */
-    public function setAsteroidBelts(array $asteroidBelts) {
-        $this->asteroidBelts = $asteroidBelts;
-    }
+        /**
+         * setAsteroidBelts
+         *
+         * @param array $asteroidBelts
+         */
+        public function setAsteroidBelts(array $asteroidBelts) {
+            $this->asteroidBelts = $asteroidBelts;
+        }
 
-    /**
-     * getMoons
-     *
-     * @return array
-     */
-    public function getMoons() {
-        return $this->moons;
-    }
+        /**
+         * getMoons
+         *
+         * @return array
+         */
+        public function getMoons() {
+            return $this->moons;
+        }
 
-    /**
-     * setMoons
-     *
-     * @param array $moons
-     */
-    public function setMoons(array $moons) {
-        $this->moons = $moons;
-    }
+        /**
+         * setMoons
+         *
+         * @param array $moons
+         */
+        public function setMoons(array $moons) {
+            $this->moons = $moons;
+        }
 
-    /**
-     * getPlanetId
-     *
-     * @return int
-     */
-    public function getPlanetId() {
-        return $this->planetId;
-    }
+        /**
+         * getPlanetId
+         *
+         * @return int
+         */
+        public function getPlanetId() {
+            return $this->planetId;
+        }
 
-    /**
-     * setPlanetId
-     *
-     * @param int $planetId
-     */
-    public function setPlanetId($planetId) {
-        $this->planetId = $planetId;
+        /**
+         * setPlanetId
+         *
+         * @param int $planetId
+         */
+        public function setPlanetId($planetId) {
+            $this->planetId = $planetId;
+        }
     }
 }

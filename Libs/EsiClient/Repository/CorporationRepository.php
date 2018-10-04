@@ -21,33 +21,35 @@ namespace WordPress\EsiClient\Repository;
 
 \defined('ABSPATH') or die();
 
-class CorporationRepository extends \WordPress\EsiClient\Swagger {
-    /**
-     * Used ESI enpoints in this class
-     *
-     * @var array ESI enpoints
-     */
-    protected $esiEndpoints = [
-        'corporations_corporationId' => 'corporations/{corporation_id}/?datasource=tranquility',
-        'corporations_corporationId_alliancehistory' => 'corporations/{corporation_id}/alliancehistory/?datasource=tranquility',
-        'corporations_corporationId_icons' => 'corporations/{corporation_id}/icons/?datasource=tranquility',
-        'corporations_npccorps' => 'corporations/npccorps/?datasource=tranquility',
-    ];
+if(!\class_exists('\WordPress\EsiClient\Repository\CorporationRepository')) {
+    class CorporationRepository extends \WordPress\EsiClient\Swagger {
+        /**
+         * Used ESI enpoints in this class
+         *
+         * @var array ESI enpoints
+         */
+        protected $esiEndpoints = [
+            'corporations_corporationId' => 'corporations/{corporation_id}/?datasource=tranquility',
+            'corporations_corporationId_alliancehistory' => 'corporations/{corporation_id}/alliancehistory/?datasource=tranquility',
+            'corporations_corporationId_icons' => 'corporations/{corporation_id}/icons/?datasource=tranquility',
+            'corporations_npccorps' => 'corporations/npccorps/?datasource=tranquility',
+        ];
 
-    /**
-     * Public information about a corporation
-     *
-     * @param int $corporationID An EVE corporation ID
-     * @return \WordPress\EsiClient\Model\Corporation\CorporationsCorporationId
-     */
-    public function corporationsCorporationId($corporationID) {
-        $this->setEsiMethod('get');
-        $this->setEsiRoute($this->esiEndpoints['corporations_corporationId']);
-        $this->setEsiRouteParameter([
-            '/{corporation_id}/' => $corporationID
-        ]);
-        $this->setEsiVersion('v4');
+        /**
+         * Public information about a corporation
+         *
+         * @param int $corporationID An EVE corporation ID
+         * @return \WordPress\EsiClient\Model\Corporation\CorporationsCorporationId
+         */
+        public function corporationsCorporationId($corporationID) {
+            $this->setEsiMethod('get');
+            $this->setEsiRoute($this->esiEndpoints['corporations_corporationId']);
+            $this->setEsiRouteParameter([
+                '/{corporation_id}/' => $corporationID
+            ]);
+            $this->setEsiVersion('v4');
 
-        return $this->map($this->callEsi(), new \WordPress\EsiClient\Model\Corporation\CorporationsCorporationId);
+            return $this->map($this->callEsi(), new \WordPress\EsiClient\Model\Corporation\CorporationsCorporationId);
+        }
     }
 }

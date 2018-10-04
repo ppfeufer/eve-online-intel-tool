@@ -19,79 +19,81 @@
 
 namespace WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId;
 
-class Position {
-    /**
-     * x coordinate
-     *
-     * @var double
-     */
-    protected $x = null;
+if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId\Position')) {
+    class Position {
+        /**
+         * x coordinate
+         *
+         * @var double
+         */
+        protected $x = null;
 
-    /**
-     * y coordinate
-     *
-     * @var double
-     */
-    protected $y = null;
+        /**
+         * y coordinate
+         *
+         * @var double
+         */
+        protected $y = null;
 
-    /**
-     * z coordinate
-     *
-     * @var double
-     */
-    protected $z = null;
+        /**
+         * z coordinate
+         *
+         * @var double
+         */
+        protected $z = null;
 
-    /**
-     * getX
-     *
-     * @return double
-     */
-    public function getX() {
-        return $this->x;
-    }
+        /**
+         * getX
+         *
+         * @return double
+         */
+        public function getX() {
+            return $this->x;
+        }
 
-    /**
-     * setX
-     *
-     * @param double $x
-     */
-    public function setX($x) {
-        $this->x = $x;
-    }
+        /**
+         * setX
+         *
+         * @param double $x
+         */
+        public function setX($x) {
+            $this->x = $x;
+        }
 
-    /**
-     * getY
-     *
-     * @return double
-     */
-    public function getY() {
-        return $this->y;
-    }
+        /**
+         * getY
+         *
+         * @return double
+         */
+        public function getY() {
+            return $this->y;
+        }
 
-    /**
-     * setY
-     *
-     * @param double $y
-     */
-    public function sety($y) {
-        $this->y = $y;
-    }
+        /**
+         * setY
+         *
+         * @param double $y
+         */
+        public function sety($y) {
+            $this->y = $y;
+        }
 
-    /**
-     * getZ
-     *
-     * @return double
-     */
-    public function getz() {
-        return $this->z;
-    }
+        /**
+         * getZ
+         *
+         * @return double
+         */
+        public function getz() {
+            return $this->z;
+        }
 
-    /**
-     * setZ
-     *
-     * @param double $z
-     */
-    public function setZ($z) {
-        $this->z = $z;
+        /**
+         * setZ
+         *
+         * @param double $z
+         */
+        public function setZ($z) {
+            $this->z = $z;
+        }
     }
 }

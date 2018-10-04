@@ -19,54 +19,56 @@
 
 namespace WordPress\EsiClient\Model\Universe\UniverseTypesTypeId;
 
-class DogmaEffect {
-    /**
-     * effectId
-     *
-     * @var int
-     */
-    protected $effectId = null;
+if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId\DogmaEffect')) {
+    class DogmaEffect {
+        /**
+         * effectId
+         *
+         * @var int
+         */
+        protected $effectId = null;
 
-    /**
-     * isDefault
-     *
-     * @var boolean
-     */
-    protected $isDefault = null;
+        /**
+         * isDefault
+         *
+         * @var boolean
+         */
+        protected $isDefault = null;
 
-    /**
-     * getEffectId
-     *
-     * @return int
-     */
-    public function getEffectId() {
-        return $this->effectId;
-    }
+        /**
+         * getEffectId
+         *
+         * @return int
+         */
+        public function getEffectId() {
+            return $this->effectId;
+        }
 
-    /**
-     * setEffectId
-     *
-     * @param int $effectId
-     */
-    public function setEffectId($effectId) {
-        $this->effectId = $effectId;
-    }
+        /**
+         * setEffectId
+         *
+         * @param int $effectId
+         */
+        public function setEffectId($effectId) {
+            $this->effectId = $effectId;
+        }
 
-    /**
-     * getIsDefault
-     *
-     * @return boolean
-     */
-    public function getIsDefault() {
-        return $this->isDefault;
-    }
+        /**
+         * getIsDefault
+         *
+         * @return boolean
+         */
+        public function getIsDefault() {
+            return $this->isDefault;
+        }
 
-    /**
-     * setIsDefault
-     *
-     * @param boolean $isDefault
-     */
-    public function setIsDefault($isDefault) {
-        $this->isDefault = $isDefault;
+        /**
+         * setIsDefault
+         *
+         * @param boolean $isDefault
+         */
+        public function setIsDefault($isDefault) {
+            $this->isDefault = $isDefault;
+        }
     }
 }

@@ -21,32 +21,34 @@ namespace WordPress\EsiClient\Repository;
 
 \defined('ABSPATH') or die();
 
-class KillmailsRepository extends \WordPress\EsiClient\Swagger {
-    /**
-     * Used ESI enpoints in this class
-     *
-     * @var array ESI enpoints
-     */
-    protected $esiEndpoints = [
-        'killmails_killmailId_killmailHash' => 'killmails/{killmail_id}/{killmail_hash}/?datasource=tranquility'
-    ];
+if(!\class_exists('\WordPress\EsiClient\Repository\KillmailsRepository')) {
+    class KillmailsRepository extends \WordPress\EsiClient\Swagger {
+        /**
+         * Used ESI enpoints in this class
+         *
+         * @var array ESI enpoints
+         */
+        protected $esiEndpoints = [
+            'killmails_killmailId_killmailHash' => 'killmails/{killmail_id}/{killmail_hash}/?datasource=tranquility'
+        ];
 
-    /**
-     * Return a single killmail from its ID and hash
-     *
-     * @param int $killmailID The killmail ID to be queried
-     * @param string $killmailHash The killmail hash for verification
-     * @return \WordPress\EsiClient\Model\Killmails\KillmailsKillmailId
-     */
-    public function killmailsKillmailIdKillmailHash($killmailID, $killmailHash) {
-        $this->setEsiMethod('get');
-        $this->setEsiRoute($this->esiEndpoints['killmails_killmailId_killmailHash']);
-        $this->setEsiRouteParameter([
-            '/{killmail_id}/' => $killmailID,
-            '/{killmail_hash}/' => $killmailHash
-        ]);
-        $this->setEsiVersion('v1');
+        /**
+         * Return a single killmail from its ID and hash
+         *
+         * @param int $killmailID The killmail ID to be queried
+         * @param string $killmailHash The killmail hash for verification
+         * @return \WordPress\EsiClient\Model\Killmails\KillmailsKillmailId
+         */
+        public function killmailsKillmailIdKillmailHash($killmailID, $killmailHash) {
+            $this->setEsiMethod('get');
+            $this->setEsiRoute($this->esiEndpoints['killmails_killmailId_killmailHash']);
+            $this->setEsiRouteParameter([
+                '/{killmail_id}/' => $killmailID,
+                '/{killmail_hash}/' => $killmailHash
+            ]);
+            $this->setEsiVersion('v1');
 
-        return $this->map($this->callEsi(), new \WordPress\EsiClient\Model\Killmails\KillmailsKillmailId);
+            return $this->map($this->callEsi(), new \WordPress\EsiClient\Model\Killmails\KillmailsKillmailId);
+        }
     }
 }

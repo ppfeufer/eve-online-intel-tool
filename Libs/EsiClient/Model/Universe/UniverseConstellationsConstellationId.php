@@ -19,131 +19,133 @@
 
 namespace WordPress\EsiClient\Model\Universe;
 
-class UniverseConstellationsConstellationId {
-    /**
-     * constellationId
-     *
-     * The constellation this solar system is in
-     *
-     * @var int
-     */
-    protected $constellationId = null;
+if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId')) {
+    class UniverseConstellationsConstellationId {
+        /**
+         * constellationId
+         *
+         * The constellation this solar system is in
+         *
+         * @var int
+         */
+        protected $constellationId = null;
 
-    /**
-     * name
-     *
-     * @var string
-     */
-    protected $name = null;
+        /**
+         * name
+         *
+         * @var string
+         */
+        protected $name = null;
 
-    /**
-     * position
-     *
-     * @var \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId\Position
-     */
-    protected $position = null;
+        /**
+         * position
+         *
+         * @var \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId\Position
+         */
+        protected $position = null;
 
-    /**
-     * regionId
-     *
-     * @var int
-     */
-    protected $regionId = null;
+        /**
+         * regionId
+         *
+         * @var int
+         */
+        protected $regionId = null;
 
-    /**
-     * systems
-     *
-     * @var array
-     */
-    protected $systems = null;
+        /**
+         * systems
+         *
+         * @var array
+         */
+        protected $systems = null;
 
-    /**
-     * getConstellationId
-     *
-     * @return int
-     */
-    public function getConstellationId() {
-        return $this->constellationId;
-    }
+        /**
+         * getConstellationId
+         *
+         * @return int
+         */
+        public function getConstellationId() {
+            return $this->constellationId;
+        }
 
-    /**
-     * setConstellationId
-     *
-     * @param int $constellationId
-     */
-    public function setConstellationId($constellationId) {
-        $this->constellationId = $constellationId;
-    }
+        /**
+         * setConstellationId
+         *
+         * @param int $constellationId
+         */
+        public function setConstellationId($constellationId) {
+            $this->constellationId = $constellationId;
+        }
 
-    /**
-     * getName
-     *
-     * @return string
-     */
-    public function getName() {
-        return $this->name;
-    }
+        /**
+         * getName
+         *
+         * @return string
+         */
+        public function getName() {
+            return $this->name;
+        }
 
-    /**
-     * setName
-     *
-     * @param string $name
-     */
-    public function setName($name) {
-        $this->name = $name;
-    }
+        /**
+         * setName
+         *
+         * @param string $name
+         */
+        public function setName($name) {
+            $this->name = $name;
+        }
 
-    /**
-     * getPosition
-     *
-     * @return \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId\Position
-     */
-    public function getPosition() {
-        return $this->position;
-    }
+        /**
+         * getPosition
+         *
+         * @return \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId\Position
+         */
+        public function getPosition() {
+            return $this->position;
+        }
 
-    /**
-     * setPosition
-     *
-     * @param \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId\Position $position
-     */
-    public function setPosition(\WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId\Position $position) {
-        $this->position = $position;
-    }
+        /**
+         * setPosition
+         *
+         * @param \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId\Position $position
+         */
+        public function setPosition(\WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId\Position $position) {
+            $this->position = $position;
+        }
 
-    /**
-     * getRegionId
-     *
-     * @return int
-     */
-    public function getRegionId() {
-        return $this->regionId;
-    }
+        /**
+         * getRegionId
+         *
+         * @return int
+         */
+        public function getRegionId() {
+            return $this->regionId;
+        }
 
-    /**
-     * setRegionId
-     *
-     * @param int $regionId
-     */
-    public function setRegionId($regionId) {
-        $this->regionId = $regionId;
-    }
+        /**
+         * setRegionId
+         *
+         * @param int $regionId
+         */
+        public function setRegionId($regionId) {
+            $this->regionId = $regionId;
+        }
 
-    /**
-     * getSystems
-     *
-     * @return array
-     */
-    public function getSystems() {
-        return $this->systems;
-    }
+        /**
+         * getSystems
+         *
+         * @return array
+         */
+        public function getSystems() {
+            return $this->systems;
+        }
 
-    /**
-     * setSystems
-     *
-     * @param array $systems
-     */
-    public function setSystems(array $systems) {
-        $this->systems = $systems;
+        /**
+         * setSystems
+         *
+         * @param array $systems
+         */
+        public function setSystems(array $systems) {
+            $this->systems = $systems;
+        }
     }
 }

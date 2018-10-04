@@ -19,156 +19,158 @@
 
 namespace WordPress\EsiClient\Model\Universe;
 
-class UniverseAncestries {
-    /**
-     * bloodlineId
-     *
-     * The bloodline associated with this ancestry
-     *
-     * @var int
-     */
-    protected $bloodlineId = null;
+if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseAncestries')) {
+    class UniverseAncestries {
+        /**
+         * bloodlineId
+         *
+         * The bloodline associated with this ancestry
+         *
+         * @var int
+         */
+        protected $bloodlineId = null;
 
-    /**
-     * description
-     *
-     * @var string
-     */
-    protected $description = null;
+        /**
+         * description
+         *
+         * @var string
+         */
+        protected $description = null;
 
-    /**
-     * iconId
-     *
-     * @var int
-     */
-    protected $iconId = null;
+        /**
+         * iconId
+         *
+         * @var int
+         */
+        protected $iconId = null;
 
-    /**
-     * id
-     *
-     * @var int
-     */
-    protected $id = null;
+        /**
+         * id
+         *
+         * @var int
+         */
+        protected $id = null;
 
-    /**
-     * name
-     *
-     * @var string
-     */
-    protected $name = null;
+        /**
+         * name
+         *
+         * @var string
+         */
+        protected $name = null;
 
-    /**
-     * shortDescription
-     *
-     * @var string
-     */
-    protected $shortDescription = null;
+        /**
+         * shortDescription
+         *
+         * @var string
+         */
+        protected $shortDescription = null;
 
-    /**
-     * getBloodlineId
-     *
-     * @return int The bloodline associated with this ancestry
-     */
-    public function getBloodlineId() {
-        return $this->bloodlineId;
-    }
+        /**
+         * getBloodlineId
+         *
+         * @return int The bloodline associated with this ancestry
+         */
+        public function getBloodlineId() {
+            return $this->bloodlineId;
+        }
 
-    /**
-     * setBloodlineId
-     *
-     * @param int $bloodlineId The bloodline associated with this ancestry
-     */
-    public function setBloodlineId($bloodlineId) {
-        $this->bloodlineId = $bloodlineId;
-    }
+        /**
+         * setBloodlineId
+         *
+         * @param int $bloodlineId The bloodline associated with this ancestry
+         */
+        public function setBloodlineId($bloodlineId) {
+            $this->bloodlineId = $bloodlineId;
+        }
 
-    /**
-     * getDescription
-     *
-     * @return string
-     */
-    public function getDescription() {
-        return $this->description;
-    }
+        /**
+         * getDescription
+         *
+         * @return string
+         */
+        public function getDescription() {
+            return $this->description;
+        }
 
-    /**
-     * setDescription
-     *
-     * @param string $description
-     */
-    public function setDescription($description) {
-        $this->description = $description;
-    }
+        /**
+         * setDescription
+         *
+         * @param string $description
+         */
+        public function setDescription($description) {
+            $this->description = $description;
+        }
 
-    /**
-     * getIconId
-     *
-     * @return int
-     */
-    public function getIconId() {
-        return $this->iconId;
-    }
+        /**
+         * getIconId
+         *
+         * @return int
+         */
+        public function getIconId() {
+            return $this->iconId;
+        }
 
-    /**
-     * setIconId
-     *
-     * @param int $iconId
-     */
-    public function setIconId($iconId) {
-        $this->iconId = $iconId;
-    }
+        /**
+         * setIconId
+         *
+         * @param int $iconId
+         */
+        public function setIconId($iconId) {
+            $this->iconId = $iconId;
+        }
 
-    /**
-     * getId
-     *
-     * @return int
-     */
-    public function getId() {
-        return $this->id;
-    }
+        /**
+         * getId
+         *
+         * @return int
+         */
+        public function getId() {
+            return $this->id;
+        }
 
-    /**
-     * setId
-     *
-     * @param int $id
-     */
-    public function setId($id) {
-        $this->id = $id;
-    }
+        /**
+         * setId
+         *
+         * @param int $id
+         */
+        public function setId($id) {
+            $this->id = $id;
+        }
 
-    /**
-     * getName
-     *
-     * @return string
-     */
-    public function getName() {
-        return $this->name;
-    }
+        /**
+         * getName
+         *
+         * @return string
+         */
+        public function getName() {
+            return $this->name;
+        }
 
-    /**
-     * setName
-     *
-     * @param string $name
-     */
-    public function setName($name) {
-        $this->name = $name;
-    }
+        /**
+         * setName
+         *
+         * @param string $name
+         */
+        public function setName($name) {
+            $this->name = $name;
+        }
 
-    /**
-     * getShortDescription
-     *
-     * @return string
-     */
-    public function getShortDescription() {
-        return $this->shortDescription;
-    }
+        /**
+         * getShortDescription
+         *
+         * @return string
+         */
+        public function getShortDescription() {
+            return $this->shortDescription;
+        }
 
-    /**
-     * setShortDescription
-     *
-     * @param string $shortDescription
-     */
-    public function setShortDescription($shortDescription) {
-        $this->shortDescription = $shortDescription;
+        /**
+         * setShortDescription
+         *
+         * @param string $shortDescription
+         */
+        public function setShortDescription($shortDescription) {
+            $this->shortDescription = $shortDescription;
+        }
     }
 }

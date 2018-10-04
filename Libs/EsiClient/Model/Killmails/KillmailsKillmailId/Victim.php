@@ -19,210 +19,212 @@
 
 namespace WordPress\EsiClient\Model\Killmails\KillmailsKillmailId;
 
-class Victim {
-    /**
-     * allianceId
-     *
-     * @var int
-     */
-    protected $allianceId = null;
+if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Victim')) {
+    class Victim {
+        /**
+         * allianceId
+         *
+         * @var int
+         */
+        protected $allianceId = null;
 
-    /**
-     * characterId
-     *
-     * @var int
-     */
-    protected $characterId = null;
+        /**
+         * characterId
+         *
+         * @var int
+         */
+        protected $characterId = null;
 
-    /**
-     * corporationId
-     *
-     * @var int
-     */
-    protected $corporationId = null;
+        /**
+         * corporationId
+         *
+         * @var int
+         */
+        protected $corporationId = null;
 
-    /**
-     * damageTaken
-     *
-     * @var int
-     */
-    protected $damageTaken = null;
+        /**
+         * damageTaken
+         *
+         * @var int
+         */
+        protected $damageTaken = null;
 
-    /**
-     * factionId
-     *
-     * @var int
-     */
-    protected $factionId = null;
+        /**
+         * factionId
+         *
+         * @var int
+         */
+        protected $factionId = null;
 
-    /**
-     * items
-     *
-     * @var array
-     */
-    protected $items = null;
+        /**
+         * items
+         *
+         * @var array
+         */
+        protected $items = null;
 
-    /**
-     * position
-     *
-     * @var \WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Position
-     */
-    protected $position = null;
+        /**
+         * position
+         *
+         * @var \WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Position
+         */
+        protected $position = null;
 
-    /**
-     * shipTypeId
-     *
-     * @var int
-     */
-    protected $shipTypeId = null;
+        /**
+         * shipTypeId
+         *
+         * @var int
+         */
+        protected $shipTypeId = null;
 
-    /**
-     * getAllianceId
-     *
-     * @return int
-     */
-    public function getAllianceId() {
-        return $this->allianceId;
-    }
+        /**
+         * getAllianceId
+         *
+         * @return int
+         */
+        public function getAllianceId() {
+            return $this->allianceId;
+        }
 
-    /**
-     * setAllianceId
-     *
-     * @param int $allianceId
-     */
-    public function setAllianceId($allianceId) {
-        $this->allianceId = $allianceId;
-    }
+        /**
+         * setAllianceId
+         *
+         * @param int $allianceId
+         */
+        public function setAllianceId($allianceId) {
+            $this->allianceId = $allianceId;
+        }
 
-    /**
-     * getCharacterId
-     *
-     * @return int
-     */
-    public function getCharacterId() {
-        return $this->characterId;
-    }
+        /**
+         * getCharacterId
+         *
+         * @return int
+         */
+        public function getCharacterId() {
+            return $this->characterId;
+        }
 
-    /**
-     * setCharacterId
-     *
-     * @param int $characterId
-     */
-    public function setCharacterId($characterId) {
-        $this->characterId = $characterId;
-    }
+        /**
+         * setCharacterId
+         *
+         * @param int $characterId
+         */
+        public function setCharacterId($characterId) {
+            $this->characterId = $characterId;
+        }
 
-    /**
-     * getCorporationId
-     *
-     * @return int
-     */
-    public function getCorporationId() {
-        return $this->corporationId;
-    }
+        /**
+         * getCorporationId
+         *
+         * @return int
+         */
+        public function getCorporationId() {
+            return $this->corporationId;
+        }
 
-    /**
-     * setCorporationId
-     *
-     * @param int $corporationId
-     */
-    public function setCorporationId($corporationId) {
-        $this->corporationId = $corporationId;
-    }
+        /**
+         * setCorporationId
+         *
+         * @param int $corporationId
+         */
+        public function setCorporationId($corporationId) {
+            $this->corporationId = $corporationId;
+        }
 
-    /**
-     * getDamageTaken
-     *
-     * @return int
-     */
-    public function getDamageTaken() {
-        return $this->damageTaken;
-    }
+        /**
+         * getDamageTaken
+         *
+         * @return int
+         */
+        public function getDamageTaken() {
+            return $this->damageTaken;
+        }
 
-    /**
-     * setDamageTaken
-     *
-     * @param int $damageTaken
-     */
-    public function setDamageTaken($damageTaken) {
-        $this->damageTaken = $damageTaken;
-    }
+        /**
+         * setDamageTaken
+         *
+         * @param int $damageTaken
+         */
+        public function setDamageTaken($damageTaken) {
+            $this->damageTaken = $damageTaken;
+        }
 
-    /**
-     * getFactionId
-     *
-     * @return int
-     */
-    public function getFactionId() {
-        return $this->factionId;
-    }
+        /**
+         * getFactionId
+         *
+         * @return int
+         */
+        public function getFactionId() {
+            return $this->factionId;
+        }
 
-    /**
-     * setFactionId
-     *
-     * @param int $factionId
-     */
-    public function setFactionId($factionId) {
-        $this->factionId = $factionId;
-    }
+        /**
+         * setFactionId
+         *
+         * @param int $factionId
+         */
+        public function setFactionId($factionId) {
+            $this->factionId = $factionId;
+        }
 
-    /**
-     * getItems
-     *
-     * @return array
-     */
-    public function getItems() {
-        return $this->items;
-    }
+        /**
+         * getItems
+         *
+         * @return array
+         */
+        public function getItems() {
+            return $this->items;
+        }
 
-    /**
-     * setItems
-     *
-     * @param array $items
-     */
-    public function setItems(array $items) {
-        $mapper = new \WordPress\EsiClient\Mapper\JsonMapper;
+        /**
+         * setItems
+         *
+         * @param array $items
+         */
+        public function setItems(array $items) {
+            $mapper = new \WordPress\EsiClient\Mapper\JsonMapper;
 
-        $this->items = $mapper->mapArray($items, [], '\\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Item');
-    }
+            $this->items = $mapper->mapArray($items, [], '\\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Item');
+        }
 
-    /**
-     * getPosition
-     *
-     * @return \WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Position
-     */
-    public function getPosition() {
-        return $this->position;
-    }
+        /**
+         * getPosition
+         *
+         * @return \WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Position
+         */
+        public function getPosition() {
+            return $this->position;
+        }
 
-    /**
-     * setPosition
-     *
-     * @param \WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Position $position
-     */
-    public function setPosition(\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Position $position) {
-        $this->position = $position;
-    }
+        /**
+         * setPosition
+         *
+         * @param \WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Position $position
+         */
+        public function setPosition(\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Position $position) {
+            $this->position = $position;
+        }
 
-    /**
-     * getShipTypeId
-     *
-     * What ship was the attacker flying
-     *
-     * @return int
-     */
-    public function getShipTypeId() {
-        return $this->shipTypeId;
-    }
+        /**
+         * getShipTypeId
+         *
+         * What ship was the attacker flying
+         *
+         * @return int
+         */
+        public function getShipTypeId() {
+            return $this->shipTypeId;
+        }
 
-    /**
-     * setShipTypeId
-     *
-     * What ship was the attacker flying
-     *
-     * @param int $shipTypeId
-     */
-    public function setShipTypeId($shipTypeId) {
-        $this->shipTypeId = $shipTypeId;
+        /**
+         * setShipTypeId
+         *
+         * What ship was the attacker flying
+         *
+         * @param int $shipTypeId
+         */
+        public function setShipTypeId($shipTypeId) {
+            $this->shipTypeId = $shipTypeId;
+        }
     }
 }

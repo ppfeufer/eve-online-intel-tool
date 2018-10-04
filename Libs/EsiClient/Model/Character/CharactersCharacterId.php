@@ -19,229 +19,231 @@
 
 namespace WordPress\EsiClient\Model\Character;
 
-class CharactersCharacterId {
-    /**
-     * ancestryId
-     *
-     * @var int
-     */
-    protected $ancestryId = null;
+if(!\class_exists('\WordPress\EsiClient\Model\Character\CharactersCharacterId')) {
+    class CharactersCharacterId {
+        /**
+         * ancestryId
+         *
+         * @var int
+         */
+        protected $ancestryId = null;
 
-    /**
-     * birthday
-     *
-     * @var \DateTime
-     */
-    protected $birhday = null;
+        /**
+         * birthday
+         *
+         * @var \DateTime
+         */
+        protected $birhday = null;
 
-    /**
-     * bloodlineId
-     *
-     * @var int
-     */
-    protected $bloodlineId = null;
+        /**
+         * bloodlineId
+         *
+         * @var int
+         */
+        protected $bloodlineId = null;
 
-    /**
-     * corporationId
-     *
-     * @var int
-     */
-    protected $corporationId = null;
+        /**
+         * corporationId
+         *
+         * @var int
+         */
+        protected $corporationId = null;
 
-    /**
-     * description
-     *
-     * @var string
-     */
-    protected $description = null;
+        /**
+         * description
+         *
+         * @var string
+         */
+        protected $description = null;
 
-    /**
-     * gender
-     *
-     * @var string
-     */
-    protected $gender = null;
+        /**
+         * gender
+         *
+         * @var string
+         */
+        protected $gender = null;
 
-    /**
-     * name
-     *
-     * @var string
-     */
-    protected $name = null;
+        /**
+         * name
+         *
+         * @var string
+         */
+        protected $name = null;
 
-    /**
-     * raceId
-     *
-     * @var int
-     */
-    protected $raceId = null;
+        /**
+         * raceId
+         *
+         * @var int
+         */
+        protected $raceId = null;
 
-    /**
-     * securityStatus
-     *
-     * @var float
-     */
-    protected $securityStatus = null;
+        /**
+         * securityStatus
+         *
+         * @var float
+         */
+        protected $securityStatus = null;
 
-    /**
-     * getAncestryId
-     *
-     * @return int
-     */
-    public function getAncestryId() {
-        return $this->ancestryId;
-    }
+        /**
+         * getAncestryId
+         *
+         * @return int
+         */
+        public function getAncestryId() {
+            return $this->ancestryId;
+        }
 
-    /**
-     * setAncestryId
-     *
-     * @param int $ancestryId
-     */
-    public function setAncestryId($ancestryId) {
-        $this->ancestryId = $ancestryId;
-    }
+        /**
+         * setAncestryId
+         *
+         * @param int $ancestryId
+         */
+        public function setAncestryId($ancestryId) {
+            $this->ancestryId = $ancestryId;
+        }
 
-    /**
-     * getBirthday
-     *
-     * @return \DateTime
-     */
-    public function getBirthday() {
-        return $this->birhday;
-    }
+        /**
+         * getBirthday
+         *
+         * @return \DateTime
+         */
+        public function getBirthday() {
+            return $this->birhday;
+        }
 
-    /**
-     * setBirthday
-     *
-     * @param \DateTime $birthday
-     */
-    public function setBirthday(\DateTime $birthday) {
-        $this->birhday = $birthday;
-    }
+        /**
+         * setBirthday
+         *
+         * @param \DateTime $birthday
+         */
+        public function setBirthday(\DateTime $birthday) {
+            $this->birhday = $birthday;
+        }
 
-    /**
-     * getBloodlineId
-     *
-     * @return int
-     */
-    public function getBloodlineId() {
-        return $this->bloodlineId;
-    }
+        /**
+         * getBloodlineId
+         *
+         * @return int
+         */
+        public function getBloodlineId() {
+            return $this->bloodlineId;
+        }
 
-    /**
-     * setBloodlineId
-     *
-     * @param int $bloodlineId
-     */
-    public function setBloodlineId($bloodlineId) {
-        $this->bloodlineId = $bloodlineId;
-    }
+        /**
+         * setBloodlineId
+         *
+         * @param int $bloodlineId
+         */
+        public function setBloodlineId($bloodlineId) {
+            $this->bloodlineId = $bloodlineId;
+        }
 
-    /**
-     * getCorporationId
-     *
-     * @return int
-     */
-    public function getCorporationId() {
-        return $this->corporationId;
-    }
+        /**
+         * getCorporationId
+         *
+         * @return int
+         */
+        public function getCorporationId() {
+            return $this->corporationId;
+        }
 
-    /**
-     * setCorporationId
-     *
-     * @param int $corporationId
-     */
-    public function setCorporationId($corporationId) {
-        $this->corporationId = $corporationId;
-    }
+        /**
+         * setCorporationId
+         *
+         * @param int $corporationId
+         */
+        public function setCorporationId($corporationId) {
+            $this->corporationId = $corporationId;
+        }
 
-    /**
-     * getDescription
-     *
-     * @return string
-     */
-    public function getDescription() {
-        return $this->description;
-    }
+        /**
+         * getDescription
+         *
+         * @return string
+         */
+        public function getDescription() {
+            return $this->description;
+        }
 
-    /**
-     * setDescription
-     *
-     * @param string $description
-     */
-    public function setDescription($description) {
-        $this->description = \strip_tags($description);
-    }
+        /**
+         * setDescription
+         *
+         * @param string $description
+         */
+        public function setDescription($description) {
+            $this->description = \strip_tags($description);
+        }
 
-    /**
-     * getGender
-     *
-     * @return string
-     */
-    public function getGender() {
-        return $this->gender;
-    }
+        /**
+         * getGender
+         *
+         * @return string
+         */
+        public function getGender() {
+            return $this->gender;
+        }
 
-    /**
-     * setGender
-     *
-     * @param string $gender
-     */
-    public function setGender($gender) {
-        $this->gender = $gender;
-    }
+        /**
+         * setGender
+         *
+         * @param string $gender
+         */
+        public function setGender($gender) {
+            $this->gender = $gender;
+        }
 
-    /**
-     * getName
-     *
-     * @return string
-     */
-    public function getName() {
-        return $this->name;
-    }
+        /**
+         * getName
+         *
+         * @return string
+         */
+        public function getName() {
+            return $this->name;
+        }
 
-    /**
-     * setName
-     *
-     * @param string $name
-     */
-    public function setName($name) {
-        $this->name = $name;
-    }
+        /**
+         * setName
+         *
+         * @param string $name
+         */
+        public function setName($name) {
+            $this->name = $name;
+        }
 
-    /**
-     * getRaceId
-     *
-     * @return int
-     */
-    public function getRaceId() {
-        return $this->raceId;
-    }
+        /**
+         * getRaceId
+         *
+         * @return int
+         */
+        public function getRaceId() {
+            return $this->raceId;
+        }
 
-    /**
-     * setRaceId
-     *
-     * @param int $raceId
-     */
-    public function setRaceId($raceId) {
-        $this->raceId = $raceId;
-    }
+        /**
+         * setRaceId
+         *
+         * @param int $raceId
+         */
+        public function setRaceId($raceId) {
+            $this->raceId = $raceId;
+        }
 
-    /**
-     * getSecurityStatus
-     *
-     * @return float
-     */
-    public function getSecurityStatus() {
-        return $this->securityStatus;
-    }
+        /**
+         * getSecurityStatus
+         *
+         * @return float
+         */
+        public function getSecurityStatus() {
+            return $this->securityStatus;
+        }
 
-    /**
-     * setSecurityStatus
-     *
-     * @param float $securityStatus
-     */
-    public function setSecurityStatus($securityStatus) {
-        $this->securityStatus = $securityStatus;
+        /**
+         * setSecurityStatus
+         *
+         * @param float $securityStatus
+         */
+        public function setSecurityStatus($securityStatus) {
+            $this->securityStatus = $securityStatus;
+        }
     }
 }

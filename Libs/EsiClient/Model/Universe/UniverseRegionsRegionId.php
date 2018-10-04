@@ -19,104 +19,106 @@
 
 namespace WordPress\EsiClient\Model\Universe;
 
-class UniverseRegionsRegionId {
-    /**
-     * constellationId
-     *
-     * @var array
-     */
-    protected $constellations = null;
+if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId')) {
+    class UniverseRegionsRegionId {
+        /**
+         * constellationId
+         *
+         * @var array
+         */
+        protected $constellations = null;
 
-    /**
-     * description
-     *
-     * @var string
-     */
-    protected $description = null;
+        /**
+         * description
+         *
+         * @var string
+         */
+        protected $description = null;
 
-    /**
-     * name
-     *
-     * @var string
-     */
-    protected $name = null;
+        /**
+         * name
+         *
+         * @var string
+         */
+        protected $name = null;
 
-    /**
-     * regionId
-     *
-     * @var int
-     */
-    protected $regionId = null;
+        /**
+         * regionId
+         *
+         * @var int
+         */
+        protected $regionId = null;
 
-    /**
-     * getConstellations
-     *
-     * @return array
-     */
-    public function getConstellations() {
-        return $this->constellations;
-    }
+        /**
+         * getConstellations
+         *
+         * @return array
+         */
+        public function getConstellations() {
+            return $this->constellations;
+        }
 
-    /**
-     * setConstellations
-     *
-     * @param array $constellations
-     */
-    public function setConstellations(array $constellations) {
-        $this->constellations = $constellations;
-    }
+        /**
+         * setConstellations
+         *
+         * @param array $constellations
+         */
+        public function setConstellations(array $constellations) {
+            $this->constellations = $constellations;
+        }
 
-    /**
-     * getDescription
-     *
-     * @return string
-     */
-    public function getDescription() {
-        return $this->description;
-    }
+        /**
+         * getDescription
+         *
+         * @return string
+         */
+        public function getDescription() {
+            return $this->description;
+        }
 
-    /**
-     * setDescription
-     *
-     * @param string $description
-     */
-    public function setDescription($description) {
-        $this->description = $description;
-    }
+        /**
+         * setDescription
+         *
+         * @param string $description
+         */
+        public function setDescription($description) {
+            $this->description = $description;
+        }
 
-    /**
-     * getName
-     *
-     * @return string
-     */
-    public function getName() {
-        return $this->name;
-    }
+        /**
+         * getName
+         *
+         * @return string
+         */
+        public function getName() {
+            return $this->name;
+        }
 
-    /**
-     * setName
-     *
-     * @param string $name
-     */
-    public function setName($name) {
-        $this->name = $name;
-    }
+        /**
+         * setName
+         *
+         * @param string $name
+         */
+        public function setName($name) {
+            $this->name = $name;
+        }
 
-    /**
-     * getRegionId
-     *
-     * @return int
-     */
-    public function getRegionId() {
-        return $this->regionId;
-    }
+        /**
+         * getRegionId
+         *
+         * @return int
+         */
+        public function getRegionId() {
+            return $this->regionId;
+        }
 
-    /**
-     * setRegionId
-     *
-     * @param int $regionId
-     */
-    public function setRegionId($regionId) {
-        $this->regionId = $regionId;
+        /**
+         * setRegionId
+         *
+         * @param int $regionId
+         */
+        public function setRegionId($regionId) {
+            $this->regionId = $regionId;
+        }
     }
 }

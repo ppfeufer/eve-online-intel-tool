@@ -21,48 +21,50 @@ namespace WordPress\EsiClient\Repository;
 
 \defined('ABSPATH') or die();
 
-class CharacterRepository extends \WordPress\EsiClient\Swagger {
-    /**
-     * Used ESI enpoints in this class
-     *
-     * @var array ESI enpoints
-     */
-    protected $esiEndpoints = [
-        'characters_characterId' => 'characters/{character_id}/?datasource=tranquility',
-        'characters_characterId_corporationhistory' => 'characters/{character_id}/corporationhistory/?datasource=tranquility',
-        'characters_characterId_portrait' => 'characters/{character_id}/portrait/?datasource=tranquility',
-        'characters_affiliation' => 'characters/affiliation/?datasource=tranquility'
-    ];
+if(!\class_exists('\WordPress\EsiClient\Repository\CharacterRepository')) {
+    class CharacterRepository extends \WordPress\EsiClient\Swagger {
+        /**
+         * Used ESI enpoints in this class
+         *
+         * @var array ESI enpoints
+         */
+        protected $esiEndpoints = [
+            'characters_characterId' => 'characters/{character_id}/?datasource=tranquility',
+            'characters_characterId_corporationhistory' => 'characters/{character_id}/corporationhistory/?datasource=tranquility',
+            'characters_characterId_portrait' => 'characters/{character_id}/portrait/?datasource=tranquility',
+            'characters_affiliation' => 'characters/affiliation/?datasource=tranquility'
+        ];
 
-    /**
-     * Public information about a character
-     *
-     * @param int $characterID An EVE character ID
-     * @return \WordPress\EsiClient\Model\Character\CharactersCharacterId
-     */
-    public function charactersCharacterId($characterID) {
-        $this->setEsiMethod('get');
-        $this->setEsiRoute($this->esiEndpoints['characters_characterId']);
-        $this->setEsiRouteParameter([
-            '/{character_id}/' => $characterID
-        ]);
-        $this->setEsiVersion('v4');
+        /**
+         * Public information about a character
+         *
+         * @param int $characterID An EVE character ID
+         * @return \WordPress\EsiClient\Model\Character\CharactersCharacterId
+         */
+        public function charactersCharacterId($characterID) {
+            $this->setEsiMethod('get');
+            $this->setEsiRoute($this->esiEndpoints['characters_characterId']);
+            $this->setEsiRouteParameter([
+                '/{character_id}/' => $characterID
+            ]);
+            $this->setEsiVersion('v4');
 
-        return $this->map($this->callEsi(), new \WordPress\EsiClient\Model\Character\CharactersCharacterId);
-    }
+            return $this->map($this->callEsi(), new \WordPress\EsiClient\Model\Character\CharactersCharacterId);
+        }
 
-    /**
-     * Bulk lookup of character IDs to corporation, alliance and faction
-     *
-     * @param array $characterIds The character IDs to fetch affiliations for. All characters must exist, or none will be returned
-     * @return array
-     */
-    public function charactersAffiliation($characterIds = []) {
-        $this->setEsiMethod('post');
-        $this->setEsiPostParameter($characterIds);
-        $this->setEsiRoute($this->esiEndpoints['characters_affiliation']);
-        $this->setEsiVersion('v1');
+        /**
+         * Bulk lookup of character IDs to corporation, alliance and faction
+         *
+         * @param array $characterIds The character IDs to fetch affiliations for. All characters must exist, or none will be returned
+         * @return array
+         */
+        public function charactersAffiliation($characterIds = []) {
+            $this->setEsiMethod('post');
+            $this->setEsiPostParameter($characterIds);
+            $this->setEsiRoute($this->esiEndpoints['characters_affiliation']);
+            $this->setEsiVersion('v1');
 
-        return $this->mapArray($this->callEsi(), '\\WordPress\EsiClient\Model\Character\CharactersAffiliation');
+            return $this->mapArray($this->callEsi(), '\\WordPress\EsiClient\Model\Character\CharactersAffiliation');
+        }
     }
 }
