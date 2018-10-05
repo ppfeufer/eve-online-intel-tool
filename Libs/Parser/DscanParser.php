@@ -255,14 +255,19 @@ class DscanParser extends AbstractSingleton {
 
             $mapData = $this->esiHelper->getSovereigntyMap();
 
-            $sovHolder = null;;
+            $sovHolder = null;
             foreach($mapData as $systemHolder) {
                 if(($systemHolder->getSystemId() === $systemData->getSystemId()) && !\is_null($systemHolder->getAllianceId())) {
                     $sovHoldingAlliance = $this->esiHelper->getAllianceData($systemHolder->getAllianceId());
+                    $sovHoldingCorporation = $this->esiHelper->getCorporationData($systemHolder->getCorporationId());
 
-                    $sovHolder['id'] = $systemHolder->getAllianceId();
-                    $sovHolder['name'] = $sovHoldingAlliance->getName();
-                    $sovHolder['ticker'] = $sovHoldingAlliance->getTicker();
+                    $sovHolder['alliance']['id'] = $systemHolder->getAllianceId();
+                    $sovHolder['alliance']['name'] = $sovHoldingAlliance->getName();
+                    $sovHolder['alliance']['ticker'] = $sovHoldingAlliance->getTicker();
+
+                    $sovHolder['corporation']['id'] = $systemHolder->getCorporationId();
+                    $sovHolder['corporation']['name'] = $sovHoldingCorporation->getName();
+                    $sovHolder['corporation']['ticker'] = $sovHoldingCorporation->getTicker();
                 }
             }
 
@@ -276,14 +281,13 @@ class DscanParser extends AbstractSingleton {
                 'shipKills' => 0
             ];
             $systemJumpsData = $this->esiHelper->getSystemJumps();
-            $systemKillsData = $this->esiHelper->getSystemKills();
-
             foreach($systemJumpsData as $systemJumps) {
                 if($systemJumps->getSystemId() === $systemData->getSystemId()) {
                     $systemActivity['jumps'] = $systemJumps->getShipJumps();
                 }
             }
 
+            $systemKillsData = $this->esiHelper->getSystemKills();
             foreach($systemKillsData as $systemKills) {
                 if($systemKills->getSystemId() === $systemData->getSystemId()) {
                     $systemActivity['npcKills'] = $systemKills->getNpcKills();
@@ -292,10 +296,25 @@ class DscanParser extends AbstractSingleton {
                 }
             }
 
+            /**
+             * Get system status
+             */
+            $systemSecurityStatus = \number_format($systemData->getSecurityStatus(), 1);
+            $systemAdm = null;
+
+            $systemStructuresData = $this->esiHelper->getSovereigntyStryuctures();
+            foreach($systemStructuresData as $structureData) {
+                if($structureData->getSolarSystemId() === $systemData->getSystemId()) {
+                    $systemAdm = $structureData->getVulnerabilityOccupancyLevel();
+                }
+            }
+
             $returnValue = [
                 'system' => [
                     'id' => $systemId,
                     'name' => $systemName,
+                    'securityStatus' => $systemSecurityStatus,
+                    'adm' => $systemAdm,
                     'sovHolder' => $sovHolder
                 ],
                 'constellation' => [

@@ -424,7 +424,7 @@ class EsiHelper extends AbstractSingleton {
         $sovereigntyCampaignData = $this->databaseHelper->getCachedEsiDataFromDb('sovereignty/campaigns');
 
         if(\is_null($sovereigntyCampaignData)) {
-            $sovereigntyCampaignData = $this->universeApi->universeSystemKills();
+            $sovereigntyCampaignData = $this->sovereigntyApi->sovereigntyCampaigns();
 
             if(!\is_null($sovereigntyCampaignData)) {
                 $this->databaseHelper->writeEsiCacheDataToDb([
@@ -460,7 +460,7 @@ class EsiHelper extends AbstractSingleton {
         $sovereigntyCampaignData = $this->databaseHelper->getCachedEsiDataFromDb('sovereignty/structures');
 
         if(\is_null($sovereigntyCampaignData)) {
-            $sovereigntyCampaignData = $this->universeApi->universeSystemKills();
+            $sovereigntyCampaignData = $this->sovereigntyApi->sovereigntyStructures();
 
             if(!\is_null($sovereigntyCampaignData)) {
                 $this->databaseHelper->writeEsiCacheDataToDb([

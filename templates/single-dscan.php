@@ -52,7 +52,7 @@ $systemData = (!empty($intelData['dscanDataSystem'])) ? $intelData['dscanDataSys
             -->
             <?php
             if(!\is_null($systemData)) {
-                TemplateHelper::getInstance()->getTemplate('partials/dscan/system-information', [
+                TemplateHelper::getInstance()->getTemplate('partials/dscan/system-data', [
                     'systemData' => $systemData
                 ]);
             }

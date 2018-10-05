@@ -20,6 +20,11 @@
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper;
 
 $imageCorporation = ImageHelper::getInstance()->getImageServerUrl('corporation') . $data['corporationID'] . '_32.png';
+
+$size = 32;
+if(isset($data['size'])) {
+    $size = $data['size'];
+}
 ?>
 
-<span class="eve-intel-corporation-logo-wrapper"><img class="eve-image" data-eveid="<?php echo $data['corporationID']; ?>" src="<?php echo $imageCorporation; ?>" alt="<?php echo $data['corporationName']; ?>" title="<?php echo $data['corporationName']; ?>" width="32" heigh="32"></span>
+<span class="eve-intel-corporation-logo-wrapper"><img class="eve-image" data-eveid="<?php echo $data['corporationID']; ?>" src="<?php echo $imageCorporation; ?>" alt="<?php echo $data['corporationName']; ?>" title="<?php echo $data['corporationName']; ?>" width="<?php echo $size; ?>" heigh="<?php echo $size; ?>"></span>
