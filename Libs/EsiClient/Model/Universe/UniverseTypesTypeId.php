@@ -108,7 +108,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId')) {
         /**
          * published
          *
-         * @var boolean
+         * @var bool
          */
         protected $published = false;
 
@@ -147,7 +147,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId')) {
          *
          * @param float $capacity
          */
-        public function setCapacity($capacity) {
+        public function setCapacity(float $capacity) {
             $this->capacity = $capacity;
         }
 
@@ -165,7 +165,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId')) {
          *
          * @param string $description
          */
-        public function setDescription($description) {
+        public function setDescription(string $description) {
             $this->description = $description;
         }
 
@@ -223,7 +223,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId')) {
          *
          * @param int $graphicId
          */
-        public function setGraphicId($graphicId) {
+        public function setGraphicId(int $graphicId) {
             $this->graphicId = $graphicId;
         }
 
@@ -241,7 +241,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId')) {
          *
          * @param int $groupId
          */
-        public function setGroupId($groupId) {
+        public function setGroupId(int $groupId) {
             $this->groupId = $groupId;
         }
 
@@ -259,7 +259,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId')) {
          *
          * @param int $iconId
          */
-        public function setIconId($iconId) {
+        public function setIconId(int $iconId) {
             $this->iconId = $iconId;
         }
 
@@ -277,7 +277,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId')) {
          *
          * @param int $marketGroupId
          */
-        public function setMarketGroupId($marketGroupId) {
+        public function setMarketGroupId(int $marketGroupId) {
             $this->marketGroupId = $marketGroupId;
         }
 
@@ -295,7 +295,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId')) {
          *
          * @param float $mass
          */
-        public function setMass($mass) {
+        public function setMass(float $mass) {
             $this->mass = $mass;
         }
 
@@ -313,7 +313,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId')) {
          *
          * @param string $name
          */
-        public function setName($name) {
+        public function setName(string $name) {
             $this->name = $name;
         }
 
@@ -331,7 +331,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId')) {
          *
          * @param float $packagedVolume
          */
-        public function setPackedVolume($packagedVolume) {
+        public function setPackedVolume(float $packagedVolume) {
             $this->packagedVolume = $packagedVolume;
         }
 
@@ -349,14 +349,14 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId')) {
          *
          * @param int $portionSize
          */
-        public function setPortionSize($portionSize) {
+        public function setPortionSize(int $portionSize) {
             $this->portionSize = $portionSize;
         }
 
         /**
          * getPublished
          *
-         * @return boolean
+         * @return bool
          */
         public function getPublished() {
             return $this->published;
@@ -365,9 +365,9 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId')) {
         /**
          * setPublished
          *
-         * @param boolean $published
+         * @param bool $published
          */
-        public function setPublished($published) {
+        public function setPublished(bool $published) {
             $this->published = $published;
         }
 
@@ -385,7 +385,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId')) {
          *
          * @param float $radius
          */
-        public function setRadius($radius) {
+        public function setRadius(float $radius) {
             $this->radius = $radius;
         }
 
@@ -403,7 +403,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId')) {
          *
          * @param int $typeId
          */
-        public function setTypeId($typeId) {
+        public function setTypeId(int $typeId) {
             $this->typeId = $typeId;
         }
 
@@ -421,7 +421,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId')) {
          *
          * @param float $volume
          */
-        public function setVolume($volume) {
+        public function setVolume(float $volume) {
             $this->volume = $volume;
         }
     }

@@ -77,7 +77,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Alliance\AlliancesAllianceId')) {
          *
          * @param int $creatorCorpId
          */
-        public function setCreatorCorporationId($creatorCorpId) {
+        public function setCreatorCorporationId(int $creatorCorpId) {
             $this->creatorCorporationId = $creatorCorpId;
         }
 
@@ -95,7 +95,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Alliance\AlliancesAllianceId')) {
          *
          * @param int $creatorId
          */
-        public function setCreatorId($creatorId) {
+        public function setCreatorId(int $creatorId) {
             $this->creatorId = $creatorId;
         }
 
@@ -131,7 +131,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Alliance\AlliancesAllianceId')) {
          *
          * @param int $executorCorpId
          */
-        public function setExecutorCorporationId($executorCorpId) {
+        public function setExecutorCorporationId(int $executorCorpId) {
             $this->executorCorporationId = $executorCorpId;
         }
 
@@ -149,7 +149,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Alliance\AlliancesAllianceId')) {
          *
          * @param string $name
          */
-        public function setName($name) {
+        public function setName(string $name) {
             $this->name = $name;
         }
 
@@ -167,7 +167,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Alliance\AlliancesAllianceId')) {
          *
          * @param string $ticker
          */
-        public function setTicker($ticker) {
+        public function setTicker(string $ticker) {
             $this->ticker = $ticker;
         }
     }

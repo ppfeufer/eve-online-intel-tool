@@ -81,7 +81,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId')
          *
          * @param string $description
          */
-        public function setDescription($description) {
+        public function setDescription(string $description) {
             $this->description = $description;
         }
 
@@ -99,7 +99,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId')
          *
          * @param string $name
          */
-        public function setName($name) {
+        public function setName(string $name) {
             $this->name = $name;
         }
 
@@ -117,7 +117,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId')
          *
          * @param int $regionId
          */
-        public function setRegionId($regionId) {
+        public function setRegionId(int$regionId) {
             $this->regionId = $regionId;
         }
     }

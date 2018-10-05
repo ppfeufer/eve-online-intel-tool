@@ -98,7 +98,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Character\CharactersCharacterId'))
          *
          * @param int $ancestryId
          */
-        public function setAncestryId($ancestryId) {
+        public function setAncestryId(int $ancestryId) {
             $this->ancestryId = $ancestryId;
         }
 
@@ -134,7 +134,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Character\CharactersCharacterId'))
          *
          * @param int $bloodlineId
          */
-        public function setBloodlineId($bloodlineId) {
+        public function setBloodlineId(int $bloodlineId) {
             $this->bloodlineId = $bloodlineId;
         }
 
@@ -152,7 +152,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Character\CharactersCharacterId'))
          *
          * @param int $corporationId
          */
-        public function setCorporationId($corporationId) {
+        public function setCorporationId(int $corporationId) {
             $this->corporationId = $corporationId;
         }
 
@@ -170,7 +170,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Character\CharactersCharacterId'))
          *
          * @param string $description
          */
-        public function setDescription($description) {
+        public function setDescription(string $description) {
             $this->description = \strip_tags($description);
         }
 
@@ -188,7 +188,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Character\CharactersCharacterId'))
          *
          * @param string $gender
          */
-        public function setGender($gender) {
+        public function setGender(string $gender) {
             $this->gender = $gender;
         }
 
@@ -206,7 +206,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Character\CharactersCharacterId'))
          *
          * @param string $name
          */
-        public function setName($name) {
+        public function setName(string $name) {
             $this->name = $name;
         }
 
@@ -224,7 +224,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Character\CharactersCharacterId'))
          *
          * @param int $raceId
          */
-        public function setRaceId($raceId) {
+        public function setRaceId(int $raceId) {
             $this->raceId = $raceId;
         }
 
@@ -242,7 +242,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Character\CharactersCharacterId'))
          *
          * @param float $securityStatus
          */
-        public function setSecurityStatus($securityStatus) {
+        public function setSecurityStatus(float $securityStatus) {
             $this->securityStatus = $securityStatus;
         }
     }

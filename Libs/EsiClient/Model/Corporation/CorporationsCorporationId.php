@@ -125,7 +125,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Corporation\CorporationsCorporatio
          *
          * @param int $allianceId
          */
-        public function setAllianceId($allianceId) {
+        public function setAllianceId(int $allianceId) {
             $this->allianceId = $allianceId;
         }
 
@@ -143,7 +143,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Corporation\CorporationsCorporatio
          *
          * @param int $ceoId
          */
-        public function setCeoId($ceoId) {
+        public function setCeoId(int $ceoId) {
             $this->ceoId = $ceoId;
         }
 
@@ -161,7 +161,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Corporation\CorporationsCorporatio
          *
          * @param int $creatorId
          */
-        public function setCreatorId($creatorId) {
+        public function setCreatorId(int $creatorId) {
             $this->creatorId = $creatorId;
         }
 
@@ -197,7 +197,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Corporation\CorporationsCorporatio
          *
          * @param string $description
          */
-        public function setDescription($description) {
+        public function setDescription(string $description) {
             $this->description = \strip_tags($description);
         }
 
@@ -215,7 +215,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Corporation\CorporationsCorporatio
          *
          * @param int $factionId
          */
-        public function setFactionId($factionId) {
+        public function setFactionId(int $factionId) {
             $this->factionId = $factionId;
         }
 
@@ -233,7 +233,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Corporation\CorporationsCorporatio
          *
          * @param int $homeStationId
          */
-        public function setHomeStationId($homeStationId) {
+        public function setHomeStationId(int $homeStationId) {
             $this->homeStationId = $homeStationId;
         }
 
@@ -251,7 +251,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Corporation\CorporationsCorporatio
          *
          * @param int $memberCount
          */
-        public function setMemberCount($memberCount) {
+        public function setMemberCount(int $memberCount) {
             $this->memberCount = $memberCount;
         }
 
@@ -269,7 +269,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Corporation\CorporationsCorporatio
          *
          * @param string $name
          */
-        public function setName($name) {
+        public function setName(string $name) {
             $this->name = $name;
         }
 
@@ -287,7 +287,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Corporation\CorporationsCorporatio
          *
          * @param int $shares
          */
-        public function setShares($shares) {
+        public function setShares(int $shares) {
             $this->shares = $shares;
         }
 
@@ -305,7 +305,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Corporation\CorporationsCorporatio
          *
          * @param float $taxRate
          */
-        public function setTaxRate($taxRate) {
+        public function setTaxRate(float $taxRate) {
             $this->taxRate = $taxRate;
         }
 
@@ -323,7 +323,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Corporation\CorporationsCorporatio
          *
          * @param string $ticker
          */
-        public function setTicker($ticker) {
+        public function setTicker(string $ticker) {
             $this->ticker = $ticker;
         }
 
@@ -341,7 +341,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Corporation\CorporationsCorporatio
          *
          * @param string $url
          */
-        public function setUrl($url) {
+        public function setUrl(string $url) {
             $this->url = $url;
         }
     }

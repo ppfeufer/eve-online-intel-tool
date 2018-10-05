@@ -71,7 +71,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Item
          *
          * @param int $flag
          */
-        public function setFlag($flag) {
+        public function setFlag(int $flag) {
             $this->flag = $flag;
         }
 
@@ -89,7 +89,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Item
          *
          * @param int $itemTypeId
          */
-        public function setItemTypeId($itemTypeId) {
+        public function setItemTypeId(int $itemTypeId) {
             $this->itemTypeId = $itemTypeId;
         }
 
@@ -107,7 +107,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Item
          *
          * @param int $quantityDestroyed
          */
-        public function setQuantityDestroyed($quantityDestroyed = null) {
+        public function setQuantityDestroyed(int $quantityDestroyed = null) {
             $this->quantityDestroyed = $quantityDestroyed;
         }
 
@@ -125,7 +125,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Item
          *
          * @param int $quantityDropped
          */
-        public function setQuantityDropped($quantityDropped = null) {
+        public function setQuantityDropped(int $quantityDropped = null) {
             $this->quantityDropped = $quantityDropped;
         }
 
@@ -143,7 +143,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Item
          *
          * @param int $singleton
          */
-        public function setSingleton($singleton) {
+        public function setSingleton(int $singleton) {
             $this->singleton = $singleton;
         }
     }

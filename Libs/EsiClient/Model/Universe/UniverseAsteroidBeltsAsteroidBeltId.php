@@ -56,7 +56,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseAsteroidBeltsAste
          *
          * @param string $name
          */
-        public function setName($name) {
+        public function setName(string $name) {
             $this->name = $name;
         }
 
@@ -92,7 +92,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseAsteroidBeltsAste
          *
          * @param int $systemId
          */
-        public function setSystemId($systemId) {
+        public function setSystemId(int $systemId) {
             $this->systemId = $systemId;
         }
     }

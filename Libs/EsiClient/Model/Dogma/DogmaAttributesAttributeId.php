@@ -52,7 +52,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Dogma\DogmaAttributesAttributeId')
         /**
          * highIsGood
          *
-         * @var boolean
+         * @var bool
          */
         protected $highIsGood = null;
 
@@ -73,14 +73,14 @@ if(!\class_exists('\WordPress\EsiClient\Model\Dogma\DogmaAttributesAttributeId')
         /**
          * published
          *
-         * @var boolean
+         * @var bool
          */
         protected $published = null;
 
         /**
          * stackable
          *
-         * @var boolean
+         * @var bool
          */
         protected $stackable = null;
 
@@ -105,7 +105,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Dogma\DogmaAttributesAttributeId')
          *
          * @param int $attributeId
          */
-        public function setAttributeId($attributeId) {
+        public function setAttributeId(int $attributeId) {
             $this->attributeId = $attributeId;
         }
 
@@ -123,7 +123,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Dogma\DogmaAttributesAttributeId')
          *
          * @param float $defaultValue
          */
-        public function setDefaultValue($defaultValue) {
+        public function setDefaultValue(float $defaultValue) {
             $this->defaultValue = $defaultValue;
         }
 
@@ -141,7 +141,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Dogma\DogmaAttributesAttributeId')
          *
          * @param string $description
          */
-        public function setDescription($description) {
+        public function setDescription(string $description) {
             $this->description = $description;
         }
 
@@ -159,14 +159,14 @@ if(!\class_exists('\WordPress\EsiClient\Model\Dogma\DogmaAttributesAttributeId')
          *
          * @param string $displayName
          */
-        public function setDisplayName($displayName) {
+        public function setDisplayName(string $displayName) {
             $this->displayName = $displayName;
         }
 
         /**
          * getHighIsGood
          *
-         * @return boolean
+         * @return bool
          */
         public function getHighIsGood() {
             return $this->highIsGood;
@@ -175,9 +175,9 @@ if(!\class_exists('\WordPress\EsiClient\Model\Dogma\DogmaAttributesAttributeId')
         /**
          * setHighIsGood
          *
-         * @param boolean $highIsGood
+         * @param bool $highIsGood
          */
-        public function setHighIsGood($highIsGood) {
+        public function setHighIsGood(bool $highIsGood) {
             $this->highIsGood = $highIsGood;
         }
 
@@ -195,7 +195,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Dogma\DogmaAttributesAttributeId')
          *
          * @param int $iconId
          */
-        public function setIconId($iconId) {
+        public function setIconId(int $iconId) {
             $this->iconId = $iconId;
         }
 
@@ -213,14 +213,14 @@ if(!\class_exists('\WordPress\EsiClient\Model\Dogma\DogmaAttributesAttributeId')
          *
          * @param string $name
          */
-        public function setName($name) {
+        public function setName(string $name) {
             $this->name = $name;
         }
 
         /**
          * getPublished
          *
-         * @return boolean
+         * @return bool
          */
         public function getPublished() {
             return $this->published;
@@ -229,16 +229,16 @@ if(!\class_exists('\WordPress\EsiClient\Model\Dogma\DogmaAttributesAttributeId')
         /**
          * setPublished
          *
-         * @param boolean $published
+         * @param bool $published
          */
-        public function setPublished($published) {
+        public function setPublished(bool $published) {
             $this->published = $published;
         }
 
         /**
          * getStackable
          *
-         * @return boolean
+         * @return bool
          */
         public function getStackable() {
             return $this->stackable;
@@ -247,9 +247,9 @@ if(!\class_exists('\WordPress\EsiClient\Model\Dogma\DogmaAttributesAttributeId')
         /**
          * setStackable
          *
-         * @param boolean $stackable
+         * @param bool $stackable
          */
-        public function setStackable($stackable) {
+        public function setStackable(bool $stackable) {
             $this->stackable = $stackable;
         }
 
@@ -267,7 +267,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Dogma\DogmaAttributesAttributeId')
          *
          * @param int $unitId
          */
-        public function setUnitId($unitId) {
+        public function setUnitId(int $unitId) {
             $this->unitId = $unitId;
         }
     }

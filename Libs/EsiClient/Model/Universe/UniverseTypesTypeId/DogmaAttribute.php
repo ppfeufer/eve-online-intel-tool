@@ -49,7 +49,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId\Dogma
          *
          * @param int $attributeId
          */
-        public function setAttributeId($attributeId) {
+        public function setAttributeId(int $attributeId) {
             $this->attributeId = $attributeId;
         }
 
@@ -67,7 +67,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId\Dogma
          *
          * @param float $value
          */
-        public function setValue($value) {
+        public function setValue(float $value) {
             $this->value = $value;
         }
     }

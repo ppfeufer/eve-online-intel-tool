@@ -107,7 +107,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId')
          *
          * @param int $constellationId
          */
-        public function setConstellationId($constellationId) {
+        public function setConstellationId(int $constellationId) {
             $this->constellationId = $constellationId;
         }
 
@@ -125,7 +125,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId')
          *
          * @param string $name
          */
-        public function setName($name) {
+        public function setName(string $name) {
             $this->name = $name;
         }
 
@@ -181,7 +181,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId')
          *
          * @param string $securityClass
          */
-        public function setSecurityClass($securityClass) {
+        public function setSecurityClass(string $securityClass) {
             $this->securityClass = $securityClass;
         }
 
@@ -199,7 +199,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId')
          *
          * @param float $securityStatus
          */
-        public function setSecurityStatus($securityStatus) {
+        public function setSecurityStatus(float $securityStatus) {
             $this->securityStatus = $securityStatus;
         }
 
@@ -217,7 +217,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId')
          *
          * @param int $starId
          */
-        public function setStarId($starId) {
+        public function setStarId(int $starId) {
             $this->starId = $starId;
         }
 
@@ -271,7 +271,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId')
          *
          * @param int $systemId
          */
-        public function setSystemId($systemId) {
+        public function setSystemId(int $systemId) {
             $this->systemId = $systemId;
         }
     }

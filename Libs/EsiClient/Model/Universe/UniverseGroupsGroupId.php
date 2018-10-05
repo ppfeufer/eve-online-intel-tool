@@ -45,7 +45,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId')) 
         /**
          * published
          *
-         * @var boolean
+         * @var bool
          */
         protected $published = null;
 
@@ -70,7 +70,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId')) 
          *
          * @param int $categoryId
          */
-        public function setCategoryId($categoryId) {
+        public function setCategoryId(int $categoryId) {
             $this->categoryId = $categoryId;
         }
 
@@ -88,7 +88,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId')) 
          *
          * @param int $groupId
          */
-        public function setGroupId($groupId) {
+        public function setGroupId(int $groupId) {
             $this->groupId = $groupId;
         }
 
@@ -106,14 +106,14 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId')) 
          *
          * @param string $name
          */
-        public function setName($name) {
+        public function setName(string $name) {
             $this->name = $name;
         }
 
         /**
          * getPublished
          *
-         * @return boolean
+         * @return bool
          */
         public function getPublished() {
             return $this->published;
@@ -122,9 +122,9 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId')) 
         /**
          * setPublished
          *
-         * @param boolean $published
+         * @param bool $published
          */
-        public function setPublished($published) {
+        public function setPublished(bool $published) {
             $this->published = $published;
         }
 

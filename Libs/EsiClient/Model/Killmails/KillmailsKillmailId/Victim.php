@@ -91,7 +91,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Vict
          *
          * @param int $allianceId
          */
-        public function setAllianceId($allianceId) {
+        public function setAllianceId(int $allianceId) {
             $this->allianceId = $allianceId;
         }
 
@@ -109,7 +109,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Vict
          *
          * @param int $characterId
          */
-        public function setCharacterId($characterId) {
+        public function setCharacterId(int $characterId) {
             $this->characterId = $characterId;
         }
 
@@ -127,7 +127,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Vict
          *
          * @param int $corporationId
          */
-        public function setCorporationId($corporationId) {
+        public function setCorporationId(int $corporationId) {
             $this->corporationId = $corporationId;
         }
 
@@ -145,7 +145,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Vict
          *
          * @param int $damageTaken
          */
-        public function setDamageTaken($damageTaken) {
+        public function setDamageTaken(int $damageTaken) {
             $this->damageTaken = $damageTaken;
         }
 
@@ -163,7 +163,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Vict
          *
          * @param int $factionId
          */
-        public function setFactionId($factionId) {
+        public function setFactionId(int $factionId) {
             $this->factionId = $factionId;
         }
 
@@ -223,7 +223,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Vict
          *
          * @param int $shipTypeId
          */
-        public function setShipTypeId($shipTypeId) {
+        public function setShipTypeId(int $shipTypeId) {
             $this->shipTypeId = $shipTypeId;
         }
     }

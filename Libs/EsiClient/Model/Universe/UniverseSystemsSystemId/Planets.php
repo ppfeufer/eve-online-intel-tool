@@ -92,7 +92,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId\P
          *
          * @param int $planetId
          */
-        public function setPlanetId($planetId) {
+        public function setPlanetId(int $planetId) {
             $this->planetId = $planetId;
         }
     }

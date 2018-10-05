@@ -31,7 +31,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId\Dogma
         /**
          * isDefault
          *
-         * @var boolean
+         * @var bool
          */
         protected $isDefault = null;
 
@@ -49,14 +49,14 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId\Dogma
          *
          * @param int $effectId
          */
-        public function setEffectId($effectId) {
+        public function setEffectId(int $effectId) {
             $this->effectId = $effectId;
         }
 
         /**
          * getIsDefault
          *
-         * @return boolean
+         * @return bool
          */
         public function getIsDefault() {
             return $this->isDefault;
@@ -65,9 +65,9 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId\Dogma
         /**
          * setIsDefault
          *
-         * @param boolean $isDefault
+         * @param bool $isDefault
          */
-        public function setIsDefault($isDefault) {
+        public function setIsDefault(bool $isDefault) {
             $this->isDefault = $isDefault;
         }
     }

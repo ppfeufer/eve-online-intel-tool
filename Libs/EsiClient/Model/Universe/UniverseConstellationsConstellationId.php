@@ -72,7 +72,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseConstellationsCon
          *
          * @param int $constellationId
          */
-        public function setConstellationId($constellationId) {
+        public function setConstellationId(int $constellationId) {
             $this->constellationId = $constellationId;
         }
 
@@ -90,7 +90,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseConstellationsCon
          *
          * @param string $name
          */
-        public function setName($name) {
+        public function setName(string $name) {
             $this->name = $name;
         }
 
@@ -126,7 +126,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseConstellationsCon
          *
          * @param int $regionId
          */
-        public function setRegionId($regionId) {
+        public function setRegionId(int $regionId) {
             $this->regionId = $regionId;
         }
 

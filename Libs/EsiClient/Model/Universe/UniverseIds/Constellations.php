@@ -49,7 +49,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseIds\Constellation
          *
          * @param int $id
          */
-        public function setId($id) {
+        public function setId(int $id) {
             $this->id = $id;
         }
 
@@ -67,7 +67,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseIds\Constellation
          *
          * @param string $name
          */
-        public function setName($name) {
+        public function setName(string $name) {
             $this->name = $name;
         }
     }

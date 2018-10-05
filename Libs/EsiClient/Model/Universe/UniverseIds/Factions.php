@@ -21,7 +21,7 @@ namespace WordPress\EsiClient\Model\Universe\UniverseIds;
 
 if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseIds\Factions')) {
     class Factions {
-        /**
+       /**
          * id
          *
          * @var int
@@ -49,7 +49,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseIds\Factions')) {
          *
          * @param int $id
          */
-        public function setId($id) {
+        public function setId(int $id) {
             $this->id = $id;
         }
 
@@ -67,7 +67,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseIds\Factions')) {
          *
          * @param string $name
          */
-        public function setName($name) {
+        public function setName(string $name) {
             $this->name = $name;
         }
     }

@@ -104,7 +104,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId')) {
          *
          * @param int $killmailId
          */
-        public function setKillmailId($killmailId) {
+        public function setKillmailId(int $killmailId) {
             $this->killmailId = $killmailId;
         }
 
@@ -140,7 +140,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId')) {
          *
          * @param int $moonId
          */
-        public function setMoonId($moonId) {
+        public function setMoonId(int $moonId) {
             $this->moonId = $moonId;
         }
 
@@ -158,7 +158,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId')) {
          *
          * @param int $solarSystemId
          */
-        public function setSolarSystemId($solarSystemId) {
+        public function setSolarSystemId(int $solarSystemId) {
             $this->solarSystemId = $solarSystemId;
         }
 
@@ -194,7 +194,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId')) {
          *
          * @param int $warId
          */
-        public function setWarId($warId) {
+        public function setWarId(int $warId) {
             $this->warId = $warId;
         }
     }

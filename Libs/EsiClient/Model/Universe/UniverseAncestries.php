@@ -79,7 +79,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseAncestries')) {
          *
          * @param int $bloodlineId The bloodline associated with this ancestry
          */
-        public function setBloodlineId($bloodlineId) {
+        public function setBloodlineId(int $bloodlineId) {
             $this->bloodlineId = $bloodlineId;
         }
 
@@ -97,7 +97,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseAncestries')) {
          *
          * @param string $description
          */
-        public function setDescription($description) {
+        public function setDescription(string $description) {
             $this->description = $description;
         }
 
@@ -115,7 +115,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseAncestries')) {
          *
          * @param int $iconId
          */
-        public function setIconId($iconId) {
+        public function setIconId(int $iconId) {
             $this->iconId = $iconId;
         }
 
@@ -133,7 +133,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseAncestries')) {
          *
          * @param int $id
          */
-        public function setId($id) {
+        public function setId(int $id) {
             $this->id = $id;
         }
 
@@ -151,7 +151,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseAncestries')) {
          *
          * @param string $name
          */
-        public function setName($name) {
+        public function setName(string $name) {
             $this->name = $name;
         }
 
@@ -169,7 +169,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Universe\UniverseAncestries')) {
          *
          * @param string $shortDescription
          */
-        public function setShortDescription($shortDescription) {
+        public function setShortDescription(string $shortDescription) {
             $this->shortDescription = $shortDescription;
         }
     }

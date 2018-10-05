@@ -37,6 +37,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Atta
 
         /**
          * corporationId
+         *
          * @var int
          */
         protected $corporationId = null;
@@ -60,7 +61,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Atta
          *
          * Was the attacker the one to achieve the final blow
          *
-         * @var boolean
+         * @var bool
          */
         protected $finalBlow = false;
 
@@ -105,7 +106,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Atta
          *
          * @param int $allianceId
          */
-        public function setAllianceId($allianceId) {
+        public function setAllianceId(int $allianceId) {
             $this->allianceId = $allianceId;
         }
 
@@ -123,7 +124,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Atta
          *
          * @param int $characterId
          */
-        public function setCharacterId($characterId) {
+        public function setCharacterId(int $characterId) {
             $this->characterId = $characterId;
         }
 
@@ -141,7 +142,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Atta
          *
          * @param int $corporationId
          */
-        public function setCorporationId($corporationId) {
+        public function setCorporationId(int $corporationId) {
             $this->corporationId = $corporationId;
         }
 
@@ -159,7 +160,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Atta
          *
          * @param int $damageDone
          */
-        public function setDamageDone($damageDone) {
+        public function setDamageDone(int $damageDone) {
             $this->damageDone = $damageDone;
         }
 
@@ -177,7 +178,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Atta
          *
          * @param int $factionId
          */
-        public function setFactionId($factionId) {
+        public function setFactionId(int $factionId) {
             $this->factionId = $factionId;
         }
 
@@ -186,7 +187,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Atta
          *
          * Was the attacker the one to achieve the final blow
          *
-         * @return boolean
+         * @return bool
          */
         public function getFinalBlow() {
             return $this->finalBlow;
@@ -197,9 +198,9 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Atta
          *
          * Was the attacker the one to achieve the final blow
          *
-         * @param boolean $finalBlow
+         * @param bool $finalBlow
          */
-        public function setFinalBlow($finalBlow) {
+        public function setFinalBlow(bool $finalBlow) {
             $this->finalBlow = $finalBlow;
         }
 
@@ -221,7 +222,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Atta
          *
          * @param float $securityStatus
          */
-        public function setSecurityStatus($securityStatus) {
+        public function setSecurityStatus(float $securityStatus) {
             $this->securityStatus = $securityStatus;
         }
 
@@ -243,7 +244,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Atta
          *
          * @param int $shipTypeId
          */
-        public function setShipTypeId($shipTypeId) {
+        public function setShipTypeId(int $shipTypeId) {
             $this->shipTypeId = $shipTypeId;
         }
 
@@ -265,7 +266,7 @@ if(!\class_exists('\WordPress\EsiClient\Model\Killmails\KillmailsKillmailId\Atta
          *
          * @param int $weaponTypeId
          */
-        public function setWeaponTypeId($weaponTypeId) {
+        public function setWeaponTypeId(int $weaponTypeId) {
             $this->weaponTypeId = $weaponTypeId;
         }
     }

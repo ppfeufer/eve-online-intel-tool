@@ -302,7 +302,7 @@ if(!\class_exists('\WordPress\EsiClient\Mapper\JsonMapper')) {
          *
          * @return string Fully-qualified type name with namespace
          */
-        protected function getFullNamespace($type, $strNs) {
+        protected function getFullNamespace(string $type, string $strNs) {
             if($type !== '' && $type{0} != '\\') {
                 //create a full qualified namespace
                 if($strNs !== '') {
@@ -315,14 +315,14 @@ if(!\class_exists('\WordPress\EsiClient\Mapper\JsonMapper')) {
         /**
          * Check required properties exist in json
          *
-         * @param array  $providedProperties array with json properties
-         * @param object $rc                 Reflection class to check
+         * @param array $providedProperties array with json properties
+         * @param ReflectionClass $rc Reflection class to check
          *
          * @throws Exception
          *
          * @return void
          */
-        protected function checkMissingData($providedProperties, ReflectionClass $rc) {
+        protected function checkMissingData(array $providedProperties, ReflectionClass $rc) {
             foreach($rc->getProperties() as $property) {
                 $rprop = $rc->getProperty($property->name);
                 $docblock = $rprop->getDocComment();
@@ -350,7 +350,7 @@ if(!\class_exists('\WordPress\EsiClient\Mapper\JsonMapper')) {
          *
          * @return mixed Mapped $array is returned
          */
-        public function mapArray($json, $array, $class = null, $parent_key = '') {
+        public function mapArray(array $json, array $array, $class = null, string $parent_key = '') {
             foreach($json as $key => $jvalue) {
                 if($class === null) {
                     $array[$key] = $jvalue;
@@ -394,7 +394,7 @@ if(!\class_exists('\WordPress\EsiClient\Mapper\JsonMapper')) {
          * Try to find out if a property exists in a given class.
          * Checks property first, falls back to setter method.
          *
-         * @param object $rc   Reflection class to check
+         * @param ReflectionClass $rc   Reflection class to check
          * @param string $name Property name
          *
          * @return array First value: if the property exists
@@ -402,7 +402,7 @@ if(!\class_exists('\WordPress\EsiClient\Mapper\JsonMapper')) {
          *                 ReflectionMethod or ReflectionProperty, or null)
          *               Third value: type of the property
          */
-        protected function inspectProperty(ReflectionClass $rc, $name) {
+        protected function inspectProperty(ReflectionClass $rc, string $name) {
             //try setter method first
             $setter = 'set' . $this->getCamelCaseName($name);
 
@@ -532,7 +532,7 @@ if(!\class_exists('\WordPress\EsiClient\Mapper\JsonMapper')) {
          *
          * @return string CamelCasedVariableName
          */
-        protected function getCamelCaseName($name) {
+        protected function getCamelCaseName(string $name) {
             return \str_replace(' ', '', \ucwords(\str_replace(['_', '-'], ' ', $name)));
         }
 
@@ -545,7 +545,7 @@ if(!\class_exists('\WordPress\EsiClient\Mapper\JsonMapper')) {
          *
          * @return string Name without hyphen
          */
-        protected function getSafeName($name) {
+        protected function getSafeName(string $name) {
             if(\strpos($name, '-') !== false) {
                 $name = $this->getCamelCaseName($name);
             }
@@ -585,12 +585,12 @@ if(!\class_exists('\WordPress\EsiClient\Mapper\JsonMapper')) {
          * so you can do dependency injection or so.
          *
          * @param string  $class        Class name to instantiate
-         * @param boolean $useParameter Pass $parameter to the constructor or not
+         * @param bool $useParameter Pass $parameter to the constructor or not
          * @param mixed   $jvalue       Constructor parameter (the json value)
          *
          * @return object Freshly created object
          */
-        public function createInstance($class, $useParameter = false, $jvalue = null) {
+        public function createInstance(string $class, bool $useParameter = false, $jvalue = null) {
             if(isset($this->classMap[$class])) {
                 if(\is_callable($mapper = $this->classMap[$class])) {
                     $class = $mapper($class, $jvalue);
@@ -615,7 +615,7 @@ if(!\class_exists('\WordPress\EsiClient\Mapper\JsonMapper')) {
          *
          * @see isFlatType()
          */
-        protected function isSimpleType($type) {
+        protected function isSimpleType(string $type) {
             return $type == 'string' || $type == 'boolean' || $type == 'bool' || $type == 'integer' || $type == 'int' || $type == 'double' || $type == 'float' || $type == 'array' || $type == 'object';
         }
 
@@ -627,7 +627,7 @@ if(!\class_exists('\WordPress\EsiClient\Mapper\JsonMapper')) {
          *
          * @return boolean True if $object has type of $type
          */
-        protected function isObjectOfSameType($type, $value) {
+        protected function isObjectOfSameType(string $type, $value) {
             if(false === \is_object($value)) {
                 return false;
             }
@@ -645,7 +645,7 @@ if(!\class_exists('\WordPress\EsiClient\Mapper\JsonMapper')) {
          *
          * @see isSimpleType()
          */
-        protected function isFlatType($type) {
+        protected function isFlatType(string $type) {
             return $type == 'NULL' || $type == 'string' || $type == 'boolean' || $type == 'bool' || $type == 'integer' || $type == 'int' || $type == 'double' || $type == 'float';
         }
 
@@ -657,7 +657,7 @@ if(!\class_exists('\WordPress\EsiClient\Mapper\JsonMapper')) {
          *
          * @return bool
          */
-        protected function isArrayOfType($strType) {
+        protected function isArrayOfType(string $strType) {
             return \substr($strType, -2) === '[]';
         }
 
@@ -668,7 +668,7 @@ if(!\class_exists('\WordPress\EsiClient\Mapper\JsonMapper')) {
          *
          * @return boolean True if it is nullable
          */
-        protected function isNullable($type) {
+        protected function isNullable(string $type) {
             return \stripos('|' . $type . '|', '|null|') !== false;
         }
 
@@ -679,7 +679,7 @@ if(!\class_exists('\WordPress\EsiClient\Mapper\JsonMapper')) {
          *
          * @return string The new type value
          */
-        protected function removeNullable($type) {
+        protected function removeNullable(string $type) {
             if($type === null) {
                 return null;
             }
@@ -694,7 +694,7 @@ if(!\class_exists('\WordPress\EsiClient\Mapper\JsonMapper')) {
          *
          * @return array
          */
-        protected function parseAnnotations($docblock) {
+        protected function parseAnnotations(string $docblock) {
             $annotations = [];
             // Strip away the docblock header and footer
             // to ease parsing of one line annotations
@@ -722,7 +722,7 @@ if(!\class_exists('\WordPress\EsiClient\Mapper\JsonMapper')) {
          *
          * @return null
          */
-        protected function log($level, $message, array $context = []) {
+        protected function log(string $level, string $message, array $context = []) {
             if($this->logger) {
                 $this->logger->log($level, $message, $context);
             }
