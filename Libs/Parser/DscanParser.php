@@ -244,12 +244,25 @@ class DscanParser extends AbstractSingleton {
 
                 // Get the region data
                 /* @var $regionData UniverseRegionsRegionId */
-                $regionData = $this->esiHelper->getRegionData($constellationData->getRegionId());
+                $regionData = $this->esiHelper->getRegionsRegionId($constellationData->getRegionId());
 
                 // Set the region name
                 if(!\is_null($regionData)) {
                     $regionName = $regionData->getName();
                     $regionId = $regionData->getRegionId();
+                }
+            }
+
+            $mapData = $this->esiHelper->getSovereigntyMap();
+
+            $sovHolder = null;;
+            foreach($mapData as $systemHolder) {
+                if(($systemHolder->getSystemId() === $systemData->getSystemId()) && !\is_null($systemHolder->getAllianceId())) {
+                    $sovHoldingAlliance = $this->esiHelper->getAllianceData($systemHolder->getAllianceId());
+
+                    $sovHolder['id'] = $systemHolder->getAllianceId();
+                    $sovHolder['name'] = $sovHoldingAlliance->getName();
+                    $sovHolder['ticker'] = $sovHoldingAlliance->getTicker();
                 }
             }
 
@@ -282,7 +295,8 @@ class DscanParser extends AbstractSingleton {
             $returnValue = [
                 'system' => [
                     'id' => $systemId,
-                    'name' => $systemName
+                    'name' => $systemName,
+                    'sovHolder' => $sovHolder
                 ],
                 'constellation' => [
                     'id' => $constellationId,

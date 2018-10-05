@@ -24,22 +24,23 @@
  */
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
-use \WordPress\EsiClient\Model\Alliance\AlliancesAllianceId;
-use \WordPress\EsiClient\Model\Character\CharactersAffiliation;
-use \WordPress\EsiClient\Model\Corporation\CorporationsCorporationId;
-use \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId;
-use \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId;
-use \WordPress\EsiClient\Model\Universe\UniverseIds;
-use \WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId;
-use \WordPress\EsiClient\Model\Universe\UniverseSystemJumps;
-use \WordPress\EsiClient\Model\Universe\UniverseSystemKills;
-use \WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId;
-use \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId;
-use \WordPress\EsiClient\Repository\AllianceRepository;
-use \WordPress\EsiClient\Repository\CharacterRepository;
-use \WordPress\EsiClient\Repository\CorporationRepository;
-use \WordPress\EsiClient\Repository\UniverseRepository;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+use WordPress\EsiClient\Model\Alliance\AlliancesAllianceId;
+use WordPress\EsiClient\Model\Character\CharactersAffiliation;
+use WordPress\EsiClient\Model\Corporation\CorporationsCorporationId;
+use WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId;
+use WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId;
+use WordPress\EsiClient\Model\Universe\UniverseIds;
+use WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId;
+use WordPress\EsiClient\Model\Universe\UniverseSystemJumps;
+use WordPress\EsiClient\Model\Universe\UniverseSystemKills;
+use WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId;
+use WordPress\EsiClient\Model\Universe\UniverseTypesTypeId;
+use WordPress\EsiClient\Repository\AllianceRepository;
+use WordPress\EsiClient\Repository\CharacterRepository;
+use WordPress\EsiClient\Repository\CorporationRepository;
+use WordPress\EsiClient\Repository\SovereigntyRepository;
+use WordPress\EsiClient\Repository\UniverseRepository;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 \defined('ABSPATH') or die();
 
@@ -47,7 +48,7 @@ class EsiHelper extends AbstractSingleton {
     /**
      * Database Helper
      *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\DatabaseHelper
+     * @var DatabaseHelper
      */
     private $databaseHelper = null;
 
@@ -80,6 +81,13 @@ class EsiHelper extends AbstractSingleton {
     private $universeApi = null;
 
     /**
+     * ESI Sovereignty Repository
+     *
+     * @var SovereigntyRepository
+     */
+    private $sovereigntyApi = null;
+
+    /**
      * The Constructor
      */
     protected function __construct() {
@@ -94,6 +102,7 @@ class EsiHelper extends AbstractSingleton {
         $this->corporationApi = new CorporationRepository;
         $this->allianceApi = new AllianceRepository;
         $this->universeApi = new UniverseRepository;
+        $this->sovereigntyApi = new SovereigntyRepository;
     }
 
     /**
@@ -343,7 +352,7 @@ class EsiHelper extends AbstractSingleton {
      * @param int $regionId
      * @return UniverseRegionsRegionId
      */
-    public function getRegionData(int $regionId) {
+    public function getRegionsRegionId(int $regionId) {
         $regionData = $this->databaseHelper->getCachedEsiDataFromDb('universe/regions/' . $regionId);
 
         if(\is_null($regionData)) {
@@ -409,5 +418,59 @@ class EsiHelper extends AbstractSingleton {
         }
 
         return $systemKillsData;
+    }
+
+    public function getSovereigntyCampaigns() {
+        $sovereigntyCampaignData = $this->databaseHelper->getCachedEsiDataFromDb('sovereignty/campaigns');
+
+        if(\is_null($sovereigntyCampaignData)) {
+            $sovereigntyCampaignData = $this->universeApi->universeSystemKills();
+
+            if(!\is_null($sovereigntyCampaignData)) {
+                $this->databaseHelper->writeEsiCacheDataToDb([
+                    'sovereignty/campaigns',
+                    \maybe_serialize($sovereigntyCampaignData),
+                    \strtotime('+5 seconds')
+                ]);
+            }
+        }
+
+        return $sovereigntyCampaignData;
+    }
+
+    public function getSovereigntyMap() {
+        $sovereigntyCampaignData = $this->databaseHelper->getCachedEsiDataFromDb('sovereignty/map');
+
+        if(\is_null($sovereigntyCampaignData)) {
+            $sovereigntyCampaignData = $this->sovereigntyApi->sovereigntyMap();
+
+            if(!\is_null($sovereigntyCampaignData)) {
+                $this->databaseHelper->writeEsiCacheDataToDb([
+                    'sovereignty/map',
+                    \maybe_serialize($sovereigntyCampaignData),
+                    \strtotime('+1 hour')
+                ]);
+            }
+        }
+
+        return $sovereigntyCampaignData;
+    }
+
+    public function getSovereigntyStryuctures() {
+        $sovereigntyCampaignData = $this->databaseHelper->getCachedEsiDataFromDb('sovereignty/structures');
+
+        if(\is_null($sovereigntyCampaignData)) {
+            $sovereigntyCampaignData = $this->universeApi->universeSystemKills();
+
+            if(!\is_null($sovereigntyCampaignData)) {
+                $this->databaseHelper->writeEsiCacheDataToDb([
+                    'sovereignty/structures',
+                    \maybe_serialize($sovereigntyCampaignData),
+                    \strtotime('+2 minutes')
+                ]);
+            }
+        }
+
+        return $sovereigntyCampaignData;
     }
 }

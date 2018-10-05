@@ -5,6 +5,7 @@
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.2.1...development)
 ### Changed
 - Esi client again, so I can use one for all my plugins and don't have to tweak it for every plugin individually
+- System information in d-scan are nor nice to look at :-)
 
 ### Removed
 - Plugin settings as they don't make any sense at all
