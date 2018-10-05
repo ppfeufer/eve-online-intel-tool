@@ -34,7 +34,6 @@ namespace WordPress\Plugins\EveOnlineIntelTool;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\FormNonce;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\GithubUpdater;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\PostType;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\CssLoader;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\JavascriptLoader;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\TemplateLoader;
@@ -91,7 +90,6 @@ class EveOnlineIntelTool {
 
         $this->loadTextDomain();
 
-        new PostType;
         new FormNonce;
 
         $jsLoader = new JavascriptLoader;

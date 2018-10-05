@@ -62,7 +62,7 @@ class DscanParser extends AbstractSingleton {
      * @param string $scanData
      * @return array
      */
-    public function getDscanArray($scanData) {
+    public function getDscanArray(string $scanData) {
         /**
          * Correcting line breaks
          *
@@ -136,7 +136,7 @@ class DscanParser extends AbstractSingleton {
      * @param string $cleanedScanData
      * @return array
      */
-    public function detectSystem($cleanedScanData) {
+    public function detectSystem(string $cleanedScanData) {
         $returnValue = null;
 
         /**
@@ -169,7 +169,7 @@ class DscanParser extends AbstractSingleton {
      * @param string $scandata
      * @return array
      */
-    public function detectSystemByUpwellStructure($scandata) {
+    public function detectSystemByUpwellStructure(string $scandata) {
         $systemFound = false;
         $systemName = null;
 
@@ -198,7 +198,7 @@ class DscanParser extends AbstractSingleton {
      * @param string $scandata
      * @return array
      */
-    public function detectSystemBySun($scandata) {
+    public function detectSystemBySun(string $scandata) {
         $systemFound = false;
         $systemName = null;
 
@@ -219,10 +219,10 @@ class DscanParser extends AbstractSingleton {
     /**
      * Get the system information from the system name.
      *
-     * @param type $systemName
-     * @return type
+     * @param string $systemName
+     * @return array
      */
-    public function getSystemInformationBySystemName($systemName) {
+    public function getSystemInformationBySystemName(string $systemName) {
         $returnValue = null;
         $systemShortData = $this->esiHelper->getIdFromName([\trim($systemName)], 'systems');
 
@@ -319,7 +319,7 @@ class DscanParser extends AbstractSingleton {
      * @param string $scanData
      * @return array
      */
-    public function parseDscan($scanData) {
+    public function parseDscan(string $scanData) {
         $returnData = null;
         $dscanAll = null;
         $dscanOnGrid = null;

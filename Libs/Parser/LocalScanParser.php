@@ -54,7 +54,7 @@ class LocalScanParser extends AbstractSingleton {
         $this->stringHelper = StringHelper::getInstance();
     }
 
-    public function parseLocalScan($scanData) {
+    public function parseLocalScan(string $scanData) {
         $returnValue = null;
         $localArray = $this->getLocalArray($scanData);
 
@@ -81,7 +81,7 @@ class LocalScanParser extends AbstractSingleton {
      * @param string $scanData
      * @return array
      */
-    public function getLocalArray($scanData) {
+    public function getLocalArray(string $scanData) {
         $returnValue = null;
 
         /**

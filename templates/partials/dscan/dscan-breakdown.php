@@ -26,7 +26,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
     -->
     <div class="col-md-4 col-sm-6 col-lg-3">
         <?php
-        TemplateHelper::getTemplate('partials/ship/ship-classes', [
+        TemplateHelper::getInstance()->getTemplate('partials/ship/ship-classes', [
             'title' => \__('All', 'eve-online-intel-tool'),
             'count' => $countAll,
             'shipClassList' => (!empty($intelData['dscanDataAll']['data'])) ? $intelData['dscanDataAll']['data'] : null
@@ -39,7 +39,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
     -->
     <div class="col-md-4 col-sm-6 col-lg-3">
         <?php
-        TemplateHelper::getTemplate('partials/ship/ship-classes', [
+        TemplateHelper::getInstance()->getTemplate('partials/ship/ship-classes', [
             'title' => \__('On Grid', 'eve-online-intel-tool'),
             'count' => $countOnGrid,
             'shipClassList' => (!empty($intelData['dscanDataOnGrid']['data'])) ? $intelData['dscanDataOnGrid']['data'] : null
@@ -52,7 +52,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
     -->
     <div class="col-md-4 col-sm-6 col-lg-3">
         <?php
-        TemplateHelper::getTemplate('partials/ship/ship-classes', [
+        TemplateHelper::getInstance()->getTemplate('partials/ship/ship-classes', [
             'title' => \__('Off Grid', 'eve-online-intel-tool'),
             'count' => $countOffGrid,
             'shipClassList' => (!empty($intelData['dscanDataOffGrid']['data'])) ? $intelData['dscanDataOffGrid']['data'] : null
@@ -65,7 +65,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
     -->
     <div class="col-md-4 col-sm-6 col-lg-3">
         <?php
-        TemplateHelper::getTemplate('partials/ship/ship-types', [
+        TemplateHelper::getInstance()->getTemplate('partials/ship/ship-types', [
             'title' => \__('Ship Types', 'eve-online-intel-tool'),
             'shipTypeList' => $intelData['dscanDataShipTypes']
         ]);

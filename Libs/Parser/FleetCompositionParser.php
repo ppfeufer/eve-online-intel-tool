@@ -58,7 +58,13 @@ class FleetCompositionParser extends AbstractSingleton {
         $this->localParser = \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\LocalScanParser::getInstance();
     }
 
-    public function parseFleetCompositionScan($scanData) {
+    /**
+     * Parsing the fleet composition
+     *
+     * @param string $scanData
+     * @return array
+     */
+    public function parseFleetCompositionScan(string $scanData) {
         $returnData = null;
         $fleetCompArray = $this->getFleetCompositionArray($scanData);
 
@@ -69,7 +75,11 @@ class FleetCompositionParser extends AbstractSingleton {
         return $returnData;
     }
 
-    public function getFleetCompositionArray($scanData) {
+    /**
+     * @param string $scanData
+     * @return array
+     */
+    public function getFleetCompositionArray(string $scanData) {
         /**
          * Correcting line breaks
          *

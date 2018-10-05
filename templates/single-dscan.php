@@ -78,7 +78,7 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
         <?php
     }
 
-    TemplateHelper::getTemplate('partials/extra/buttons');
+    TemplateHelper::getInstance()->getTemplate('partials/extra/buttons');
     ?>
 </header>
 
@@ -89,7 +89,7 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
             /**
              * D-Scan Breakdown
              */
-            TemplateHelper::getTemplate('partials/dscan/dscan-breakdown', [
+            TemplateHelper::getInstance()->getTemplate('partials/dscan/dscan-breakdown', [
                 'countAll' => $countAll,
                 'countOnGrid' => $countOnGrid,
                 'countOffGrid' => $countOffGrid,
@@ -100,7 +100,7 @@ $regionName = (!empty($intelData['dscanDataSystem']['regionName'])) ? $intelData
              * Interesting on grid
              */
             if(!empty($intelData['dscanUpwellStructures']) || !empty($intelData['dscanDeployables'])) {
-                TemplateHelper::getTemplate('partials/dscan/interesting-on-grid-breakdown', [
+                TemplateHelper::getInstance()->getTemplate('partials/dscan/interesting-on-grid-breakdown', [
                     'countAll' => $countAll,
                     'countOnGrid' => $countOnGrid,
                     'countOffGrid' => $countOffGrid,

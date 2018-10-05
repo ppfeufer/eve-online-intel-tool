@@ -31,7 +31,7 @@ class RemoteHelper extends AbstractSingleton {
      * @param array $parameter
      * @return mixed
      */
-    public function getRemoteData($url, $method = 'get', $parameter = []) {
+    public function getRemoteData(string $url, string $method = 'get', array $parameter = []) {
         $returnValue = null;
         $params = '';
 

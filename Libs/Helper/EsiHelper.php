@@ -24,8 +24,14 @@
  */
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
+use \WordPress\EsiClient\Model\Alliance\AlliancesAllianceId;
+use \WordPress\EsiClient\Model\Character\CharactersAffiliation;
+use \WordPress\EsiClient\Model\Corporation\CorporationsCorporationId;
+use \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId;
 use \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId;
 use \WordPress\EsiClient\Model\Universe\UniverseIds;
+use \WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId;
+use \WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId;
 use \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId;
 use \WordPress\EsiClient\Repository\AllianceRepository;
 use \WordPress\EsiClient\Repository\CharacterRepository;
@@ -94,7 +100,7 @@ class EsiHelper extends AbstractSingleton {
      * @param int $shipId
      * @return array
      */
-    public function getShipData($shipId) {
+    public function getShipData(int $shipId) {
         $returnData = null;
 
         /* @var $shipClassData UniverseTypesTypeId */
@@ -123,7 +129,7 @@ class EsiHelper extends AbstractSingleton {
      * @param int $shipId
      * @return UniverseTypesTypeId
      */
-    public function getShipClassDataFromShipId($shipId) {
+    public function getShipClassDataFromShipId(int $shipId) {
         /* @var $shipClassData UniverseTypesTypeId */
         $shipClassData = $this->databaseHelper->getCachedEsiDataFromDb('universe/types/' . $shipId);
 
@@ -167,7 +173,7 @@ class EsiHelper extends AbstractSingleton {
      * Get the affiliation for a set of characterIDs
      *
      * @param array $characterIds
-     * @return array
+     * @return CharactersAffiliation
      */
     public function getCharacterAffiliation(array $characterIds) {
         $characterAffiliationData = $this->characterApi->charactersAffiliation(\array_values($characterIds));
@@ -182,7 +188,7 @@ class EsiHelper extends AbstractSingleton {
      * @param string $type
      * @return type
      */
-    public function getIdFromName(array $names, $type) {
+    public function getIdFromName(array $names, string $type) {
         $returnData = null;
 
         /* @var $esiData UniverseIds */
@@ -236,10 +242,10 @@ class EsiHelper extends AbstractSingleton {
     /**
      * Get corporation data by ID
      *
-     * @param string $corporationId
-     * @return object
+     * @param int $corporationId
+     * @return CorporationsCorporationId
      */
-    public function getCorporationData($corporationId) {
+    public function getCorporationData(int $corporationId) {
         $corporationData = $this->databaseHelper->getCachedEsiDataFromDb('corporations/' . $corporationId);
 
         if(\is_null($corporationData)) {
@@ -260,11 +266,10 @@ class EsiHelper extends AbstractSingleton {
     /**
      * Get alliance data by ID
      *
-     * @global object $wpdb
-     * @param string $allianceId
-     * @return object
+     * @param int $allianceId
+     * @return AlliancesAllianceId
      */
-    public function getAllianceData($allianceId) {
+    public function getAllianceData(int $allianceId) {
         $allianceData = $this->databaseHelper->getCachedEsiDataFromDb('alliances/' . $allianceId);
 
         if(\is_null($allianceData)) {
@@ -286,9 +291,9 @@ class EsiHelper extends AbstractSingleton {
      * Getting all the needed system information from the ESI
      *
      * @param int $systemId
-     * @return array
+     * @return UniverseSystemsSystemId
      */
-    public function getSystemData($systemId) {
+    public function getSystemData(int $systemId) {
         $systemData = $this->databaseHelper->getCachedEsiDataFromDb('universe/systems/' . $systemId);
 
         if(\is_null($systemData)) {
@@ -310,9 +315,9 @@ class EsiHelper extends AbstractSingleton {
      * Getting all the needed constellation information from the ESI
      *
      * @param int $constellationId
-     * @return array
+     * @return UniverseConstellationsConstellationId
      */
-    public function getConstellationData($constellationId) {
+    public function getConstellationData(int $constellationId) {
         $constellationData = $this->databaseHelper->getCachedEsiDataFromDb('universe/constellations/' . $constellationId);
 
         if(\is_null($constellationData)) {
@@ -334,9 +339,9 @@ class EsiHelper extends AbstractSingleton {
      * Getting all the needed constellation information from the ESI
      *
      * @param int $regionId
-     * @return array
+     * @return UniverseRegionsRegionId
      */
-    public function getRegionData($regionId) {
+    public function getRegionData(int $regionId) {
         $regionData = $this->databaseHelper->getCachedEsiDataFromDb('universe/regions/' . $regionId);
 
         if(\is_null($regionData)) {

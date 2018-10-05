@@ -40,11 +40,11 @@ if(!empty($pilotParticipation)) {
                 <tr class="eve-intel-corporation-participation-item eve-intel-alliance-id-<?php echo $pilot['allianceID']; ?> eve-intel-corporation-id-<?php echo $pilot['corporationID']; ?> eve-intel-pilot-id-<?php echo $pilot['characterID']; ?>" data-highlight="alliance-<?php echo $pilot['allianceID']; ?>">
                     <td>
                         <?php
-                        TemplateHelper::getTemplate('partials/pilot/pilot-avatar', [
+                        TemplateHelper::getInstance()->getTemplate('partials/pilot/pilot-avatar', [
                             'data' => $pilot
                         ]);
 
-                        TemplateHelper::getTemplate('partials/pilot/pilot-information', [
+                        TemplateHelper::getInstance()->getTemplate('partials/pilot/pilot-information', [
                             'data' => [
                                 'characterID' => $pilot['characterID'],
                                 'characterName' => $pilot['characterName']
@@ -56,7 +56,7 @@ if(!empty($pilotParticipation)) {
                     <td>
                         <?php
                         if(!\is_null($pilot['allianceID']) && $pilot['allianceID'] !== 0) {
-                            TemplateHelper::getTemplate('partials/alliance/alliance-logo', [
+                            TemplateHelper::getInstance()->getTemplate('partials/alliance/alliance-logo', [
                                 'data' => $pilot
                             ]);
 
@@ -67,7 +67,7 @@ if(!empty($pilotParticipation)) {
 
                     <td>
                         <?php
-                        TemplateHelper::getTemplate('partials/corporation/corporation-logo', [
+                        TemplateHelper::getInstance()->getTemplate('partials/corporation/corporation-logo', [
                             'data' => $pilot
                         ]);
 

@@ -61,7 +61,7 @@ class CssLoader implements AssetsInterface {
             /**
              * load only when needed
              */
-            if(PostType::isPostTypePage() === true) {
+            if(PostType::getInstance()->isPostTypePage() === true) {
                 \wp_enqueue_style('font-awesome', $this->pluginHelper->getPluginUri('font-awesome/css/font-awesome.min.css'));
                 \wp_enqueue_style('bootstrap', $this->pluginHelper->getPluginUri('bootstrap/css/bootstrap.min.css'));
                 \wp_enqueue_style('data-tables-bootstrap', $this->pluginHelper->getPluginUri('css/data-tables/dataTables.bootstrap.min.css'));

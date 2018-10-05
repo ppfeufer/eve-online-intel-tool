@@ -113,7 +113,7 @@ class IntelParser {
      * @param string $scanData
      * @return string
      */
-    private function checkIntelType($scanData) {
+    private function checkIntelType(string $scanData) {
         $intelType = null;
 
         /**
@@ -164,7 +164,7 @@ class IntelParser {
      * @param string $scanData
      * @return int
      */
-    private function saveDscanData($scanData) {
+    private function saveDscanData(string $scanData) {
         $returnData = null;
 
         $parsedDscanData = DscanParser::getInstance()->parseDscan($scanData);
@@ -215,7 +215,7 @@ class IntelParser {
      * @param string $scanData
      * @return int
      */
-    private function saveFleetComositionData($scanData) {
+    private function saveFleetComositionData(string $scanData) {
         $returnData = null;
         $parsedFleetComposition = FleetCompositionParser::getInstance()->parseFleetCompositionScan($scanData);
 
@@ -248,7 +248,7 @@ class IntelParser {
      * @param string $scanData
      * @return int
      */
-    private function saveLocalScanData($scanData) {
+    private function saveLocalScanData(string $scanData) {
         $returnData = null;
 
         $parsedLocalData = LocalScanParser::getInstance()->parseLocalScan($scanData);
@@ -280,7 +280,7 @@ class IntelParser {
      * @param string $category
      * @return int
      */
-    private function savePostdata($postName, $metaData, $category) {
+    private function savePostdata(string $postName, array $metaData, string $category) {
         $returnData = null;
 
         switch($category) {

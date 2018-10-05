@@ -72,9 +72,9 @@ class DatabaseHelper extends AbstractSingleton {
     /**
      * Check if the database needs to be updated
      *
-     * @param string $newVersion New database version to check against
+     * @param int $newVersion New database version to check against
      */
-    public function checkDatabase($newVersion) {
+    public function checkDatabase(int $newVersion) {
         $currentVersion = $this->getCurrentDatabaseVersion();
 
         if(!\is_null($newVersion)) {
@@ -104,9 +104,9 @@ class DatabaseHelper extends AbstractSingleton {
     /**
      * Update the plugin database
      *
-     * @param string $newVersion New database version
+     * @param int $newVersion New database version
      */
-    public function updateDatabase($newVersion) {
+    public function updateDatabase(int $newVersion) {
         $this->createEsiCacheTable();
 
         /**
@@ -162,7 +162,7 @@ class DatabaseHelper extends AbstractSingleton {
      * @param string $route
      * @return Esi Object
      */
-    public function getCachedEsiDataFromDb($route) {
+    public function getCachedEsiDataFromDb(string $route) {
         $returnValue = null;
 
         $cacheResult = $this->wpdb->get_results($this->wpdb->prepare(

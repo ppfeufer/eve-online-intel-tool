@@ -67,7 +67,7 @@ class ImageHelper extends AbstractSingleton {
      * @param string $type
      * @return string The EVE API Url
      */
-    public function getImageServerUrl($type = null) {
+    public function getImageServerUrl(string $type = null) {
         $endpoint = '';
 
         if($type !== null) {

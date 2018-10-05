@@ -37,11 +37,11 @@ if(!empty($allianceParticipation)) {
                     <tr class="eve-intel-alliance-participation-item eve-intel-alliance-id-<?php echo $alliance['allianceID']; ?>" data-highlight="alliance-<?php echo $alliance['allianceID']; ?>">
                         <td>
                             <?php
-                            TemplateHelper::getTemplate('partials/alliance/alliance-logo', [
+                            TemplateHelper::getInstance()->getTemplate('partials/alliance/alliance-logo', [
                                 'data' => $alliance
                             ]);
 
-                            TemplateHelper::getTemplate('partials/alliance/alliance-information', [
+                            TemplateHelper::getInstance()->getTemplate('partials/alliance/alliance-information', [
                                 'data' => $alliance
                             ]);
                             ?>

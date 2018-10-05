@@ -78,7 +78,7 @@ class IntelFormWidget extends WP_Widget {
         echo \__('EVE Quick Intel', 'eve-online-intel-tool');
         echo $args['after_title'];
 
-        TemplateHelper::getTemplate('partials/intel-form', [
+        TemplateHelper::getInstance()->getTemplate('partials/intel-form', [
             'textareaRows' => 7
         ]);
 

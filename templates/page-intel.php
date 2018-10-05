@@ -57,15 +57,15 @@ if($serverRequest === 'POST' && !empty($formAction) && $formAction === 'new_inte
                         <div class="col-lg-4">
                             <?php
                             if($failedIntel === true) {
-                                TemplateHelper::getTemplate('partials/intel-form/parse-error');
+                                TemplateHelper::getInstance()->getTemplate('partials/intel-form/parse-error');
                             }
 
-                            TemplateHelper::getTemplate('partials/intel-form/intel-form-explanation');
+                            TemplateHelper::getInstance()->getTemplate('partials/intel-form/intel-form-explanation');
                             ?>
                         </div>
                         <div class="col-lg-8">
                             <?php
-                            TemplateHelper::getTemplate('partials/intel-form/intel-form');
+                            TemplateHelper::getInstance()->getTemplate('partials/intel-form/intel-form');
                             ?>
                         </div>
                     </div>

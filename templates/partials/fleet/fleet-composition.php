@@ -37,14 +37,14 @@ if(\is_array($fleetOverview) && \count($fleetOverview)) {
                 <tr data-highlight="shiptype-<?php echo \sanitize_title($data['shipType']); ?>">
                     <td>
                         <?php
-                        TemplateHelper::getTemplate('partials/pilot/pilot-avatar', [
+                        TemplateHelper::getInstance()->getTemplate('partials/pilot/pilot-avatar', [
                             'data' => [
                                 'characterID' => $data['pilotID'],
                                 'characterName' => $data['pilotName']
                             ]
                         ]);
 
-                        TemplateHelper::getTemplate('partials/pilot/pilot-information', [
+                        TemplateHelper::getInstance()->getTemplate('partials/pilot/pilot-information', [
                             'data' => [
                                 'characterID' => $data['pilotID'],
                                 'characterName' => $data['pilotName']

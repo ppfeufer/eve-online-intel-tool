@@ -22,7 +22,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\PostType;
 $textareaRows = (isset($textareaRows)) ? $textareaRows : 15;
 ?>
 
-<form id="new_intel" name="new_intel" method="post" action="/<?php echo PostType::getPosttypeSlug('intel'); ?>/">
+<form id="new_intel" name="new_intel" method="post" action="/<?php echo PostType::getInstance()->getPosttypeSlug('intel'); ?>/">
     <div class="form-group">
         <textarea class="form-control" rows="<?php echo $textareaRows; ?>" id="eveIntel" name="eveIntel" placeholder="<?php echo \__('Paste here ...', 'eve-online-intel-tool'); ?>"></textarea>
     </div>

@@ -177,7 +177,7 @@ switch($termObject['0']->slug) {
 // If the jSon format is requested
 $getData = \filter_input(INPUT_GET, 'data');
 if(isset($getData) && $getData = 'json') {
-    TemplateHelper::getTemplate('json-api/json-data', [
+    TemplateHelper::getInstance()->getTemplate('json-api/json-data', [
         'jsonData' => \json_encode($jsonData)
     ]);
 }
@@ -191,7 +191,7 @@ if(isset($getData) && $getData = 'json') {
         <div class="col-lg-12 col-md-12 col-sm-12 col-12 content-wrapper">
             <div class="content content-inner content-archive eve-intel-result">
                 <?php
-                TemplateHelper::getTemplate('single-' . $intelType, [
+                TemplateHelper::getInstance()->getTemplate('single-' . $intelType, [
                     'intelData' => $intelData
                 ]);
                 ?>

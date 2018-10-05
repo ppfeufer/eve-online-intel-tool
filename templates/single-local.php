@@ -32,7 +32,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
         <?php
     }
 
-    TemplateHelper::getTemplate('partials/extra/buttons');
+    TemplateHelper::getInstance()->getTemplate('partials/extra/buttons');
     ?>
 </header>
 
@@ -42,7 +42,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
             <div class="local-scan-result row">
                 <div class="col-md-6 col-lg-3">
                     <?php
-                    TemplateHelper::getTemplate('partials/alliance/alliance-participation', [
+                    TemplateHelper::getInstance()->getTemplate('partials/alliance/alliance-participation', [
                         'allianceCount' => \count($intelData['localDataAllianceList']),
                         'allianceParticipation' => $intelData['localDataAllianceParticipation']
                     ]);
@@ -51,7 +51,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
 
                 <div class="col-md-6 col-lg-3">
                     <?php
-                    TemplateHelper::getTemplate('partials/corporation/corporation-participation', [
+                    TemplateHelper::getInstance()->getTemplate('partials/corporation/corporation-participation', [
                         'corporationCount' => \count($intelData['localDataCorporationList']),
                         'corporationParticipation' => $intelData['localDataCorporationParticipation']
                     ]);
@@ -60,7 +60,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
 
                 <div class="col-md-12 col-lg-6">
                     <?php
-                    TemplateHelper::getTemplate('partials/pilot/pilot-participation', [
+                    TemplateHelper::getInstance()->getTemplate('partials/pilot/pilot-participation', [
                         'pilotCount' => \count($intelData['localDataPilotList']),
                         'pilotParticipation' => $intelData['localDataPilotDetails']
                     ]);

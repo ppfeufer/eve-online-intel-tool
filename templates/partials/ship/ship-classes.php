@@ -36,7 +36,7 @@ if(\is_array($shipClassList) && \count($shipClassList) > 0) {
                 <tr data-highlight="shiptype-<?php echo $data['shipTypeSanitized']; ?>">
                     <td>
                         <?php
-                        TemplateHelper::getTemplate('partials/ship/ship-image', [
+                        TemplateHelper::getInstance()->getTemplate('partials/ship/ship-image', [
                             'data' => $data
                         ]);
 
