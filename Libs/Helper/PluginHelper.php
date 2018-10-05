@@ -25,13 +25,6 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 class PluginHelper extends AbstractSingleton {
     /**
-     * Option field name for plugin options
-     *
-     * @var string
-     */
-    public $optionFieldName = 'eve-online-intel-tool-options';
-
-    /**
      * Getting the Plugin Path
      *
      * @param string $file

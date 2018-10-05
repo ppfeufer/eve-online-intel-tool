@@ -115,7 +115,7 @@ function autoloadEsiClient($className) {
         }
 
         // Now build a path to the file using mapping to the file location.
-        $filepath = \trailingslashit(\dirname(\dirname(__FILE__)) . '/Libs/EsiClient/' . $namespace);
+        $filepath = \trailingslashit(\WP_CONTENT_DIR . '/EsiClient' . $namespace);
         $filepath .= $fileName;
 
         // If the file exists in the specified path, then include it.

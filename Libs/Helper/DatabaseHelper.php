@@ -25,23 +25,16 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 class DatabaseHelper extends AbstractSingleton {
     /**
-     * Option field name for database version
-     *
-     * @var string
-     */
-    public $optionDatabaseFieldName = 'eve-online-intel-tool-database-version';
-
-    /**
      * WordPress Database Instance
      *
-     * @var \WPDB
+     * @var \wpdb
      */
     private $wpdb = null;
 
     /**
      * Constructor
      *
-     * @global \WPDB $wpdb
+     * @global \wpdb $wpdb
      */
     protected function __construct() {
         parent::__construct();
@@ -49,111 +42,6 @@ class DatabaseHelper extends AbstractSingleton {
         global $wpdb;
 
         $this->wpdb = $wpdb;
-    }
-
-    /**
-     * Returning the database version field name
-     *
-     * @return string
-     */
-    public function getDatabaseFieldName() {
-        return $this->optionDatabaseFieldName;
-    }
-
-    /**
-     * Getting the current database version
-     *
-     * @return string
-     */
-    public function getCurrentDatabaseVersion() {
-        return \get_option($this->getDatabaseFieldName());
-    }
-
-    /**
-     * Check if the database needs to be updated
-     *
-     * @param int $newVersion New database version to check against
-     */
-    public function checkDatabase(int $newVersion) {
-        $currentVersion = $this->getCurrentDatabaseVersion();
-
-        if(!\is_null($newVersion)) {
-            if(\version_compare($currentVersion, $newVersion) < 0) {
-                $this->updateDatabase($newVersion);
-            }
-        }
-
-        /**
-         * Remove old tables we don't need after this version
-         */
-        if($currentVersion < 20181001) {
-            $this->removeOldTables();
-        }
-
-        /**
-         * Truncate the cache table after this version.
-         *
-         * We switched to a common ESI client with its own namespaces,
-         * so we cannot use the older cached entries any longer.
-         */
-        if($currentVersion < 20181004) {
-            $this->truncateEsiCacheTable();
-        }
-    }
-
-    /**
-     * Update the plugin database
-     *
-     * @param int $newVersion New database version
-     */
-    public function updateDatabase(int $newVersion) {
-        $this->createEsiCacheTable();
-
-        /**
-         * Update database version
-         */
-        \update_option($this->getDatabaseFieldName(), $newVersion);
-    }
-
-    private function removeOldTables() {
-        $oldTableNames = [
-            'eveIntelAlliances',
-            'eveIntelConstellations',
-            'eveIntelCorporations',
-            'eveIntelPilots',
-            'eveIntelRegions',
-            'eveIntelShips',
-            'eveIntelSystems'
-        ];
-
-        foreach($oldTableNames as $tableName) {
-            $tableToDrop = $this->wpdb->base_prefix . $tableName;
-            $sql = "DROP TABLE IF EXISTS $tableToDrop;";
-            $this->wpdb->query($sql);
-        }
-    }
-
-    private function truncateEsiCacheTable() {
-        $table = $this->wpdb->base_prefix . 'eveOnlineEsiCache';
-        $sql = "TRUNCATE TABLE $table;";
-
-        $this->wpdb->query($sql);
-    }
-
-    private function createEsiCacheTable() {
-        $charsetCollate = $this->wpdb->get_charset_collate();
-        $tableName = $this->wpdb->base_prefix . 'eveOnlineEsiCache';
-
-        $sql = "CREATE TABLE $tableName (
-            esi_route varchar(255),
-            value longtext,
-            valid_until varchar(255),
-            PRIMARY KEY esi_route (esi_route)
-        ) $charsetCollate;";
-
-        require_once(\ABSPATH . 'wp-admin/includes/upgrade.php');
-
-        \dbDelta($sql);
     }
 
     /**

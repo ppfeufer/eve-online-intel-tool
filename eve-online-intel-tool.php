@@ -31,13 +31,14 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\FormNonce;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\GithubUpdater;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\CssLoader;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\JavascriptLoader;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\TemplateLoader;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\WpHooks;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\FormNonce;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\GithubUpdater;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\UpdateHelper;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\CssLoader;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\JavascriptLoader;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\TemplateLoader;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\WpHooks;
 
 \defined('ABSPATH') or die();
 
@@ -62,13 +63,6 @@ class EveOnlineIntelTool {
     private $localizationDirectory = null;
 
     /**
-     * Database version
-     *
-     * @var string
-     */
-    private $databaseVersion = null;
-
-    /**
      * Plugin constructor
      */
     public function __construct() {
@@ -77,16 +71,13 @@ class EveOnlineIntelTool {
          */
         $this->textDomain = 'eve-online-intel-tool';
         $this->localizationDirectory = \basename(\dirname(__FILE__)) . '/l10n/';
-        $this->databaseVersion = 20181005;
     }
 
     /**
      * Initialize the plugin
      */
     public function init() {
-        new WpHooks([
-            'newDatabaseVersion' => $this->databaseVersion
-        ]);
+        new WpHooks;
 
         $this->loadTextDomain();
 
