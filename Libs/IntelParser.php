@@ -175,15 +175,15 @@ class IntelParser {
             /**
              * If we have a system, add it to the post title
              */
-            if(!empty($parsedDscanData['system']['systemName'])) {
-                $postName = $parsedDscanData['system']['systemName'];
+            if(!empty($parsedDscanData['systemInformation']['system']['name'])) {
+                $postName = $parsedDscanData['systemInformation']['system']['name'];
 
-                if(!empty($parsedDscanData['system']['constellationName'])) {
-                    $postName .= ' - ' . $parsedDscanData['system']['constellationName'];
+                if(!empty($parsedDscanData['systemInformation']['constellation']['name'])) {
+                    $postName .= ' - ' . $parsedDscanData['systemInformation']['constellation']['name'];
                 }
 
-                if(!empty($parsedDscanData['system']['regionName'])) {
-                    $postName .= ' - ' . $parsedDscanData['system']['regionName'];
+                if(!empty($parsedDscanData['systemInformation']['region']['name'])) {
+                    $postName .= ' - ' . $parsedDscanData['systemInformation']['region']['name'];
                 }
 
                 $postName .= ' ' . $this->uniqueID;
@@ -195,7 +195,7 @@ class IntelParser {
                 'eve-intel-tool_dscan-onGrid' => \maybe_serialize($parsedDscanData['onGrid']),
                 'eve-intel-tool_dscan-offGrid' => \maybe_serialize($parsedDscanData['offGrid']),
                 'eve-intel-tool_dscan-shipTypes' => \maybe_serialize($parsedDscanData['shipTypes']),
-                'eve-intel-tool_dscan-system' => \maybe_serialize($parsedDscanData['system']),
+                'eve-intel-tool_dscan-system' => \maybe_serialize($parsedDscanData['systemInformation']),
                 'eve-intel-tool_dscan-upwellStructures' => \maybe_serialize($parsedDscanData['upwellStructures']),
                 'eve-intel-tool_dscan-deployables' => \maybe_serialize($parsedDscanData['deployables']),
                 'eve-intel-tool_dscan-starbaseModules' => \maybe_serialize($parsedDscanData['starbaseModules']),

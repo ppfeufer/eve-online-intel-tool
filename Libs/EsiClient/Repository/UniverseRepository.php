@@ -162,6 +162,36 @@ if(!\class_exists('\WordPress\EsiClient\Repository\UniverseRepository')) {
         }
 
         /**
+         * Get the number of jumps in solar systems within the last hour
+         * ending at the timestamp of the Last-Modified header, excluding
+         * wormhole space. Only systems with jumps will be listed
+         *
+         * @return array
+         */
+        public function universeSystemJumps() {
+            $this->setEsiMethod('get');
+            $this->setEsiRoute($this->esiEndpoints['universe_systemJumps']);
+            $this->setEsiVersion('v1');
+
+            return $this->mapArray($this->callEsi(), '\\WordPress\EsiClient\Model\Universe\UniverseSystemJumps');
+        }
+
+        /**
+         * Get the number of ship, pod and NPC kills per solar system within
+         * the last hour ending at the timestamp of the Last-Modified header,
+         * excluding wormhole space. Only systems with kills will be listed
+         *
+         * @return array
+         */
+        public function universeSystemKills() {
+            $this->setEsiMethod('get');
+            $this->setEsiRoute($this->esiEndpoints['universe_systemKills']);
+            $this->setEsiVersion('v2');
+
+            return $this->mapArray($this->callEsi(), '\\WordPress\EsiClient\Model\Universe\UniverseSystemKills');
+        }
+
+        /**
          * Get information on a solar system
          *
          * @param int $systemId An EVE solar system ID

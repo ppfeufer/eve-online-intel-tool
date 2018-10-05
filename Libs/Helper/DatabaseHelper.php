@@ -146,7 +146,7 @@ class DatabaseHelper extends AbstractSingleton {
 
         $sql = "CREATE TABLE $tableName (
             esi_route varchar(255),
-            value text,
+            value longtext,
             valid_until varchar(255),
             PRIMARY KEY esi_route (esi_route)
         ) $charsetCollate;";

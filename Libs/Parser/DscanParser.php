@@ -229,6 +229,7 @@ class DscanParser extends AbstractSingleton {
         if(!\is_null($systemShortData)) {
             /* @var $systemData UniverseSystemsSystemId */
             $systemData = $this->esiHelper->getSystemData($systemShortData['0']->getId());
+            $systemId = $systemData->getSystemId();
             $constellationName = null;
             $regionName = null;
 
@@ -239,6 +240,7 @@ class DscanParser extends AbstractSingleton {
             // Set the constellation name
             if(!\is_null($constellationData)) {
                 $constellationName = $constellationData->getName();
+                $constellationId = $constellationData->getConstellationId();
 
                 // Get the region data
                 /* @var $regionData UniverseRegionsRegionId */
@@ -247,13 +249,50 @@ class DscanParser extends AbstractSingleton {
                 // Set the region name
                 if(!\is_null($regionData)) {
                     $regionName = $regionData->getName();
+                    $regionId = $regionData->getRegionId();
+                }
+            }
+
+            /**
+             * Get system activity
+             */
+            $systemActivity = [
+                'jumps' => 0,
+                'npcKills' => 0,
+                'podKills' => 0,
+                'shipKills' => 0
+            ];
+            $systemJumpsData = $this->esiHelper->getSystemJumps();
+            $systemKillsData = $this->esiHelper->getSystemKills();
+
+            foreach($systemJumpsData as $systemJumps) {
+                if($systemJumps->getSystemId() === $systemData->getSystemId()) {
+                    $systemActivity['jumps'] = $systemJumps->getShipJumps();
+                }
+            }
+
+            foreach($systemKillsData as $systemKills) {
+                if($systemKills->getSystemId() === $systemData->getSystemId()) {
+                    $systemActivity['npcKills'] = $systemKills->getNpcKills();
+                    $systemActivity['podKills'] = $systemKills->getPodKills();
+                    $systemActivity['shipKills'] = $systemKills->getShipKills();
                 }
             }
 
             $returnValue = [
-                'systemName' => $systemName,
-                'constellationName' => $constellationName,
-                'regionName' => $regionName
+                'system' => [
+                    'id' => $systemId,
+                    'name' => $systemName
+                ],
+                'constellation' => [
+                    'id' => $constellationId,
+                    'name' => $constellationName
+                ],
+                'region' => [
+                    'id' => $regionId,
+                    'name' => $regionName
+                ],
+                'activity' => $systemActivity
             ];
         }
 
@@ -347,7 +386,7 @@ class DscanParser extends AbstractSingleton {
             $returnData['offGrid'] = $dscanOffGrid;
         }
 
-        $returnData['system'] = $dscanArray['system'];
+        $returnData['systemInformation'] = $dscanArray['system'];
 
         return $returnData;
     }

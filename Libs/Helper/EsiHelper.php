@@ -31,6 +31,8 @@ use \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId;
 use \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId;
 use \WordPress\EsiClient\Model\Universe\UniverseIds;
 use \WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId;
+use \WordPress\EsiClient\Model\Universe\UniverseSystemJumps;
+use \WordPress\EsiClient\Model\Universe\UniverseSystemKills;
 use \WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId;
 use \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId;
 use \WordPress\EsiClient\Repository\AllianceRepository;
@@ -357,5 +359,55 @@ class EsiHelper extends AbstractSingleton {
         }
 
         return $regionData;
+    }
+
+    /**
+     * Get the number of jumps in solar systems within the last hour ending
+     * at the timestamp of the Last-Modified header, excluding wormhole space.
+     * Only systems with jumps will be listed
+     *
+     * @return UniverseSystemJumps
+     */
+    public function getSystemJumps() {
+        $systemJumpsData = $this->databaseHelper->getCachedEsiDataFromDb('universe/system_jumps');
+
+        if(\is_null($systemJumpsData)) {
+            $systemJumpsData = $this->universeApi->universeSystemJumps();
+
+            if(!\is_null($systemJumpsData)) {
+                $this->databaseHelper->writeEsiCacheDataToDb([
+                    'universe/system_jumps',
+                    \maybe_serialize($systemJumpsData),
+                    \strtotime('+1 hour')
+                ]);
+            }
+        }
+
+        return $systemJumpsData;
+    }
+
+    /**
+     * Get the number of ship, pod and NPC kills per solar system within
+     * the last hour ending at the timestamp of the Last-Modified header,
+     * excluding wormhole space. Only systems with kills will be listed
+     *
+     * @return UniverseSystemKills
+     */
+    public function getSystemKills() {
+        $systemKillsData = $this->databaseHelper->getCachedEsiDataFromDb('universe/system_kills');
+
+        if(\is_null($systemKillsData)) {
+            $systemKillsData = $this->universeApi->universeSystemKills();
+
+            if(!\is_null($systemKillsData)) {
+                $this->databaseHelper->writeEsiCacheDataToDb([
+                    'universe/system_kills',
+                    \maybe_serialize($systemKillsData),
+                    \strtotime('+1 hour')
+                ]);
+            }
+        }
+
+        return $systemKillsData;
     }
 }
