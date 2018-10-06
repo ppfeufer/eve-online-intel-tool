@@ -19,6 +19,9 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\UpdateHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+
 \defined('ABSPATH') or die();
 
 class WpHooks {
@@ -30,20 +33,10 @@ class WpHooks {
     private $pluginFile = null;
 
     /**
-     * New database version
-     *
-     * @var string
-     */
-    private $newDatabaseVersion = null;
-
-    /**
      * Constructor
-     *
-     * @param array $parameter array with parameters
      */
-    public function __construct(array $parameter) {
-        $this->pluginFile = Helper\PluginHelper::getInstance()->getPluginPath('eve-online-intel-tool.php');
-        $this->newDatabaseVersion = (isset($parameter['newDatabaseVersion'])) ? $parameter['newDatabaseVersion'] : null;
+    public function __construct() {
+        $this->pluginFile = PluginHelper::getInstance()->getPluginPath('eve-online-intel-tool.php');
 
         $this->init();
     }
@@ -61,16 +54,20 @@ class WpHooks {
      * Initialize our hooks
      */
     public function initHooks() {
-        \register_activation_hook($this->pluginFile, [$this, 'checkDatabaseForUpdates']);
-        \register_activation_hook($this->pluginFile, [$this, 'flushRewriteRulesOnActivation']);
+        \register_activation_hook($this->pluginFile, [UpdateHelper::getInstance(), 'checkDatabaseForUpdates']);
+        \register_activation_hook($this->pluginFile, [UpdateHelper::getInstance(), 'checkEsiClientForUpdates']);
+        \register_activation_hook($this->pluginFile, [$this, 'registerPostTypeOnActivation']);
 
-        \register_deactivation_hook($this->pluginFile, [$this, 'flushRewriteRulesOnDeactivation']);
+        \register_deactivation_hook($this->pluginFile, [$this, 'unregisterPostTypeOnDeactivation']);
     }
 
     /**
      * Add our actions to WordPress
      */
     public function initActions() {
+        /**
+         * Stuff that's added to the HTML head section
+         */
         \add_action('wp_head', [$this, 'noindexForIntelPages']);
 
         /**
@@ -78,7 +75,15 @@ class WpHooks {
          * since the activation doesn't fire on update
          * thx wordpress for removing update hooks ...
          */
-        \add_action('plugins_loaded', [$this, 'checkDatabaseForUpdates']);
+        \add_action('plugins_loaded', [UpdateHelper::getInstance(), 'checkDatabaseForUpdates']);
+        \add_action('plugins_loaded', [UpdateHelper::getInstance(), 'checkEsiClientForUpdates']);
+
+        /**
+         * Initializing widgets
+         */
+        \add_action('widgets_init', [Widgets::getInstance(), 'registerWidgets']);
+
+        \add_action('init', [PostType::getInstance(), 'registerCustomPostType']);
     }
 
     /**
@@ -86,6 +91,11 @@ class WpHooks {
      */
     public function initFilter() {
         \add_filter('plugin_row_meta', [$this, 'addPluginRowMeta'], 10, 2);
+
+        \add_filter('template_include', [PostType::getInstance(), 'templateLoader']);
+        \add_filter('page_template', [PostType::getInstance(), 'registerPageTemplate']);
+
+        \add_filter('post_type_link', [PostType::getInstance(), 'createPermalinks'], 1, 2);
     }
 
     /**
@@ -112,25 +122,17 @@ class WpHooks {
      * Adding noindex and nofollow meta
      */
     public function noindexForIntelPages() {
-        if(PostType::isPostTypePage() === true) {
+        if(PostType::getInstance()->isPostTypePage() === true) {
             echo '<meta name="robots" content="noindex, nofollow">' . "\n";
         }
-    }
-
-    /**
-     * Hook: checkDatabaseForUpdates
-     * Fired on: register_activation_hook
-     */
-    public function checkDatabaseForUpdates() {
-        Helper\DatabaseHelper::getInstance()->checkDatabase($this->newDatabaseVersion);
     }
 
     /**
      * Hook: flushRewriteRulesOnActivation
      * Fired on: register_activation_hook
      */
-    public function flushRewriteRulesOnActivation() {
-        PostType::registerCustomPostType();
+    public function registerPostTypeOnActivation() {
+        PostType::getInstance()->registerCustomPostType();
 
         \flush_rewrite_rules();
     }
@@ -139,7 +141,9 @@ class WpHooks {
      * Hook: flushRewriteRulesOnDeactivation
      * Fired on: register_deactivation_hook
      */
-    public function flushRewriteRulesOnDeactivation() {
+    public function unregisterPostTypeOnDeactivation() {
+        PostType::getInstance()->unregisterCustomPostType();
+
         \flush_rewrite_rules();
     }
 }

@@ -5,7 +5,7 @@
  * Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
  * GitHub Plugin URI: https://github.com/ppfeufer/eve-online-intel-tool
  * Description: An EVE Online Intel Tool for WordPress. Parsing D-Scans, Local and Fleet Compositions. (Best with a theme running with <a href="http://getbootstrap.com/">Bootstrap</a>)
- * Version: 1.2.1
+ * Version: 1.3.0
  * Author: Rounon Dax
  * Author URI: https://yulaifederation.net
  * Text Domain: eve-online-intel-tool
@@ -31,6 +31,15 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool;
 
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\FormNonce;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\GithubUpdater;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\UpdateHelper;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\CssLoader;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\JavascriptLoader;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\TemplateLoader;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\WpHooks;
+
 \defined('ABSPATH') or die();
 
 const WP_GITHUB_FORCE_UPDATE = true;
@@ -54,13 +63,6 @@ class EveOnlineIntelTool {
     private $localizationDirectory = null;
 
     /**
-     * Database version
-     *
-     * @var string
-     */
-    private $databaseVersion = null;
-
-    /**
      * Plugin constructor
      */
     public function __construct() {
@@ -69,35 +71,26 @@ class EveOnlineIntelTool {
          */
         $this->textDomain = 'eve-online-intel-tool';
         $this->localizationDirectory = \basename(\dirname(__FILE__)) . '/l10n/';
-
-        $this->databaseVersion = 20181001;
     }
 
     /**
      * Initialize the plugin
      */
     public function init() {
-        new Libs\WpHooks([
-            'newDatabaseVersion' => $this->databaseVersion
-        ]);
+        new WpHooks;
 
         $this->loadTextDomain();
 
-        new Libs\PostType;
-        new Libs\Ajax\FormNonce;
-        new Libs\Ajax\ImageLazyLoad;
+        new FormNonce;
 
-        $widgets = new Libs\Widgets;
-        $widgets->init();
-
-        $jsLoader = new Libs\ResourceLoader\JavascriptLoader;
+        $jsLoader = new JavascriptLoader;
         $jsLoader->init();
 
-        $cssLoader = new Libs\ResourceLoader\CssLoader;
+        $cssLoader = new CssLoader;
         $cssLoader->init();
 
         if(\is_admin()) {
-            new Libs\Admin\PluginSettings;
+            new TemplateLoader;
 
             $this->initGitHubUpdater();
         }
@@ -107,14 +100,12 @@ class EveOnlineIntelTool {
      * Initializing the GitHub Updater
      */
     private function initGitHubUpdater() {
-        new Libs\TemplateLoader;
-
         /**
          * Check Github for updates
          */
         $githubConfig = [
             'slug' => \plugin_basename(__FILE__),
-            'proper_folder_name' => Libs\Helper\PluginHelper::getInstance()->getPluginDirName(),
+            'proper_folder_name' => PluginHelper::getInstance()->getPluginDirName(),
             'api_url' => 'https://api.github.com/repos/ppfeufer/eve-online-intel-tool',
             'raw_url' => 'https://raw.github.com/ppfeufer/eve-online-intel-tool/master',
             'github_url' => 'https://github.com/ppfeufer/eve-online-intel-tool',
@@ -126,7 +117,7 @@ class EveOnlineIntelTool {
             'access_token' => '',
         ];
 
-        new Libs\GithubUpdater($githubConfig);
+        new GithubUpdater($githubConfig);
     }
 
     /**

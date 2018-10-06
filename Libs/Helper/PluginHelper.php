@@ -19,23 +19,18 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+
 \defined('ABSPATH') or die();
 
-class PluginHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
-    /**
-     * Option field name for plugin options
-     *
-     * @var string
-     */
-    public $optionFieldName = 'eve-online-intel-tool-options';
-
+class PluginHelper extends AbstractSingleton {
     /**
      * Getting the Plugin Path
      *
      * @param string $file
      * @return string
      */
-    public function getPluginPath($file = '') {
+    public function getPluginPath(string $file = '') {
         return \WP_PLUGIN_DIR . '/' . $this->getPluginDirName() . '/' . $file;
     }
 
@@ -45,7 +40,7 @@ class PluginHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons
      * @param string $file
      * @return string
      */
-    public function getPluginUri($file = '') {
+    public function getPluginUri(string $file = '') {
         return \WP_PLUGIN_URL . '/' . $this->getPluginDirName() . '/' . $file;
     }
 
@@ -56,36 +51,5 @@ class PluginHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons
      */
     public function getPluginDirName() {
         return \dirname(\dirname(\dirname(\plugin_basename(__FILE__))));
-    }
-
-    /**
-     * Returning the plugins default settings
-     *
-     * @return array
-     */
-    public function getPluginDefaultSettings() {
-        return [
-            'image-cache' => '',
-            'image-lazy-load' => '',
-            'image-cache-time' => '120'
-        ];
-    }
-
-    /**
-     * Getting the plugin settings
-     *
-     * @return array
-     */
-    public function getPluginSettings() {
-        return \get_option($this->getOptionFieldName(), $this->getPluginDefaultSettings());
-    }
-
-    /**
-     * Returning the options field name
-     *
-     * @return string
-     */
-    public function getOptionFieldName() {
-        return $this->optionFieldName;
     }
 }

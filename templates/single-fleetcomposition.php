@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
+
 \defined('ABSPATH') or die();
 ?>
 
@@ -30,7 +32,7 @@
         <?php
     }
 
-    \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/extra/buttons');
+    TemplateHelper::getInstance()->getTemplate('partials/extra/buttons');
     ?>
 </header>
 
@@ -43,10 +45,9 @@
                 -->
                 <?php
                 if(\is_array($intelData['shipTypes']) && \count($intelData['shipTypes'])) {
-                    \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/fleet/fleet-information', [
+                    TemplateHelper::getInstance()->getTemplate('partials/fleet/fleet-information', [
                         'pilotCount' => \count($intelData['pilotList']),
-                        'fleetInformation' => $intelData['fleetInformation'],
-                        'pluginSettings' => $pluginSettings
+                        'fleetInformation' => $intelData['fleetInformation']
                     ]);
                 }
                 ?>
@@ -59,10 +60,9 @@
                 <div class="col-md-6 col-lg-3">
                     <?php
                     if(\is_array($intelData['shipClasses']) && \count($intelData['shipClasses'])) {
-                        \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/ship/ship-classes', [
+                        TemplateHelper::getInstance()->getTemplate('partials/ship/ship-classes', [
                             'title' => \__('Ship Classes', 'eve-online-intel-tool'),
-                            'shipClassList' => $intelData['shipClasses'],
-                            'pluginSettings' => $pluginSettings
+                            'shipClassList' => $intelData['shipClasses']
                         ]);
                     }
                     ?>
@@ -74,10 +74,9 @@
                 <div class="col-md-6 col-lg-3">
                     <?php
                     if(\is_array($intelData['shipTypes']) && \count($intelData['shipTypes'])) {
-                        \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/ship/ship-types', [
+                        TemplateHelper::getInstance()->getTemplate('partials/ship/ship-types', [
                             'title' => \__('Ship Types', 'eve-online-intel-tool'),
-                            'shipTypeList' => $intelData['shipTypes'],
-                            'pluginSettings' => $pluginSettings
+                            'shipTypeList' => $intelData['shipTypes']
                         ]);
                     }
                     ?>
@@ -88,9 +87,8 @@
                 -->
                 <div class="col-md-12 col-lg-6">
                     <?php
-                    \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/fleet/fleet-composition', [
-                        'fleetOverview' => $intelData['fleetOverview'],
-                        'pluginSettings' => $pluginSettings
+                    TemplateHelper::getInstance()->getTemplate('partials/fleet/fleet-composition', [
+                        'fleetOverview' => $intelData['fleetOverview']
                     ]);
                     ?>
                 </div>
@@ -110,10 +108,9 @@
                 -->
                 <div class="col-md-6 col-lg-3">
                     <?php
-                    \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/alliance/alliance-participation', [
+                    TemplateHelper::getInstance()->getTemplate('partials/alliance/alliance-participation', [
                         'allianceCount' => \count($intelData['allianceList']),
-                        'allianceParticipation' => $intelData['allianceParticipation'],
-                        'pluginSettings' => $pluginSettings
+                        'allianceParticipation' => $intelData['allianceParticipation']
                     ]);
                     ?>
                 </div>
@@ -123,10 +120,9 @@
                 -->
                 <div class="col-md-6 col-lg-3">
                     <?php
-                    \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/corporation/corporation-participation', [
+                    TemplateHelper::getInstance()->getTemplate('partials/corporation/corporation-participation', [
                         'corporationCount' => \count($intelData['corporationList']),
-                        'corporationParticipation' => $intelData['corporationParticipation'],
-                        'pluginSettings' => $pluginSettings
+                        'corporationParticipation' => $intelData['corporationParticipation']
                     ]);
                     ?>
                 </div>
@@ -136,10 +132,9 @@
                 -->
                 <div class="col-md-12 col-lg-6">
                     <?php
-                    \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/pilot/pilot-participation', [
+                    TemplateHelper::getInstance()->getTemplate('partials/pilot/pilot-participation', [
                         'pilotCount' => \count($intelData['pilotList']),
-                        'pilotParticipation' => $intelData['pilotParticipation'],
-                        'pluginSettings' => $pluginSettings
+                        'pilotParticipation' => $intelData['pilotParticipation']
                     ]);
                     ?>
                 </div>

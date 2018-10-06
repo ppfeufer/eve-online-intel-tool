@@ -19,6 +19,11 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\DscanParser;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\FleetCompositionParser;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\LocalScanParser;
+
 \defined('ABSPATH') or die();
 
 /**
@@ -108,7 +113,7 @@ class IntelParser {
      * @param string $scanData
      * @return string
      */
-    private function checkIntelType($scanData) {
+    private function checkIntelType(string $scanData) {
         $intelType = null;
 
         /**
@@ -117,7 +122,7 @@ class IntelParser {
          * mac -> linux
          * windows -> linux
          */
-        $cleanedScanData = Helper\StringHelper::getInstance()->fixLineBreaks($scanData);
+        $cleanedScanData = StringHelper::getInstance()->fixLineBreaks($scanData);
 
         switch($cleanedScanData) {
             case '':
@@ -159,10 +164,10 @@ class IntelParser {
      * @param string $scanData
      * @return int
      */
-    private function saveDscanData($scanData) {
+    private function saveDscanData(string $scanData) {
         $returnData = null;
 
-        $parsedDscanData = Parser\DscanParser::getInstance()->parseDscan($scanData);
+        $parsedDscanData = DscanParser::getInstance()->parseDscan($scanData);
 
         if($parsedDscanData !== null) {
             $postName = $this->uniqueID;
@@ -170,27 +175,27 @@ class IntelParser {
             /**
              * If we have a system, add it to the post title
              */
-            if(!empty($parsedDscanData['system']['systemName'])) {
-                $postName = $parsedDscanData['system']['systemName'];
+            if(!empty($parsedDscanData['systemInformation']['system']['name'])) {
+                $postName = $parsedDscanData['systemInformation']['system']['name'];
 
-                if(!empty($parsedDscanData['system']['constellationName'])) {
-                    $postName .= ' - ' . $parsedDscanData['system']['constellationName'];
+                if(!empty($parsedDscanData['systemInformation']['constellation']['name'])) {
+                    $postName .= ' - ' . $parsedDscanData['systemInformation']['constellation']['name'];
                 }
 
-                if(!empty($parsedDscanData['system']['regionName'])) {
-                    $postName .= ' - ' . $parsedDscanData['system']['regionName'];
+                if(!empty($parsedDscanData['systemInformation']['region']['name'])) {
+                    $postName .= ' - ' . $parsedDscanData['systemInformation']['region']['name'];
                 }
 
                 $postName .= ' ' . $this->uniqueID;
             }
 
             $metaData = [
-                'eve-intel-tool_dscan-rawData' => \maybe_serialize(Helper\StringHelper::getInstance()->fixLineBreaks($scanData)),
+                'eve-intel-tool_dscan-rawData' => \maybe_serialize(StringHelper::getInstance()->fixLineBreaks($scanData)),
                 'eve-intel-tool_dscan-all' => \maybe_serialize($parsedDscanData['all']),
                 'eve-intel-tool_dscan-onGrid' => \maybe_serialize($parsedDscanData['onGrid']),
                 'eve-intel-tool_dscan-offGrid' => \maybe_serialize($parsedDscanData['offGrid']),
                 'eve-intel-tool_dscan-shipTypes' => \maybe_serialize($parsedDscanData['shipTypes']),
-                'eve-intel-tool_dscan-system' => \maybe_serialize($parsedDscanData['system']),
+                'eve-intel-tool_dscan-system' => \maybe_serialize($parsedDscanData['systemInformation']),
                 'eve-intel-tool_dscan-upwellStructures' => \maybe_serialize($parsedDscanData['upwellStructures']),
                 'eve-intel-tool_dscan-deployables' => \maybe_serialize($parsedDscanData['deployables']),
                 'eve-intel-tool_dscan-starbaseModules' => \maybe_serialize($parsedDscanData['starbaseModules']),
@@ -210,9 +215,9 @@ class IntelParser {
      * @param string $scanData
      * @return int
      */
-    private function saveFleetComositionData($scanData) {
+    private function saveFleetComositionData(string $scanData) {
         $returnData = null;
-        $parsedFleetComposition = Parser\FleetCompositionParser::getInstance()->parseFleetCompositionScan($scanData);
+        $parsedFleetComposition = FleetCompositionParser::getInstance()->parseFleetCompositionScan($scanData);
 
         if($parsedFleetComposition !== null) {
             $postName = $this->uniqueID;
@@ -243,10 +248,10 @@ class IntelParser {
      * @param string $scanData
      * @return int
      */
-    private function saveLocalScanData($scanData) {
+    private function saveLocalScanData(string $scanData) {
         $returnData = null;
 
-        $parsedLocalData = Parser\LocalScanParser::getInstance()->parseLocalScan($scanData);
+        $parsedLocalData = LocalScanParser::getInstance()->parseLocalScan($scanData);
 
         if($parsedLocalData !== null) {
             $postName = $this->uniqueID;
@@ -275,7 +280,7 @@ class IntelParser {
      * @param string $category
      * @return int
      */
-    private function savePostdata($postName, $metaData, $category) {
+    private function savePostdata(string $postName, array $metaData, string $category) {
         $returnData = null;
 
         switch($category) {

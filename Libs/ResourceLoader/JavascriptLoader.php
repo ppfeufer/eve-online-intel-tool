@@ -19,16 +19,20 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces\AssetsInterface;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\PostType;
+
 \defined('ABSPATH') or die();
 
 /**
  * JavaScript Loader
  */
-class JavascriptLoader implements \WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces\AssetsInterface {
+class JavascriptLoader implements AssetsInterface {
     /**
      * Plugin Helper
      *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper
+     * @var PluginHelper
      */
     private $pluginHelper = null;
 
@@ -36,7 +40,7 @@ class JavascriptLoader implements \WordPress\Plugins\EveOnlineIntelTool\Libs\Int
      * Constructor
      */
     public function __construct() {
-        $this->pluginHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance();
+        $this->pluginHelper = PluginHelper::getInstance();
     }
 
     /**
@@ -54,7 +58,7 @@ class JavascriptLoader implements \WordPress\Plugins\EveOnlineIntelTool\Libs\Int
          * Only in Frontend
          */
         if(!\is_admin()) {
-            if(\WordPress\Plugins\EveOnlineIntelTool\Libs\PostType::isPostTypePage() === true) {
+            if(PostType::getInstance()->isPostTypePage() === true) {
                 \wp_enqueue_script('bootstrap-js', $this->pluginHelper->getPluginUri('bootstrap/js/bootstrap.min.js'), ['jquery'], '', true);
                 \wp_enqueue_script('bootstrap-toolkit-js', $this->pluginHelper->getPluginUri('bootstrap/bootstrap-toolkit/bootstrap-toolkit.min.js'), ['jquery', 'bootstrap-js'], '', true);
                 \wp_enqueue_script('data-tables-js', $this->pluginHelper->getPluginUri('js/data-tables/jquery.dataTables.min.js'), ['jquery'], '', true);

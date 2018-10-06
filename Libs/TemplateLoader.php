@@ -24,15 +24,15 @@ namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 class TemplateLoader {
     /**
      * The array of templates that this plugin tracks.
+     *
+     * @var array
      */
-    protected $templates;
+    protected $templates = [];
 
     /**
      * Initializes the plugin by setting filters and administration functions.
      */
     public function __construct() {
-        $this->templates = [];
-
         // Add a filter to the attributes metabox to inject template into the cache.
         \add_filter('theme_page_templates', [$this, 'addNewTemplate']);
 
@@ -55,7 +55,7 @@ class TemplateLoader {
      * @param array $postsTemplates
      * @return array
      */
-    public function addNewTemplate($postsTemplates) {
+    public function addNewTemplate(array $postsTemplates) {
         $postsTemplates = \array_merge($postsTemplates, $this->templates);
 
         return $postsTemplates;
@@ -68,7 +68,7 @@ class TemplateLoader {
      * @param array $atts
      * @return array
      */
-    public function registerProjectTemplates($atts) {
+    public function registerProjectTemplates(array $atts) {
         // Create the key used for the themes cache
         $cacheKey = 'page_templates-' . \md5(\get_theme_root() . '/' . \get_stylesheet());
 
@@ -101,7 +101,7 @@ class TemplateLoader {
      * @param array $template
      * @return string
      */
-    public function viewProjectTemplate($template) {
+    public function viewProjectTemplate(array $template) {
         // Get global post
         global $post;
 

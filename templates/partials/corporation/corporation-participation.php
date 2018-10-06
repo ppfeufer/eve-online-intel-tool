@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
+
 ?>
 <header class="entry-header"><h2 class="entry-title"><?php echo \__('Corporations Breakdown', 'eve-online-intel-tool'); ?> (<?php echo $corporationCount; ?>)</h2></header>
 <?php
@@ -35,12 +37,11 @@ if(!empty($corporationParticipation)) {
                     <tr class="eve-intel-corporation-participation-item eve-intel-alliance-id-<?php echo $corporation['allianceID']; ?> eve-intel-corporation-id-<?php echo $corporation['corporationID']; ?>" data-highlight="alliance-<?php echo $corporation['allianceID']; ?>">
                         <td>
                             <?php
-                            \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/corporation/corporation-logo', [
-                                'data' => $corporation,
-                                'pluginSettings' => $pluginSettings
+                            TemplateHelper::getInstance()->getTemplate('partials/corporation/corporation-logo', [
+                                'data' => $corporation
                             ]);
 
-                            \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper::getTemplate('partials/corporation/corporation-information', [
+                            TemplateHelper::getInstance()->getTemplate('partials/corporation/corporation-information', [
                                 'data' => $corporation
                             ]);
                             ?>

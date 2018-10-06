@@ -17,45 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$imageAlliance = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('alliance') . $data['allianceID'] . '_32.png';
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper;
 
-if(isset($pluginSettings['image-cache']['yes']) && $pluginSettings['image-cache']['yes'] === 'yes') {
-    $lazyLoading = false;
+$imageAlliance = ImageHelper::getInstance()->getImageServerUrl('alliance') . $data['allianceID'] . '_32.png';
 
-    /**
-     * If lazy loading is used and the image
-     * cache is no longer valid
-     */
-    if(isset($pluginSettings['image-lazy-load']['yes']) && $pluginSettings['image-lazy-load']['yes'] === 'yes' && \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\CacheHelper::getInstance()->checkCachedImage('alliance', $data['allianceID'] . '_32.png') === false) {
-        $imageAlliance = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper::getInstance()->getPluginUri('images/dummy-alliance.png');
-
-        $jsonDataAlliance = \json_encode([
-            'entityType' => 'alliance',
-            'imageUri' => \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('alliance') . $data['allianceID'] . '_32.png',
-            'eveID' => $data['allianceID']
-        ]);
-        ?>
-
-        <script type="text/javascript">
-            if((eveImages instanceof Array) === false) {
-                var eveImages = [];
-            }
-
-            eveImages.push(<?php echo $jsonDataAlliance; ?>);
-        </script>
-
-        <?php
-        $lazyLoading = true;
-    }
-
-    /**
-     * If lazy loading is not used or the image cache
-     * is still valid load the image directly
-     */
-    if($lazyLoading === false) {
-        $imageAlliance = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getLocalCacheImageUriForRemoteImage('alliance', \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper::getInstance()->getImageServerUrl('alliance') . $data['allianceID'] . '_32.png');
-    }
+$size = 32;
+if(isset($data['size'])) {
+    $size = $data['size'];
 }
 ?>
 
-<span class="eve-intel-alliance-logo-wrapper"><img class="eve-image" data-eveid="<?php echo $data['allianceID']; ?>" src="<?php echo $imageAlliance; ?>" alt="<?php echo $data['allianceName']; ?>" title="<?php echo $data['allianceName']; ?>" width="32" heigh="32"></span>
+<span class="eve-intel-alliance-logo-wrapper"><img class="eve-image" data-eveid="<?php echo $data['allianceID']; ?>" src="<?php echo $imageAlliance; ?>" alt="<?php echo $data['allianceName']; ?>" title="<?php echo $data['allianceName']; ?>" width="<?php echo $size; ?>" heigh="<?php echo $size; ?>"></span>

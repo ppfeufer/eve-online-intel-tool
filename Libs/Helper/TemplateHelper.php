@@ -19,9 +19,11 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+
 \defined('ABSPATH') or die();
 
-class TemplateHelper {
+class TemplateHelper extends AbstractSingleton {
     /**
      * Locate template.
      *
@@ -33,12 +35,12 @@ class TemplateHelper {
      *
      * @since 1.0.0
      *
-     * @param 	string 	$template_name			Template to load.
-     * @param 	string 	$template_path			Path to templates.
-     * @param 	string	$default_path			Default path to template files.
-     * @return 	string 							Path to the template file.
+     * @param string $template_name Template to load.
+     * @param string $template_path Path to templates.
+     * @param string $default_path Default path to template files.
+     * @return string Path to the template file.
      */
-    public static function locateTemplate($template_name, $template_path = '', $default_path = '') {
+    public function locateTemplate(string $template_name, string $template_path = '', string $default_path = '') {
         // Set variable to search in templates folder of theme.
         if(!$template_path) {
             $template_path = 'templates/';
@@ -75,14 +77,12 @@ class TemplateHelper {
      *
      * @since 1.0.0
      *
-     * @see locateTemplate()
-     *
-     * @param string 	$template_name			Template to load.
-     * @param array 	$args					Args passed for the template file.
-     * @param string 	$tempate_path			Path to templates.
-     * @param string	$default_path			Default path to template files.
+     * @param string $template_name Template to load.
+     * @param array $args Args passed for the template file.
+     * @param string $tempate_path Path to templates.
+     * @param string $default_path Default path to template files.
      */
-    public static function getTemplate($template_name, $args = [], $tempate_path = '', $default_path = '') {
+    public function getTemplate(string $template_name, array $args = [], string $tempate_path = '', string $default_path = '') {
         if(\is_array($args) && isset($args)) {
             \extract($args);
         }
@@ -92,7 +92,7 @@ class TemplateHelper {
             $template_name .= '.php';
         }
 
-        $template_file = self::locateTemplate($template_name, $tempate_path, $default_path);
+        $template_file = $this->locateTemplate($template_name, $tempate_path, $default_path);
 
         if(!\file_exists($template_file)) {
             \_doing_it_wrong(__FUNCTION__, \sprintf('<code>%s</code> does not exist.', $template_file), '1.0.0');

@@ -19,21 +19,23 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+
 \defined('ABSPATH') or die();
 
 /**
  * Helper Class for manipulating and/or checking strings
  */
-class StringHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+class StringHelper extends AbstractSingleton {
     /**
      * Make a string camelCase
      *
      * @param string $string
-     * @param boolean $ucFirst
+     * @param bool $ucFirst
      * @param array $noStrip
      * @return string
      */
-    public function camelCase($string, $ucFirst = false, $noStrip = []) {
+    public function camelCase(string $string, bool $ucFirst = false, array $noStrip = []) {
         // First we make sure all is lower case
         $string = \strtolower($string);
 
@@ -61,7 +63,7 @@ class StringHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons
      * @param string $scanData
      * @return string
      */
-    public function fixLineBreaks($scanData) {
+    public function fixLineBreaks(string $scanData) {
         $cleanedScanData = \str_replace("\r", "\n", \str_replace("\r\n", "\n", $scanData)); // mac -> linux
 
         return $cleanedScanData;

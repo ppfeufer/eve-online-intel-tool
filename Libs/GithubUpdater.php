@@ -61,7 +61,7 @@ class GithubUpdater {
      * @see has_minimum_config()
      * @return void
      */
-    public function __construct($config = []) {
+    public function __construct(array $config = []) {
         $defaults = [
             'slug' => \plugin_basename(__FILE__),
             'proper_folder_name' => \dirname(\dirname(\plugin_basename(__FILE__))),
@@ -207,7 +207,7 @@ class GithubUpdater {
      *
      * @return array
      */
-    public function httpRequestSslVerify($args, $url) {
+    public function httpRequestSslVerify(array $args, string $url) {
         if($this->config['zip_url'] == $url) {
             $args['sslverify'] = $this->config['sslverify'];
         }
@@ -281,7 +281,7 @@ class GithubUpdater {
      * @since 1.6
      * @return mixed
      */
-    public function remoteGet($query) {
+    public function remoteGet(string $query) {
         if(!empty($this->config['access_token'])) {
             $query = \add_query_arg(['access_token' => $this->config['access_token']], $query);
         }
@@ -411,7 +411,7 @@ class GithubUpdater {
      * @param object $response
      * @return object
      */
-    public function getPluginInfo($false, $action, $response) {
+    public function getPluginInfo(bool $false, string $action, $response) {
         // Check if this call API is for the right plugin
         if(!isset($response->slug) || $response->slug != $this->config['slug']) {
             return false;
@@ -448,7 +448,7 @@ class GithubUpdater {
      * @param array $result the result of the move
      * @return array $result the result of the move
      */
-    public function upgraderPostInstall($true, $hookExtra, $result) {
+    public function upgraderPostInstall(bool $true, $hookExtra, array $result) {
         global $wp_filesystem;
 
         /**

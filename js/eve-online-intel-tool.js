@@ -1,4 +1,4 @@
-/* global Clipboard, eveIntelToolL10n, eveImages */
+/* global Clipboard, eveIntelToolL10n */
 
 jQuery(document).ready(function($) {
     /**
@@ -175,43 +175,6 @@ jQuery(document).ready(function($) {
          * Call the ajax to get the nonce
          */
         getEveIntelFormNonce.ajaxCall();
-    }
-
-
-    /**
-     * If lazy loading for EVE images is activated ....
-     */
-    if($('.eve-intel-result').length) {
-        /**
-         * Ajax Call: get-eve-intel-entity-image
-         */
-        var getEveIntelEntityImage = {
-            ajaxCall: function(data) {
-                $.ajax({
-                    type: 'post',
-                    url: eveIntelToolL10n.ajax.url,
-                    data: 'action=get-eve-intel-entity-image&entityType=' + data.entityType + '&entityID=' + data.eveID + '&imageUri=' + data.imageUri,
-                    dataType: 'json',
-                    success: function(result) {
-                        if(result !== null) {
-                            $('img[data-eveid="' + data.eveID + '"]').attr('src', result);
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrow) {
-                        console.log('Ajax request - ' + textStatus + ': ' + errorThrow);
-                    }
-                });
-            }
-        };
-
-        /**
-         * Call the ajax to get the entity image
-         */
-        if(typeof eveImages !== 'undefined') {
-            $(eveImages).each(function() {
-                getEveIntelEntityImage.ajaxCall($(this)[0]);
-            });
-        }
     }
 
     var cSpeed = 5;

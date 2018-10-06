@@ -2,13 +2,31 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.2.1...development)
--in development
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.3.0...development)
+- in development
+
+## [v1.3.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.3.0) - 2018-10-06
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.2.1...v1.3.0)
+### Changed
+- Esi client again, so I can use one for all my plugins and don't have to tweak it for every plugin individually
+- System information in d-scan are now nice to look at :-)
+- Database names to fit in with WordPress' naming convention
+
+### Removed
+- Plugin settings as they don't make any sense at all
+- Image cache, CCP has a good image CDN, let's use that
+- Some older JavaScripts for some lazy loading attempts
+
+### Fixed
+- register_widget call made compatible for PHP 7.2 (create_function() is deprecated)
+
+### Additional Info
+This update has some major code changes including changes on the database cache tables and the ESI client. If you run into troubles after this update, please try to deactivate and activate this plugin again. If this doesn't help feel free to get in touch with me on my [Discord](https://discord.gg/YymuCZa) or open an [Issue on Github](https://github.com/ppfeufer/eve-online-intel-tool/issues)
 
 ## [v1.2.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.2.1) - 2018-10-03
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.2.0...v1.2.1)
 ### Fixed
-- An issue where large chat scans were capped at 1000 results. Now you can also get the full list of Jita local :-)
+- An issue where large chat scans were capped at 1000 results. Now you can also get the full list of Jita local, depending on your server settings :-)
 
 ## [v1.2.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.2.0) - 2018-10-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.1.1...v1.2.0)

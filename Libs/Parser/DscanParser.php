@@ -19,20 +19,30 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
+use \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId;
+use \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId;
+use \WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId;
+use \WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId;
+use \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StructureHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+
 \defined('ABSPATH') or die();
 
-class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+class DscanParser extends AbstractSingleton {
     /**
      * EVE Swagger Interface
      *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper
+     * @var EsiHelper
      */
-    private $esi = null;
+    private $esiHelper = null;
 
     /**
      * String Helper
      *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper
+     * @var StringHelper
      */
     private $stringHelper = null;
 
@@ -42,8 +52,8 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
     protected function __construct() {
         parent::__construct();
 
-        $this->esi = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance();
-        $this->stringHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper::getInstance();
+        $this->esiHelper = EsiHelper::getInstance();
+        $this->stringHelper = StringHelper::getInstance();
     }
 
     /**
@@ -52,7 +62,7 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
      * @param string $scanData
      * @return array
      */
-    public function getDscanArray($scanData) {
+    public function getDscanArray(string $scanData) {
         /**
          * Correcting line breaks
          *
@@ -68,9 +78,10 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
         foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
             $lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
 
-            /* @var $shipData['shipData'] \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseTypesTypeId */
-            /* @var $shipData['shipTypeData'] \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseGroupsGroupId */
-            $shipData = $this->esi->getShipData($lineDetailsArray['0']);
+            /* @var $shipData['shipData'] UniverseTypesTypeId */
+            /* @var $shipData['shipTypeData'] UniverseGroupsGroupId */
+            $shipData = $this->esiHelper->getShipData($lineDetailsArray['0']);
+
             if(!\is_null($shipData['shipData']) && !\is_null($shipData['shipTypeData'])) {
                 $dscanDetailShipsAll[] = [
                     'dscanData' => $lineDetailsArray,
@@ -125,7 +136,7 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
      * @param string $cleanedScanData
      * @return array
      */
-    public function detectSystem($cleanedScanData) {
+    public function detectSystem(string $cleanedScanData) {
         $returnValue = null;
 
         /**
@@ -158,11 +169,11 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
      * @param string $scandata
      * @return array
      */
-    public function detectSystemByUpwellStructure($scandata) {
+    public function detectSystemByUpwellStructure(string $scandata) {
         $systemFound = false;
         $systemName = null;
 
-        $upwellStructureIds = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StructureHelper::getInstance()->getUpwellStructureIds();
+        $upwellStructureIds = StructureHelper::getInstance()->getUpwellStructureIds();
 
         foreach(\explode("\n", \trim($scandata)) as $line) {
             $lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
@@ -187,7 +198,7 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
      * @param string $scandata
      * @return array
      */
-    public function detectSystemBySun($scandata) {
+    public function detectSystemBySun(string $scandata) {
         $systemFound = false;
         $systemName = null;
 
@@ -208,41 +219,113 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
     /**
      * Get the system information from the system name.
      *
-     * @param type $systemName
-     * @return type
+     * @param string $systemName
+     * @return array
      */
-    public function getSystemInformationBySystemName($systemName) {
+    public function getSystemInformationBySystemName(string $systemName) {
         $returnValue = null;
-        $systemShortData = $this->esi->getIdFromName([\trim($systemName)], 'systems');
+        $systemShortData = $this->esiHelper->getIdFromName([\trim($systemName)], 'systems');
 
         if(!\is_null($systemShortData)) {
-            /* @var $systemData \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseSystemsSystemId */
-            $systemData = $this->esi->getSystemData($systemShortData['0']->getId());
+            /* @var $systemData UniverseSystemsSystemId */
+            $systemData = $this->esiHelper->getSystemData($systemShortData['0']->getId());
+            $systemId = $systemData->getSystemId();
             $constellationName = null;
             $regionName = null;
 
             // Get the constellation data
-            /* @var $constellationData \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseConstellationsConstellationId */
-            $constellationData = $this->esi->getConstellationData($systemData->getConstellationId());
+            /* @var $constellationData UniverseConstellationsConstellationId */
+            $constellationData = $this->esiHelper->getConstellationData($systemData->getConstellationId());
 
             // Set the constellation name
             if(!\is_null($constellationData)) {
                 $constellationName = $constellationData->getName();
+                $constellationId = $constellationData->getConstellationId();
 
                 // Get the region data
-                /* @var $regionData \WordPress\Plugins\EveOnlineIntelTool\Libs\Esi\Model\Universe\UniverseRegionsRegionId */
-                $regionData = $this->esi->getRegionData($constellationData->getRegionId());
+                /* @var $regionData UniverseRegionsRegionId */
+                $regionData = $this->esiHelper->getRegionsRegionId($constellationData->getRegionId());
 
                 // Set the region name
                 if(!\is_null($regionData)) {
                     $regionName = $regionData->getName();
+                    $regionId = $regionData->getRegionId();
+                }
+            }
+
+            $mapData = $this->esiHelper->getSovereigntyMap();
+
+            $sovHolder = null;
+            foreach($mapData as $systemHolder) {
+                if(($systemHolder->getSystemId() === $systemData->getSystemId()) && !\is_null($systemHolder->getAllianceId())) {
+                    $sovHoldingAlliance = $this->esiHelper->getAllianceData($systemHolder->getAllianceId());
+                    $sovHoldingCorporation = $this->esiHelper->getCorporationData($systemHolder->getCorporationId());
+
+                    $sovHolder['alliance']['id'] = $systemHolder->getAllianceId();
+                    $sovHolder['alliance']['name'] = $sovHoldingAlliance->getName();
+                    $sovHolder['alliance']['ticker'] = $sovHoldingAlliance->getTicker();
+
+                    $sovHolder['corporation']['id'] = $systemHolder->getCorporationId();
+                    $sovHolder['corporation']['name'] = $sovHoldingCorporation->getName();
+                    $sovHolder['corporation']['ticker'] = $sovHoldingCorporation->getTicker();
+                }
+            }
+
+            /**
+             * Get system activity
+             */
+            $systemActivity = [
+                'jumps' => 0,
+                'npcKills' => 0,
+                'podKills' => 0,
+                'shipKills' => 0
+            ];
+            $systemJumpsData = $this->esiHelper->getSystemJumps();
+            foreach($systemJumpsData as $systemJumps) {
+                if($systemJumps->getSystemId() === $systemData->getSystemId()) {
+                    $systemActivity['jumps'] = $systemJumps->getShipJumps();
+                }
+            }
+
+            $systemKillsData = $this->esiHelper->getSystemKills();
+            foreach($systemKillsData as $systemKills) {
+                if($systemKills->getSystemId() === $systemData->getSystemId()) {
+                    $systemActivity['npcKills'] = $systemKills->getNpcKills();
+                    $systemActivity['podKills'] = $systemKills->getPodKills();
+                    $systemActivity['shipKills'] = $systemKills->getShipKills();
+                }
+            }
+
+            /**
+             * Get system status
+             */
+            $systemSecurityStatus = \number_format($systemData->getSecurityStatus(), 1);
+            $systemAdm = null;
+
+            $systemStructuresData = $this->esiHelper->getSovereigntyStryuctures();
+            foreach($systemStructuresData as $structureData) {
+                if($structureData->getSolarSystemId() === $systemData->getSystemId()) {
+                    $systemAdm = $structureData->getVulnerabilityOccupancyLevel();
                 }
             }
 
             $returnValue = [
-                'systemName' => $systemName,
-                'constellationName' => $constellationName,
-                'regionName' => $regionName
+                'system' => [
+                    'id' => $systemId,
+                    'name' => $systemName,
+                    'securityStatus' => $systemSecurityStatus,
+                    'adm' => $systemAdm,
+                    'sovHolder' => $sovHolder
+                ],
+                'constellation' => [
+                    'id' => $constellationId,
+                    'name' => $constellationName
+                ],
+                'region' => [
+                    'id' => $regionId,
+                    'name' => $regionName
+                ],
+                'activity' => $systemActivity
             ];
         }
 
@@ -308,7 +391,7 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
      * @param string $scanData
      * @return array
      */
-    public function parseDscan($scanData) {
+    public function parseDscan(string $scanData) {
         $returnData = null;
         $dscanAll = null;
         $dscanOnGrid = null;
@@ -336,7 +419,7 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
             $returnData['offGrid'] = $dscanOffGrid;
         }
 
-        $returnData['system'] = $dscanArray['system'];
+        $returnData['systemInformation'] = $dscanArray['system'];
 
         return $returnData;
     }
@@ -403,7 +486,6 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
                     }
 
                     $count[\sanitize_title($scanResult['shipData']->getName())] ++;
-
                     $shipTypeArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]);
                 }
             }
@@ -432,7 +514,6 @@ class DscanParser extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\
                 }
 
                 $count[\sanitize_title($scanResult['shipData']->getName())] ++;
-
                 $shipTypeArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]);
             }
         }

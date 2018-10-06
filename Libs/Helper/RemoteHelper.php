@@ -19,9 +19,11 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+
 \defined('ABSPATH') or die();
 
-class RemoteHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton {
+class RemoteHelper extends AbstractSingleton {
     /**
      * Getting data from a remote source
      *
@@ -29,7 +31,7 @@ class RemoteHelper extends \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons
      * @param array $parameter
      * @return mixed
      */
-    public function getRemoteData($url, $method = 'get', $parameter = []) {
+    public function getRemoteData(string $url, string $method = 'get', array $parameter = []) {
         $returnValue = null;
         $params = '';
 

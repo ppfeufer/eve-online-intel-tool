@@ -19,9 +19,11 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface;
+
 \defined('ABSPATH') or die();
 
-class FormNonce implements \WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface {
+class FormNonce implements AjaxInterface {
     /**
      * Constructor
      */
