@@ -6,6 +6,7 @@
 ### Changed
 - Esi client again, so I can use one for all my plugins and don't have to tweak it for every plugin individually
 - System information in d-scan are nor nice to look at :-)
+- Database names to fit in with WordPress' naming convention
 
 ### Removed
 - Plugin settings as they don't make any sense at all

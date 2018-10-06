@@ -37,7 +37,7 @@ class UpdateHelper extends AbstractSingleton {
      *
      * @var string
      */
-    protected $databaseVersion = 20181005;
+    protected $databaseVersion = 20181006;
 
     /**
      * Database version
@@ -105,18 +105,8 @@ class UpdateHelper extends AbstractSingleton {
         /**
          * Remove old tables we don't need after this version
          */
-        if($currentVersion < 20181001) {
+        if($currentVersion < 20181006) {
             $this->removeOldTables();
-        }
-
-        /**
-         * Truncate the cache table after this version.
-         *
-         * We switched to a common ESI client with its own namespaces,
-         * so we cannot use the older cached entries any longer.
-         */
-        if($currentVersion < 20181004) {
-            $this->truncateEsiCacheTable();
         }
 
         /**
@@ -140,7 +130,8 @@ class UpdateHelper extends AbstractSingleton {
             'eveIntelPilots',
             'eveIntelRegions',
             'eveIntelShips',
-            'eveIntelSystems'
+            'eveIntelSystems',
+            'eveOnlineEsiCache'
         ];
 
         foreach($oldTableNames as $tableName) {
@@ -150,16 +141,9 @@ class UpdateHelper extends AbstractSingleton {
         }
     }
 
-    private function truncateEsiCacheTable() {
-        $table = $this->wpdb->base_prefix . 'eveOnlineEsiCache';
-        $sql = "TRUNCATE TABLE $table;";
-
-        $this->wpdb->query($sql);
-    }
-
     private function createEsiCacheTable() {
         $charsetCollate = $this->wpdb->get_charset_collate();
-        $tableName = $this->wpdb->base_prefix . 'eveOnlineEsiCache';
+        $tableName = $this->wpdb->base_prefix . 'eve_online_esi_cache';
 
         $sql = "CREATE TABLE $tableName (
             esi_route varchar(255),
