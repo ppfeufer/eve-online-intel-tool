@@ -1,4 +1,4 @@
-/* global Clipboard, eveIntelToolL10n, eveImages */
+/* global Clipboard, eveIntelToolL10n */
 
 jQuery(document).ready(function($) {
     /**
