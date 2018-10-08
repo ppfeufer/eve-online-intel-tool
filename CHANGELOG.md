@@ -3,7 +3,8 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.3.0...development)
-- in development
+### Changed
+- Check if ZipArchive is available to extract the ESI client zip or if we have to use PclZip
 
 ## [v1.3.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.3.0) - 2018-10-06
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.2.1...v1.3.0)
