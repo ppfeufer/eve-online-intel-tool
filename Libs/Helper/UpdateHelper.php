@@ -19,8 +19,10 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
-use WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
-use ZipArchive;
+use \Exception;
+use \PclZip;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+use \ZipArchive;
 
 \defined('ABSPATH') or die();
 
@@ -54,6 +56,15 @@ class UpdateHelper extends AbstractSingleton {
     private $wpdb = null;
 
     /**
+     * hasZipArchive
+     *
+     * Set true if ZipArchive PHP lib is installed
+     *
+     * @var bool
+     */
+    protected $hasZipArchive = false;
+
+    /**
      * Constructor
      *
      * @global \wpdb $wpdb
@@ -64,6 +75,7 @@ class UpdateHelper extends AbstractSingleton {
         global $wpdb;
 
         $this->wpdb = $wpdb;
+        $this->hasZipArchive = (\class_exists('ZipArchive')) ? true : false;
     }
 
     public function getNewDatabaseVersion() {
@@ -157,6 +169,9 @@ class UpdateHelper extends AbstractSingleton {
         \dbDelta($sql);
     }
 
+    /**
+     * Check if the ESI clients needs to be updated
+     */
     public function checkEsiClientForUpdates() {
         $esiClientCurrentVersion = null;
 
@@ -171,50 +186,61 @@ class UpdateHelper extends AbstractSingleton {
         }
     }
 
+    /**
+     * Updateing ESI client if needed
+     *
+     * @throws Exception
+     */
     private function updateEsiClient() {
         $esiClientMasterZip = 'https://github.com/ppfeufer/wp-esi-client/archive/master.zip';
-        $targetFile = \WP_CONTENT_DIR . '/uploads/EsiClient.zip';
+        $esiClientZipFile = \WP_CONTENT_DIR . '/uploads/EsiClient.zip';
 
         \wp_remote_get($esiClientMasterZip, [
             'timeout' => 300,
             'stream' => true,
-            'filename' => $targetFile
+            'filename' => $esiClientZipFile
         ]);
 
         if(\is_dir(\WP_CONTENT_DIR . '/EsiClient/')) {
             $this->rrmdir(\WP_CONTENT_DIR . '/EsiClient/');
         }
 
-        $this->extractZipFile($targetFile, \WP_CONTENT_DIR . '/EsiClient/', \WP_CONTENT_DIR);
-
-        \unlink($targetFile);
-    }
-
-    private function extractZipFile($zipfile, $destination, $temp_cache, $traverse_first_subdir = true) {
-        $zip = new ZipArchive;
-
-        if(\substr($temp_cache, -1) !== \DIRECTORY_SEPARATOR) {
-            $temp_cache .= \DIRECTORY_SEPARATOR;
-        }
-
-        $res = $zip->open($zipfile);
-
-        if($res === true) {
-            if($traverse_first_subdir == true) {
-                $zip_dir = $temp_cache . $zip->getNameIndex(0);
-            } else {
-                $temp_cache = $temp_cache . \basename($zipfile, ".zip");
-                $zip_dir = $temp_cache;
+        // extract using ZipArchive
+        if($this->hasZipArchive === true) {
+            $zip = new ZipArchive;
+            if(!$zip->open($esiClientZipFile)) {
+                throw new Exception('PHP-ZIP: Unable to open the Esi Client zip file');
             }
 
-            $zip->extractTo($temp_cache);
-            $zip->close();
+            if(!$zip->extractTo(\WP_CONTENT_DIR)) {
+                throw new Exception('PHP-ZIP: Unable to extract Esi Client zip file');
+            }
 
-            \rename($zip_dir, $destination);
+            $zip->close();
         }
+
+        // extract using PclZip
+        if($this->hasZipArchive === false) {
+            require_once(\ABSPATH . 'wp-admin/includes/class-pclzip.php');
+
+            $zip = new PclZip($esiClientZipFile);
+
+            if(!$zip->extract(\PCLZIP_OPT_PATH, \WP_CONTENT_DIR)) {
+                throw new Exception('PHP-ZIP: Unable to extract Esi Client zip file');
+            }
+        }
+
+        \rename(\WP_CONTENT_DIR . '/wp-esi-client-master', \WP_CONTENT_DIR . '/EsiClient/');
+
+        \unlink($esiClientZipFile);
     }
 
-    private function rrmdir($dir) {
+    /**
+     * Recursively remove directory
+     *
+     * @param string $dir
+     */
+    private function rrmdir(string $dir) {
         if(\is_dir($dir)) {
             $objects = \scandir($dir);
 
