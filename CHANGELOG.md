@@ -3,7 +3,12 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.3.1...development)
-- in development
+### Added
+- New category "Miscellaneous" to "interesting on grid". This category for now only covers probes that are on grid, but there will be more in the future, like drones, fighters and so on.
+
+### Changed
+- Simplified on grod detection
+- Simplified D-Scan templates
 
 ## [v1.3.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.3.1) - 2018-10-08
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.3.0...v1.3.1)

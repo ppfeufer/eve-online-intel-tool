@@ -72,11 +72,8 @@ $systemData = (!empty($intelData['dscanDataSystem'])) ? $intelData['dscanDataSys
             /**
              * Interesting on grid
              */
-            if(!empty($intelData['dscanUpwellStructures']) || !empty($intelData['dscanDeployables'])) {
-                TemplateHelper::getInstance()->getTemplate('partials/dscan/interesting-on-grid-breakdown', [
-                    'countAll' => $countAll,
-                    'countOnGrid' => $countOnGrid,
-                    'countOffGrid' => $countOffGrid,
+            if(!empty($intelData['dscanUpwellStructures']) || !empty($intelData['dscanDeployables']) || !empty($intelData['dscanStarbaseModules']) || !empty($intelData['dscanMiscellaneous'])) {
+                TemplateHelper::getInstance()->getTemplate('partials/dscan/interesting-on-grid', [
                     'intelData' => $intelData
                 ]);
             }

@@ -42,6 +42,7 @@ switch($termObject['0']->slug) {
         $dscanDataShipTypes = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-shipTypes', true));
         $dscanUpwellStructures = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-upwellStructures', true));
         $dscanDeployables = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-deployables', true));
+        $dscanMiscellaneous = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-miscellaneous', true));
         $dscanStarbaseModules = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-starbaseModules', true));
         $dscanLootSalvage = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-lootSalvage', true));
         $dscanDataSystem = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_dscan-system', true));
@@ -55,6 +56,7 @@ switch($termObject['0']->slug) {
             'dscanDataSystem' => $dscanDataSystem,
             'dscanUpwellStructures' => $dscanUpwellStructures,
             'dscanStarbaseModules' => $dscanStarbaseModules,
+            'dscanMiscellaneous' => $dscanMiscellaneous,
             'dscanLootsalvage' => $dscanLootSalvage,
             'dscanDeployables' => $dscanDeployables,
             'eveTime' => $dscanDataTime,
