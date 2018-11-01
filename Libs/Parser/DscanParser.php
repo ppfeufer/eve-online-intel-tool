@@ -405,6 +405,7 @@ class DscanParser extends AbstractSingleton {
             $returnData['shipTypes'] = $this->getShipTypesArray($dscanArray['all']['data']);
             $returnData['upwellStructures'] = $this->getUpwellStructuresArray($dscanArray['all']['data']);
             $returnData['deployables'] = $this->getDeployablesArray($dscanArray['all']['data']);
+            $returnData['miscellaneous'] = $this->getMiscellaneousArray($dscanArray['all']['data']);
             $returnData['starbaseModules'] = $this->getStarbaseArray($dscanArray['all']['data']);
             $returnData['lootSalvage'] = $this->getLootSalvageArray($dscanArray['all']['data']);
         }
@@ -457,6 +458,25 @@ class DscanParser extends AbstractSingleton {
     }
 
     /**
+     * Determine is seomthing is on grid or not
+     *
+     * @param array $scanResult
+     * @return boolean
+     */
+    private function isOnGrid(array $scanResult) {
+        $returnValue = false;
+        $gridSize = 10000; // our defined grid size in km
+        $dscanRangeArray = \explode(' ', $scanResult['dscanData']['3']);
+        $range = (int) \number_format((float) \str_replace('.', '', $dscanRangeArray['0']), 0, '', '');
+
+        if(($scanResult['dscanData']['3'] !== '-') && ($range <= $gridSize && \preg_match('/km|m/', $dscanRangeArray['1']))) {
+            $returnValue = true;
+        }
+
+        return $returnValue;
+    }
+
+    /**
      * Getting Upwell structures that are on grid
      *
      * @param array $dscanArray
@@ -465,29 +485,19 @@ class DscanParser extends AbstractSingleton {
     public function getUpwellStructuresArray(array $dscanArray) {
         $shipTypeArray = [];
         $count = [];
-        $gridSize = 10000; // our defined grid size in km
 
         foreach($dscanArray as $scanResult) {
             // Upwell structures on grid only ...
-            if($scanResult['shipClass']->getCategoryId() === 65 && $scanResult['dscanData']['3'] !== '-') {
+            if(($scanResult['shipClass']->getCategoryId() === 65) && ($this->isOnGrid($scanResult) === true)) {
                 $dscanRangeArray = \explode(' ', $scanResult['dscanData']['3']);
                 $range = (int) \number_format((float) \str_replace('.', '', $dscanRangeArray['0']), 0, '', '');
 
-                /**
-                 * Only if the Upwell structure is actually within our defined grid range
-                 * Since Upwell structures that are accessable by the pilot
-                 * always have a range on d-scans, we need to do it this way ...
-                 *
-                 * @todo: localized strings for 'km' or 'm'
-                 */
-                if($range <= $gridSize && \preg_match('/km|m/', $dscanRangeArray['1'])) {
-                    if(!isset($count[\sanitize_title($scanResult['shipData']->getName())])) {
-                        $count[\sanitize_title($scanResult['shipData']->getName())] = 0;
-                    }
-
-                    $count[\sanitize_title($scanResult['shipData']->getName())] ++;
-                    $shipTypeArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]);
+                if(!isset($count[\sanitize_title($scanResult['shipData']->getName())])) {
+                    $count[\sanitize_title($scanResult['shipData']->getName())] = 0;
                 }
+
+                $count[\sanitize_title($scanResult['shipData']->getName())] ++;
+                $shipTypeArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]);
             }
         }
 
@@ -508,7 +518,7 @@ class DscanParser extends AbstractSingleton {
 
         foreach($dscanArray as $scanResult) {
             // Deployable structures on grid only ...
-            if($scanResult['shipClass']->getCategoryId() === 22 && $scanResult['dscanData']['3'] !== '-') {
+            if(($scanResult['shipClass']->getCategoryId() === 22) && ($this->isOnGrid($scanResult) === true)) {
                 if(!isset($count[\sanitize_title($scanResult['shipData']->getName())])) {
                     $count[\sanitize_title($scanResult['shipData']->getName())] = 0;
                 }
@@ -521,6 +531,37 @@ class DscanParser extends AbstractSingleton {
         \ksort($shipTypeArray);
 
         return $shipTypeArray;
+    }
+
+    /**
+     * Getting miscellaneous items that are on grid
+     * like scanner probes and so on
+     *
+     * @param array $dscanArray
+     * @return array
+     */
+    public function getMiscellaneousArray(array $dscanArray) {
+        $miscellaneousTypeArray = [];
+        $count = [];
+        $miscellaneousGroupIds = [
+            479 // Scanner Probes
+        ];
+
+        foreach($dscanArray as $scanResult) {
+            // Miscellaneous items on grid only ...
+            if(\in_array($scanResult['shipClass']->getGroupId(), $miscellaneousGroupIds) && ($this->isOnGrid($scanResult) === true)) {
+                if(!isset($count[\sanitize_title($scanResult['shipData']->getName())])) {
+                    $count[\sanitize_title($scanResult['shipData']->getName())] = 0;
+                }
+
+                $count[\sanitize_title($scanResult['shipData']->getName())] ++;
+                $miscellaneousTypeArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]);
+            }
+        }
+
+        \ksort($miscellaneousTypeArray);
+
+        return $miscellaneousTypeArray;
     }
 
     /**
