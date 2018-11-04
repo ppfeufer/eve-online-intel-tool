@@ -55,7 +55,7 @@ class FleetCompositionParser extends AbstractSingleton {
 
         $this->esiHelper = EsiHelper::getInstance();
         $this->stringHelper = StringHelper::getInstance();
-        $this->localParser = \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\LocalScanParser::getInstance();
+        $this->localParser = LocalScanParser::getInstance();
     }
 
     /**

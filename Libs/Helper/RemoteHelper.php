@@ -46,7 +46,9 @@ class RemoteHelper extends AbstractSingleton {
 
             case 'post':
                 $remoteData = \wp_remote_post($url, [
-                    'headers' => ['Content-Type' => 'application/json; charset=utf-8'],
+                    'headers' => [
+                        'Content-Type' => 'application/json; charset=utf-8'
+                    ],
                     'body' => \json_encode($parameter),
                     'method' => 'POST'
                 ]);

@@ -78,10 +78,20 @@ class UpdateHelper extends AbstractSingleton {
         $this->hasZipArchive = (\class_exists('ZipArchive')) ? true : false;
     }
 
+    /**
+     * getNewDatabaseVersion
+     *
+     * @return int
+     */
     public function getNewDatabaseVersion() {
         return $this->databaseVersion;
     }
 
+    /**
+     * getNewEsiClientVersion
+     *
+     * @return int
+     */
     public function getNewEsiClientVersion() {
         return $this->esiClientVersion;
     }
@@ -181,6 +191,7 @@ class UpdateHelper extends AbstractSingleton {
         if(\file_exists(\WP_CONTENT_DIR . '/EsiClient/client_version')) {
             $esiClientCurrentVersion = \trim(\file_get_contents(\WP_CONTENT_DIR . '/EsiClient/client_version'));
         }
+
         if(\version_compare($esiClientCurrentVersion, $this->getNewEsiClientVersion()) < 0) {
             $this->updateEsiClient();
         }
