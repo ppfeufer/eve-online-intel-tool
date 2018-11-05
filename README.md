@@ -20,7 +20,6 @@ Works best with the [EVE Online WordPress Theme](https://github.com/ppfeufer/eve
 ### Requirements
 - WordPress 4.7 or newer
 - PHP 7.1 or newer
-- PHP extension `zlib` needs to be installed
 
 ### Installation
 - Simply [download the archive](https://github.com/ppfeufer/eve-online-intel-tool/archive/master.zip) or one of the [releases](https://github.com/ppfeufer/eve-online-intel-tool/releases)
@@ -29,7 +28,8 @@ Works best with the [EVE Online WordPress Theme](https://github.com/ppfeufer/eve
 - Copy the folder into your plugin directory in your WordPress installation.
 
 ### Set Up
-After activating the Plugin, create a page called "Intel" and set the "EVE Intel" Template to it. You can leave this page empty, whatever you write on it, it won't show up anyways. Now go to Settings > Permalinks and click "Save Changes" button to make sure the new links will be generated.
+- Create a page called "Intel" and set the "EVE Intel" Template to it. You can leave this page empty, whatever you write on it, it won't show up anyways.
+- Now go to Settings » Permalinks and click "Save Changes" button to make sure the new links will be generated.
 
 ### Additional Information
 - [License](LICENSE)
