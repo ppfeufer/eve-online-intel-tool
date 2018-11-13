@@ -477,7 +477,28 @@ class DscanParser extends AbstractSingleton {
     }
 
     /**
-     * Getting Upwell structures that are on grid
+     * Getting structures that are on grid
+     *
+     *  {
+     *      "category_id": 65,
+     *      "groups": [
+     *          1404,   // Engineering Complex
+     *          1405,   // Laboratory
+     *          1406,   // Refinery
+     *          1407,   // Observatory Array
+     *          1408,   // Upwell Jump Gate
+     *          1409,   // Administration Hub
+     *          1410,   // Advertisement Center
+     *          1657,   // Citadel
+     *          1876,   // ♦ Engineering Complex
+     *          1924,   // ♦ Forward Operating Base
+     *          2015,   // Upwell Monument
+     *          2016,   // Upwell Cyno Jammer
+     *          2017    // Upwell Cyno Beacon
+     *      ],
+     *      "name": "Structure",
+     *      "published": true
+     *  }
      *
      * @param array $dscanArray
      * @return array
