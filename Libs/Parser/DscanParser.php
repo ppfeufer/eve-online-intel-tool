@@ -477,7 +477,28 @@ class DscanParser extends AbstractSingleton {
     }
 
     /**
-     * Getting Upwell structures that are on grid
+     * Getting structures that are on grid
+     *
+     *  {
+     *      "category_id": 65,
+     *      "groups": [
+     *          1404,   // Engineering Complex
+     *          1405,   // Laboratory
+     *          1406,   // Refinery
+     *          1407,   // Observatory Array
+     *          1408,   // Upwell Jump Gate
+     *          1409,   // Administration Hub
+     *          1410,   // Advertisement Center
+     *          1657,   // Citadel
+     *          1876,   // ♦ Engineering Complex
+     *          1924,   // ♦ Forward Operating Base
+     *          2015,   // Upwell Monument
+     *          2016,   // Upwell Cyno Jammer
+     *          2017    // Upwell Cyno Beacon
+     *      ],
+     *      "name": "Structure",
+     *      "published": true
+     *  }
      *
      * @param array $dscanArray
      * @return array
@@ -489,9 +510,6 @@ class DscanParser extends AbstractSingleton {
         foreach($dscanArray as $scanResult) {
             // Upwell structures on grid only ...
             if(($scanResult['shipClass']->getCategoryId() === 65) && ($this->isOnGrid($scanResult) === true)) {
-                $dscanRangeArray = \explode(' ', $scanResult['dscanData']['3']);
-                $range = (int) \number_format((float) \str_replace('.', '', $dscanRangeArray['0']), 0, '', '');
-
                 if(!isset($count[\sanitize_title($scanResult['shipData']->getName())])) {
                     $count[\sanitize_title($scanResult['shipData']->getName())] = 0;
                 }

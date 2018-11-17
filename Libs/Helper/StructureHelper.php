@@ -63,6 +63,13 @@ class StructureHelper extends AbstractSingleton {
              */
             '35835', // Athanor
             '35836', // Tatara
+
+            /**
+             * Navigational Structures
+             */
+            '35840', // Pharolux Cyno Beacon
+            '35841', // Ansiblex Jump Gate
+            '37534', // Tenebrex Cyno Jammer
         ];
     }
 }

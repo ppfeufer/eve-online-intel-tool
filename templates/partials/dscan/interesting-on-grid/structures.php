@@ -28,7 +28,7 @@ if(\is_array($structures) && \count($structures) > 0) {
     <div class="table-responsive table-eve-intel-upwell-structures table-eve-intel">
         <table class="table table-condensed table-sortable" data-haspaging="no" data-order='[[ 1, "desc" ]]'>
             <thead>
-                <th><?php echo \__('Structure Type', 'eve-online-intel-tool'); ?></th>
+                <th><?php echo \__('Type', 'eve-online-intel-tool'); ?></th>
                 <th><?php echo \__('Count', 'eve-online-intel-tool'); ?></th>
             </thead>
             <?php
