@@ -510,8 +510,6 @@ class DscanParser extends AbstractSingleton {
         foreach($dscanArray as $scanResult) {
             // Upwell structures on grid only ...
             if(($scanResult['shipClass']->getCategoryId() === 65) && ($this->isOnGrid($scanResult) === true)) {
-                $dscanRangeArray = \explode(' ', $scanResult['dscanData']['3']);
-
                 if(!isset($count[\sanitize_title($scanResult['shipData']->getName())])) {
                     $count[\sanitize_title($scanResult['shipData']->getName())] = 0;
                 }
