@@ -9,6 +9,7 @@
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.3.1...v1.4.0)
 ### Added
 - New category "Miscellaneous" to "interesting on grid". This category for now only covers probes that are on grid, but there will be more in the future, like drones, fighters and so on.
+- Navigational structures (Pharolux Cyno Beacon, Ansiblex Jump Gate andTenebrex Cyno Jammer) where added to the list of structures that can have the system name in it, to help detect the system for a D-Scan.
 
 ### Changed
 - Simplified on grid detection
