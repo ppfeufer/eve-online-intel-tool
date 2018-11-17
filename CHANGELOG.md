@@ -4,7 +4,7 @@
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.4.0...development)
 ### Added
-- New navigational structures (Pharolux Cyno Beacon, Ansiblex Jump Gate and Tenebrex Cyno Jammer) where added to the list of structures that can have the system name in it, to help detect the system for a D-Scan.
+- New navigational structures (Pharolux Cyno Beacon, Ansiblex Jump Gate and Tenebrex Cyno Jammer) have been added to the list of structures that can have the system name in it, to help detect the system for a D-Scan.
 
 ## [v1.4.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.4.0) - 2018-11-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.3.1...v1.4.0)
