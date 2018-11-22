@@ -204,6 +204,7 @@ class UpdateHelper extends AbstractSingleton {
      */
     private function updateEsiClient(string $version = null) {
         $remoteZipFile = 'https://github.com/ppfeufer/wp-esi-client/archive/master.zip';
+        $dirInZipFile = '/wp-esi-client-master';
 
         if(!\is_null($version)) {
             $remoteZipFile = 'https://github.com/ppfeufer/wp-esi-client/archive/v' . $version . '.zip';
