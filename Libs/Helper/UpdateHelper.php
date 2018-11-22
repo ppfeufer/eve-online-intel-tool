@@ -193,7 +193,7 @@ class UpdateHelper extends AbstractSingleton {
         }
 
         if(\version_compare($esiClientCurrentVersion, $this->getNewEsiClientVersion()) < 0) {
-            $this->updateEsiClient();
+            $this->updateEsiClient($this->getNewEsiClientVersion());
         }
     }
 
@@ -202,8 +202,13 @@ class UpdateHelper extends AbstractSingleton {
      *
      * @throws Exception
      */
-    private function updateEsiClient() {
+    private function updateEsiClient(string $version = null) {
         $esiClientMasterZip = 'https://github.com/ppfeufer/wp-esi-client/archive/master.zip';
+
+        if(!\is_null($version)) {
+            $esiClientMasterZip = 'https://github.com/ppfeufer/wp-esi-client/archive/v' . $version . '.zip';
+        }
+
         $esiClientZipFile = \WP_CONTENT_DIR . '/uploads/EsiClient.zip';
 
         \wp_remote_get($esiClientMasterZip, [
