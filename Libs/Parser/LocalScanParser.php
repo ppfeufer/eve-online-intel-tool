@@ -20,10 +20,7 @@
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
 use \WordPress\EsiClient\Model\Alliance\AlliancesAllianceId;
-use \WordPress\EsiClient\Model\Alliance\AlliancesAllianceIdIcons;
 use \WordPress\EsiClient\Model\Character\CharactersAffiliation;
-use \WordPress\EsiClient\Model\Character\CharactersCharacterIdPortrait;
-use \WordPress\EsiClient\Model\Corporation\CorporationsCorporationId;
 use \WordPress\EsiClient\Model\Universe\UniverseIds\Characters;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
@@ -99,6 +96,9 @@ class LocalScanParser extends AbstractSingleton {
         $arrayCharacterIds = [];
         $characterIdChunkSize = 250;
         $scanDataArraySanitized = [];
+        $characterPortraits = [];
+        $corporationLogos = [];
+        $allianceLogos = [];
 
         $scanDataArray = \explode("\n", \trim($cleanedScanData));
 
@@ -125,30 +125,34 @@ class LocalScanParser extends AbstractSingleton {
                 $characterAffiliationData = $this->esiHelper->getCharacterAffiliation($nameToIdSet);
 
                 foreach($characterAffiliationData as $affiliatedIds) {
-                    /* @var $characterPortraits CharactersCharacterIdPortrait */
-                    $characterPortraits = $this->esiHelper->getCharacterPortraits($affiliatedIds->getCharacterId());
+                    if(!isset($characterPortraits[$affiliatedIds->getCharacterId()])) {
+                        $characterPortraits[$affiliatedIds->getCharacterId()] = $this->esiHelper->getCharacterPortraits($affiliatedIds->getCharacterId());
+                    }
 
                     /* @var $affiliatedIds CharactersAffiliation */
                     $pilotDetails[$affiliatedIds->getCharacterId()] = [
                         'characterID' => $affiliatedIds->getCharacterId(),
                         'characterName' => $pilotList[$affiliatedIds->getCharacterId()],
-                        'characterPortrait' => (!\is_null($characterPortraits)) ? $characterPortraits->getPx32x32() : null
+                        'characterPortrait' => (!\is_null($characterPortraits[$affiliatedIds->getCharacterId()])) ? $characterPortraits[$affiliatedIds->getCharacterId()]->getPx32x32() : null
                     ];
 
                     /**
                      * Grabbing corporation information
                      */
                     if(!\is_null($affiliatedIds->getCorporationId())) {
-                        /* @var $corporationSheet CorporationsCorporationId */
-                        $corporationSheet = $this->esiHelper->getCorporationData($affiliatedIds->getCorporationId());
+                        if(!isset($corporationSheet[$affiliatedIds->getCorporationId()])) {
+                            $corporationSheet[$affiliatedIds->getCorporationId()] = $this->esiHelper->getCorporationData($affiliatedIds->getCorporationId());
+                        }
 
-                        if(!\is_null($corporationSheet)) {
-                            $corporationLogos = $this->esiHelper->getCorporationLogos($affiliatedIds->getCorporationId());
+                        if(!\is_null($corporationSheet[$affiliatedIds->getCorporationId()])) {
+                            if(!isset($corporationLogos[$affiliatedIds->getCorporationId()])) {
+                                $corporationLogos[$affiliatedIds->getCorporationId()] = $this->esiHelper->getCorporationLogos($affiliatedIds->getCorporationId());
+                            }
 
                             $pilotDetails[$affiliatedIds->getCharacterId()]['corporationID'] = $affiliatedIds->getCorporationId();
-                            $pilotDetails[$affiliatedIds->getCharacterId()]['corporationName'] = $corporationSheet->getName();
-                            $pilotDetails[$affiliatedIds->getCharacterId()]['corporationTicker'] = $corporationSheet->getTicker();
-                            $pilotDetails[$affiliatedIds->getCharacterId()]['corporationLogo'] = (!\is_null($corporationLogos)) ? $corporationLogos->getPx32x32() : null;
+                            $pilotDetails[$affiliatedIds->getCharacterId()]['corporationName'] = $corporationSheet[$affiliatedIds->getCorporationId()]->getName();
+                            $pilotDetails[$affiliatedIds->getCharacterId()]['corporationTicker'] = $corporationSheet[$affiliatedIds->getCorporationId()]->getTicker();
+                            $pilotDetails[$affiliatedIds->getCharacterId()]['corporationLogo'] = (!\is_null($corporationLogos[$affiliatedIds->getCorporationId()])) ? $corporationLogos[$affiliatedIds->getCorporationId()]->getPx32x32() : null;
                         }
                     }
 
@@ -159,13 +163,14 @@ class LocalScanParser extends AbstractSingleton {
                         /* @var $allianceSheet AlliancesAllianceId */
                         $allianceSheet = $this->esiHelper->getAllianceData($affiliatedIds->getAllianceId());
                         if(!\is_null($allianceSheet)) {
-                            /* @var $allianceLogos AlliancesAllianceIdIcons */
-                            $allianceLogos = $this->esiHelper->getAllianceLogos($affiliatedIds->getAllianceId());
+                            if(!isset($allianceLogos[$affiliatedIds->getAllianceId()])) {
+                                $allianceLogos[$affiliatedIds->getAllianceId()] = $this->esiHelper->getAllianceLogos($affiliatedIds->getAllianceId());
+                            }
 
                             $pilotDetails[$affiliatedIds->getCharacterId()]['allianceID'] = $affiliatedIds->getAllianceId();
                             $pilotDetails[$affiliatedIds->getCharacterId()]['allianceName'] = $allianceSheet->getName();
                             $pilotDetails[$affiliatedIds->getCharacterId()]['allianceTicker'] = $allianceSheet->getTicker();
-                            $pilotDetails[$affiliatedIds->getCharacterId()]['allianceLogo'] = (!\is_null($allianceLogos)) ? $allianceLogos->getPx32x32() : null;
+                            $pilotDetails[$affiliatedIds->getCharacterId()]['allianceLogo'] = (!\is_null($allianceLogos[$affiliatedIds->getAllianceId()])) ? $allianceLogos[$affiliatedIds->getAllianceId()]->getPx32x32() : null;
                         }
                     }
                 }

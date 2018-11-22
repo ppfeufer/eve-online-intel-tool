@@ -20,10 +20,8 @@
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
 use \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId;
-use \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId;
 use \WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId;
 use \WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId;
-use \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StructureHelper;
@@ -74,19 +72,20 @@ class DscanParser extends AbstractSingleton {
         $dscanDetailShipsAll = [];
         $dscanDetailShipsOnGrid = [];
         $dscanDetailShipsOffGrid = [];
+        $shipData = [];
 
         foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
             $lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
 
-            /* @var $shipData['shipData'] UniverseTypesTypeId */
-            /* @var $shipData['shipTypeData'] UniverseGroupsGroupId */
-            $shipData = $this->esiHelper->getShipData($lineDetailsArray['0']);
+            if(!isset($shipData[$lineDetailsArray['0']])) {
+                $shipData[$lineDetailsArray['0']] = $this->esiHelper->getShipData($lineDetailsArray['0']);
+            }
 
-            if(!\is_null($shipData['shipData']) && !\is_null($shipData['shipTypeData'])) {
+            if(!\is_null($shipData[$lineDetailsArray['0']]['shipData']) && !\is_null($shipData[$lineDetailsArray['0']]['shipTypeData'])) {
                 $dscanDetailShipsAll[] = [
                     'dscanData' => $lineDetailsArray,
-                    'shipData' => $shipData['shipData'],
-                    'shipClass' => $shipData['shipTypeData']
+                    'shipData' => $shipData[$lineDetailsArray['0']]['shipData'],
+                    'shipClass' => $shipData[$lineDetailsArray['0']]['shipTypeData']
                 ];
 
                 /**
@@ -95,18 +94,20 @@ class DscanParser extends AbstractSingleton {
                 if($lineDetailsArray['3'] === '-') {
                     $dscanDetailShipsOffGrid[] = [
                         'dscanData' => $lineDetailsArray,
-                        'shipData' => $shipData['shipData'],
-                        'shipClass' => $shipData['shipTypeData']
+                        'shipData' => $shipData[$lineDetailsArray['0']]['shipData'],
+                        'shipClass' => $shipData[$lineDetailsArray['0']]['shipTypeData']
                     ];
                 } else {
                     $dscanDetailShipsOnGrid[] = [
                         'dscanData' => $lineDetailsArray,
-                        'shipData' => $shipData['shipData'],
-                        'shipClass' => $shipData['shipTypeData']
+                        'shipData' => $shipData[$lineDetailsArray['0']]['shipData'],
+                        'shipClass' => $shipData[$lineDetailsArray['0']]['shipTypeData']
                     ];
                 }
             }
         }
+
+        unset($shipData);
 
         // Let's see if we can find out in what system we are ....
         $system = $this->detectSystem($cleanedScanData);
