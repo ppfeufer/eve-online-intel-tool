@@ -158,7 +158,7 @@ class FleetCompositionParser extends AbstractSingleton {
             $characterPortraits = $this->esiHelper->getCharacterPortraits($pilotIdData->getId());
 
             $pilotOverview[$pilotIdData->getName()]['pilotID'] = $pilotIdData->getId();
-            $pilotOverview[$pilotIdData->getName()]['pilotPortait'] = $characterPortraits->getPx32x32();
+            $pilotOverview[$pilotIdData->getName()]['pilotPortait'] = (!\is_null($characterPortraits)) ? $characterPortraits->getPx32x32() : null;
         }
 
         // Get ship class IDs

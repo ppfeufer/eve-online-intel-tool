@@ -132,7 +132,7 @@ class LocalScanParser extends AbstractSingleton {
                     $pilotDetails[$affiliatedIds->getCharacterId()] = [
                         'characterID' => $affiliatedIds->getCharacterId(),
                         'characterName' => $pilotList[$affiliatedIds->getCharacterId()],
-                        'characterPortrait' => $characterPortraits->getPx32x32()
+                        'characterPortrait' => (!\is_null($characterPortraits)) ? $characterPortraits->getPx32x32() : null
                     ];
 
                     /**
@@ -148,7 +148,7 @@ class LocalScanParser extends AbstractSingleton {
                             $pilotDetails[$affiliatedIds->getCharacterId()]['corporationID'] = $affiliatedIds->getCorporationId();
                             $pilotDetails[$affiliatedIds->getCharacterId()]['corporationName'] = $corporationSheet->getName();
                             $pilotDetails[$affiliatedIds->getCharacterId()]['corporationTicker'] = $corporationSheet->getTicker();
-                            $pilotDetails[$affiliatedIds->getCharacterId()]['corporationLogo'] = $corporationLogos->getPx32x32();
+                            $pilotDetails[$affiliatedIds->getCharacterId()]['corporationLogo'] = (!\is_null($corporationLogos)) ? $corporationLogos->getPx32x32() : null;
                         }
                     }
 
@@ -165,7 +165,7 @@ class LocalScanParser extends AbstractSingleton {
                             $pilotDetails[$affiliatedIds->getCharacterId()]['allianceID'] = $affiliatedIds->getAllianceId();
                             $pilotDetails[$affiliatedIds->getCharacterId()]['allianceName'] = $allianceSheet->getName();
                             $pilotDetails[$affiliatedIds->getCharacterId()]['allianceTicker'] = $allianceSheet->getTicker();
-                            $pilotDetails[$affiliatedIds->getCharacterId()]['allianceLogo'] = $allianceLogos->getPx32x32();
+                            $pilotDetails[$affiliatedIds->getCharacterId()]['allianceLogo'] = (!\is_null($allianceLogos)) ? $allianceLogos->getPx32x32() : null;
                         }
                     }
                 }

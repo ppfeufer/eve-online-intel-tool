@@ -256,18 +256,24 @@ class DscanParser extends AbstractSingleton {
             $mapData = $this->esiHelper->getSovereigntyMap();
 
             $sovHolder = null;
+
             foreach($mapData as $systemHolder) {
                 if(($systemHolder->getSystemId() === $systemData->getSystemId()) && !\is_null($systemHolder->getAllianceId())) {
                     $sovHoldingAlliance = $this->esiHelper->getAllianceData($systemHolder->getAllianceId());
                     $sovHoldingCorporation = $this->esiHelper->getCorporationData($systemHolder->getCorporationId());
 
+                    $allianceLogos = $this->esiHelper->getAllianceLogos($systemHolder->getAllianceId());
+                    $corporationLogos = $this->esiHelper->getCorporationLogos($systemHolder->getCorporationId());
+
                     $sovHolder['alliance']['id'] = $systemHolder->getAllianceId();
                     $sovHolder['alliance']['name'] = $sovHoldingAlliance->getName();
                     $sovHolder['alliance']['ticker'] = $sovHoldingAlliance->getTicker();
+                    $sovHolder['alliance']['logo'] = (!\is_null($allianceLogos)) ? $allianceLogos->getPx32x32() : null;
 
                     $sovHolder['corporation']['id'] = $systemHolder->getCorporationId();
                     $sovHolder['corporation']['name'] = $sovHoldingCorporation->getName();
                     $sovHolder['corporation']['ticker'] = $sovHoldingCorporation->getTicker();
+                    $sovHolder['corporation']['logo'] = (!\is_null($corporationLogos)) ? $corporationLogos->getPx32x32() : null;
                 }
             }
 
