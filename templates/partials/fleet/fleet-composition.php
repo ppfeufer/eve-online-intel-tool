@@ -32,6 +32,7 @@ if(\is_array($fleetOverview) && \count($fleetOverview)) {
                 <th><?php echo \__('Where', 'eve-online-intel-tool'); ?></th>
             </thead>
             <?php
+
             foreach($fleetOverview as $data) {
                 ?>
                 <tr data-highlight="shiptype-<?php echo \sanitize_title($data['shipType']); ?>">
@@ -40,7 +41,8 @@ if(\is_array($fleetOverview) && \count($fleetOverview)) {
                         TemplateHelper::getInstance()->getTemplate('partials/pilot/pilot-avatar', [
                             'data' => [
                                 'characterID' => $data['pilotID'],
-                                'characterName' => $data['pilotName']
+                                'characterName' => $data['pilotName'],
+                                'characterPortrait' => $data['pilotPortait']
                             ]
                         ]);
 

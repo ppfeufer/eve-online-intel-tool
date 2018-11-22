@@ -19,7 +19,7 @@
 
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper;
 
-$imageAlliance = ImageHelper::getInstance()->getImageServerUrl('alliance') . $data['allianceID'] . '_32.png';
+$allianceLogo = (isset($data['allianceLogo']) && !is_null($data['allianceLogo'])) ? $data['allianceLogo'] : ImageHelper::getInstance()->getImageServerUrl('alliance') . $data['allianceID'] . '_32.png';
 
 $size = 32;
 if(isset($data['size'])) {
@@ -27,4 +27,4 @@ if(isset($data['size'])) {
 }
 ?>
 
-<span class="eve-intel-alliance-logo-wrapper"><img class="eve-image" data-eveid="<?php echo $data['allianceID']; ?>" src="<?php echo $imageAlliance; ?>" alt="<?php echo $data['allianceName']; ?>" title="<?php echo $data['allianceName']; ?>" width="<?php echo $size; ?>" heigh="<?php echo $size; ?>"></span>
+<span class="eve-intel-alliance-logo-wrapper"><img class="eve-image" data-eveid="<?php echo $data['allianceID']; ?>" src="<?php echo $allianceLogo; ?>" alt="<?php echo $data['allianceName']; ?>" title="<?php echo $data['allianceName']; ?>" width="<?php echo $size; ?>" heigh="<?php echo $size; ?>"></span>

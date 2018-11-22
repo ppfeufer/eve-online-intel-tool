@@ -20,7 +20,9 @@
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
 use \WordPress\EsiClient\Model\Alliance\AlliancesAllianceId;
+use \WordPress\EsiClient\Model\Alliance\AlliancesAllianceIdIcons;
 use \WordPress\EsiClient\Model\Character\CharactersAffiliation;
+use \WordPress\EsiClient\Model\Character\CharactersCharacterIdPortrait;
 use \WordPress\EsiClient\Model\Corporation\CorporationsCorporationId;
 use \WordPress\EsiClient\Model\Universe\UniverseIds\Characters;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
@@ -123,10 +125,14 @@ class LocalScanParser extends AbstractSingleton {
                 $characterAffiliationData = $this->esiHelper->getCharacterAffiliation($nameToIdSet);
 
                 foreach($characterAffiliationData as $affiliatedIds) {
+                    /* @var $characterPortraits CharactersCharacterIdPortrait */
+                    $characterPortraits = $this->esiHelper->getCharacterPortraits($affiliatedIds->getCharacterId());
+
                     /* @var $affiliatedIds CharactersAffiliation */
                     $pilotDetails[$affiliatedIds->getCharacterId()] = [
                         'characterID' => $affiliatedIds->getCharacterId(),
-                        'characterName' => $pilotList[$affiliatedIds->getCharacterId()]
+                        'characterName' => $pilotList[$affiliatedIds->getCharacterId()],
+                        'characterPortrait' => $characterPortraits->getPx32x32()
                     ];
 
                     /**
@@ -137,9 +143,12 @@ class LocalScanParser extends AbstractSingleton {
                         $corporationSheet = $this->esiHelper->getCorporationData($affiliatedIds->getCorporationId());
 
                         if(!\is_null($corporationSheet)) {
+                            $corporationLogos = $this->esiHelper->getCorporationLogos($affiliatedIds->getCorporationId());
+
                             $pilotDetails[$affiliatedIds->getCharacterId()]['corporationID'] = $affiliatedIds->getCorporationId();
                             $pilotDetails[$affiliatedIds->getCharacterId()]['corporationName'] = $corporationSheet->getName();
                             $pilotDetails[$affiliatedIds->getCharacterId()]['corporationTicker'] = $corporationSheet->getTicker();
+                            $pilotDetails[$affiliatedIds->getCharacterId()]['corporationLogo'] = $corporationLogos->getPx32x32();
                         }
                     }
 
@@ -149,11 +158,14 @@ class LocalScanParser extends AbstractSingleton {
                     if(!\is_null($affiliatedIds->getAllianceId())) {
                         /* @var $allianceSheet AlliancesAllianceId */
                         $allianceSheet = $this->esiHelper->getAllianceData($affiliatedIds->getAllianceId());
-
                         if(!\is_null($allianceSheet)) {
+                            /* @var $allianceLogos AlliancesAllianceIdIcons */
+                            $allianceLogos = $this->esiHelper->getAllianceLogos($affiliatedIds->getAllianceId());
+
                             $pilotDetails[$affiliatedIds->getCharacterId()]['allianceID'] = $affiliatedIds->getAllianceId();
                             $pilotDetails[$affiliatedIds->getCharacterId()]['allianceName'] = $allianceSheet->getName();
                             $pilotDetails[$affiliatedIds->getCharacterId()]['allianceTicker'] = $allianceSheet->getTicker();
+                            $pilotDetails[$affiliatedIds->getCharacterId()]['allianceLogo'] = $allianceLogos->getPx32x32();
                         }
                     }
                 }
@@ -200,9 +212,11 @@ class LocalScanParser extends AbstractSingleton {
                     'corporationID' => $pilotSheet['corporationID'],
                     'corporationName' => $pilotSheet['corporationName'],
                     'corporationTicker' => $pilotSheet['corporationTicker'],
+                    'corporationLogo' => $pilotSheet['corporationLogo'],
                     'allianceID' => (isset($pilotSheet['allianceID'])) ? $pilotSheet['allianceID'] : 0,
                     'allianceName' => (isset($pilotSheet['allianceName'])) ? $pilotSheet['allianceName'] : null,
-                    'allianceTicker' => (isset($pilotSheet['allianceTicker'])) ? $pilotSheet['allianceTicker'] : null
+                    'allianceTicker' => (isset($pilotSheet['allianceTicker'])) ? $pilotSheet['allianceTicker'] : null,
+                    'allianceLogo' => (isset($pilotSheet['allianceLogo'])) ? $pilotSheet['allianceLogo'] : null
                 ];
 
                 $corporationParticipation[\sanitize_title($pilotSheet['corporationName'])] = [
@@ -210,9 +224,11 @@ class LocalScanParser extends AbstractSingleton {
                     'corporationID' => $pilotSheet['corporationID'],
                     'corporationName' => $pilotSheet['corporationName'],
                     'corporationTicker' => $pilotSheet['corporationTicker'],
+                    'corporationLogo' => $pilotSheet['corporationLogo'],
                     'allianceID' => (isset($pilotSheet['allianceID'])) ? $pilotSheet['allianceID'] : 0,
                     'allianceName' => (isset($pilotSheet['allianceName'])) ? $pilotSheet['allianceName'] : null,
-                    'allianceTicker' => (isset($pilotSheet['allianceTicker'])) ? $pilotSheet['allianceTicker'] : null
+                    'allianceTicker' => (isset($pilotSheet['allianceTicker'])) ? $pilotSheet['allianceTicker'] : null,
+                    'allianceLogo' => (isset($pilotSheet['allianceLogo'])) ? $pilotSheet['allianceLogo'] : null
                 ];
             }
 
@@ -229,14 +245,16 @@ class LocalScanParser extends AbstractSingleton {
                 $allianceList[\sanitize_title($pilotSheet['allianceName'])] = [
                     'allianceID' => $pilotSheet['allianceID'],
                     'allianceName' => $pilotSheet['allianceName'],
-                    'allianceTicker' => $pilotSheet['allianceTicker']
+                    'allianceTicker' => $pilotSheet['allianceTicker'],
+                    'allianceLogo' => $pilotSheet['allianceLogo']
                 ];
 
                 $allianceParticipation[\sanitize_title($pilotSheet['allianceName'])] = [
                     'count' => $counter[\sanitize_title($pilotSheet['allianceName'])],
                     'allianceID' => $pilotSheet['allianceID'],
                     'allianceName' => $pilotSheet['allianceName'],
-                    'allianceTicker' => $pilotSheet['allianceTicker']
+                    'allianceTicker' => $pilotSheet['allianceTicker'],
+                    'allianceLogo' => $pilotSheet['allianceLogo']
                 ];
             }
 
