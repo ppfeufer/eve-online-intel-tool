@@ -54,7 +54,6 @@ use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                             'data' => [
                                 'allianceID' => $systemData['system']['sovHolder']['alliance']['id'],
                                 'allianceName' => $systemData['system']['sovHolder']['alliance']['name'],
-                                'allianceLogo' => $systemData['system']['sovHolder']['alliance']['logo'],
                                 'size' => 24
                             ]
                         ]);
@@ -75,7 +74,6 @@ use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                             'data' => [
                                 'corporationID' => $systemData['system']['sovHolder']['corporation']['id'],
                                 'corporationName' => $systemData['system']['sovHolder']['corporation']['name'],
-                                'corporationLogo' => $systemData['system']['sovHolder']['corporation']['logo'],
                                 'size' => 24
                             ]
                         ]);
