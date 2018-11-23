@@ -4,7 +4,6 @@
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.4.1...development)
 ### Added
-- Getting alliance logos, corporation logos and pilot portraits from ESI now
 - Run time cache for less database queries
 
 ### Changed

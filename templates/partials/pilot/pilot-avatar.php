@@ -19,7 +19,7 @@
 
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper;
 
-$characterPortrait = (isset($data['characterPortrait']) && !is_null($data['characterPortrait'])) ? $data['characterPortrait'] : ImageHelper::getInstance()->getImageServerUrl('character') . $data['characterID'] . '_32.jpg';
+$characterPortrait = ImageHelper::getInstance()->getImageServerUrl('character') . $data['characterID'] . '_32.jpg';
 ?>
 
 <span class="eve-intel-pilot-avatar-wrapper"><img class="eve-image" data-eveid="<?php echo $data['characterID']; ?>" src="<?php echo $characterPortrait; ?>" alt="<?php echo $data['characterName']; ?>" width="32" heigh="32"></span>

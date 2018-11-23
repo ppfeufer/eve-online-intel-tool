@@ -19,7 +19,7 @@
 
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper;
 
-$allianceLogo = (isset($data['allianceLogo']) && !is_null($data['allianceLogo'])) ? $data['allianceLogo'] : ImageHelper::getInstance()->getImageServerUrl('alliance') . $data['allianceID'] . '_32.png';
+$allianceLogo = ImageHelper::getInstance()->getImageServerUrl('alliance') . $data['allianceID'] . '_32.png';
 
 $size = 32;
 if(isset($data['size'])) {

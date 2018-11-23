@@ -41,8 +41,7 @@ if(\is_array($fleetOverview) && \count($fleetOverview)) {
                         TemplateHelper::getInstance()->getTemplate('partials/pilot/pilot-avatar', [
                             'data' => [
                                 'characterID' => $data['pilotID'],
-                                'characterName' => $data['pilotName'],
-                                'characterPortrait' => $data['pilotPortait']
+                                'characterName' => $data['pilotName']
                             ]
                         ]);
 
