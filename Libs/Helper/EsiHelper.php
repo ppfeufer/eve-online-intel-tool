@@ -24,23 +24,24 @@
  */
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
-use WordPress\EsiClient\Model\Alliance\AlliancesAllianceId;
-use WordPress\EsiClient\Model\Character\CharactersAffiliation;
-use WordPress\EsiClient\Model\Corporation\CorporationsCorporationId;
-use WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId;
-use WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId;
-use WordPress\EsiClient\Model\Universe\UniverseIds;
-use WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId;
-use WordPress\EsiClient\Model\Universe\UniverseSystemJumps;
-use WordPress\EsiClient\Model\Universe\UniverseSystemKills;
-use WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId;
-use WordPress\EsiClient\Model\Universe\UniverseTypesTypeId;
-use WordPress\EsiClient\Repository\AllianceRepository;
-use WordPress\EsiClient\Repository\CharacterRepository;
-use WordPress\EsiClient\Repository\CorporationRepository;
-use WordPress\EsiClient\Repository\SovereigntyRepository;
-use WordPress\EsiClient\Repository\UniverseRepository;
-use WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+use \WordPress\EsiClient\Model\Alliance\AlliancesAllianceId;
+use \WordPress\EsiClient\Model\Alliance\AlliancesAllianceIdIcons;
+use \WordPress\EsiClient\Model\Character\CharactersAffiliation;
+use \WordPress\EsiClient\Model\Corporation\CorporationsCorporationId;
+use \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId;
+use \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId;
+use \WordPress\EsiClient\Model\Universe\UniverseIds;
+use \WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId;
+use \WordPress\EsiClient\Model\Universe\UniverseSystemJumps;
+use \WordPress\EsiClient\Model\Universe\UniverseSystemKills;
+use \WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId;
+use \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId;
+use \WordPress\EsiClient\Repository\AllianceRepository;
+use \WordPress\EsiClient\Repository\CharacterRepository;
+use \WordPress\EsiClient\Repository\CorporationRepository;
+use \WordPress\EsiClient\Repository\SovereigntyRepository;
+use \WordPress\EsiClient\Repository\UniverseRepository;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 \defined('ABSPATH') or die();
 
@@ -147,11 +148,13 @@ class EsiHelper extends AbstractSingleton {
         if(\is_null($shipClassData)) {
             $shipClassData = $this->universeApi->universeTypesTypeId($shipId);
 
-            $this->databaseHelper->writeEsiCacheDataToDb([
-                'universe/types/' . $shipId,
-                \maybe_serialize($shipClassData),
-                \strtotime('+1 week')
-            ]);
+            if(\is_null($shipClassData)) {
+                $this->databaseHelper->writeEsiCacheDataToDb([
+                    'universe/types/' . $shipId,
+                    \maybe_serialize($shipClassData),
+                    \strtotime('+1 week')
+                ]);
+            }
         }
 
         return $shipClassData;
@@ -170,11 +173,13 @@ class EsiHelper extends AbstractSingleton {
         if(\is_null($shipTypeData)) {
             $shipTypeData = $this->universeApi->universeGroupsGroupId($shipData->getGroupId());
 
-            $this->databaseHelper->writeEsiCacheDataToDb([
-                'universe/groups/' . $shipData->getGroupId(),
-                \maybe_serialize($shipTypeData),
-                \strtotime('+1 week')
-            ]);
+            if(\is_null($shipTypeData)) {
+                $this->databaseHelper->writeEsiCacheDataToDb([
+                    'universe/groups/' . $shipData->getGroupId(),
+                    \maybe_serialize($shipTypeData),
+                    \strtotime('+1 week')
+                ]);
+            }
         }
 
         return $shipTypeData;
@@ -190,6 +195,30 @@ class EsiHelper extends AbstractSingleton {
         $characterAffiliationData = $this->characterApi->charactersAffiliation(\array_values($characterIds));
 
         return $characterAffiliationData;
+    }
+
+    /**
+     * Get character portraits
+     *
+     * @param int $characterId
+     * @return \WordPress\EsiClient\Model\Corporation\CorporationsCorporationIdIcons
+     */
+    public function getCharacterPortraits(int $characterId) {
+        $characterPortraits = $this->databaseHelper->getCachedEsiDataFromDb('characters/' . $characterId . '/portrait');
+
+        if(\is_null($characterPortraits)) {
+            $characterPortraits = $this->characterApi->charactersCharacterIdPortrait($characterId);
+
+            if(!\is_null($characterPortraits)) {
+                $this->databaseHelper->writeEsiCacheDataToDb([
+                    'characters/' . $characterId . '/portrait',
+                    \maybe_serialize($characterPortraits),
+                    \strtotime('+1 week')
+                ]);
+            }
+        }
+
+        return $characterPortraits;
     }
 
     /**
@@ -275,6 +304,30 @@ class EsiHelper extends AbstractSingleton {
     }
 
     /**
+     * Get corporation logo
+     *
+     * @param int $corporationId
+     * @return \WordPress\EsiClient\Model\Corporation\CorporationsCorporationIdIcons
+     */
+    public function getCorporationLogos(int $corporationId) {
+        $corporationLogos = $this->databaseHelper->getCachedEsiDataFromDb('corporations/' . $corporationId . '/icons');
+
+        if(\is_null($corporationLogos)) {
+            $corporationLogos = $this->corporationApi->corporationsCorporationIdIcons($corporationId);
+
+            if(!\is_null($corporationLogos)) {
+                $this->databaseHelper->writeEsiCacheDataToDb([
+                    'corporations/' . $corporationId . '/icons',
+                    \maybe_serialize($corporationLogos),
+                    \strtotime('+1 week')
+                ]);
+            }
+        }
+
+        return $corporationLogos;
+    }
+
+    /**
      * Get alliance data by ID
      *
      * @param int $allianceId
@@ -296,6 +349,30 @@ class EsiHelper extends AbstractSingleton {
         }
 
         return $allianceData;
+    }
+
+    /**
+     * Get alliance logo
+     *
+     * @param int $allianceId
+     * @return AlliancesAllianceIdIcons
+     */
+    public function getAllianceLogos(int $allianceId) {
+        $allianceLogos = $this->databaseHelper->getCachedEsiDataFromDb('alliances/' . $allianceId . '/icons');
+
+        if(\is_null($allianceLogos)) {
+            $allianceLogos = $this->allianceApi->alliancesAllianceIdIcons($allianceId);
+
+            if(!\is_null($allianceLogos)) {
+                $this->databaseHelper->writeEsiCacheDataToDb([
+                    'alliances/' . $allianceId . '/icons',
+                    \maybe_serialize($allianceLogos),
+                    \strtotime('+1 week')
+                ]);
+            }
+        }
+
+        return $allianceLogos;
     }
 
     /**

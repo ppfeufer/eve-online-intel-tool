@@ -36,11 +36,6 @@ use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                 'systemData' => $systemData
             ]);
             ?>
-
-
-
-
-            
         </div>
     </div>
 </div>

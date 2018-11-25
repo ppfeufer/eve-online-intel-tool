@@ -21,7 +21,6 @@ namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
 use \WordPress\EsiClient\Model\Alliance\AlliancesAllianceId;
 use \WordPress\EsiClient\Model\Character\CharactersAffiliation;
-use \WordPress\EsiClient\Model\Corporation\CorporationsCorporationId;
 use \WordPress\EsiClient\Model\Universe\UniverseIds\Characters;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
@@ -97,6 +96,7 @@ class LocalScanParser extends AbstractSingleton {
         $arrayCharacterIds = [];
         $characterIdChunkSize = 250;
         $scanDataArraySanitized = [];
+        $corporationSheet = [];
 
         $scanDataArray = \explode("\n", \trim($cleanedScanData));
 
@@ -133,13 +133,14 @@ class LocalScanParser extends AbstractSingleton {
                      * Grabbing corporation information
                      */
                     if(!\is_null($affiliatedIds->getCorporationId())) {
-                        /* @var $corporationSheet CorporationsCorporationId */
-                        $corporationSheet = $this->esiHelper->getCorporationData($affiliatedIds->getCorporationId());
+                        if(!isset($corporationSheet[$affiliatedIds->getCorporationId()])) {
+                            $corporationSheet[$affiliatedIds->getCorporationId()] = $this->esiHelper->getCorporationData($affiliatedIds->getCorporationId());
+                        }
 
-                        if(!\is_null($corporationSheet)) {
+                        if(!\is_null($corporationSheet[$affiliatedIds->getCorporationId()])) {
                             $pilotDetails[$affiliatedIds->getCharacterId()]['corporationID'] = $affiliatedIds->getCorporationId();
-                            $pilotDetails[$affiliatedIds->getCharacterId()]['corporationName'] = $corporationSheet->getName();
-                            $pilotDetails[$affiliatedIds->getCharacterId()]['corporationTicker'] = $corporationSheet->getTicker();
+                            $pilotDetails[$affiliatedIds->getCharacterId()]['corporationName'] = $corporationSheet[$affiliatedIds->getCorporationId()]->getName();
+                            $pilotDetails[$affiliatedIds->getCharacterId()]['corporationTicker'] = $corporationSheet[$affiliatedIds->getCorporationId()]->getTicker();
                         }
                     }
 
@@ -200,6 +201,7 @@ class LocalScanParser extends AbstractSingleton {
                     'corporationID' => $pilotSheet['corporationID'],
                     'corporationName' => $pilotSheet['corporationName'],
                     'corporationTicker' => $pilotSheet['corporationTicker'],
+
                     'allianceID' => (isset($pilotSheet['allianceID'])) ? $pilotSheet['allianceID'] : 0,
                     'allianceName' => (isset($pilotSheet['allianceName'])) ? $pilotSheet['allianceName'] : null,
                     'allianceTicker' => (isset($pilotSheet['allianceTicker'])) ? $pilotSheet['allianceTicker'] : null
@@ -210,6 +212,7 @@ class LocalScanParser extends AbstractSingleton {
                     'corporationID' => $pilotSheet['corporationID'],
                     'corporationName' => $pilotSheet['corporationName'],
                     'corporationTicker' => $pilotSheet['corporationTicker'],
+
                     'allianceID' => (isset($pilotSheet['allianceID'])) ? $pilotSheet['allianceID'] : 0,
                     'allianceName' => (isset($pilotSheet['allianceName'])) ? $pilotSheet['allianceName'] : null,
                     'allianceTicker' => (isset($pilotSheet['allianceTicker'])) ? $pilotSheet['allianceTicker'] : null

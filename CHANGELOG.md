@@ -2,8 +2,16 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.4.1...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.4.2...development)
 - in development
+
+## [v1.4.2](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.4.2) - 2018-11-25
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.4.1...v1.4.2)
+### Added
+- Run time cache for less database queries
+
+### Changed
+- Minimum needed ESI client version to the lastest version of the ESI client
 
 ## [v1.4.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.4.1) - 2018-11-17
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.4.0...v1.4.1)

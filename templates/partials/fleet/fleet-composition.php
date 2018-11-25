@@ -32,6 +32,7 @@ if(\is_array($fleetOverview) && \count($fleetOverview)) {
                 <th><?php echo \__('Where', 'eve-online-intel-tool'); ?></th>
             </thead>
             <?php
+
             foreach($fleetOverview as $data) {
                 ?>
                 <tr data-highlight="shiptype-<?php echo \sanitize_title($data['shipType']); ?>">
