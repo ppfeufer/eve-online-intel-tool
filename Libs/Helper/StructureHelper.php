@@ -33,6 +33,23 @@ class StructureHelper extends AbstractSingleton {
      * @return array Upwell structure IDs
      */
     public function getUpwellStructureIds() {
+        $returnValue = \array_merge(
+            $this->getCitadelIds(),
+            $this->getFactionFortizarIds(),
+            $this->getEngeneeringComplexIds(),
+            $this->getRefineryIds(),
+            $this->getNavigationalStructureIds()
+        );
+
+        return $returnValue;
+    }
+
+    /**
+     * Get all "normal" Citadel IDs
+     *
+     * @return array
+     */
+    public function getCitadelIds() {
         return [
             /**
              * Citadels
@@ -41,7 +58,16 @@ class StructureHelper extends AbstractSingleton {
             35833, // Fortizar
             35834, // Keepstar
             40340, // Upwell Palatine Keepstar
+        ];
+    }
 
+    /**
+     * Get all Faction Fortizar IDs
+     *
+     * @return array
+     */
+    public function getFactionFortizarIds() {
+        return [
             /**
              * Faction Fortizars (Former Outposts)
              */
@@ -50,20 +76,47 @@ class StructureHelper extends AbstractSingleton {
             47514, // 'Horizon' Fortizar
             47515, // 'Marginis' Fortizar
             47516, // 'Prometheus' Fortizar
+        ];
+    }
 
+    /**
+     * Get all Engeneering Complex IDs
+     *
+     * @return array
+     */
+    public function getEngeneeringComplexIds() {
+        return [
             /**
              * Engeneering Complexes
              */
             35825, // Raitaru
             35826, // Azbel
             35827, // Sotiyo
+        ];
+    }
 
+    /**
+     * Get all Refinery IDs
+     *
+     * @return array
+     */
+    public function getRefineryIds() {
+        return [
             /**
              * Refineries
              */
             35835, // Athanor
             35836, // Tatara
+        ];
+    }
 
+    /**
+     * Get all Navigational Structure IDs
+     *
+     * @return array
+     */
+    public function getNavigationalStructureIds() {
+        return [
             /**
              * Navigational Structures
              */
