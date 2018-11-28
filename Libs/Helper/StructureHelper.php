@@ -37,39 +37,39 @@ class StructureHelper extends AbstractSingleton {
             /**
              * Citadels
              */
-            '35832', // Astrahus
-            '35833', // Fortizar
-            '35834', // Keepstar
-            '40340', // Upwell Palatine Keepstar
+            35832, // Astrahus
+            35833, // Fortizar
+            35834, // Keepstar
+            40340, // Upwell Palatine Keepstar
 
             /**
              * Faction Fortizars (Former Outposts)
              */
-            '47512', // 'Moreau' Fortizar
-            '47513', // 'Draccous' Fortizar
-            '47514', // 'Horizon' Fortizar
-            '47515', // 'Marginis' Fortizar
-            '47516', // 'Prometheus' Fortizar
+            47512, // 'Moreau' Fortizar
+            47513, // 'Draccous' Fortizar
+            47514, // 'Horizon' Fortizar
+            47515, // 'Marginis' Fortizar
+            47516, // 'Prometheus' Fortizar
 
             /**
              * Engeneering Complexes
              */
-            '35825', // Raitaru
-            '35826', // Azbel
-            '35827', // Sotiyo
+            35825, // Raitaru
+            35826, // Azbel
+            35827, // Sotiyo
 
             /**
              * Refineries
              */
-            '35835', // Athanor
-            '35836', // Tatara
+            35835, // Athanor
+            35836, // Tatara
 
             /**
              * Navigational Structures
              */
-            '35840', // Pharolux Cyno Beacon
-            '35841', // Ansiblex Jump Gate
-            '37534', // Tenebrex Cyno Jammer
+            35840, // Pharolux Cyno Beacon
+            35841, // Ansiblex Jump Gate
+            37534, // Tenebrex Cyno Jammer
         ];
     }
 }

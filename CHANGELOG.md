@@ -3,7 +3,8 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.4.2...development)
-- in development
+### Changed
+- System detection by Upwell structures when there is only (for what ever reason) an Ansiblex Jump Gate on grid where we can get the system from. Since these structures can have 2 systems in their name (origin » destination) we have to pick the right system here.
 
 ## [v1.4.2](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.4.2) - 2018-11-25
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.4.1...v1.4.2)
