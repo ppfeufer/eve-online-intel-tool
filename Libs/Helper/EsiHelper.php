@@ -89,6 +89,13 @@ class EsiHelper extends AbstractSingleton {
     private $sovereigntyApi = null;
 
     /**
+     * ESI Meta
+     *
+     * @var \WordPress\EsiClient\Repository\MetaRepository
+     */
+    private $metaApi = null;
+
+    /**
      * The Constructor
      */
     protected function __construct() {
@@ -104,6 +111,7 @@ class EsiHelper extends AbstractSingleton {
         $this->allianceApi = new AllianceRepository;
         $this->universeApi = new UniverseRepository;
         $this->sovereigntyApi = new SovereigntyRepository;
+        $this->metaApi = new \WordPress\EsiClient\Repository\MetaRepository;
     }
 
     /**
@@ -549,5 +557,23 @@ class EsiHelper extends AbstractSingleton {
         }
 
         return $sovereigntyCampaignData;
+    }
+
+    public function getEsiStatusLatest() {
+        $esiStatus = $this->databaseHelper->getCachedEsiDataFromDb('esi/status/latest');
+
+        if(\is_null($esiStatus)) {
+            $esiStatus = $this->metaApi->statusJsonLatest();
+
+            if(!\is_null($esiStatus)) {
+                $this->databaseHelper->writeEsiCacheDataToDb([
+                    'esi/status/latest',
+                    \maybe_serialize($esiStatus),
+                    \strtotime('+1 minute')
+                ]);
+            }
+        }
+
+        return $esiStatus;
     }
 }

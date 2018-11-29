@@ -25,7 +25,11 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\IntelParser;
 
 $serverRequest = \filter_input(\INPUT_SERVER, 'REQUEST_METHOD');
 $formAction = \filter_input(\INPUT_POST, 'action');
+$showAction = \filter_input(INPUT_GET, 'show');
 
+/**
+ * Do something funny with the form input ...
+ */
 $failedIntel = false;
 if($serverRequest === 'POST' && !empty($formAction) && $formAction === 'new_intel') {
     $parsedIntel = new IntelParser;
@@ -46,30 +50,19 @@ if($serverRequest === 'POST' && !empty($formAction) && $formAction === 'new_inte
     <div class="main-content clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12 content-wrapper">
             <div class="content content-inner content-full-width content-page content-page-intel">
-                <header>
-                    <h1><?php echo \__('Intel Parser', 'eve-online-intel-tool'); ?></h1>
-                </header>
-                <article class="post clearfix">
-                    <p>
-                        <?php echo \__('Please keep in mind, parsing large amount of data can take some time. Be patient, CCP\'s API is not the fastest to answer ....', 'eve-online-intel-tool'); ?>
-                    </p>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <?php
-                            if($failedIntel === true) {
-                                TemplateHelper::getInstance()->getTemplate('partials/intel-form/parse-error');
-                            }
+                <?php
+                switch($showAction) {
+                    case 'esiStatus':
+                        TemplateHelper::getInstance()->getTemplate('partials/index/esi-status');
+                        break;
 
-                            TemplateHelper::getInstance()->getTemplate('partials/intel-form/intel-form-explanation');
-                            ?>
-                        </div>
-                        <div class="col-lg-8">
-                            <?php
-                            TemplateHelper::getInstance()->getTemplate('partials/intel-form/intel-form');
-                            ?>
-                        </div>
-                    </div>
-                </article>
+                    default:
+                        TemplateHelper::getInstance()->getTemplate('partials/index/intel-index', [
+                            'failedIntel' => $failedIntel
+                        ]);
+                        break;
+                }
+                ?>
             </div> <!-- /.content -->
         </div> <!-- /.col -->
     </div> <!--/.row -->

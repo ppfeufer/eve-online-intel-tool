@@ -4,6 +4,7 @@
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.4.2...development)
 ### Added
+- ESI status page
 - More methods to the structure helper to be more granular if needed
 
 ### Changed
