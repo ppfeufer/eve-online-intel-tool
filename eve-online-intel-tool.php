@@ -31,6 +31,7 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool;
 
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\EsiStatus;
 use WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\FormNonce;
 use WordPress\Plugins\EveOnlineIntelTool\Libs\GithubUpdater;
 use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
@@ -81,6 +82,7 @@ class EveOnlineIntelTool {
         $this->loadTextDomain();
 
         new FormNonce;
+        new EsiStatus;
 
         $jsLoader = new JavascriptLoader;
         $jsLoader->init();

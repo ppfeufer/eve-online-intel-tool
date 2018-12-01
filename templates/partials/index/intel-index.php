@@ -26,7 +26,6 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
 <article class="post clearfix">
     <p>
         <?php echo \__('Please keep in mind, parsing large amount of data can take some time. Be patient, CCP\'s API is not the fastest to answer ....', 'eve-online-intel-tool'); ?>
-        <small>(<a href="?show=esiStatus"><?php echo \__('Show current ESI status', 'eve-online-intel-tool'); ?></a>)</small>
     </p>
     <div class="row">
         <div class="col-lg-4">
@@ -36,6 +35,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
             }
 
             TemplateHelper::getInstance()->getTemplate('partials/intel-form/intel-form-explanation');
+            TemplateHelper::getInstance()->getTemplate('partials/intel-form/esi-status');
             ?>
         </div>
         <div class="col-lg-8">

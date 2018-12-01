@@ -23,7 +23,7 @@ if(!is_null($esiStatus)) {
     $greenEndpoints = [];
     $yellowEndpoints = [];
     $redEndpoints = [];
-    $countTotalEndpoint = count($esiStatus);
+    $countTotalEndpoints = count($esiStatus);
     $countGreenEndpoints = 0;
     $countYellowEndpoints = 0;
     $countRedEndpoints = 0;
@@ -68,7 +68,7 @@ if(!is_null($esiStatus)) {
                 <div class="panel-body text-center">
                     <b style="font-size:140%;"><?php echo $countRedEndpoints; ?></b><br>
                     <span>
-                        (<?php echo number_format(100 / $countTotalEndpoint * $countRedEndpoints, 2) . '%'; ?>)
+                        (<?php echo number_format(100 / $countTotalEndpoints * $countRedEndpoints, 2) . '%'; ?>)
                     </span>
                 </div>
 
@@ -117,7 +117,7 @@ if(!is_null($esiStatus)) {
                 <div class="panel-body text-center">
                     <b style="font-size:140%;"><?php echo $countYellowEndpoints; ?></b><br>
                     <span>
-                        (<?php echo number_format(100 / $countTotalEndpoint * $countYellowEndpoints, 2) . '%'; ?>)
+                        (<?php echo number_format(100 / $countTotalEndpoints * $countYellowEndpoints, 2) . '%'; ?>)
                     </span>
                 </div>
 
@@ -166,7 +166,7 @@ if(!is_null($esiStatus)) {
                 <div class="panel-body text-center">
                     <b style="font-size:140%;"><?php echo $countGreenEndpoints; ?></b><br>
                     <span>
-                        (<?php echo number_format(100 / $countTotalEndpoint * $countGreenEndpoints, 2) . '%'; ?>)
+                        (<?php echo number_format(100 / $countTotalEndpoints * $countGreenEndpoints, 2) . '%'; ?>)
                     </span>
                 </div>
 

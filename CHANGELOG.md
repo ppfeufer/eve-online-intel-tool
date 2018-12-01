@@ -5,6 +5,7 @@
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.4.2...development)
 ### Added
 - ESI status page
+- ESI status short overview on Intel index page as an indicator to see if ESI is about to fall apart and parsing might fail
 - More methods to the structure helper to be more granular if needed
 
 ### Changed
