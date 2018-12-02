@@ -59,8 +59,9 @@ use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                         ]);
                         echo $systemData['system']['sovHolder']['alliance']['name'];
                         ?>
+                        <br>
                         <small>
-                            (<a href="https://evemaps.dotlan.net/alliance/<?php echo $systemData['system']['sovHolder']['alliance']['name']; ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a></small> | <small><a href="https://zkillboard.com/alliance/<?php echo $systemData['system']['sovHolder']['alliance']['id']; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a>)
+                            <a href="https://evemaps.dotlan.net/alliance/<?php echo $systemData['system']['sovHolder']['alliance']['name']; ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a></small> | <small><a href="https://zkillboard.com/alliance/<?php echo $systemData['system']['sovHolder']['alliance']['id']; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a>
                         </small>
                     </td>
                 </tr>
@@ -79,8 +80,9 @@ use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                         ]);
                         echo $systemData['system']['sovHolder']['corporation']['name'];
                         ?>
+                        <br>
                         <small>
-                            (<a href="https://evemaps.dotlan.net/corp/<?php echo $systemData['system']['sovHolder']['corporation']['name']; ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a></small> | <small><a href="https://zkillboard.com/corporation/<?php echo $systemData['system']['sovHolder']['corporation']['id']; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a>)
+                            <a href="https://evemaps.dotlan.net/corp/<?php echo $systemData['system']['sovHolder']['corporation']['name']; ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a></small> | <small><a href="https://zkillboard.com/corporation/<?php echo $systemData['system']['sovHolder']['corporation']['id']; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a>
                         </small>
                     </td>
                 </tr>
