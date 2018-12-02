@@ -661,8 +661,7 @@ class DscanParser extends AbstractSingleton {
      */
     private function getScanResultDetails(array $scanResult, int $count) {
         return [
-//            'type' => ($scanResult['shipData']->getTypeId() === 35841) ? $scanResult['shipData']->getName() . $this->getAnsiblexJumGateDestination($scanResult) : $scanResult['shipData']->getName(),
-            'type' => $scanResult['shipData']->getName(),
+            'type' => ($scanResult['shipData']->getTypeId() === 35841) ? $scanResult['shipData']->getName() . $this->getAnsiblexJumGateDestination($scanResult) : $scanResult['shipData']->getName(),
             'type_id' => $scanResult['shipData']->getTypeId(),
             'shipTypeSanitized' => \sanitize_title($scanResult['shipData']->getName()),
             'count' => $count
@@ -675,22 +674,22 @@ class DscanParser extends AbstractSingleton {
      * @param array $scanResult
      * @return string
      */
-//    private function getAnsiblexJumGateDestination(array $scanResult) {
-//        $returnValue = null;
-//
-//        $dscanData = $scanResult['dscanData'];
-//        $ansiblexJumpGateName = $dscanData['1'];
-//        $nameParts = \explode(' - ', $ansiblexJumpGateName);
-//
-//        if(\strstr($nameParts['0'], '»')) {
-//            $gateSystems = \explode(' » ', $nameParts['0']);
-//            $destinationSystem = \trim($gateSystems['1']);
-//
-//            if(!empty($destinationSystem)) {
-//                $returnValue = ' » ' . $destinationSystem;
-//            }
-//        }
-//
-//        return $returnValue;
-//    }
+    private function getAnsiblexJumGateDestination(array $scanResult) {
+        $returnValue = null;
+
+        $dscanData = $scanResult['dscanData'];
+        $ansiblexJumpGateName = $dscanData['1'];
+        $nameParts = \explode(' - ', $ansiblexJumpGateName);
+
+        if(\strstr($nameParts['0'], '»')) {
+            $gateSystems = \explode(' » ', $nameParts['0']);
+            $destinationSystem = \trim($gateSystems['1']);
+
+            if(!empty($destinationSystem)) {
+                $returnValue = ' » ' . $destinationSystem;
+            }
+        }
+
+        return $returnValue;
+    }
 }
