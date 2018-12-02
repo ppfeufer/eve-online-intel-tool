@@ -2,14 +2,21 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.4.2...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.5.0...development)
+- in development
+
+## [v1.5.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.5.0) - 2018-12-02
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.4.2...v1.5.0)
 ### Added
 - ESI status page
 - ESI status short overview on Intel index page as an indicator to see if ESI is about to fall apart and parsing might fail
 - More methods to the structure helper to be more granular if needed
+- Destination system of an Ansiblex Jump Gate
 
 ### Changed
 - System detection by Upwell structures when there is only (for what ever reason) an Ansiblex Jump Gate on grid where we can get the system from. Since these structures can have 2 systems in their name (origin » destination) we have to pick the right system here.
+- Minimum needed ESI client version to the lastest version of the ESI client
+- D-Scan Templates to give the links to dotlan and zkillboard their own line to deal with longer alliance and corp names and to be more in line with the chat scan appearance.
 
 ## [v1.4.2](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.4.2) - 2018-11-25
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.4.1...v1.4.2)
