@@ -29,6 +29,10 @@
         width: 300px;
     }
 
+    .paste-explanation {
+        margin-bottom: 2rem;
+    }
+
     .paste-explanation ul {
         list-style-type: none;
         padding: 0;

@@ -179,8 +179,17 @@ class DscanParser extends AbstractSingleton {
         foreach(\explode("\n", \trim($scandata)) as $line) {
             $lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
 
-            if(\in_array($lineDetailsArray['0'], $upwellStructureIds)) {
+            if(\in_array((int) $lineDetailsArray['0'], $upwellStructureIds)) {
                 $parts = \explode(' - ', $lineDetailsArray['1']);
+
+                /**
+                 * Fix for Ansiblex Jump Gate, since
+                 * they can have 2 systems in their names
+                 */
+                if((int) $lineDetailsArray['0'] === 35841 && \strstr($lineDetailsArray['1'], '»')) {
+                    $parts = \explode(' » ', $lineDetailsArray['1']);
+                }
+
                 $systemName = \trim($parts['0']);
 
                 $systemFound = true;
@@ -652,10 +661,35 @@ class DscanParser extends AbstractSingleton {
      */
     private function getScanResultDetails(array $scanResult, int $count) {
         return [
-            'type' => $scanResult['shipData']->getName(),
+            'type' => ($scanResult['shipData']->getTypeId() === 35841) ? $scanResult['shipData']->getName() . $this->getAnsiblexJumGateDestination($scanResult) : $scanResult['shipData']->getName(),
             'type_id' => $scanResult['shipData']->getTypeId(),
             'shipTypeSanitized' => \sanitize_title($scanResult['shipData']->getName()),
             'count' => $count
         ];
+    }
+
+    /**
+     * Getting the destination system of an Ansiblex Jump Gate
+     *
+     * @param array $scanResult
+     * @return string
+     */
+    private function getAnsiblexJumGateDestination(array $scanResult) {
+        $returnValue = null;
+
+        $dscanData = $scanResult['dscanData'];
+        $ansiblexJumpGateName = $dscanData['1'];
+        $nameParts = \explode(' - ', $ansiblexJumpGateName);
+
+        if(\strstr($nameParts['0'], '»')) {
+            $gateSystems = \explode(' » ', $nameParts['0']);
+            $destinationSystem = \trim($gateSystems['1']);
+
+            if(!empty($destinationSystem)) {
+                $returnValue = ' » ' . $destinationSystem;
+            }
+        }
+
+        return $returnValue;
     }
 }

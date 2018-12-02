@@ -177,6 +177,44 @@ jQuery(document).ready(function($) {
         getEveIntelFormNonce.ajaxCall();
     }
 
+    /**
+     * Getting ESI status
+     */
+    if($('.table-esi-status').length) {
+        /**
+         * Ajax Call: get-esi-status
+         */
+        var getEsiStatus = {
+            ajaxCall: function() {
+                $.ajax({
+                    type: 'post',
+                    url: eveIntelToolL10n.ajax.url,
+                    data: 'action=get-esi-status',
+                    dataType: 'json',
+                    success: function(result) {
+                        if(result !== null) {
+                            $('.esi-status-green-endpoints .esi-status-percentage').html(result.countGreenEndpoints + ' (' + result.percentageGreen + '%)');
+                            $('.esi-status-yellow-endpoints .esi-status-percentage').html(result.countYellowEndpoints + ' (' + result.percentageYellow + '%)');
+                            $('.esi-status-red-endpoints .esi-status-percentage').html(result.countRedEndpoints + ' (' + result.percentageRed + '%)');
+
+                            $('.esi-status-progress-bar .progress-bar-success').attr('style', 'width:' + result.percentageGreen + '%');
+                            $('.esi-status-progress-bar .progress-bar-warning').attr('style', 'width:' + result.percentageYellow + '%');
+                            $('.esi-status-progress-bar .progress-bar-danger').attr('style', 'width:' + result.percentageRed + '%');
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrow) {
+                        console.log('Ajax request - ' + textStatus + ': ' + errorThrow);
+                    }
+                });
+            }
+        };
+
+        /**
+         * Call the ajax to get the nonce
+         */
+        getEsiStatus.ajaxCall();
+    }
+
     var cSpeed = 5;
     var cWidth = 127;
     var cHeight = 19;
@@ -217,6 +255,10 @@ jQuery(document).ready(function($) {
             $('#new_intel .loaderImage').css('backgroundPosition', (-cXpos) + 'px 0');
         }
 
+        if($('.table-esi-status .loaderImage')) {
+            $('.table-esi-status .loaderImage').css('backgroundPosition', (-cXpos) + 'px 0');
+        }
+
         cPreloaderTimeout = setTimeout(continueAnimation, SECONDS_BETWEEN_FRAMES * 1000);
     };
 
@@ -226,6 +268,11 @@ jQuery(document).ready(function($) {
      * @returns {undefined}
      */
     var startAnimation = function() {
+        $('.table-esi-status .loaderImage').css('display', 'block');
+        $('.table-esi-status .loaderImage').css('backgroundImage', 'url(' + cImageSrc + ')');
+        $('.table-esi-status .loaderImage').css('width', cWidth + 'px');
+        $('.table-esi-status .loaderImage').css('height', cHeight + 'px');
+
         $('#new_intel .loaderImage').css('display', 'block');
         $('#new_intel .loaderImage').css('backgroundImage', 'url(' + cImageSrc + ')');
         $('#new_intel .loaderImage').css('width', cWidth + 'px');

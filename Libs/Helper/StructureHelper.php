@@ -33,43 +33,96 @@ class StructureHelper extends AbstractSingleton {
      * @return array Upwell structure IDs
      */
     public function getUpwellStructureIds() {
+        $returnValue = \array_merge(
+            $this->getCitadelIds(),
+            $this->getFactionFortizarIds(),
+            $this->getEngeneeringComplexIds(),
+            $this->getRefineryIds(),
+            $this->getNavigationalStructureIds()
+        );
+
+        return $returnValue;
+    }
+
+    /**
+     * Get all "normal" Citadel IDs
+     *
+     * @return array
+     */
+    public function getCitadelIds() {
         return [
             /**
              * Citadels
              */
-            '35832', // Astrahus
-            '35833', // Fortizar
-            '35834', // Keepstar
-            '40340', // Upwell Palatine Keepstar
+            35832, // Astrahus
+            35833, // Fortizar
+            35834, // Keepstar
+            40340, // Upwell Palatine Keepstar
+        ];
+    }
 
+    /**
+     * Get all Faction Fortizar IDs
+     *
+     * @return array
+     */
+    public function getFactionFortizarIds() {
+        return [
             /**
              * Faction Fortizars (Former Outposts)
              */
-            '47512', // 'Moreau' Fortizar
-            '47513', // 'Draccous' Fortizar
-            '47514', // 'Horizon' Fortizar
-            '47515', // 'Marginis' Fortizar
-            '47516', // 'Prometheus' Fortizar
+            47512, // 'Moreau' Fortizar
+            47513, // 'Draccous' Fortizar
+            47514, // 'Horizon' Fortizar
+            47515, // 'Marginis' Fortizar
+            47516, // 'Prometheus' Fortizar
+        ];
+    }
 
+    /**
+     * Get all Engeneering Complex IDs
+     *
+     * @return array
+     */
+    public function getEngeneeringComplexIds() {
+        return [
             /**
              * Engeneering Complexes
              */
-            '35825', // Raitaru
-            '35826', // Azbel
-            '35827', // Sotiyo
+            35825, // Raitaru
+            35826, // Azbel
+            35827, // Sotiyo
+        ];
+    }
 
+    /**
+     * Get all Refinery IDs
+     *
+     * @return array
+     */
+    public function getRefineryIds() {
+        return [
             /**
              * Refineries
              */
-            '35835', // Athanor
-            '35836', // Tatara
+            35835, // Athanor
+            35836, // Tatara
+        ];
+    }
 
+    /**
+     * Get all Navigational Structure IDs
+     *
+     * @return array
+     */
+    public function getNavigationalStructureIds() {
+        return [
             /**
              * Navigational Structures
              */
-            '35840', // Pharolux Cyno Beacon
-            '35841', // Ansiblex Jump Gate
-            '37534', // Tenebrex Cyno Jammer
+            35840, // Pharolux Cyno Beacon
+            35841, // Ansiblex Jump Gate
+            37534, // Tenebrex Cyno Jammer
         ];
     }
 }
