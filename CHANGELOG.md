@@ -3,7 +3,8 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.5.0...development)
-- in development
+### Changed
+- German translation updated
 
 ## [v1.5.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.5.0) - 2018-12-02
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.4.2...v1.5.0)
