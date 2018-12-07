@@ -225,7 +225,6 @@ jQuery(document).ready(function($) {
     var cImageTimeout = false;
     var cIndex = 0;
     var cXpos = 0;
-    var cPreloaderTimeout = false;
     var SECONDS_BETWEEN_FRAMES = 0;
 
     /**
@@ -259,7 +258,7 @@ jQuery(document).ready(function($) {
             $('.table-esi-status .loaderImage').css('backgroundPosition', (-cXpos) + 'px 0');
         }
 
-        cPreloaderTimeout = setTimeout(continueAnimation, SECONDS_BETWEEN_FRAMES * 1000);
+        setTimeout(continueAnimation, SECONDS_BETWEEN_FRAMES * 1000);
     };
 
     /**
@@ -281,17 +280,7 @@ jQuery(document).ready(function($) {
         var FPS = Math.round(100 / cSpeed);
         SECONDS_BETWEEN_FRAMES = 1 / FPS;
 
-        cPreloaderTimeout = setTimeout(continueAnimation, SECONDS_BETWEEN_FRAMES / 1000);
-    };
-
-    /**
-     * stops animation
-     *
-     * @returns {undefined}
-     */
-    var stopAnimation = function() {
-        clearTimeout(cPreloaderTimeout);
-        cPreloaderTimeout = false;
+        setTimeout(continueAnimation, SECONDS_BETWEEN_FRAMES / 1000);
     };
 
     /**
