@@ -3,6 +3,9 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.5.0...development)
+### Added
+- Meta description tag as long as SEO tools don't interfere with it
+
 ### Changed
 - German translation updated
 
@@ -13,7 +16,6 @@
 - ESI status short overview on Intel index page as an indicator to see if ESI is about to fall apart and parsing might fail
 - More methods to the structure helper to be more granular if needed
 - Destination system of an Ansiblex Jump Gate
-- Meta description tag as long as SEO tools don't interfere with it
 
 ### Changed
 - System detection by Upwell structures when there is only (for what ever reason) an Ansiblex Jump Gate on grid where we can get the system from. Since these structures can have 2 systems in their name (origin » destination) we have to pick the right system here.
