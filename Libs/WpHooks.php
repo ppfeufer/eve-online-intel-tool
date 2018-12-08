@@ -21,6 +21,7 @@ namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\UpdateHelper;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
 
 \defined('ABSPATH') or die();
 
@@ -69,6 +70,7 @@ class WpHooks {
          * Stuff that's added to the HTML head section
          */
         \add_action('wp_head', [$this, 'noindexForIntelPages']);
+        \add_action('wp_head', [$this, 'setMetaDescription']);
 
         /**
          * in case of plugin update this need to be fired
@@ -124,6 +126,15 @@ class WpHooks {
     public function noindexForIntelPages() {
         if(PostType::getInstance()->isPostTypePage() === true) {
             echo '<meta name="robots" content="noindex, nofollow">' . "\n";
+        }
+    }
+
+    /**
+     * Adding a meta description
+     */
+    public function setMetaDescription() {
+        if(PostType::getInstance()->isPostTypePage() === true) {
+            echo '<meta name="description" content="' . \__('Intel tool for EVE Online. Parse and share directional scans, fleet compositions and chat scans.', 'eve-online-intel-tool') . '">';
         }
     }
 
