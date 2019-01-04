@@ -448,7 +448,7 @@ class GithubUpdater {
      * @param array $result the result of the move
      * @return array $result the result of the move
      */
-    public function upgraderPostInstall(bool $true, $hookExtra, array $result) {
+    public function upgraderPostInstall($true, $hookExtra, $result) {
         global $wp_filesystem;
 
         /**
