@@ -18,6 +18,7 @@
  */
 
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
+
 ?>
 
 <header>

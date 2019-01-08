@@ -24,24 +24,28 @@
  */
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
-use \WordPress\EsiClient\Model\Alliance\AlliancesAllianceId;
-use \WordPress\EsiClient\Model\Alliance\AlliancesAllianceIdIcons;
-use \WordPress\EsiClient\Model\Character\CharactersAffiliation;
-use \WordPress\EsiClient\Model\Corporation\CorporationsCorporationId;
-use \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId;
-use \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId;
-use \WordPress\EsiClient\Model\Universe\UniverseIds;
-use \WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId;
-use \WordPress\EsiClient\Model\Universe\UniverseSystemJumps;
-use \WordPress\EsiClient\Model\Universe\UniverseSystemKills;
-use \WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId;
-use \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId;
-use \WordPress\EsiClient\Repository\AllianceRepository;
-use \WordPress\EsiClient\Repository\CharacterRepository;
-use \WordPress\EsiClient\Repository\CorporationRepository;
-use \WordPress\EsiClient\Repository\SovereigntyRepository;
-use \WordPress\EsiClient\Repository\UniverseRepository;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+use \WordPress\ {
+    EsiClient\Model\Alliance\AlliancesAllianceId,
+    EsiClient\Model\Alliance\AlliancesAllianceIdIcons,
+    EsiClient\Model\Character\CharactersAffiliation,
+    EsiClient\Model\Corporation\CorporationsCorporationId,
+    EsiClient\Model\Corporation\CorporationsCorporationIdIcons,
+    EsiClient\Model\Universe\UniverseConstellationsConstellationId,
+    EsiClient\Model\Universe\UniverseGroupsGroupId,
+    EsiClient\Model\Universe\UniverseIds,
+    EsiClient\Model\Universe\UniverseRegionsRegionId,
+    EsiClient\Model\Universe\UniverseSystemJumps,
+    EsiClient\Model\Universe\UniverseSystemKills,
+    EsiClient\Model\Universe\UniverseSystemsSystemId,
+    EsiClient\Model\Universe\UniverseTypesTypeId,
+    EsiClient\Repository\AllianceRepository,
+    EsiClient\Repository\CharacterRepository,
+    EsiClient\Repository\CorporationRepository,
+    EsiClient\Repository\MetaRepository,
+    EsiClient\Repository\SovereigntyRepository,
+    EsiClient\Repository\UniverseRepository,
+    Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton
+};
 
 \defined('ABSPATH') or die();
 
@@ -91,7 +95,7 @@ class EsiHelper extends AbstractSingleton {
     /**
      * ESI Meta
      *
-     * @var \WordPress\EsiClient\Repository\MetaRepository
+     * @var MetaRepository
      */
     private $metaApi = null;
 
@@ -111,7 +115,7 @@ class EsiHelper extends AbstractSingleton {
         $this->allianceApi = new AllianceRepository;
         $this->universeApi = new UniverseRepository;
         $this->sovereigntyApi = new SovereigntyRepository;
-        $this->metaApi = new \WordPress\EsiClient\Repository\MetaRepository;
+        $this->metaApi = new MetaRepository;
     }
 
     /**
@@ -209,7 +213,7 @@ class EsiHelper extends AbstractSingleton {
      * Get character portraits
      *
      * @param int $characterId
-     * @return \WordPress\EsiClient\Model\Corporation\CorporationsCorporationIdIcons
+     * @return CorporationsCorporationIdIcons
      */
     public function getCharacterPortraits(int $characterId) {
         $characterPortraits = $this->databaseHelper->getCachedEsiDataFromDb('characters/' . $characterId . '/portrait');
@@ -315,7 +319,7 @@ class EsiHelper extends AbstractSingleton {
      * Get corporation logo
      *
      * @param int $corporationId
-     * @return \WordPress\EsiClient\Model\Corporation\CorporationsCorporationIdIcons
+     * @return CorporationsCorporationIdIcons
      */
     public function getCorporationLogos(int $corporationId) {
         $corporationLogos = $this->databaseHelper->getCachedEsiDataFromDb('corporations/' . $corporationId . '/icons');

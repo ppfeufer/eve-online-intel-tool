@@ -1,5 +1,10 @@
 <?php
 
+use \WordPress\ {
+    EsiClient\Model\Meta\Status,
+    Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper
+};
+
 /*
  * Copyright (C) 2018 Rounon Dax
  *
@@ -17,7 +22,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$esiStatus = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper::getInstance()->getEsiStatusLatest();
+$esiStatus = EsiHelper::getInstance()->getEsiStatusLatest();
 
 if(!is_null($esiStatus)) {
     $greenEndpoints = [];
@@ -29,7 +34,7 @@ if(!is_null($esiStatus)) {
     $countRedEndpoints = 0;
 
     foreach($esiStatus as $endpointStatus) {
-        /* @var $endpointStatus WordPress\EsiClient\Model\Meta\Status */
+        /* @var $endpointStatus Status */
         switch($endpointStatus->getStatus()) {
             case 'green':
                 $countGreenEndpoints++;
@@ -78,16 +83,16 @@ if(!is_null($esiStatus)) {
                         foreach($redEndpoints as $categoryKey => $categoryEndpoints) {
                             ?>
                             <div class="panel panel-default">
-                                <div class="panel-heading" data-toggle="collapse" href="#<?php echo sanitize_title($categoryKey); ?>-red" aria-expanded="false" aria-controls="<?php echo sanitize_title($categoryKey); ?>-red">
+                                <div class="panel-heading" data-toggle="collapse" href="#<?php echo \sanitize_title($categoryKey); ?>-red" aria-expanded="false" aria-controls="<?php echo \sanitize_title($categoryKey); ?>-red">
                                     <h4 class="panel-title">
                                         <?php echo $categoryKey; ?>
                                     </h4>
                                 </div>
 
-                                <div id="<?php echo sanitize_title($categoryKey); ?>-red" class="panel-body collapse">
+                                <div id="<?php echo \sanitize_title($categoryKey); ?>-red" class="panel-body collapse">
                                     <?php
                                     foreach($categoryEndpoints as $redEndpoint) {
-                                        /* @var $yellowEndpoint WordPress\EsiClient\Model\Meta\Status */
+                                        /* @var $yellowEndpoint Status */
                                         ?>
                                         <p class="small">
                                             <?php echo strtoupper($redEndpoint->getMethod()); ?>
@@ -127,16 +132,16 @@ if(!is_null($esiStatus)) {
                         foreach($yellowEndpoints as $categoryKey => $categoryEndpoints) {
                             ?>
                             <div class="panel panel-default">
-                                <div class="panel-heading" data-toggle="collapse" href="#<?php echo sanitize_title($categoryKey); ?>-yellow" aria-expanded="false" aria-controls="<?php echo sanitize_title($categoryKey); ?>-yellow">
+                                <div class="panel-heading" data-toggle="collapse" href="#<?php echo \sanitize_title($categoryKey); ?>-yellow" aria-expanded="false" aria-controls="<?php echo \sanitize_title($categoryKey); ?>-yellow">
                                     <h4 class="panel-title">
                                         <?php echo $categoryKey; ?>
                                     </h4>
                                 </div>
 
-                                <div id="<?php echo sanitize_title($categoryKey); ?>-yellow" class="panel-body collapse">
+                                <div id="<?php echo \sanitize_title($categoryKey); ?>-yellow" class="panel-body collapse">
                                     <?php
                                     foreach($categoryEndpoints as $yellowEndpoint) {
-                                        /* @var $yellowEndpoint WordPress\EsiClient\Model\Meta\Status */
+                                        /* @var $yellowEndpoint Status */
                                         ?>
                                         <p class="small">
                                             <?php echo strtoupper($yellowEndpoint->getMethod()); ?>
@@ -176,16 +181,16 @@ if(!is_null($esiStatus)) {
                         foreach($greenEndpoints as $categoryKey => $categoryEndpoints) {
                             ?>
                             <div class="panel panel-default">
-                                <div class="panel-heading" data-toggle="collapse" href="#<?php echo sanitize_title($categoryKey); ?>-green" aria-expanded="false" aria-controls="<?php echo sanitize_title($categoryKey); ?>-green">
+                                <div class="panel-heading" data-toggle="collapse" href="#<?php echo \sanitize_title($categoryKey); ?>-green" aria-expanded="false" aria-controls="<?php echo \sanitize_title($categoryKey); ?>-green">
                                     <h4 class="panel-title">
                                         <?php echo $categoryKey; ?>
                                     </h4>
                                 </div>
 
-                                <div id="<?php echo sanitize_title($categoryKey); ?>-green" class="panel-body collapse">
+                                <div id="<?php echo \sanitize_title($categoryKey); ?>-green" class="panel-body collapse">
                                     <?php
                                     foreach($categoryEndpoints as $greenEndpoint) {
-                                        /* @var $greenEndpoint WordPress\EsiClient\Model\Meta\Status */
+                                        /* @var $greenEndpoint Status */
                                         ?>
                                         <p class="small">
                                             <?php echo strtoupper($greenEndpoint->getMethod()); ?>

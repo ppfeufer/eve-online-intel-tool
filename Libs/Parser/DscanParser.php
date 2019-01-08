@@ -19,13 +19,15 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
-use \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId;
-use \WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId;
-use \WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StructureHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+use \WordPress\ {
+    EsiClient\Model\Universe\UniverseConstellationsConstellationId,
+    EsiClient\Model\Universe\UniverseRegionsRegionId,
+    EsiClient\Model\Universe\UniverseSystemsSystemId,
+    Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper,
+    Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper,
+    Plugins\EveOnlineIntelTool\Libs\Helper\StructureHelper,
+    Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton
+};
 
 \defined('ABSPATH') or die();
 

@@ -31,14 +31,16 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool;
 
-use WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\EsiStatus;
-use WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\FormNonce;
-use WordPress\Plugins\EveOnlineIntelTool\Libs\GithubUpdater;
-use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
-use WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\CssLoader;
-use WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\JavascriptLoader;
-use WordPress\Plugins\EveOnlineIntelTool\Libs\TemplateLoader;
-use WordPress\Plugins\EveOnlineIntelTool\Libs\WpHooks;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\ {
+    Ajax\EsiStatus,
+    Ajax\FormNonce,
+    GithubUpdater,
+    Helper\PluginHelper,
+    ResourceLoader\CssLoader,
+    ResourceLoader\JavascriptLoader,
+    TemplateLoader,
+    WpHooks
+};
 
 \defined('ABSPATH') or die();
 
@@ -135,7 +137,7 @@ class EveOnlineIntelTool {
  * Start the show ....
  */
 function initializePlugin() {
-    $eveIntelTool = new EveOnlineIntelTool;
+    $eveIntelTool = new \WordPress\Plugins\EveOnlineIntelTool\EveOnlineIntelTool;
 
     /**
      * Initialize the plugin

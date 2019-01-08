@@ -19,12 +19,14 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
-use \WordPress\EsiClient\Model\Alliance\AlliancesAllianceId;
-use \WordPress\EsiClient\Model\Character\CharactersAffiliation;
-use \WordPress\EsiClient\Model\Universe\UniverseIds\Characters;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+use \WordPress\ {
+    EsiClient\Model\Alliance\AlliancesAllianceId,
+    EsiClient\Model\Character\CharactersAffiliation,
+    EsiClient\Model\Universe\UniverseIds\Characters,
+    Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper,
+    Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper,
+    Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton
+};
 
 \defined('ABSPATH') or die();
 

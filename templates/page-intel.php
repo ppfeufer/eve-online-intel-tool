@@ -20,8 +20,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\IntelParser;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\ {
+    Helper\TemplateHelper,
+    IntelParser
+};
 
 $serverRequest = \filter_input(\INPUT_SERVER, 'REQUEST_METHOD');
 $formAction = \filter_input(\INPUT_POST, 'action');

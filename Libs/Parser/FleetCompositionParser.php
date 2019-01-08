@@ -19,9 +19,11 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\ {
+    Helper\EsiHelper,
+    Helper\StringHelper,
+    Singletons\AbstractSingleton
+};
 
 \defined('ABSPATH') or die();
 
@@ -55,7 +57,7 @@ class FleetCompositionParser extends AbstractSingleton {
 
         $this->esiHelper = EsiHelper::getInstance();
         $this->stringHelper = StringHelper::getInstance();
-        $this->localParser = LocalScanParser::getInstance();
+        $this->localParser = \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\LocalScanParser::getInstance();
     }
 
     /**

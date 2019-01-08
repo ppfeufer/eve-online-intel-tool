@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
 
 ?>
 
@@ -26,17 +26,17 @@ use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
 -->
 <div class="col-md-6 col-lg-4">
     <div class="table-responsive table-dscan-scan table-dscan-system-information table-eve-intel">
-        <header class="entry-header"><h2 class="entry-title"><?php echo __('System Status', 'eve-online-intel-tool'); ?></h2></header>
+        <header class="entry-header"><h2 class="entry-title"><?php echo \__('System Status', 'eve-online-intel-tool'); ?></h2></header>
         <table class="table table-condensed">
             <tr>
-                <td><?php echo __('Security Status', 'eve-online-intel-tool'); ?></td>
+                <td><?php echo \__('Security Status', 'eve-online-intel-tool'); ?></td>
                 <td class="data-align-right"><?php echo $systemData['system']['securityStatus']; ?></td>
             </tr>
             <?php
             if(!is_null($systemData['system']['adm'])) {
                 ?>
                 <tr>
-                    <td><?php echo __('Activity Defense Multiplier', 'eve-online-intel-tool'); ?></td>
+                    <td><?php echo \__('Activity Defense Multiplier', 'eve-online-intel-tool'); ?></td>
                     <td class="data-align-right"><?php echo $systemData['system']['adm']; ?></td>
                 </tr>
                 <?php
@@ -46,7 +46,7 @@ use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                 ?>
                 <tr>
                     <td>
-                        <?php echo __('Sov Holding Alliance', 'eve-online-intel-tool'); ?>
+                        <?php echo \__('Sov Holding Alliance', 'eve-online-intel-tool'); ?>
                     </td>
                     <td class="data-align-right">
                         <?php
@@ -67,7 +67,7 @@ use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                 </tr>
                 <tr>
                     <td>
-                        <?php echo __('Sov Holding Corporation', 'eve-online-intel-tool'); ?>
+                        <?php echo \__('Sov Holding Corporation', 'eve-online-intel-tool'); ?>
                     </td>
                     <td class="data-align-right">
                         <?php

@@ -23,12 +23,12 @@
 // System Information
 -->
 <div class="col-md-6 col-lg-4">
-    <header class="entry-header"><h2 class="entry-title"><?php echo __('System Information', 'eve-online-intel-tool'); ?></h2></header>
+    <header class="entry-header"><h2 class="entry-title"><?php echo \__('System Information', 'eve-online-intel-tool'); ?></h2></header>
     <div class="table-responsive table-dscan-scan table-dscan-system-information table-eve-intel">
         <table class="table table-condensed">
             <tr>
                 <td>
-                    <?php echo __('Solar System', 'eve-online-intel-tool'); ?>
+                    <?php echo \__('Solar System', 'eve-online-intel-tool'); ?>
                 </td>
                 <td class="data-align-right">
 
@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <td>
-                    <?php echo __('Constellation', 'eve-online-intel-tool'); ?>
+                    <?php echo \__('Constellation', 'eve-online-intel-tool'); ?>
                 </td>
                 <td class="data-align-right">
                     <?php echo $systemData['constellation']['name']; ?><br>
@@ -51,7 +51,7 @@
             </tr>
             <tr>
                 <td>
-                    <?php echo __('Region', 'eve-online-intel-tool'); ?>
+                    <?php echo \__('Region', 'eve-online-intel-tool'); ?>
                 </td>
                 <td class="data-align-right">
                     <?php echo $systemData['region']['name']; ?><br>
