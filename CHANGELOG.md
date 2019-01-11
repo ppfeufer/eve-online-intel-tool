@@ -8,6 +8,7 @@
 
 ### Changed
 - German translation updated
+- Highlighting on chat scans is now a bit more granular
 
 ## [v1.5.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.5.0) - 2018-12-02
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.4.2...v1.5.0)

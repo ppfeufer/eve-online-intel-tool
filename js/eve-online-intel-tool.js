@@ -121,21 +121,75 @@ jQuery(document).ready(function($) {
     /**
      * Highlighting similar table rows on mouse over
      */
-    $('tr[data-highlight]').hover(function() {
-        $('tr[data-highlight="' + $(this).data('highlight') + '"]').toggleClass('dataHighlight');
+    // hover on alliance table
+    $('table.eve-intel-alliance-participation-list tr.eve-intel-alliance-participation-item').each(function() {
+        // hover ...
+        $(this).on('hover', function() {
+            $(this).toggleClass('dataHighlight');
+
+            $('table.eve-intel-corporation-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
+                $(this).toggleClass('dataHighlight');
+            });
+
+            $('table.eve-intel-pilot-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
+                $(this).toggleClass('dataHighlight');
+            });
+        });
+    });
+
+    // hover on corporation table
+    $('table.eve-intel-corporation-participation-list tr.eve-intel-corporation-participation-item').each(function() {
+        $(this).on('hover', function() {
+            $(this).toggleClass('dataHighlight');
+
+            $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
+                $(this).toggleClass('dataHighlight');
+            });
+
+            $('table.eve-intel-pilot-participation-list tr[data-corporation-id="' + $(this).data('corporationId') + '"]').each(function() {
+                $(this).toggleClass('dataHighlight');
+            });
+        });
+    });
+
+    // hover on pilot table
+    $('table.eve-intel-pilot-participation-list tr.eve-intel-pilot-participation-item').each(function() {
+        $(this).on('hover', function() {
+            $(this).toggleClass('dataHighlight');
+
+            $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
+                $(this).toggleClass('dataHighlight');
+            });
+
+            $('table.eve-intel-corporation-participation-list tr[data-corporation-id="' + $(this).data('corporationId') + '"]').each(function() {
+                $(this).toggleClass('dataHighlight');
+            });
+        });
+    });
+
+    // hover on d-scans and fleet scans
+    $('tr[data-highlight]').each(function() {
+        $(this).on('hover', function() {
+            $('tr[data-highlight="' + $(this).data('highlight') + '"]').each(function() {
+                $(this).toggleClass('dataHighlight');
+            });
+        });
     });
 
     /**
      * Sticky highlight similar table rows on click
      *
      * todo:
-     * Get this to work with data tables pagination, so it's deactivated for now
+     * Get this to work with data tables pagination,
+     * so pagination is deactivated for now
+     *
+     * -=[COMPLETELY DEACTIVATED FOR THE TIME BEING]=-
      */
-    $('tr[data-highlight]').on('click', function() {
-        $('tr[data-highlight="' + $(this).data('highlight') + '"]').toggleClass('dataHighlightSticky');
-    }).on('click', '.eve-intel-information-link', function(e) {
-        e.stopPropagation();
-    });
+//    $('tr[data-highlight]').on('click', function() {
+//        $('tr[data-highlight="' + $(this).data('highlight') + '"]').toggleClass('dataHighlightSticky');
+//    }).on('click', '.eve-intel-information-link', function(e) {
+//        e.stopPropagation();
+//    });
 
     /**
      * Getting the nonce for the form

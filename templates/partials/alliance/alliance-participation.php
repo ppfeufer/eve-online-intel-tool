@@ -34,7 +34,7 @@ if(!empty($allianceParticipation)) {
             foreach($allianceParticipation as $allianceList) {
                 foreach($allianceList as $alliance) {
                     ?>
-                    <tr class="eve-intel-alliance-participation-item eve-intel-alliance-id-<?php echo $alliance['allianceID']; ?>" data-highlight="alliance-<?php echo $alliance['allianceID']; ?>">
+                    <tr class="eve-intel-alliance-participation-item eve-intel-alliance-id-<?php echo $alliance['allianceID']; ?>" data-alliance-id="<?php echo $alliance['allianceID']; ?>">
                         <td>
                             <?php
                             TemplateHelper::getInstance()->getTemplate('partials/alliance/alliance-logo', [
