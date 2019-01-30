@@ -3,6 +3,9 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.5.0...development)
+### Fixed
+- An issue that on rare occasions the database cache tables are not created properly after moving the WordPress installation and somehow losing the cache tables. Reactivating the plugin should do the trick now.
+
 ### Added
 - Meta description tag as long as SEO tools don't interfere with it
 

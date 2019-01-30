@@ -61,6 +61,7 @@ class WpHooks {
         \register_activation_hook($this->pluginFile, [$this, 'registerPostTypeOnActivation']);
 
         \register_deactivation_hook($this->pluginFile, [$this, 'unregisterPostTypeOnDeactivation']);
+        \register_deactivation_hook($this->pluginFile, [$this, 'removeDatabaseVersionOnDeactivation']);
     }
 
     /**
@@ -157,5 +158,13 @@ class WpHooks {
         PostType::getInstance()->unregisterCustomPostType();
 
         \flush_rewrite_rules();
+    }
+
+    /**
+     * Removing the DB version on plugin decativation
+     * Issue: https://github.com/ppfeufer/eve-online-killboard-widget/issues/50
+     */
+    public function removeDatabaseVersionOnDeactivation() {
+        \delete_option(UpdateHelper::getInstance()->getDatabaseFieldName());
     }
 }
