@@ -19,10 +19,12 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\DscanParser;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\FleetCompositionParser;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\LocalScanParser;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\ {
+    Helper\StringHelper,
+    Parser\DscanParser,
+    Parser\FleetCompositionParser,
+    Parser\LocalScanParser
+};
 
 \defined('ABSPATH') or die();
 

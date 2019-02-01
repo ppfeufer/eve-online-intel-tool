@@ -34,7 +34,7 @@ if(!empty($corporationParticipation)) {
             foreach($corporationParticipation as $corporationList) {
                 foreach($corporationList as $corporation) {
                     ?>
-                    <tr class="eve-intel-corporation-participation-item eve-intel-alliance-id-<?php echo $corporation['allianceID']; ?> eve-intel-corporation-id-<?php echo $corporation['corporationID']; ?>" data-highlight="alliance-<?php echo $corporation['allianceID']; ?>">
+                    <tr class="eve-intel-corporation-participation-item eve-intel-alliance-id-<?php echo $corporation['allianceID']; ?> eve-intel-corporation-id-<?php echo $corporation['corporationID']; ?>" data-alliance-id="<?php echo $corporation['allianceID']; ?>" data-corporation-id="<?php echo $corporation['corporationID']; ?>">
                         <td>
                             <?php
                             TemplateHelper::getInstance()->getTemplate('partials/corporation/corporation-logo', [

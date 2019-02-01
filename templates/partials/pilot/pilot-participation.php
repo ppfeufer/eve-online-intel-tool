@@ -37,7 +37,7 @@ if(!empty($pilotParticipation)) {
                     $pilot['allianceID'] = 0;
                 }
                 ?>
-                <tr class="eve-intel-corporation-participation-item eve-intel-alliance-id-<?php echo $pilot['allianceID']; ?> eve-intel-corporation-id-<?php echo $pilot['corporationID']; ?> eve-intel-pilot-id-<?php echo $pilot['characterID']; ?>" data-highlight="alliance-<?php echo $pilot['allianceID']; ?>">
+                <tr class="eve-intel-pilot-participation-item eve-intel-alliance-id-<?php echo $pilot['allianceID']; ?> eve-intel-corporation-id-<?php echo $pilot['corporationID']; ?> eve-intel-pilot-id-<?php echo $pilot['characterID']; ?>" data-alliance-id="<?php echo $pilot['allianceID']; ?>" data-corporation-id="<?php echo $pilot['corporationID']; ?>" data-character-id="<?php echo $pilot['characterID']; ?>">
                     <td>
                         <?php
                         TemplateHelper::getInstance()->getTemplate('partials/pilot/pilot-avatar', [

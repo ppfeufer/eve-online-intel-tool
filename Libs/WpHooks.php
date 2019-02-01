@@ -19,8 +19,10 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\UpdateHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ {
+    PluginHelper,
+    UpdateHelper
+};
 
 \defined('ABSPATH') or die();
 
@@ -59,6 +61,7 @@ class WpHooks {
         \register_activation_hook($this->pluginFile, [$this, 'registerPostTypeOnActivation']);
 
         \register_deactivation_hook($this->pluginFile, [$this, 'unregisterPostTypeOnDeactivation']);
+        \register_deactivation_hook($this->pluginFile, [$this, 'removeDatabaseVersionOnDeactivation']);
     }
 
     /**
@@ -69,6 +72,7 @@ class WpHooks {
          * Stuff that's added to the HTML head section
          */
         \add_action('wp_head', [$this, 'noindexForIntelPages']);
+        \add_action('wp_head', [$this, 'setMetaDescription']);
 
         /**
          * in case of plugin update this need to be fired
@@ -128,6 +132,15 @@ class WpHooks {
     }
 
     /**
+     * Adding a meta description
+     */
+    public function setMetaDescription() {
+        if(PostType::getInstance()->isPostTypePage() === true) {
+            echo '<meta name="description" content="' . \__('Intel tool for EVE Online. Parse and share directional scans, fleet compositions and chat scans.', 'eve-online-intel-tool') . '">';
+        }
+    }
+
+    /**
      * Hook: flushRewriteRulesOnActivation
      * Fired on: register_activation_hook
      */
@@ -145,5 +158,13 @@ class WpHooks {
         PostType::getInstance()->unregisterCustomPostType();
 
         \flush_rewrite_rules();
+    }
+
+    /**
+     * Removing the DB version on plugin decativation
+     * Issue: https://github.com/ppfeufer/eve-online-killboard-widget/issues/50
+     */
+    public function removeDatabaseVersionOnDeactivation() {
+        \delete_option(UpdateHelper::getInstance()->getDatabaseFieldName());
     }
 }

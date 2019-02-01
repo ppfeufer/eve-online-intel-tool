@@ -58,7 +58,7 @@ class GithubUpdater {
      *
      * @since 1.0
      * @param array $config the configuration required for the updater to work
-     * @see has_minimum_config()
+     * @see $this->hasMinimumConfig()
      * @return void
      */
     public function __construct(array $config = []) {
@@ -448,7 +448,7 @@ class GithubUpdater {
      * @param array $result the result of the move
      * @return array $result the result of the move
      */
-    public function upgraderPostInstall(bool $true, $hookExtra, array $result) {
+    public function upgraderPostInstall($true, $hookExtra, $result) {
         global $wp_filesystem;
 
         /**

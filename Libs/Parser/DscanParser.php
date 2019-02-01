@@ -19,13 +19,15 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
-use \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId;
-use \WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId;
-use \WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StructureHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
+use \WordPress\ {
+    EsiClient\Model\Universe\UniverseConstellationsConstellationId,
+    EsiClient\Model\Universe\UniverseRegionsRegionId,
+    EsiClient\Model\Universe\UniverseSystemsSystemId,
+    Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper,
+    Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper,
+    Plugins\EveOnlineIntelTool\Libs\Helper\StructureHelper,
+    Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton
+};
 
 \defined('ABSPATH') or die();
 
@@ -263,22 +265,26 @@ class DscanParser extends AbstractSingleton {
                 }
             }
 
+            /* @var $mapData \WordPress\EsiClient\Model\Sovereignty\SovereigntyMap */
             $mapData = $this->esiHelper->getSovereigntyMap();
 
             $sovHolder = null;
 
-            foreach($mapData as $systemHolder) {
-                if(($systemHolder->getSystemId() === $systemData->getSystemId()) && !\is_null($systemHolder->getAllianceId())) {
-                    $sovHoldingAlliance = $this->esiHelper->getAllianceData($systemHolder->getAllianceId());
-                    $sovHoldingCorporation = $this->esiHelper->getCorporationData($systemHolder->getCorporationId());
+            if(\is_a($mapData, '\WordPress\EsiClient\Model\Sovereignty\SovereigntyMap')) {
+                foreach($mapData->getSolarSystems() as $systemSovereigntyInformation) {
+                    /* @var $systemSovereigntyInformation \WordPress\EsiClient\Model\Sovereignty\SovereigntyMap\System */
+                    if(($systemSovereigntyInformation->getSystemId() === $systemData->getSystemId()) && !\is_null($systemSovereigntyInformation->getAllianceId())) {
+                        $sovHoldingAlliance = $this->esiHelper->getAllianceData($systemSovereigntyInformation->getAllianceId());
+                        $sovHoldingCorporation = $this->esiHelper->getCorporationData($systemSovereigntyInformation->getCorporationId());
 
-                    $sovHolder['alliance']['id'] = $systemHolder->getAllianceId();
-                    $sovHolder['alliance']['name'] = $sovHoldingAlliance->getName();
-                    $sovHolder['alliance']['ticker'] = $sovHoldingAlliance->getTicker();
+                        $sovHolder['alliance']['id'] = $systemSovereigntyInformation->getAllianceId();
+                        $sovHolder['alliance']['name'] = $sovHoldingAlliance->getName();
+                        $sovHolder['alliance']['ticker'] = $sovHoldingAlliance->getTicker();
 
-                    $sovHolder['corporation']['id'] = $systemHolder->getCorporationId();
-                    $sovHolder['corporation']['name'] = $sovHoldingCorporation->getName();
-                    $sovHolder['corporation']['ticker'] = $sovHoldingCorporation->getTicker();
+                        $sovHolder['corporation']['id'] = $systemSovereigntyInformation->getCorporationId();
+                        $sovHolder['corporation']['name'] = $sovHoldingCorporation->getName();
+                        $sovHolder['corporation']['ticker'] = $sovHoldingCorporation->getTicker();
+                    }
                 }
             }
 
@@ -291,8 +297,10 @@ class DscanParser extends AbstractSingleton {
                 'podKills' => 0,
                 'shipKills' => 0
             ];
+
             $systemJumpsData = $this->esiHelper->getSystemJumps();
             foreach($systemJumpsData as $systemJumps) {
+                /* @var $systemJumps \WordPress\EsiClient\Model\Universe\UniverseSystemJumps */
                 if($systemJumps->getSystemId() === $systemData->getSystemId()) {
                     $systemActivity['jumps'] = $systemJumps->getShipJumps();
                 }
@@ -300,6 +308,7 @@ class DscanParser extends AbstractSingleton {
 
             $systemKillsData = $this->esiHelper->getSystemKills();
             foreach($systemKillsData as $systemKills) {
+                /* @var $systemKills \WordPress\EsiClient\Model\Universe\UniverseSystemKills */
                 if($systemKills->getSystemId() === $systemData->getSystemId()) {
                     $systemActivity['npcKills'] = $systemKills->getNpcKills();
                     $systemActivity['podKills'] = $systemKills->getPodKills();

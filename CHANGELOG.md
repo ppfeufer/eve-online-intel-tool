@@ -2,8 +2,22 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.5.0...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.5.1...development)
 - in development
+
+## [v1.5.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.5.1) - 2019-02-01
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.5.0...v1.5.1)
+### Fixed
+- An issue that on rare occasions the database cache tables are not created properly after moving the WordPress installation and somehow losing the cache tables. Reactivating the plugin should do the trick now.
+- jQuery deprecated warning "'hover' pseudo-event is deprecated, use 'mouseenter mouseleave'"
+
+### Added
+- Meta description tag as long as SEO tools don't interfere with it
+- Deactivation hook to address an issue with cache table creation
+
+### Changed
+- German translation updated
+- Highlighting on chat scans is now a bit more granular
 
 ## [v1.5.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.5.0) - 2018-12-02
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.4.2...v1.5.0)
