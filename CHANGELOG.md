@@ -13,6 +13,7 @@
 
 ### Added
 - Meta description tag as long as SEO tools don't interfere with it
+- Deactivation hook to address an issue with cache table creation
 
 ### Changed
 - German translation updated
