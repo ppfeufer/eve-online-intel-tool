@@ -9,6 +9,7 @@
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.5.0...v1.5.1)
 ### Fixed
 - An issue that on rare occasions the database cache tables are not created properly after moving the WordPress installation and somehow losing the cache tables. Reactivating the plugin should do the trick now.
+- jQuery deprecated warning "'hover' pseudo-event is deprecated, use 'mouseenter mouseleave'"
 
 ### Added
 - Meta description tag as long as SEO tools don't interfere with it
