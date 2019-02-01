@@ -2,7 +2,11 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.5.0...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.5.1...development)
+- in development
+
+## [v1.5.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.5.1) - 2019-02-01
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.5.0...v1.5.1)
 ### Fixed
 - An issue that on rare occasions the database cache tables are not created properly after moving the WordPress installation and somehow losing the cache tables. Reactivating the plugin should do the trick now.
 
