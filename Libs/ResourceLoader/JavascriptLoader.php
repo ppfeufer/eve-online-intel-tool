@@ -62,7 +62,6 @@ class JavascriptLoader implements AssetsInterface {
         if(!\is_admin()) {
             if(PostType::getInstance()->isPostTypePage() === true) {
                 \wp_enqueue_script('bootstrap-js', $this->pluginHelper->getPluginUri('bootstrap/js/bootstrap.min.js'), ['jquery'], '', true);
-                \wp_enqueue_script('bootstrap-toolkit-js', $this->pluginHelper->getPluginUri('bootstrap/bootstrap-toolkit/bootstrap-toolkit.min.js'), ['jquery', 'bootstrap-js'], '', true);
                 \wp_enqueue_script('data-tables-js', $this->pluginHelper->getPluginUri('js/data-tables/jquery.dataTables.min.js'), ['jquery'], '', true);
                 \wp_enqueue_script('data-tables-bootstrap-js', $this->pluginHelper->getPluginUri('js/data-tables/dataTables.bootstrap.min.js'), ['jquery', 'data-tables-js'], '', true);
             }
