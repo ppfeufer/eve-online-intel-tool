@@ -124,54 +124,88 @@ jQuery(document).ready(function($) {
     // hover on alliance table
     $('table.eve-intel-alliance-participation-list tr.eve-intel-alliance-participation-item').each(function() {
         // hover ...
-        $(this).on('hover', function() {
-            $(this).toggleClass('dataHighlight');
+        $(this).on('mouseenter', function() {
+            $(this).addClass('dataHighlight');
 
             $('table.eve-intel-corporation-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                $(this).toggleClass('dataHighlight');
+                $(this).addClass('dataHighlight');
             });
 
             $('table.eve-intel-pilot-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                $(this).toggleClass('dataHighlight');
+                $(this).addClass('dataHighlight');
+            });
+        }).on('mouseleave', function() {
+            $(this).removeClass('dataHighlight');
+
+            $('table.eve-intel-corporation-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
+                $(this).removeClass('dataHighlight');
+            });
+
+            $('table.eve-intel-pilot-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
+                $(this).removeClass('dataHighlight');
             });
         });
     });
 
     // hover on corporation table
     $('table.eve-intel-corporation-participation-list tr.eve-intel-corporation-participation-item').each(function() {
-        $(this).on('hover', function() {
-            $(this).toggleClass('dataHighlight');
+        $(this).on('mouseenter', function() {
+            $(this).addClass('dataHighlight');
 
             $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                $(this).toggleClass('dataHighlight');
+                $(this).addClass('dataHighlight');
             });
 
             $('table.eve-intel-pilot-participation-list tr[data-corporation-id="' + $(this).data('corporationId') + '"]').each(function() {
-                $(this).toggleClass('dataHighlight');
+                $(this).addClass('dataHighlight');
+            });
+        }).on('mouseleave', function() {
+            $(this).removeClass('dataHighlight');
+
+            $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
+                $(this).removeClass('dataHighlight');
+            });
+
+            $('table.eve-intel-pilot-participation-list tr[data-corporation-id="' + $(this).data('corporationId') + '"]').each(function() {
+                $(this).removeClass('dataHighlight');
             });
         });
     });
 
     // hover on pilot table
     $('table.eve-intel-pilot-participation-list tr.eve-intel-pilot-participation-item').each(function() {
-        $(this).on('hover', function() {
-            $(this).toggleClass('dataHighlight');
+        $(this).on('mouseenter', function() {
+            $(this).addClass('dataHighlight');
 
             $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                $(this).toggleClass('dataHighlight');
+                $(this).addClass('dataHighlight');
             });
 
             $('table.eve-intel-corporation-participation-list tr[data-corporation-id="' + $(this).data('corporationId') + '"]').each(function() {
-                $(this).toggleClass('dataHighlight');
+                $(this).addClass('dataHighlight');
+            });
+        }).on('mouseleave', function() {
+            $(this).removeClass('dataHighlight');
+
+            $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
+                $(this).removeClass('dataHighlight');
+            });
+
+            $('table.eve-intel-corporation-participation-list tr[data-corporation-id="' + $(this).data('corporationId') + '"]').each(function() {
+                $(this).removeClass('dataHighlight');
             });
         });
     });
 
     // hover on d-scans and fleet scans
     $('tr[data-highlight]').each(function() {
-        $(this).on('hover', function() {
+        $(this).on('mouseenter', function() {
             $('tr[data-highlight="' + $(this).data('highlight') + '"]').each(function() {
-                $(this).toggleClass('dataHighlight');
+                $(this).addClass('dataHighlight');
+            });
+        }).on('mouseleave', function() {
+            $('tr[data-highlight="' + $(this).data('highlight') + '"]').each(function() {
+                $(this).removeClass('dataHighlight');
             });
         });
     });
