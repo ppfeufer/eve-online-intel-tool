@@ -53,7 +53,7 @@ if(!empty($pilotParticipation)) {
                         ?>
                     </td>
 
-                    <td>
+                    <td data-search="<?php echo $pilot['allianceName']; ?>, <?php echo $pilot['allianceTicker']; ?>">
                         <?php
                         if(!\is_null($pilot['allianceID']) && $pilot['allianceID'] !== 0) {
                             TemplateHelper::getInstance()->getTemplate('partials/alliance/alliance-logo', [
@@ -65,7 +65,7 @@ if(!empty($pilotParticipation)) {
                         ?>
                     </td>
 
-                    <td>
+                    <td data-search="<?php echo $pilot['corporationName']; ?>, <?php echo $pilot['corporationTicker']; ?>>
                         <?php
                         TemplateHelper::getInstance()->getTemplate('partials/corporation/corporation-logo', [
                             'data' => $pilot
