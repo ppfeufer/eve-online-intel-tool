@@ -119,7 +119,14 @@ jQuery(document).ready(function($) {
     });
 
     /**
-     * Highlighting similar table rows on mouse over
+     * Highlighting similar table rows on mouse over and click
+     ----------------------------------------------------------------------- */
+
+    /**
+     * Determine if we can remove all sticky states for this corporation
+     *
+     * @param {type} element
+     * @returns {Boolean}
      */
     var removeCorporationStickyComplete = (function(element) {
         var removeCorporationSticky = true;
@@ -133,6 +140,12 @@ jQuery(document).ready(function($) {
         return removeCorporationSticky;
     });
 
+    /**
+     * Detrmine if we can remove all sticky states for his alliance
+     *
+     * @param {type} element
+     * @returns {Boolean}
+     */
     var removeAllianceStickyComplete = (function(element) {
         var removeAllianceSticky = true;
 
@@ -145,29 +158,139 @@ jQuery(document).ready(function($) {
         return removeAllianceSticky;
     });
 
+    var allianceTableAddStickyByAllianceId = (function(element) {
+        $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + element.data('allianceId') + '"]').each(function() {
+            $(this).addClass('dataHighlightSticky');
+        });
+    });
+
+    var allianceTableAddHighlightByAllianceId = (function(element) {
+        $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + element.data('allianceId') + '"]').each(function() {
+            $(this).addClass('dataHighlight');
+        });
+    });
+
+    var allianceTableRemoveStickyByAllianceId = (function(element) {
+        $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + element.data('allianceId') + '"]').each(function() {
+            $(this).removeClass('dataHighlightSticky');
+        });
+    });
+
+    var allianceTableRemoveHighlightByAllianceId = (function(element) {
+        $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + element.data('allianceId') + '"]').each(function() {
+            $(this).removeClass('dataHighlight');
+        });
+    });
+
+    var corporationTableAddStickyByCorporationId = (function(element) {
+        $('table.eve-intel-corporation-participation-list tr[data-corporation-id="' + element.data('corporationId') + '"]').each(function() {
+            $(this).addClass('dataHighlightSticky');
+        });
+    });
+
+    var corporationTableAddHighlightByCorporationId = (function(element) {
+        $('table.eve-intel-corporation-participation-list tr[data-corporation-id="' + element.data('corporationId') + '"]').each(function() {
+            $(this).addClass('dataHighlight');
+        });
+    });
+
+    var corporationTableAddStickyByAllianceId = (function(element) {
+        $('table.eve-intel-corporation-participation-list tr[data-alliance-id="' + element.data('allianceId') + '"]').each(function() {
+            $(this).addClass('dataHighlightSticky');
+        });
+    });
+
+    var corporationTableAddHighlightByAllianceId = (function(element) {
+        $('table.eve-intel-corporation-participation-list tr[data-alliance-id="' + element.data('allianceId') + '"]').each(function() {
+            $(this).addClass('dataHighlight');
+        });
+    });
+
+    var corporationTableRemoveStickyByCorporationId = (function(element) {
+        $('table.eve-intel-corporation-participation-list tr[data-corporation-id="' + element.data('corporationId') + '"]').each(function() {
+            $(this).removeClass('dataHighlightSticky');
+        });
+    });
+
+    var corporationTableRemoveHighlightByCorporationId = (function(element) {
+        $('table.eve-intel-corporation-participation-list tr[data-corporation-id="' + element.data('corporationId') + '"]').each(function() {
+            $(this).removeClass('dataHighlight');
+        });
+    });
+
+    var corporationTableRemoveStickyByAllianceId = (function(element) {
+        $('table.eve-intel-corporation-participation-list tr[data-alliance-id="' + element.data('allianceId') + '"]').each(function() {
+            $(this).removeClass('dataHighlightSticky');
+        });
+    });
+
+    var corporationTableRemoveHighlightByAllianceId = (function(element) {
+        $('table.eve-intel-corporation-participation-list tr[data-alliance-id="' + element.data('allianceId') + '"]').each(function() {
+            $(this).removeClass('dataHighlight');
+        });
+    });
+
+    var pilotTableAddStickyByCorporationId = (function(element) {
+        $('table.eve-intel-pilot-participation-list tr[data-corporation-id="' + element.data('corporationId') + '"]').each(function() {
+            $(this).addClass('dataHighlightSticky');
+        });
+    });
+
+    var pilotTableAddHighlightByCorporationId = (function(element) {
+        $('table.eve-intel-pilot-participation-list tr[data-corporation-id="' + element.data('corporationId') + '"]').each(function() {
+            $(this).addClass('dataHighlight');
+        });
+    });
+
+    var pilotTableAddStickyByAllianceId = (function(element) {
+        $('table.eve-intel-pilot-participation-list tr[data-alliance-id="' + element.data('allianceId') + '"]').each(function() {
+            $(this).addClass('dataHighlightSticky');
+        });
+    });
+
+    var pilotTableAddHighlightByAllianceId = (function(element) {
+        $('table.eve-intel-pilot-participation-list tr[data-alliance-id="' + element.data('allianceId') + '"]').each(function() {
+            $(this).addClass('dataHighlight');
+        });
+    });
+
+    var pilotTableRemoveStickyByCorporationId = (function(element) {
+        $('table.eve-intel-pilot-participation-list tr[data-corporation-id="' + element.data('corporationId') + '"]').each(function() {
+            $(this).removeClass('dataHighlightSticky');
+        });
+    });
+
+    var pilotTableRemoveHighlightByCorporationId = (function(element) {
+        $('table.eve-intel-pilot-participation-list tr[data-corporation-id="' + element.data('corporationId') + '"]').each(function() {
+            $(this).removeClass('dataHighlight');
+        });
+    });
+
+    var pilotTableRemoveStickyByAllianceId = (function(element) {
+        $('table.eve-intel-pilot-participation-list tr[data-alliance-id="' + element.data('allianceId') + '"]').each(function() {
+            $(this).removeClass('dataHighlightSticky');
+        });
+    });
+
+    var pilotTableRemoveHighlightByAllianceId = (function(element) {
+        $('table.eve-intel-pilot-participation-list tr[data-alliance-id="' + element.data('allianceId') + '"]').each(function() {
+            $(this).removeClass('dataHighlight');
+        });
+    });
+
     // hover and sticky on alliance table
     $('table.eve-intel-alliance-participation-list tr.eve-intel-alliance-participation-item').each(function() {
         // hover ...
         $(this).on('mouseenter', function() {
             $(this).addClass('dataHighlight');
 
-            $('table.eve-intel-corporation-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                $(this).addClass('dataHighlight');
-            });
-
-            $('table.eve-intel-pilot-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                $(this).addClass('dataHighlight');
-            });
+            corporationTableAddHighlightByAllianceId($(this));
+            pilotTableAddHighlightByAllianceId($(this));
         }).on('mouseleave', function() {
             $(this).removeClass('dataHighlight');
 
-            $('table.eve-intel-corporation-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                $(this).removeClass('dataHighlight');
-            });
-
-            $('table.eve-intel-pilot-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                $(this).removeClass('dataHighlight');
-            });
+            corporationTableRemoveHighlightByAllianceId($(this));
+            pilotTableRemoveHighlightByAllianceId($(this));
         });
 
         // sticky
@@ -175,52 +298,32 @@ jQuery(document).ready(function($) {
             if($(this).hasClass('dataHighlightSticky')) {
                 $(this).removeClass('dataHighlightSticky');
 
-                $('table.eve-intel-corporation-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                    $(this).removeClass('dataHighlightSticky');
-                });
-
-                $('table.eve-intel-pilot-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                    $(this).removeClass('dataHighlightSticky');
-                });
+                corporationTableRemoveStickyByAllianceId($(this));
+                pilotTableRemoveStickyByAllianceId($(this));
             } else {
                 $(this).addClass('dataHighlightSticky');
 
-                $('table.eve-intel-corporation-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                    $(this).addClass('dataHighlightSticky');
-                });
-
-                $('table.eve-intel-pilot-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                    $(this).addClass('dataHighlightSticky');
-                });
+                corporationTableAddStickyByAllianceId($(this));
+                pilotTableAddStickyByAllianceId($(this));
             }
         }).on('click', '.eve-intel-information-link', function(e) {
             e.stopPropagation();
         });
     });
 
-    // hover and stick on corporation table
+    // hover and sticky on corporation table
     $('table.eve-intel-corporation-participation-list tr.eve-intel-corporation-participation-item').each(function() {
         // hover
         $(this).on('mouseenter', function() {
             $(this).addClass('dataHighlight');
 
-            $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                $(this).addClass('dataHighlight');
-            });
-
-            $('table.eve-intel-pilot-participation-list tr[data-corporation-id="' + $(this).data('corporationId') + '"]').each(function() {
-                $(this).addClass('dataHighlight');
-            });
+            allianceTableAddHighlightByAllianceId($(this));
+            pilotTableAddHighlightByCorporationId($(this));
         }).on('mouseleave', function() {
             $(this).removeClass('dataHighlight');
 
-            $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                $(this).removeClass('dataHighlight');
-            });
-
-            $('table.eve-intel-pilot-participation-list tr[data-corporation-id="' + $(this).data('corporationId') + '"]').each(function() {
-                $(this).removeClass('dataHighlight');
-            });
+            allianceTableRemoveHighlightByAllianceId($(this));
+            pilotTableRemoveHighlightByCorporationId($(this));
         });
 
         // sticky
@@ -228,25 +331,16 @@ jQuery(document).ready(function($) {
             if($(this).hasClass('dataHighlightSticky')) {
                 $(this).removeClass('dataHighlightSticky');
 
-                $('table.eve-intel-pilot-participation-list tr[data-corporation-id="' + $(this).data('corporationId') + '"]').each(function() {
-                    $(this).removeClass('dataHighlightSticky');
-                });
+                pilotTableRemoveStickyByCorporationId($(this));
 
                 if(removeAllianceStickyComplete($(this)) === true) {
-                    $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                        $(this).removeClass('dataHighlightSticky');
-                    });
+                    allianceTableRemoveStickyByAllianceId($(this))
                 }
             } else {
                 $(this).addClass('dataHighlightSticky');
 
-                $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                    $(this).addClass('dataHighlightSticky');
-                });
-
-                $('table.eve-intel-pilot-participation-list tr[data-corporation-id="' + $(this).data('corporationId') + '"]').each(function() {
-                    $(this).addClass('dataHighlightSticky');
-                });
+                allianceTableAddStickyByAllianceId($(this));
+                pilotTableAddStickyByCorporationId($(this));
             }
         }).on('click', '.eve-intel-information-link', function(e) {
             e.stopPropagation();
@@ -259,23 +353,13 @@ jQuery(document).ready(function($) {
         $(this).on('mouseenter', function() {
             $(this).addClass('dataHighlight');
 
-            $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                $(this).addClass('dataHighlight');
-            });
-
-            $('table.eve-intel-corporation-participation-list tr[data-corporation-id="' + $(this).data('corporationId') + '"]').each(function() {
-                $(this).addClass('dataHighlight');
-            });
+            allianceTableAddHighlightByAllianceId($(this));
+            corporationTableAddHighlightByCorporationId($(this));
         }).on('mouseleave', function() {
             $(this).removeClass('dataHighlight');
 
-            $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                $(this).removeClass('dataHighlight');
-            });
-
-            $('table.eve-intel-corporation-participation-list tr[data-corporation-id="' + $(this).data('corporationId') + '"]').each(function() {
-                $(this).removeClass('dataHighlight');
-            });
+            allianceTableRemoveHighlightByAllianceId($(this));
+            corporationTableRemoveHighlightByCorporationId($(this));
         });
 
         // sticky
@@ -284,26 +368,17 @@ jQuery(document).ready(function($) {
                 $(this).removeClass('dataHighlightSticky');
 
                 if(removeCorporationStickyComplete($(this)) === true) {
-                    $('table.eve-intel-corporation-participation-list tr[data-corporation-id="' + $(this).data('corporationId') + '"]').each(function() {
-                        $(this).removeClass('dataHighlightSticky');
-                    });
+                    corporationTableRemoveStickyByCorporationId($(this));
                 }
 
                 if(removeAllianceStickyComplete($(this)) === true) {
-                    $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                        $(this).removeClass('dataHighlightSticky');
-                    });
+                    allianceTableRemoveStickyByAllianceId($(this))
                 }
             } else {
                 $(this).addClass('dataHighlightSticky');
 
-                $('table.eve-intel-alliance-participation-list tr[data-alliance-id="' + $(this).data('allianceId') + '"]').each(function() {
-                    $(this).addClass('dataHighlightSticky');
-                });
-
-                $('table.eve-intel-corporation-participation-list tr[data-corporation-id="' + $(this).data('corporationId') + '"]').each(function() {
-                    $(this).addClass('dataHighlightSticky');
-                });
+                allianceTableAddStickyByAllianceId($(this));
+                corporationTableAddStickyByCorporationId($(this));
             }
         }).on('click', '.eve-intel-information-link', function(e) {
             e.stopPropagation();
