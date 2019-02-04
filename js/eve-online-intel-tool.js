@@ -193,6 +193,8 @@ jQuery(document).ready(function($) {
                     $(this).addClass('dataHighlightSticky');
                 });
             }
+        }).on('click', '.eve-intel-information-link', function(e) {
+            e.stopPropagation();
         });
     });
 
@@ -246,6 +248,8 @@ jQuery(document).ready(function($) {
                     $(this).addClass('dataHighlightSticky');
                 });
             }
+        }).on('click', '.eve-intel-information-link', function(e) {
+            e.stopPropagation();
         });
     });
 
@@ -301,11 +305,14 @@ jQuery(document).ready(function($) {
                     $(this).addClass('dataHighlightSticky');
                 });
             }
+        }).on('click', '.eve-intel-information-link', function(e) {
+            e.stopPropagation();
         });
     });
 
-    // hover on d-scans and fleet scans
+    // hover and sticky on d-scans and fleet scans
     $('tr[data-highlight]').each(function() {
+        // hover
         $(this).on('mouseenter', function() {
             $('tr[data-highlight="' + $(this).data('highlight') + '"]').each(function() {
                 $(this).addClass('dataHighlight');
@@ -315,19 +322,13 @@ jQuery(document).ready(function($) {
                 $(this).removeClass('dataHighlight');
             });
         });
-    });
 
-    /**
-     * Sticky highlight similar table rows on click
-     *
-     * todo:
-     * Get this to work with data tables pagination,
-     * so pagination is deactivated for now
-     */
-    $('tr[data-highlight]').on('click', function() {
-        $('tr[data-highlight="' + $(this).data('highlight') + '"]').toggleClass('dataHighlightSticky');
-    }).on('click', '.eve-intel-information-link', function(e) {
-        e.stopPropagation();
+        // sticky
+        $(this).on('click', function() {
+            $('tr[data-highlight="' + $(this).data('highlight') + '"]').each(function() {
+                $(this).toggleClass('dataHighlightSticky');
+            });
+        });
     });
 
     /**
