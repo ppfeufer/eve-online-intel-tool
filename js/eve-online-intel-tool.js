@@ -122,7 +122,7 @@ jQuery(document).ready(function($) {
      * Highlighting similar table rows on mouse over
      */
     var removeCorporationStickyComplete = (function(element) {
-        removeCorporationSticky = true;
+        var removeCorporationSticky = true;
 
         $('table.eve-intel-pilot-participation-list tr[data-corporation-id="' + element.data('corporationId') + '"]').each(function() {
             if($(this).hasClass('dataHighlightSticky')) {
@@ -134,7 +134,7 @@ jQuery(document).ready(function($) {
     });
 
     var removeAllianceStickyComplete = (function(element) {
-        removeAllianceSticky = true;
+        var removeAllianceSticky = true;
 
         $('table.eve-intel-pilot-participation-list tr[data-alliance-id="' + element.data('allianceId') + '"]').each(function() {
             if($(this).hasClass('dataHighlightSticky')) {
