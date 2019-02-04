@@ -334,7 +334,7 @@ jQuery(document).ready(function($) {
                 pilotTableRemoveStickyByCorporationId($(this));
 
                 if(removeAllianceStickyComplete($(this)) === true) {
-                    allianceTableRemoveStickyByAllianceId($(this))
+                    allianceTableRemoveStickyByAllianceId($(this));
                 }
             } else {
                 $(this).addClass('dataHighlightSticky');
@@ -372,7 +372,7 @@ jQuery(document).ready(function($) {
                 }
 
                 if(removeAllianceStickyComplete($(this)) === true) {
-                    allianceTableRemoveStickyByAllianceId($(this))
+                    allianceTableRemoveStickyByAllianceId($(this));
                 }
             } else {
                 $(this).addClass('dataHighlightSticky');
