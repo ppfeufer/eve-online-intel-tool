@@ -24,28 +24,24 @@
  */
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
-use \WordPress\ {
-    EsiClient\Model\Alliance\AlliancesAllianceId,
-    EsiClient\Model\Alliance\AlliancesAllianceIdIcons,
-    EsiClient\Model\Character\CharactersAffiliation,
-    EsiClient\Model\Corporation\CorporationsCorporationId,
-    EsiClient\Model\Corporation\CorporationsCorporationIdIcons,
-    EsiClient\Model\Universe\UniverseConstellationsConstellationId,
-    EsiClient\Model\Universe\UniverseGroupsGroupId,
-    EsiClient\Model\Universe\UniverseIds,
-    EsiClient\Model\Universe\UniverseRegionsRegionId,
-    EsiClient\Model\Universe\UniverseSystemJumps,
-    EsiClient\Model\Universe\UniverseSystemKills,
-    EsiClient\Model\Universe\UniverseSystemsSystemId,
-    EsiClient\Model\Universe\UniverseTypesTypeId,
-    EsiClient\Repository\AllianceRepository,
-    EsiClient\Repository\CharacterRepository,
-    EsiClient\Repository\CorporationRepository,
-    EsiClient\Repository\MetaRepository,
-    EsiClient\Repository\SovereigntyRepository,
-    EsiClient\Repository\UniverseRepository,
-    Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton
-};
+use \WordPress\EsiClient\Model\Alliance\AlliancesAllianceId;
+use \WordPress\EsiClient\Model\Character\CharactersAffiliation;
+use \WordPress\EsiClient\Model\Corporation\CorporationsCorporationId;
+use \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId;
+use \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId;
+use \WordPress\EsiClient\Model\Universe\UniverseIds;
+use \WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId;
+use \WordPress\EsiClient\Model\Universe\UniverseSystemJumps;
+use \WordPress\EsiClient\Model\Universe\UniverseSystemKills;
+use \WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId;
+use \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId;
+use \WordPress\EsiClient\Repository\AllianceRepository;
+use \WordPress\EsiClient\Repository\CharacterRepository;
+use \WordPress\EsiClient\Repository\CorporationRepository;
+use \WordPress\EsiClient\Repository\MetaRepository;
+use \WordPress\EsiClient\Repository\SovereigntyRepository;
+use \WordPress\EsiClient\Repository\UniverseRepository;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 \defined('ABSPATH') or die();
 

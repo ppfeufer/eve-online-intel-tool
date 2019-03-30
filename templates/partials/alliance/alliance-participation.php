@@ -19,6 +19,8 @@
 
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
 
+/* @var $templateHelper TemplateHelper */
+$templateHelper = TemplateHelper::getInstance();
 ?>
 <header class="entry-header"><h2 class="entry-title"><?php echo \__('Alliances Breakdown', 'eve-online-intel-tool'); ?> (<?php echo $allianceCount; ?>)</h2></header>
 <?php
@@ -37,11 +39,11 @@ if(!empty($allianceParticipation)) {
                     <tr class="eve-intel-alliance-participation-item eve-intel-alliance-id-<?php echo $alliance['allianceID']; ?>" data-alliance-id="<?php echo $alliance['allianceID']; ?>">
                         <td>
                             <?php
-                            TemplateHelper::getInstance()->getTemplate('partials/alliance/alliance-logo', [
+                            $templateHelper->getTemplate('partials/alliance/alliance-logo', [
                                 'data' => $alliance
                             ]);
 
-                            TemplateHelper::getInstance()->getTemplate('partials/alliance/alliance-information', [
+                            $templateHelper->getTemplate('partials/alliance/alliance-information', [
                                 'data' => $alliance
                             ]);
                             ?>

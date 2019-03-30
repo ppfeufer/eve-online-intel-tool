@@ -19,6 +19,8 @@
 
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
 
+/* @var $templateHelper TemplateHelper */
+$templateHelper = TemplateHelper::getInstance();
 ?>
 
 <!--
@@ -50,7 +52,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                     </td>
                     <td class="data-align-right">
                         <?php
-                        TemplateHelper::getInstance()->getTemplate('partials/alliance/alliance-logo', [
+                        $templateHelper->getTemplate('partials/alliance/alliance-logo', [
                             'data' => [
                                 'allianceID' => $systemData['system']['sovHolder']['alliance']['id'],
                                 'allianceName' => $systemData['system']['sovHolder']['alliance']['name'],
@@ -71,7 +73,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
                     </td>
                     <td class="data-align-right">
                         <?php
-                        TemplateHelper::getInstance()->getTemplate('partials/corporation/corporation-logo', [
+                        $templateHelper->getTemplate('partials/corporation/corporation-logo', [
                             'data' => [
                                 'corporationID' => $systemData['system']['sovHolder']['corporation']['id'],
                                 'corporationName' => $systemData['system']['sovHolder']['corporation']['name'],

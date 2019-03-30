@@ -20,10 +20,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\ {
-    Helper\TemplateHelper,
-    IntelParser
-};
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\IntelParser;
+
+/* @var $templateHelper TemplateHelper */
+$templateHelper = TemplateHelper::getInstance();
 
 $serverRequest = \filter_input(\INPUT_SERVER, 'REQUEST_METHOD');
 $formAction = \filter_input(\INPUT_POST, 'action');
@@ -55,11 +56,11 @@ if($serverRequest === 'POST' && !empty($formAction) && $formAction === 'new_inte
                 <?php
                 switch($showAction) {
                     case 'esiStatus':
-                        TemplateHelper::getInstance()->getTemplate('partials/index/esi-status');
+                        $templateHelper->getTemplate('partials/index/esi-status');
                         break;
 
                     default:
-                        TemplateHelper::getInstance()->getTemplate('partials/index/intel-index', [
+                        $templateHelper->getTemplate('partials/index/intel-index', [
                             'failedIntel' => $failedIntel
                         ]);
                         break;

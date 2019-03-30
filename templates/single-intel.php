@@ -21,6 +21,9 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
 
 \defined('ABSPATH') or die();
 
+/* @var $templateHelper TemplateHelper */
+$templateHelper = TemplateHelper::getInstance();
+
 // get the intel type
 $termObject = \get_the_terms(\get_the_ID(), 'intel_category');
 $intelType = 'unknown';
@@ -192,7 +195,7 @@ if(isset($getData) && $getData = 'json') {
         <div class="col-lg-12 col-md-12 col-sm-12 col-12 content-wrapper">
             <div class="content content-inner content-archive eve-intel-result">
                 <?php
-                TemplateHelper::getInstance()->getTemplate('single-' . $intelType, [
+                $templateHelper->getTemplate('single-' . $intelType, [
                     'intelData' => $intelData
                 ]);
                 ?>

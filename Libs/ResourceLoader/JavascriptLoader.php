@@ -19,11 +19,9 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\ {
-    Helper\PluginHelper,
-    Interfaces\AssetsInterface,
-    PostType
-};
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces\AssetsInterface;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\PostType;
 
 \defined('ABSPATH') or die();
 
