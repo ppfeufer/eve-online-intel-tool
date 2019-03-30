@@ -19,6 +19,8 @@
 
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
 
+/* @var $templateHelper TemplateHelper */
+$templateHelper = TemplateHelper::getInstance();
 ?>
 <header class="entry-header"><h2 class="entry-title"><?php echo \__('Corporations Breakdown', 'eve-online-intel-tool'); ?> (<?php echo $corporationCount; ?>)</h2></header>
 <?php
@@ -37,11 +39,11 @@ if(!empty($corporationParticipation)) {
                     <tr class="eve-intel-corporation-participation-item eve-intel-alliance-id-<?php echo $corporation['allianceID']; ?> eve-intel-corporation-id-<?php echo $corporation['corporationID']; ?>" data-alliance-id="<?php echo $corporation['allianceID']; ?>" data-corporation-id="<?php echo $corporation['corporationID']; ?>">
                         <td>
                             <?php
-                            TemplateHelper::getInstance()->getTemplate('partials/corporation/corporation-logo', [
+                            $templateHelper->getTemplate('partials/corporation/corporation-logo', [
                                 'data' => $corporation
                             ]);
 
-                            TemplateHelper::getInstance()->getTemplate('partials/corporation/corporation-information', [
+                            $templateHelper->getTemplate('partials/corporation/corporation-information', [
                                 'data' => $corporation
                             ]);
                             ?>

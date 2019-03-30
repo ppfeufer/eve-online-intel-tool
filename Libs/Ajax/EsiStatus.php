@@ -19,11 +19,9 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax;
 
-use \WordPress\ {
-    EsiClient\Model\Meta\Status,
-    Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper,
-    Plugins\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface
-};
+use \WordPress\EsiClient\Model\Meta\Status;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface;
 
 \defined('ABSPATH') or die();
 

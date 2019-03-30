@@ -19,11 +19,9 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\ {
-    Helper\PluginHelper,
-    Helper\TemplateHelper,
-    Singletons\AbstractSingleton
-};
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 \defined('ABSPATH') or die();
 

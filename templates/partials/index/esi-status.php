@@ -1,9 +1,7 @@
 <?php
 
-use \WordPress\ {
-    EsiClient\Model\Meta\Status,
-    Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper
-};
+use \WordPress\EsiClient\Model\Meta\Status;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
 
 /*
  * Copyright (C) 2018 Rounon Dax
@@ -83,7 +81,7 @@ if(!is_null($esiStatus)) {
                         foreach($redEndpoints as $categoryKey => $categoryEndpoints) {
                             ?>
                             <div class="panel panel-default">
-                                <div class="panel-heading" data-toggle="collapse" href="#<?php echo \sanitize_title($categoryKey); ?>-red" aria-expanded="false" aria-controls="<?php echo \sanitize_title($categoryKey); ?>-red">
+                                <div class="panel-heading" data-toggle="collapse" href="#<?php echo sanitize_title($categoryKey); ?>-red" aria-expanded="false" aria-controls="<?php echo sanitize_title($categoryKey); ?>-red">
                                     <h4 class="panel-title">
                                         <?php echo $categoryKey; ?>
                                     </h4>

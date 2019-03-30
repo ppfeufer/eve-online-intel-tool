@@ -19,6 +19,8 @@
 
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
 
+/* @var $templateHelper TemplateHelper */
+$templateHelper = TemplateHelper::getInstance();
 ?>
 <header class="entry-header"><h2 class="entry-title"><?php echo \__('Who is flying what', 'eve-online-intel-tool'); ?></h2></header>
 <?php
@@ -38,14 +40,14 @@ if(\is_array($fleetOverview) && \count($fleetOverview)) {
                 <tr data-highlight="shiptype-<?php echo \sanitize_title($data['shipType']); ?>">
                     <td>
                         <?php
-                        TemplateHelper::getInstance()->getTemplate('partials/pilot/pilot-avatar', [
+                        $templateHelper->getTemplate('partials/pilot/pilot-avatar', [
                             'data' => [
                                 'characterID' => $data['pilotID'],
                                 'characterName' => $data['pilotName']
                             ]
                         ]);
 
-                        TemplateHelper::getInstance()->getTemplate('partials/pilot/pilot-information', [
+                        $templateHelper->getTemplate('partials/pilot/pilot-information', [
                             'data' => [
                                 'characterID' => $data['pilotID'],
                                 'characterName' => $data['pilotName']

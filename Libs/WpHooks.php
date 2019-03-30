@@ -19,10 +19,8 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ {
-    PluginHelper,
-    UpdateHelper
-};
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\UpdateHelper;
 
 \defined('ABSPATH') or die();
 

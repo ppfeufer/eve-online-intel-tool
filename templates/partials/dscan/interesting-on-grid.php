@@ -19,6 +19,8 @@
 
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
 
+/* @var $templateHelper TemplateHelper */
+$templateHelper = TemplateHelper::getInstance();
 ?>
 <div class="dscan-result row">
     <div class="clearfix">
@@ -37,7 +39,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
         -->
         <div class="col-sm-6 col-md-4 col-lg-3">
             <?php
-            TemplateHelper::getInstance()->getTemplate('partials/dscan/interesting-on-grid/structures', [
+            $templateHelper->getTemplate('partials/dscan/interesting-on-grid/structures', [
                 'title' => \__('Structures', 'eve-online-intel-tool'),
                 'structures' => $intelData['dscanUpwellStructures']
             ]);
@@ -53,7 +55,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
         -->
         <div class="col-sm-6 col-md-4 col-lg-3">
             <?php
-            TemplateHelper::getInstance()->getTemplate('partials/dscan/interesting-on-grid/structures', [
+            $templateHelper->getTemplate('partials/dscan/interesting-on-grid/structures', [
                 'title' => \__('Deployables', 'eve-online-intel-tool'),
                 'structures' => $intelData['dscanDeployables']
             ]);
@@ -69,7 +71,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
         -->
         <div class="col-md-4 col-sm-6 col-lg-3">
             <?php
-            TemplateHelper::getInstance()->getTemplate('partials/dscan/interesting-on-grid/structures', [
+            $templateHelper->getTemplate('partials/dscan/interesting-on-grid/structures', [
                 'title' => \__('POS / POS Modules', 'eve-online-intel-tool'),
                 'structures' => $intelData['dscanStarbaseModules']
             ]);
@@ -85,7 +87,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
         -->
         <div class="col-md-4 col-sm-6 col-lg-3">
             <?php
-            TemplateHelper::getInstance()->getTemplate('partials/dscan/interesting-on-grid/structures', [
+            $templateHelper->getTemplate('partials/dscan/interesting-on-grid/structures', [
                 'title' => \__('Miscellaneous', 'eve-online-intel-tool'),
                 'structures' => $intelData['dscanMiscellaneous']
             ]);

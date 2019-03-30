@@ -19,15 +19,10 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
-use \WordPress\ {
-    EsiClient\Model\Universe\UniverseConstellationsConstellationId,
-    EsiClient\Model\Universe\UniverseRegionsRegionId,
-    EsiClient\Model\Universe\UniverseSystemsSystemId,
-    Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper,
-    Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper,
-    Plugins\EveOnlineIntelTool\Libs\Helper\StructureHelper,
-    Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton
-};
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StructureHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 \defined('ABSPATH') or die();
 
@@ -239,14 +234,14 @@ class DscanParser extends AbstractSingleton {
         $systemShortData = $this->esiHelper->getIdFromName([\trim($systemName)], 'systems');
 
         if(!\is_null($systemShortData)) {
-            /* @var $systemData UniverseSystemsSystemId */
+            /* @var $systemData \WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId */
             $systemData = $this->esiHelper->getSystemData($systemShortData['0']->getId());
             $systemId = $systemData->getSystemId();
             $constellationName = null;
             $regionName = null;
 
             // Get the constellation data
-            /* @var $constellationData UniverseConstellationsConstellationId */
+            /* @var $constellationData \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId */
             $constellationData = $this->esiHelper->getConstellationData($systemData->getConstellationId());
 
             // Set the constellation name
@@ -255,7 +250,7 @@ class DscanParser extends AbstractSingleton {
                 $constellationId = $constellationData->getConstellationId();
 
                 // Get the region data
-                /* @var $regionData UniverseRegionsRegionId */
+                /* @var $regionData \WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId */
                 $regionData = $this->esiHelper->getRegionsRegionId($constellationData->getRegionId());
 
                 // Set the region name

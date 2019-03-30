@@ -19,6 +19,8 @@
 
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
 
+/* @var $templateHelper TemplateHelper */
+$templateHelper = TemplateHelper::getInstance();
 ?>
 
 <header>
@@ -32,16 +34,16 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
         <div class="col-lg-4">
             <?php
             if($failedIntel === true) {
-                TemplateHelper::getInstance()->getTemplate('partials/intel-form/parse-error');
+                $templateHelper->getTemplate('partials/intel-form/parse-error');
             }
 
-            TemplateHelper::getInstance()->getTemplate('partials/intel-form/intel-form-explanation');
-            TemplateHelper::getInstance()->getTemplate('partials/intel-form/esi-status');
+            $templateHelper->getTemplate('partials/intel-form/intel-form-explanation');
+            $templateHelper->getTemplate('partials/intel-form/esi-status');
             ?>
         </div>
         <div class="col-lg-8">
             <?php
-            TemplateHelper::getInstance()->getTemplate('partials/intel-form/intel-form');
+            $templateHelper->getTemplate('partials/intel-form/intel-form');
             ?>
         </div>
     </div>

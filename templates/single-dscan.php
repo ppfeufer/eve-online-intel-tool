@@ -21,6 +21,9 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
 
 \defined('ABSPATH') or die();
 
+/* @var $templateHelper TemplateHelper */
+$templateHelper = TemplateHelper::getInstance();
+
 // Counter
 $countAll = (!empty($intelData['dscanDataAll']['count'])) ? $intelData['dscanDataAll']['count'] : 0;
 $countOnGrid = (!empty($intelData['dscanDataOnGrid']['count'])) ? $intelData['dscanDataOnGrid']['count'] : 0;
@@ -40,7 +43,7 @@ $systemData = (!empty($intelData['dscanDataSystem'])) ? $intelData['dscanDataSys
         <?php
     }
 
-    TemplateHelper::getInstance()->getTemplate('partials/extra/buttons');
+    $templateHelper->getTemplate('partials/extra/buttons');
     ?>
 </header>
 
@@ -52,7 +55,7 @@ $systemData = (!empty($intelData['dscanDataSystem'])) ? $intelData['dscanDataSys
             -->
             <?php
             if(!\is_null($systemData)) {
-                TemplateHelper::getInstance()->getTemplate('partials/dscan/system-data', [
+                $templateHelper->getTemplate('partials/dscan/system-data', [
                     'systemData' => $systemData
                 ]);
             }
@@ -62,7 +65,7 @@ $systemData = (!empty($intelData['dscanDataSystem'])) ? $intelData['dscanDataSys
             /**
              * D-Scan Breakdown
              */
-            TemplateHelper::getInstance()->getTemplate('partials/dscan/dscan-breakdown', [
+            $templateHelper->getTemplate('partials/dscan/dscan-breakdown', [
                 'countAll' => $countAll,
                 'countOnGrid' => $countOnGrid,
                 'countOffGrid' => $countOffGrid,
@@ -73,7 +76,7 @@ $systemData = (!empty($intelData['dscanDataSystem'])) ? $intelData['dscanDataSys
              * Interesting on grid
              */
             if(!empty($intelData['dscanUpwellStructures']) || !empty($intelData['dscanDeployables']) || !empty($intelData['dscanStarbaseModules']) || !empty($intelData['dscanMiscellaneous'])) {
-                TemplateHelper::getInstance()->getTemplate('partials/dscan/interesting-on-grid', [
+                $templateHelper->getTemplate('partials/dscan/interesting-on-grid', [
                     'intelData' => $intelData
                 ]);
             }

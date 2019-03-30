@@ -31,16 +31,14 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\ {
-    Ajax\EsiStatus,
-    Ajax\FormNonce,
-    GithubUpdater,
-    Helper\PluginHelper,
-    ResourceLoader\CssLoader,
-    ResourceLoader\JavascriptLoader,
-    TemplateLoader,
-    WpHooks
-};
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\EsiStatus;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\FormNonce;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\GithubUpdater;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\CssLoader;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\JavascriptLoader;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\TemplateLoader;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\WpHooks;
 
 \defined('ABSPATH') or die();
 

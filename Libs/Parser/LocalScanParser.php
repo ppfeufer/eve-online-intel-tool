@@ -19,14 +19,9 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
-use \WordPress\ {
-    EsiClient\Model\Alliance\AlliancesAllianceId,
-    EsiClient\Model\Character\CharactersAffiliation,
-    EsiClient\Model\Universe\UniverseIds\Characters,
-    Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper,
-    Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper,
-    Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton
-};
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 \defined('ABSPATH') or die();
 
@@ -117,7 +112,7 @@ class LocalScanParser extends AbstractSingleton {
                 $nameToIdSet = null;
 
                 foreach($esiData as $characterData) {
-                    /* @var $characterData Characters */
+                    /* @var $characterData \WordPress\EsiClient\Model\Universe\UniverseIds\Character */
                     $nameToIdSet[] = $characterData->getId();
                     $pilotList[$characterData->getId()] = $characterData->getName();
                 }
@@ -126,7 +121,7 @@ class LocalScanParser extends AbstractSingleton {
 
                 foreach($characterAffiliationData as $characterAffiliatedIds) {
                     if(\is_a($characterAffiliatedIds, '\WordPress\EsiClient\Model\Character\CharactersAffiliation')) {
-                        /* @var $characterAffiliatedIds CharactersAffiliation */
+                        /* @var $characterAffiliatedIds \WordPress\EsiClient\Model\Character\CharactersAffiliation */
                         $pilotDetails[$characterAffiliatedIds->getCharacterId()] = [
                             'characterID' => $characterAffiliatedIds->getCharacterId(),
                             'characterName' => $pilotList[$characterAffiliatedIds->getCharacterId()]
@@ -151,7 +146,7 @@ class LocalScanParser extends AbstractSingleton {
                          * Grabbing alliance information
                          */
                         if(!\is_null($characterAffiliatedIds->getAllianceId())) {
-                            /* @var $allianceSheet AlliancesAllianceId */
+                            /* @var $allianceSheet \WordPress\EsiClient\Model\Alliance\AlliancesAllianceId */
                             $allianceSheet = $this->esiHelper->getAllianceData($characterAffiliatedIds->getAllianceId());
 
                             if(!\is_null($allianceSheet)) {

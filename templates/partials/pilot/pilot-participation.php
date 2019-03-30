@@ -19,6 +19,8 @@
 
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
 
+/* @var $templateHelper TemplateHelper */
+$templateHelper = TemplateHelper::getInstance();
 ?>
 <header class="entry-header"><h2 class="entry-title"><?php echo \__('Pilots Breakdown', 'eve-online-intel-tool'); ?> (<?php echo $pilotCount; ?>)</h2></header>
 <?php
@@ -40,11 +42,11 @@ if(!empty($pilotParticipation)) {
                 <tr class="eve-intel-pilot-participation-item eve-intel-alliance-id-<?php echo $pilot['allianceID']; ?> eve-intel-corporation-id-<?php echo $pilot['corporationID']; ?> eve-intel-pilot-id-<?php echo $pilot['characterID']; ?>" data-alliance-id="<?php echo $pilot['allianceID']; ?>" data-corporation-id="<?php echo $pilot['corporationID']; ?>" data-character-id="<?php echo $pilot['characterID']; ?>">
                     <td>
                         <?php
-                        TemplateHelper::getInstance()->getTemplate('partials/pilot/pilot-avatar', [
+                        $templateHelper->getTemplate('partials/pilot/pilot-avatar', [
                             'data' => $pilot
                         ]);
 
-                        TemplateHelper::getInstance()->getTemplate('partials/pilot/pilot-information', [
+                        $templateHelper->getTemplate('partials/pilot/pilot-information', [
                             'data' => [
                                 'characterID' => $pilot['characterID'],
                                 'characterName' => $pilot['characterName']
@@ -56,7 +58,7 @@ if(!empty($pilotParticipation)) {
                     <td data-search="<?php echo $pilot['allianceName']; ?>, <?php echo $pilot['allianceTicker']; ?>">
                         <?php
                         if(!\is_null($pilot['allianceID']) && $pilot['allianceID'] !== 0) {
-                            TemplateHelper::getInstance()->getTemplate('partials/alliance/alliance-logo', [
+                            $templateHelper->getTemplate('partials/alliance/alliance-logo', [
                                 'data' => $pilot
                             ]);
 
@@ -67,7 +69,7 @@ if(!empty($pilotParticipation)) {
 
                     <td data-search="<?php echo $pilot['corporationName']; ?>, <?php echo $pilot['corporationTicker']; ?>>
                         <?php
-                        TemplateHelper::getInstance()->getTemplate('partials/corporation/corporation-logo', [
+                        $templateHelper->getTemplate('partials/corporation/corporation-logo', [
                             'data' => $pilot
                         ]);
 

@@ -19,11 +19,9 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\ {
-    Helper\EsiHelper,
-    Helper\StringHelper,
-    Singletons\AbstractSingleton
-};
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 \defined('ABSPATH') or die();
 

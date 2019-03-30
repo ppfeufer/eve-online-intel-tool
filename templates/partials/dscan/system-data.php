@@ -19,20 +19,22 @@
 
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
 
+/* @var $templateHelper TemplateHelper */
+$templateHelper = TemplateHelper::getInstance();
 ?>
 <div class="system-information row">
     <div class="col-md-12">
         <div class="row">
             <?php
-            TemplateHelper::getInstance()->getTemplate('partials/dscan/system-data/system-information', [
+            $templateHelper->getTemplate('partials/dscan/system-data/system-information', [
                 'systemData' => $systemData
             ]);
 
-            TemplateHelper::getInstance()->getTemplate('partials/dscan/system-data/system-activity', [
+            $templateHelper->getTemplate('partials/dscan/system-data/system-activity', [
                 'systemData' => $systemData
             ]);
 
-            TemplateHelper::getInstance()->getTemplate('partials/dscan/system-data/system-status', [
+            $templateHelper->getTemplate('partials/dscan/system-data/system-status', [
                 'systemData' => $systemData
             ]);
             ?>
