@@ -2,9 +2,13 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.5.1...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.5.2...development)
+- in development
+
+## [v1.5.2](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.5.2) - 2019-03-30
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.5.1...v1.5.2)
 ### Added
-- Sticky Highlight (on click) is back
+- Sticky highlight (on click) is back
 - Corporation and Alliance name now filterable in Pilots Breakdown tables
 
 ## [v1.5.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.5.1) - 2019-02-01
