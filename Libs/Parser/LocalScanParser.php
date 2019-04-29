@@ -31,14 +31,21 @@ class LocalScanParser extends AbstractSingleton {
      *
      * @var EsiHelper
      */
-    private $esiHelper = null;
+    protected $esiHelper = null;
 
     /**
      * String Helper
      *
      * @var StringHelper
      */
-    private $stringHelper = null;
+    protected $stringHelper = null;
+
+    /**
+     * Coalition Helper
+     *
+     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\CoalitionHelper
+     */
+    protected $coalitionHelper = null;
 
     /**
      * Constructor
@@ -48,6 +55,7 @@ class LocalScanParser extends AbstractSingleton {
 
         $this->esiHelper = EsiHelper::getInstance();
         $this->stringHelper = StringHelper::getInstance();
+        $this->coalitionHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\CoalitionHelper::getInstance();
     }
 
     public function parseLocalScan(string $scanData) {
@@ -55,16 +63,17 @@ class LocalScanParser extends AbstractSingleton {
         $localArray = $this->getLocalArray($scanData);
 
         if(!\is_null($localArray)) {
-            $employementData = $this->getParticipation($localArray['pilotDetails']);
+            $participationData = $this->getParticipation($localArray['pilotDetails']);
 
             $returnValue = [
                 'rawData' => $scanData,
                 'pilotDetails' => (!\is_null($localArray)) ? $localArray['pilotDetails'] : null,
                 'characterList' => (!\is_null($localArray)) ? $localArray['pilotList'] : null,
-                'corporationList' => (!\is_null($employementData)) ? $employementData['corporationList'] : null,
-                'allianceList' => (!\is_null($employementData)) ? $employementData['allianceList'] : null,
-                'corporationParticipation' => (!\is_null($employementData)) ? $employementData['corporationParticipation'] : null,
-                'allianceParticipation' => (!\is_null($employementData)) ? $employementData['allianceParticipation'] : null
+                'corporationList' => (!\is_null($participationData)) ? $participationData['corporationList'] : null,
+                'allianceList' => (!\is_null($participationData)) ? $participationData['allianceList'] : null,
+                'corporationParticipation' => (!\is_null($participationData)) ? $participationData['corporationParticipation'] : null,
+                'allianceParticipation' => (!\is_null($participationData)) ? $participationData['allianceParticipation'] : null,
+                'coalitionParticipation' => $this->getCoalitionParticipation($participationData)
             ];
         }
 
@@ -194,7 +203,7 @@ class LocalScanParser extends AbstractSingleton {
                     $counter[\sanitize_title($pilotSheet['corporationName'])] = 0;
                 }
 
-                $counter[\sanitize_title($pilotSheet['corporationName'])] ++;
+                $counter[\sanitize_title($pilotSheet['corporationName'])]++;
 
                 $corporationList[\sanitize_title($pilotSheet['corporationName'])] = [
                     'corporationID' => $pilotSheet['corporationID'],
@@ -226,7 +235,7 @@ class LocalScanParser extends AbstractSingleton {
                     $counter[\sanitize_title($pilotSheet['allianceName'])] = 0;
                 }
 
-                $counter[\sanitize_title($pilotSheet['allianceName'])] ++;
+                $counter[\sanitize_title($pilotSheet['allianceName'])]++;
 
                 $allianceList[\sanitize_title($pilotSheet['allianceName'])] = [
                     'allianceID' => $pilotSheet['allianceID'],
@@ -250,7 +259,7 @@ class LocalScanParser extends AbstractSingleton {
                     $counter[\sanitize_title('Unaffiliated / No Alliance')] = 0;
                 }
 
-                $counter[\sanitize_title('Unaffiliated / No Alliance')] ++;
+                $counter[\sanitize_title('Unaffiliated / No Alliance')]++;
 
                 $allianceList[\sanitize_title('Unaffiliated / No Alliance')] = [
                     'allianceID' => 0,
@@ -298,6 +307,46 @@ class LocalScanParser extends AbstractSingleton {
         }
 
         unset($counter);
+
+        return $returnValue;
+    }
+
+    public function getCoalitionParticipation(array $participationData) {
+        $returnValue = null;
+
+        if(!\is_null($participationData['allianceParticipation'])) {
+            $coalitionData = $this->coalitionHelper->getCoalitionInformation();
+            $coalitionParticipation = [];
+            $coalitionAffiliation = [];
+            $count = [];
+            $count['total'] = 0;
+
+            foreach($coalitionData as $coalitionInfo) {
+                $count[$coalitionInfo->_id] = 0;
+
+                foreach($coalitionInfo->alliances as $coalitionAlliance) {
+                    foreach($participationData['allianceParticipation'] as $participationNumber) {
+                        foreach($participationNumber as $participatedAlliance) {
+                            if($participatedAlliance['allianceID'] === $coalitionAlliance->id) {
+                                $count[$coalitionInfo->_id] += $participatedAlliance['count'];
+                                $count['total'] += $participatedAlliance['count'];
+                                $coalitionAffiliation[$coalitionInfo->_id] = $coalitionInfo;
+                            }
+                        }
+                    }
+                }
+            }
+
+            foreach($coalitionAffiliation as $affiliation) {
+                $coalitionParticipation[$count[$affiliation->_id]][$affiliation->_id]['count'] = $count[$affiliation->_id];
+                $coalitionParticipation[$count[$affiliation->_id]][$affiliation->_id]['percentage'] = 100 / $count['total'] * $count[$affiliation->_id];
+                $coalitionParticipation[$count[$affiliation->_id]][$affiliation->_id]['data'] = $affiliation;
+            }
+
+            \krsort($coalitionParticipation);
+
+            $returnValue = $coalitionParticipation;
+        }
 
         return $returnValue;
     }

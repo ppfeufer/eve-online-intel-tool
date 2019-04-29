@@ -264,6 +264,7 @@ class IntelParser {
                 'eve-intel-tool_local-allianceList' => \maybe_serialize($parsedLocalData['allianceList']),
                 'eve-intel-tool_local-corporationParticipation' => \maybe_serialize($parsedLocalData['corporationParticipation']),
                 'eve-intel-tool_local-allianceParticipation' => \maybe_serialize($parsedLocalData['allianceParticipation']),
+                'eve-intel-tool_local-coalitionParticipation' => \maybe_serialize($parsedLocalData['coalitionParticipation']),
                 'eve-intel-tool_local-time' => \maybe_serialize(\gmdate('Y-m-d H:i:s', \time())),
             ];
 
