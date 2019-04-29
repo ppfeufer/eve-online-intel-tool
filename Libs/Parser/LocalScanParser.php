@@ -348,7 +348,7 @@ class LocalScanParser extends AbstractSingleton {
             $coalitionParticipation['unaffiliated']['count'] = $countUnaffiliated;
             $coalitionParticipation['unaffiliated']['percentage'] = 100 / \count($pilotList) * $countUnaffiliated;
 
-            \krsort($coalitionParticipation);
+            \krsort($coalitionParticipation['coalition']);
 
             $returnValue = $coalitionParticipation;
         }
