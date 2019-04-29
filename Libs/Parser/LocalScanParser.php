@@ -73,7 +73,7 @@ class LocalScanParser extends AbstractSingleton {
                 'allianceList' => (!\is_null($participationData)) ? $participationData['allianceList'] : null,
                 'corporationParticipation' => (!\is_null($participationData)) ? $participationData['corporationParticipation'] : null,
                 'allianceParticipation' => (!\is_null($participationData)) ? $participationData['allianceParticipation'] : null,
-                'coalitionParticipation' => $this->getCoalitionParticipation($participationData)
+                'coalitionParticipation' => $this->getCoalitionParticipation($participationData, $localArray['pilotList'])
             ];
         }
 
@@ -311,7 +311,7 @@ class LocalScanParser extends AbstractSingleton {
         return $returnValue;
     }
 
-    public function getCoalitionParticipation(array $participationData) {
+    public function getCoalitionParticipation(array $participationData, $pilotList) {
         $returnValue = null;
 
         if(!\is_null($participationData['allianceParticipation'])) {
@@ -338,10 +338,15 @@ class LocalScanParser extends AbstractSingleton {
             }
 
             foreach($coalitionAffiliation as $affiliation) {
-                $coalitionParticipation[$count[$affiliation->_id]][$affiliation->_id]['count'] = $count[$affiliation->_id];
-                $coalitionParticipation[$count[$affiliation->_id]][$affiliation->_id]['percentage'] = 100 / $count['total'] * $count[$affiliation->_id];
-                $coalitionParticipation[$count[$affiliation->_id]][$affiliation->_id]['data'] = $affiliation;
+                $coalitionParticipation['coalition'][$count[$affiliation->_id]][$affiliation->_id]['count'] = $count[$affiliation->_id];
+                $coalitionParticipation['coalition'][$count[$affiliation->_id]][$affiliation->_id]['percentage'] = 100 / \count($pilotList) * $count[$affiliation->_id];
+                $coalitionParticipation['coalition'][$count[$affiliation->_id]][$affiliation->_id]['data'] = $affiliation;
             }
+
+            $countUnaffiliated = \count($pilotList) - $count['total'];
+
+            $coalitionParticipation['unaffiliated']['count'] = $countUnaffiliated;
+            $coalitionParticipation['unaffiliated']['percentage'] = 100 / \count($pilotList) * $countUnaffiliated;
 
             \krsort($coalitionParticipation);
 

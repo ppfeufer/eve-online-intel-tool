@@ -27,8 +27,25 @@ $templateHelper = TemplateHelper::getInstance();
 if(!empty($coalitionParticipation)) {
     ?>
     <div class="row">
+        <div class="col-md-12">
+            <div class="progress">
+            <?php
+                foreach($coalitionParticipation['coalition'] as $coalitionNumbers) {
+                    foreach($coalitionNumbers as $coalition) {
+                        ?>
+                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: <?php echo $coalition['percentage']; ?>%; background-color: <?php echo $coalition['data']->color; ?>;"></div>
+                        <?php
+                    }
+                }
+                ?>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width: <?php echo $coalitionParticipation['unaffiliated']['percentage']; ?>%; background-color: #c0c0c0;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <?php
-        foreach($coalitionParticipation as $coalitionNumbers) {
+        foreach($coalitionParticipation['coalition'] as $coalitionNumbers) {
             foreach($coalitionNumbers as $coalition) {
                 ?>
                 <div class="col-md-6">
@@ -47,6 +64,18 @@ if(!empty($coalitionParticipation)) {
             }
         }
         ?>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-sm-4">
+                    <?php echo __('Unaffiliated', 'eve-online-intel-tool'); ?> (<?php echo $coalitionParticipation['unaffiliated']['count']; ?>)
+                </div>
+                <div class="col-sm-8">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar" style="width: <?php echo $coalitionParticipation['unaffiliated']['percentage']; ?>%; background-color: #c0c0c0;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <?php
 }
