@@ -33,12 +33,12 @@ if(!empty($coalitionParticipation)) {
                 foreach($coalitionParticipation['coalition'] as $coalitionNumbers) {
                     foreach($coalitionNumbers as $coalition) {
                         ?>
-                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: <?php echo $coalition['percentage']; ?>%; background-color: <?php echo $coalition['data']->color; ?>;"></div>
+                            <div class="progress-bar" role="progressbar" style="width: <?php echo $coalition['percentage']; ?>%; background-color: <?php echo $coalition['data']->color; ?>;"></div>
                         <?php
                     }
                 }
                 ?>
-                <div class="progress-bar progress-bar-success" role="progressbar" style="width: <?php echo $coalitionParticipation['unaffiliated']['percentage']; ?>%; background-color: #c0c0c0;"></div>
+                <div class="progress-bar" role="progressbar" style="width: <?php echo $coalitionParticipation['unaffiliated']['percentage']; ?>%; background-color: #c0c0c0;"></div>
             </div>
         </div>
     </div>
@@ -55,7 +55,7 @@ if(!empty($coalitionParticipation)) {
                         </div>
                         <div class="col-sm-8">
                             <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar" style="width: <?php echo $coalition['percentage']; ?>%; background-color: <?php echo $coalition['data']->color; ?>;"></div>
+                                <div class="progress-bar" role="progressbar" style="width: <?php echo $coalition['percentage']; ?>%; background-color: <?php echo $coalition['data']->color; ?>;"></div>
                             </div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@ if(!empty($coalitionParticipation)) {
                 </div>
                 <div class="col-sm-8">
                     <div class="progress">
-                        <div class="progress-bar progress-bar-success" role="progressbar" style="width: <?php echo $coalitionParticipation['unaffiliated']['percentage']; ?>%; background-color: #c0c0c0;"></div>
+                        <div class="progress-bar" role="progressbar" style="width: <?php echo $coalitionParticipation['unaffiliated']['percentage']; ?>%; background-color: #c0c0c0;"></div>
                     </div>
                 </div>
             </div>
