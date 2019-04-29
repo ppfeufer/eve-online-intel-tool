@@ -29,7 +29,7 @@ if(!empty($coalitionParticipation)) {
     <div class="row">
         <div class="col-md-12">
             <div class="progress">
-            <?php
+                <?php
                 foreach($coalitionParticipation['coalition'] as $coalitionNumbers) {
                     foreach($coalitionNumbers as $coalition) {
                         ?>
