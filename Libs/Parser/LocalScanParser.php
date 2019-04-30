@@ -154,6 +154,10 @@ class LocalScanParser extends AbstractSingleton {
                         /**
                          * Grabbing alliance information
                          */
+                        $pilotDetails[$characterAffiliatedIds->getCharacterId()]['allianceID'] = '';
+                        $pilotDetails[$characterAffiliatedIds->getCharacterId()]['allianceName'] = '';
+                        $pilotDetails[$characterAffiliatedIds->getCharacterId()]['allianceTicker'] = '';
+
                         if(!\is_null($characterAffiliatedIds->getAllianceId())) {
                             /* @var $allianceSheet \WordPress\EsiClient\Model\Alliance\AlliancesAllianceId */
                             $allianceSheet = $this->esiHelper->getAllianceData($characterAffiliatedIds->getAllianceId());
