@@ -37,7 +37,7 @@ if(!empty($corporationParticipation)) {
                 foreach($corporationList as $corporation) {
                     ?>
                     <tr class="eve-intel-corporation-participation-item eve-intel-alliance-id-<?php echo $corporation['allianceID']; ?> eve-intel-corporation-id-<?php echo $corporation['corporationID']; ?>" data-alliance-id="<?php echo $corporation['allianceID']; ?>" data-corporation-id="<?php echo $corporation['corporationID']; ?>">
-                        <td data-search="<?php echo $corporation['allianceName']; ?>, <?php echo $corporation['allianceTicker']; ?>, <?php echo $corporation['corporationName']; ?>, <?php echo $corporation['corporationTicker']; ?>>
+                        <td data-search="<?php echo $corporation['allianceName']; ?>, <?php echo $corporation['allianceTicker']; ?>, <?php echo $corporation['corporationName']; ?>, <?php echo $corporation['corporationTicker']; ?>">
                             <?php
                             $templateHelper->getTemplate('partials/corporation/corporation-logo', [
                                 'data' => $corporation
