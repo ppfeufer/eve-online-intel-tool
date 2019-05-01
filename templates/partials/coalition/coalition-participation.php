@@ -39,8 +39,13 @@ if(!empty($coalitionParticipation)) {
                         }
                     }
                 }
+
+                if($coalitionParticipation['unaffiliated']['count'] > 0) {
+                    ?>
+                    <div class="progress-bar" role="progressbar" style="width: <?php echo $coalitionParticipation['unaffiliated']['percentage']; ?>%; background-color: #c0c0c0;"></div>
+                    <?php
+                }
                 ?>
-                <div class="progress-bar" role="progressbar" style="width: <?php echo $coalitionParticipation['unaffiliated']['percentage']; ?>%; background-color: #c0c0c0;"></div>
             </div>
         </div>
     </div>
@@ -67,19 +72,24 @@ if(!empty($coalitionParticipation)) {
                 }
             }
         }
-        ?>
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-sm-4">
-                    <?php echo __('Unaffiliated', 'eve-online-intel-tool'); ?> (<?php echo $coalitionParticipation['unaffiliated']['count']; ?>)
-                </div>
-                <div class="col-sm-8">
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: <?php echo $coalitionParticipation['unaffiliated']['percentage']; ?>%; background-color: #c0c0c0;"></div>
+
+        if($coalitionParticipation['unaffiliated']['count'] > 0) {
+            ?>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <?php echo __('Unaffiliated', 'eve-online-intel-tool'); ?> (<?php echo $coalitionParticipation['unaffiliated']['count']; ?>)
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: <?php echo $coalitionParticipation['unaffiliated']['percentage']; ?>%; background-color: #c0c0c0;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <?php
+        }
+        ?>
     </div>
     <?php
 }
