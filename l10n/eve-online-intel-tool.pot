@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-07 09:48+0000\n"
+"POT-Creation-Date: 2019-05-01 15:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,36 +14,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/"
 
-#: templates/single-fleetcomposition.php:26
-#: templates/partials/intel-form/intel-form-explanation.php:26
-msgid "Fleet Composition"
-msgstr ""
-
-#: templates/single-fleetcomposition.php:31 templates/single-local.php:31
-#: templates/single-dscan.php:39
-msgid "EVE Time:"
-msgstr ""
-
-#: templates/single-fleetcomposition.php:64
-msgid "Ship Classes"
-msgstr ""
-
-#: templates/single-fleetcomposition.php:78
-#: templates/partials/dscan/dscan-breakdown.php:69
-msgid "Ship Types"
-msgstr ""
-
-#: templates/single-fleetcomposition.php:101
-msgid "Participation Details"
-msgstr ""
-
-#: templates/single-local.php:26
-msgid "Chat Scan"
-msgstr ""
-
-#: templates/single-dscan.php:34
+#: templates/single-dscan.php:37
 #: templates/partials/intel-form/intel-form-explanation.php:24
 msgid "D-Scan"
+msgstr ""
+
+#: templates/single-dscan.php:42 templates/single-fleetcomposition.php:34
+#: templates/single-local.php:34
+msgid "EVE Time:"
 msgstr ""
 
 #: templates/single-unknown.php:24
@@ -52,6 +30,36 @@ msgstr ""
 
 #: templates/single-unknown.php:31
 msgid "You provided an unknown type of data, so it could not be parsed. Sorry!"
+msgstr ""
+
+#: templates/single-fleetcomposition.php:29
+#: templates/partials/intel-form/intel-form-explanation.php:26
+msgid "Fleet Composition"
+msgstr ""
+
+#: templates/single-fleetcomposition.php:67
+msgid "Ship Classes"
+msgstr ""
+
+#: templates/single-fleetcomposition.php:81
+#: templates/partials/dscan/dscan-breakdown.php:71
+msgid "Ship Types"
+msgstr ""
+
+#: templates/single-fleetcomposition.php:104
+msgid "Participation Details"
+msgstr ""
+
+#: templates/single-local.php:29
+msgid "Chat Scan"
+msgstr ""
+
+#: Libs/PostType.php:39
+msgid "Category"
+msgstr ""
+
+#: Libs/PostType.php:59 Libs/PostType.php:60
+msgid "Intel"
 msgstr ""
 
 #: Libs/GithubUpdater.php:467
@@ -64,147 +72,178 @@ msgstr ""
 msgid "Plugin reactivated successfully."
 msgstr ""
 
-#: Libs/PostType.php:39
-msgid "Category"
+#: Libs/WpHooks.php:137
+msgid ""
+"Intel tool for EVE Online. Parse and share directional scans, fleet "
+"compositions and chat scans."
 msgstr ""
 
-#: Libs/PostType.php:59 Libs/PostType.php:60
-msgid "Intel"
-msgstr ""
-
-#: Libs/ResourceLoader/JavascriptLoader.php:84
+#: Libs/ResourceLoader/JavascriptLoader.php:83
 msgid "Permalink successfully copied"
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:85
+#: Libs/ResourceLoader/JavascriptLoader.php:84
 msgid ""
 "Something went wrong. Nothing copied. Maybe your browser doesn't support "
 "this function."
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:91
+#: Libs/ResourceLoader/JavascriptLoader.php:90
 msgid ","
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:92
+#: Libs/ResourceLoader/JavascriptLoader.php:91
 msgid "."
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:93
+#: Libs/ResourceLoader/JavascriptLoader.php:92
 msgid "No data available in table"
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:94
+#: Libs/ResourceLoader/JavascriptLoader.php:93
 msgid "Showing _END_ entries"
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:95
+#: Libs/ResourceLoader/JavascriptLoader.php:94
 msgid "No records available"
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:96
+#: Libs/ResourceLoader/JavascriptLoader.php:95
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:98
+#: Libs/ResourceLoader/JavascriptLoader.php:97
 msgid "Show _MENU_"
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:99
+#: Libs/ResourceLoader/JavascriptLoader.php:98
 msgid "Loading..."
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:100
+#: Libs/ResourceLoader/JavascriptLoader.php:99
 msgid "Processing..."
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:101
+#: Libs/ResourceLoader/JavascriptLoader.php:100
 msgid "Nothing found - sorry"
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:102
+#: Libs/ResourceLoader/JavascriptLoader.php:101
 msgid "_INPUT_"
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:103
+#: Libs/ResourceLoader/JavascriptLoader.php:102
 msgid "Search..."
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:105
+#: Libs/ResourceLoader/JavascriptLoader.php:104
 msgid "First"
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:106
+#: Libs/ResourceLoader/JavascriptLoader.php:105
 msgid "Last"
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:107
+#: Libs/ResourceLoader/JavascriptLoader.php:106
 msgid "Next"
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:108
+#: Libs/ResourceLoader/JavascriptLoader.php:107
 msgid "Previous"
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:111
+#: Libs/ResourceLoader/JavascriptLoader.php:110
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: Libs/ResourceLoader/JavascriptLoader.php:112
+#: Libs/ResourceLoader/JavascriptLoader.php:111
 msgid ": activate to sort column descending"
-msgstr ""
-
-#: Libs/Parser/LocalScanParser.php:258 Libs/Parser/LocalScanParser.php:265
-msgid "Unaffiliated / No Alliance"
 msgstr ""
 
 #: Libs/Parser/FleetCompositionParser.php:147
 msgid "Fleet Command"
 msgstr ""
 
-#: templates/partials/pilot/pilot-participation.php:23
+#: Libs/Parser/LocalScanParser.php:270 Libs/Parser/LocalScanParser.php:277
+msgid "Unaffiliated / No Alliance"
+msgstr ""
+
+#: templates/partials/index/esi-status.php:59
+msgid "Current ESI Endpoint Status"
+msgstr ""
+
+#: templates/partials/index/esi-status.php:67
+#: templates/partials/intel-form/esi-status.php:37
+msgid "Red Endpoints"
+msgstr ""
+
+#: templates/partials/index/esi-status.php:116
+#: templates/partials/intel-form/esi-status.php:32
+msgid "Yellow Endpoints"
+msgstr ""
+
+#: templates/partials/index/esi-status.php:165
+#: templates/partials/intel-form/esi-status.php:27
+msgid "Green Endpoints"
+msgstr ""
+
+#: templates/partials/index/intel-index.php:27
+msgid "Intel Parser"
+msgstr ""
+
+#: templates/partials/index/intel-index.php:31
+msgid ""
+"Please keep in mind, parsing large amount of data can take some time. Be "
+"patient, CCP's API is not the fastest to answer ...."
+msgstr ""
+
+#: templates/partials/pilot/pilot-participation.php:25
 msgid "Pilots Breakdown"
 msgstr ""
 
-#: templates/partials/pilot/pilot-participation.php:30
-#: templates/partials/fleet/fleet-composition.php:30
+#: templates/partials/pilot/pilot-participation.php:32
+#: templates/partials/fleet/fleet-composition.php:32
 msgid "Name"
 msgstr ""
 
-#: templates/partials/pilot/pilot-participation.php:31
+#: templates/partials/pilot/pilot-participation.php:33
 msgid "Alliance"
 msgstr ""
 
-#: templates/partials/pilot/pilot-participation.php:32
+#: templates/partials/pilot/pilot-participation.php:34
 msgid "Corporation"
 msgstr ""
 
-#: templates/partials/ship/ship-types.php:28
-msgid "Ship Type"
+#: templates/partials/dscan/interesting-on-grid.php:29
+msgid "Interesting On Grid"
 msgstr ""
 
-#: templates/partials/ship/ship-types.php:29
-#: templates/partials/ship/ship-classes.php:31
-#: templates/partials/alliance/alliance-participation.php:31
-#: templates/partials/corporation/corporation-participation.php:31
-#: templates/partials/dscan/interesting-on-grid/structures.php:32
-#: templates/partials/dscan/interesting-on-grid/_starbases.php:32
-#: templates/partials/dscan/interesting-on-grid/_deployables.php:32
-#: templates/partials/dscan/interesting-on-grid/_miscellaneous.php:32
-msgid "Count"
+#: templates/partials/dscan/interesting-on-grid.php:43
+msgid "Structures"
 msgstr ""
 
-#: templates/partials/ship/ship-classes.php:30
-#: templates/partials/fleet/fleet-composition.php:31
-msgid "Ship Class"
+#: templates/partials/dscan/interesting-on-grid.php:59
+msgid "Deployables"
 msgstr ""
 
-#: templates/partials/alliance/alliance-participation.php:23
-msgid "Alliances Breakdown"
+#: templates/partials/dscan/interesting-on-grid.php:75
+msgid "POS / POS Modules"
 msgstr ""
 
-#: templates/partials/alliance/alliance-participation.php:30
-msgid "Alliance Name"
+#: templates/partials/dscan/interesting-on-grid.php:91
+msgid "Miscellaneous"
+msgstr ""
+
+#: templates/partials/dscan/dscan-breakdown.php:32
+msgid "All"
+msgstr ""
+
+#: templates/partials/dscan/dscan-breakdown.php:45
+msgid "On Grid"
+msgstr ""
+
+#: templates/partials/dscan/dscan-breakdown.php:58
+msgid "Off Grid"
 msgstr ""
 
 #: templates/partials/extra/buttons.php:26
@@ -215,65 +254,50 @@ msgstr ""
 msgid "Copy Permalink"
 msgstr ""
 
-#: templates/partials/dscan/interesting-on-grid.php:27
-msgid "Interesting On Grid"
+#: templates/partials/corporation/corporation-participation.php:25
+msgid "Corporations Breakdown"
 msgstr ""
 
-#: templates/partials/dscan/interesting-on-grid.php:41
-msgid "Structures"
+#: templates/partials/corporation/corporation-participation.php:32
+msgid "Corporation Name"
 msgstr ""
 
-#: templates/partials/dscan/interesting-on-grid.php:57
-msgid "Deployables"
+#: templates/partials/corporation/corporation-participation.php:33
+#: templates/partials/alliance/alliance-participation.php:33
+#: templates/partials/ship/ship-types.php:29
+#: templates/partials/ship/ship-classes.php:33
+#: templates/partials/dscan/interesting-on-grid/structures.php:34
+msgid "Count"
 msgstr ""
 
-#: templates/partials/dscan/interesting-on-grid.php:73
-msgid "POS / POS Modules"
+#: templates/partials/corporation/corporation-information.php:35
+msgid "(NPC Corp)"
 msgstr ""
 
-#: templates/partials/dscan/interesting-on-grid.php:89
-msgid "Miscellaneous"
+#: templates/partials/intel-form/intel-form.php:29
+msgid "Paste here ..."
 msgstr ""
 
-#: templates/partials/dscan/dscan-breakdown.php:30
-msgid "All"
+#: templates/partials/intel-form/intel-form.php:34
+msgid "Submit"
 msgstr ""
 
-#: templates/partials/dscan/dscan-breakdown.php:43
-msgid "On Grid"
+#: templates/partials/intel-form/intel-form.php:39
+msgid "Waiting for the system to authenticate the form ..."
 msgstr ""
 
-#: templates/partials/dscan/dscan-breakdown.php:56
-msgid "Off Grid"
+#: templates/partials/intel-form/esi-status.php:22
+msgid "Current ESI Status"
 msgstr ""
 
-#: templates/partials/index/esi-status.php:56
-msgid "Current ESI Endpoint Status"
-msgstr ""
-
-#: templates/partials/index/esi-status.php:64
-#: templates/partials/intel-form/esi-status.php:37
-msgid "Red Endpoints"
-msgstr ""
-
-#: templates/partials/index/esi-status.php:113
-#: templates/partials/intel-form/esi-status.php:32
-msgid "Yellow Endpoints"
-msgstr ""
-
-#: templates/partials/index/esi-status.php:162
-#: templates/partials/intel-form/esi-status.php:27
-msgid "Green Endpoints"
-msgstr ""
-
-#: templates/partials/index/intel-index.php:24
-msgid "Intel Parser"
-msgstr ""
-
-#: templates/partials/index/intel-index.php:28
+#: templates/partials/intel-form/esi-status.php:49
 msgid ""
-"Please keep in mind, parsing large amount of data can take some time. Be "
-"patient, CCP's API is not the fastest to answer ...."
+"The more yellow or red endpoints, the more likely it is that parsing might "
+"fail."
+msgstr ""
+
+#: templates/partials/intel-form/esi-status.php:50
+msgid "Show current ESI status details"
 msgstr ""
 
 #: templates/partials/intel-form/intel-form-explanation.php:22
@@ -289,34 +313,29 @@ msgstr ""
 msgid "(takes some time to parse)"
 msgstr ""
 
-#: templates/partials/intel-form/intel-form.php:27
-msgid "Paste here ..."
-msgstr ""
-
-#: templates/partials/intel-form/intel-form.php:32
-msgid "Submit"
-msgstr ""
-
-#: templates/partials/intel-form/intel-form.php:37
-msgid "Waiting for the system to authenticate the form ..."
-msgstr ""
-
 #: templates/partials/intel-form/parse-error.php:22
 msgid "The provided data could not be parsed. Please check and try again."
 msgstr ""
 
-#: templates/partials/intel-form/esi-status.php:22
-msgid "Current ESI Status"
+#: templates/partials/alliance/alliance-participation.php:25
+msgid "Alliances Breakdown"
 msgstr ""
 
-#: templates/partials/intel-form/esi-status.php:49
-msgid ""
-"The more yellow or red endpoints, the more likely it is that parsing might "
-"fail."
+#: templates/partials/alliance/alliance-participation.php:32
+msgid "Alliance Name"
 msgstr ""
 
-#: templates/partials/intel-form/esi-status.php:50
-msgid "Show current ESI status details"
+#: templates/partials/fleet/fleet-composition.php:25
+msgid "Who is flying what"
+msgstr ""
+
+#: templates/partials/fleet/fleet-composition.php:33
+#: templates/partials/ship/ship-classes.php:32
+msgid "Ship Class"
+msgstr ""
+
+#: templates/partials/fleet/fleet-composition.php:34
+msgid "Where"
 msgstr ""
 
 #: templates/partials/fleet/fleet-information.php:22
@@ -345,24 +364,16 @@ msgstr ""
 msgid "Pilots in space"
 msgstr ""
 
-#: templates/partials/fleet/fleet-composition.php:23
-msgid "Who is flying what"
+#: templates/partials/coalition/coalition-participation.php:21
+msgid "Coalitions Breakdown"
 msgstr ""
 
-#: templates/partials/fleet/fleet-composition.php:32
-msgid "Where"
+#: templates/partials/coalition/coalition-participation.php:77
+msgid "Unaffiliated"
 msgstr ""
 
-#: templates/partials/corporation/corporation-participation.php:23
-msgid "Corporations Breakdown"
-msgstr ""
-
-#: templates/partials/corporation/corporation-participation.php:30
-msgid "Corporation Name"
-msgstr ""
-
-#: templates/partials/corporation/corporation-information.php:35
-msgid "(NPC Corp)"
+#: templates/partials/ship/ship-types.php:28
+msgid "Ship Type"
 msgstr ""
 
 #: Libs/Widgets/Frontend/IntelFormWidget.php:60
@@ -377,37 +388,20 @@ msgstr ""
 msgid "EVE Quick Intel"
 msgstr ""
 
-#: templates/partials/dscan/interesting-on-grid/structures.php:31
-#: templates/partials/dscan/interesting-on-grid/_miscellaneous.php:31
-msgid "Type"
+#: templates/partials/dscan/system-data/system-information.php:26
+msgid "System Information"
 msgstr ""
 
-#: templates/partials/dscan/interesting-on-grid/_starbases.php:31
-msgid "Structure Type"
+#: templates/partials/dscan/system-data/system-information.php:31
+msgid "Solar System"
 msgstr ""
 
-#: templates/partials/dscan/interesting-on-grid/_deployables.php:31
-msgid "Deployable Type"
+#: templates/partials/dscan/system-data/system-information.php:43
+msgid "Constellation"
 msgstr ""
 
-#: templates/partials/dscan/system-data/system-status.php:29
-msgid "System Status"
-msgstr ""
-
-#: templates/partials/dscan/system-data/system-status.php:32
-msgid "Security Status"
-msgstr ""
-
-#: templates/partials/dscan/system-data/system-status.php:39
-msgid "Activity Defense Multiplier"
-msgstr ""
-
-#: templates/partials/dscan/system-data/system-status.php:49
-msgid "Sov Holding Alliance"
-msgstr ""
-
-#: templates/partials/dscan/system-data/system-status.php:70
-msgid "Sov Holding Corporation"
+#: templates/partials/dscan/system-data/system-information.php:54
+msgid "Region"
 msgstr ""
 
 #: templates/partials/dscan/system-data/system-activity.php:27
@@ -441,20 +435,28 @@ msgstr ""
 msgid "Pod Kills"
 msgstr ""
 
-#: templates/partials/dscan/system-data/system-information.php:26
-msgid "System Information"
+#: templates/partials/dscan/system-data/system-status.php:31
+msgid "System Status"
 msgstr ""
 
-#: templates/partials/dscan/system-data/system-information.php:31
-msgid "Solar System"
+#: templates/partials/dscan/system-data/system-status.php:34
+msgid "Security Status"
 msgstr ""
 
-#: templates/partials/dscan/system-data/system-information.php:43
-msgid "Constellation"
+#: templates/partials/dscan/system-data/system-status.php:41
+msgid "Activity Defense Multiplier"
 msgstr ""
 
-#: templates/partials/dscan/system-data/system-information.php:54
-msgid "Region"
+#: templates/partials/dscan/system-data/system-status.php:51
+msgid "Sov Holding Alliance"
+msgstr ""
+
+#: templates/partials/dscan/system-data/system-status.php:72
+msgid "Sov Holding Corporation"
+msgstr ""
+
+#: templates/partials/dscan/interesting-on-grid/structures.php:33
+msgid "Type"
 msgstr ""
 
 #. Name of the plugin
