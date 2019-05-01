@@ -17,10 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
-
-/* @var $templateHelper TemplateHelper */
-$templateHelper = TemplateHelper::getInstance();
 ?>
 <header class="entry-header"><h2 class="entry-title"><?php echo \__('Coalitions Breakdown', 'eve-online-intel-tool'); ?></h2></header>
 <?php
