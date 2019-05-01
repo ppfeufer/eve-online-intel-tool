@@ -93,6 +93,8 @@ switch($termObject['0']->slug) {
         $localDataAllianceList = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_local-allianceList', true));
         $localDataAllianceParticipation = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_local-allianceParticipation', true));
 
+        $localDataCoalitionParticipation = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_local-coalitionParticipation', true));
+
         $localDataTime = \maybe_unserialize(\get_post_meta(\get_the_ID(), 'eve-intel-tool_local-time', true));
 
         $intelData = [
@@ -102,6 +104,7 @@ switch($termObject['0']->slug) {
             'localDataCorporationParticipation' => $localDataCorporationParticipation,
             'localDataAllianceList' => $localDataAllianceList,
             'localDataAllianceParticipation' => $localDataAllianceParticipation,
+            'localDataCoalitionParticipation' => $localDataCoalitionParticipation,
             'eveTime' => $localDataTime,
         ];
 

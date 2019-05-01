@@ -67,7 +67,7 @@ if(!empty($pilotParticipation)) {
                         ?>
                     </td>
 
-                    <td data-search="<?php echo $pilot['corporationName']; ?>, <?php echo $pilot['corporationTicker']; ?>>
+                    <td data-search="<?php echo $pilot['corporationName']; ?>, <?php echo $pilot['corporationTicker']; ?>">
                         <?php
                         $templateHelper->getTemplate('partials/corporation/corporation-logo', [
                             'data' => $pilot
