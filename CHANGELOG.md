@@ -2,8 +2,17 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.0...development)
-- in deevelopment
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.1...development)
+- in development
+
+## [v1.6.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.6.1) - 2019-05-04
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.0...v1.6.1)
+### Added
+- Troubleshooting section to [README.md](https://github.com/ppfeufer/eve-online-intel-tool/blob/master/README.md)
+
+### Changed
+- Show unaffiliated coalition numbers only if there are actually some
+- German tanslation updated
 
 ## [v1.6.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.6.0) - 2019-05-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.5.2...v1.6.0)
