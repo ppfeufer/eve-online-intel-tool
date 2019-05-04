@@ -33,7 +33,7 @@ Works best with the [EVE Online WordPress Theme](https://github.com/ppfeufer/eve
 
 ### Troubleshooting:
 #### Intel page can't be published with the Intel template selected (latest WordPress)
-This is, unfortunately, an issue with WordPress' new editor called "Gutenberg". This one can't handle page templates yet. The workaround is described in issue #88 is, for now, your only chance to get it working.
+This is, unfortunately, an issue with WordPress' new editor called "Gutenberg". This one can't handle page templates yet. The workaround is described in issue [#88](https://github.com/ppfeufer/eve-online-intel-tool/issues/88) is, for now, your only chance to get it working.
 
 ### Additional Information
 - [License](LICENSE)
