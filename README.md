@@ -31,6 +31,10 @@ Works best with the [EVE Online WordPress Theme](https://github.com/ppfeufer/eve
 - Create a page called "Intel" and set the "EVE Intel" Template to it. You can leave this page empty, whatever you write on it, it won't show up anyways.
 - Now go to Settings » Permalinks and click "Save Changes" button to make sure the new links will be generated.
 
+### Troubleshooting:
+#### Intel page can't be published with the Intel template selected (latest WordPress)
+This is, unfortunately, an issue with WordPress' new editor called "Gutenberg". This one can't handle page templates yet. The workaround is described in issue [#88](https://github.com/ppfeufer/eve-online-intel-tool/issues/88) is, for now, your only chance to get it working.
+
 ### Additional Information
 - [License](LICENSE)
 - [Changelog](CHANGELOG.md)
