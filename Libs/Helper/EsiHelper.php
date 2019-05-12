@@ -24,17 +24,18 @@
  */
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
-use \WordPress\EsiClient\Model\Alliance\AlliancesAllianceId;
-use \WordPress\EsiClient\Model\Character\CharactersAffiliation;
-use \WordPress\EsiClient\Model\Corporation\CorporationsCorporationId;
-use \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId;
-use \WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId;
-use \WordPress\EsiClient\Model\Universe\UniverseIds;
-use \WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId;
-use \WordPress\EsiClient\Model\Universe\UniverseSystemJumps;
-use \WordPress\EsiClient\Model\Universe\UniverseSystemKills;
-use \WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId;
-use \WordPress\EsiClient\Model\Universe\UniverseTypesTypeId;
+use \WordPress\EsiClient\Model\Alliances\AllianceId;
+use \WordPress\EsiClient\Model\Characters\Affiliation\Characters;
+use \WordPress\EsiClient\Model\Corporations\CorporationId;
+use \WordPress\EsiClient\Model\Sovereignty\Map;
+use \WordPress\EsiClient\Model\Universe\Constellations\ConstellationId;
+use \WordPress\EsiClient\Model\Universe\Groups\GroupId;
+use \WordPress\EsiClient\Model\Universe\Ids;
+use \WordPress\EsiClient\Model\Universe\Regions\RegionId;
+use \WordPress\EsiClient\Model\Universe\SystemJumps;
+use \WordPress\EsiClient\Model\Universe\SystemKills;
+use \WordPress\EsiClient\Model\Universe\Systems\SystemId;
+use \WordPress\EsiClient\Model\Universe\Types\TypeId;
 use \WordPress\EsiClient\Repository\AllianceRepository;
 use \WordPress\EsiClient\Repository\CharacterRepository;
 use \WordPress\EsiClient\Repository\CorporationRepository;
@@ -123,17 +124,17 @@ class EsiHelper extends AbstractSingleton {
     public function getShipData(int $shipId) {
         $returnData = null;
 
-        /* @var $shipClassData UniverseTypesTypeId */
+        /* @var $shipClassData TypeId */
         $shipClassData = $this->getShipClassDataFromShipId($shipId);
 
         $shipTypeData = null;
 
-        if(\is_a($shipClassData, '\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId') && !\is_null($shipClassData->getGroupId())) {
-            /* @var $shipTypeData UniverseGroupsGroupId */
+        if(\is_a($shipClassData, '\WordPress\EsiClient\Model\Universe\Types\TypeId') && !\is_null($shipClassData->getGroupId())) {
+            /* @var $shipTypeData GroupId */
             $shipTypeData = $this->getShipTypeDataFromShipClass($shipClassData);
         }
 
-        if(\is_a($shipClassData, '\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId') && \is_a($shipTypeData, '\WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId')) {
+        if(\is_a($shipClassData, '\WordPress\EsiClient\Model\Universe\Types\TypeId') && \is_a($shipTypeData, '\WordPress\EsiClient\Model\Universe\Groups\GroupId')) {
             $returnData = [
                 'shipData' => $shipClassData,
                 'shipTypeData' => $shipTypeData
@@ -147,16 +148,16 @@ class EsiHelper extends AbstractSingleton {
      * Getting ship class data by ship id
      *
      * @param int $shipId
-     * @return UniverseTypesTypeId
+     * @return TypeId
      */
     public function getShipClassDataFromShipId(int $shipId) {
-        /* @var $shipClassData UniverseTypesTypeId */
+        /* @var $shipClassData TypeId */
         $shipClassData = $this->databaseHelper->getCachedEsiDataFromDb('universe/types/' . $shipId);
 
         if(\is_null($shipClassData)) {
             $shipClassData = $this->universeApi->universeTypesTypeId($shipId);
 
-            if(\is_a($shipClassData, '\WordPress\EsiClient\Model\Universe\UniverseTypesTypeId')) {
+            if(\is_a($shipClassData, '\WordPress\EsiClient\Model\Universe\Types\TypeId')) {
                 $this->databaseHelper->writeEsiCacheDataToDb([
                     'universe/types/' . $shipId,
                     \maybe_serialize($shipClassData),
@@ -171,17 +172,17 @@ class EsiHelper extends AbstractSingleton {
     /**
      * Get ship type data by ship class
      *
-     * @param UniverseTypesTypeId $shipData
-     * @return UniverseGroupsGroupId
+     * @param TypeId $shipData
+     * @return GroupId
      */
-    public function getShipTypeDataFromShipClass(UniverseTypesTypeId $shipData) {
-        /* @var $shipTypeData UniverseGroupsGroupId */
+    public function getShipTypeDataFromShipClass(TypeId $shipData) {
+        /* @var $shipTypeData GroupId */
         $shipTypeData = $this->databaseHelper->getCachedEsiDataFromDb('universe/groups/' . $shipData->getGroupId());
 
         if(\is_null($shipTypeData)) {
             $shipTypeData = $this->universeApi->universeGroupsGroupId($shipData->getGroupId());
 
-            if(\is_a($shipTypeData, '\WordPress\EsiClient\Model\Universe\UniverseGroupsGroupId')) {
+            if(\is_a($shipTypeData, '\WordPress\EsiClient\Model\Universe\Groups\GroupId')) {
                 $this->databaseHelper->writeEsiCacheDataToDb([
                     'universe/groups/' . $shipData->getGroupId(),
                     \maybe_serialize($shipTypeData),
@@ -197,7 +198,7 @@ class EsiHelper extends AbstractSingleton {
      * Get the affiliation for a set of characterIDs
      *
      * @param array $characterIds
-     * @return CharactersAffiliation
+     * @return Characters
      */
     public function getCharacterAffiliation(array $characterIds) {
         $characterAffiliationData = $this->characterApi->charactersAffiliation(\array_values($characterIds));
@@ -215,10 +216,10 @@ class EsiHelper extends AbstractSingleton {
     public function getIdFromName(array $names, string $type) {
         $returnData = null;
 
-        /* @var $esiData UniverseIds */
+        /* @var $esiData Ids */
         $esiData = $this->universeApi->universeIds(\array_values($names));
 
-        if(\is_a($esiData, '\WordPress\EsiClient\Model\Universe\UniverseIds')) {
+        if(\is_a($esiData, '\WordPress\EsiClient\Model\Universe\Ids')) {
             switch($type) {
                 case 'agents':
                     $returnData = $esiData->getAgents();
@@ -269,7 +270,7 @@ class EsiHelper extends AbstractSingleton {
      * Get corporation data by ID
      *
      * @param int $corporationId
-     * @return CorporationsCorporationId
+     * @return CorporationId
      */
     public function getCorporationData(int $corporationId) {
         $corporationData = $this->databaseHelper->getCachedEsiDataFromDb('corporations/' . $corporationId);
@@ -277,7 +278,7 @@ class EsiHelper extends AbstractSingleton {
         if(\is_null($corporationData)) {
             $corporationData = $this->corporationApi->corporationsCorporationId($corporationId);
 
-            if(\is_a($corporationData, '\WordPress\EsiClient\Model\Corporation\CorporationsCorporationId')) {
+            if(\is_a($corporationData, '\WordPress\EsiClient\Model\Corporations\CorporationId')) {
                 $this->databaseHelper->writeEsiCacheDataToDb([
                     'corporations/' . $corporationId,
                     \maybe_serialize($corporationData),
@@ -293,7 +294,7 @@ class EsiHelper extends AbstractSingleton {
      * Get alliance data by ID
      *
      * @param int $allianceId
-     * @return AlliancesAllianceId
+     * @return AllianceId
      */
     public function getAllianceData(int $allianceId) {
         $allianceData = $this->databaseHelper->getCachedEsiDataFromDb('alliances/' . $allianceId);
@@ -301,7 +302,7 @@ class EsiHelper extends AbstractSingleton {
         if(\is_null($allianceData)) {
             $allianceData = $this->allianceApi->alliancesAllianceId($allianceId);
 
-            if(\is_a($allianceData, '\WordPress\EsiClient\Model\Alliance\AlliancesAllianceId')) {
+            if(\is_a($allianceData, '\WordPress\EsiClient\Model\Alliances\AllianceId')) {
                 $this->databaseHelper->writeEsiCacheDataToDb([
                     'alliances/' . $allianceId,
                     \maybe_serialize($allianceData),
@@ -317,7 +318,7 @@ class EsiHelper extends AbstractSingleton {
      * Getting all the needed system information from the ESI
      *
      * @param int $systemId
-     * @return UniverseSystemsSystemId
+     * @return SystemId
      */
     public function getSystemData(int $systemId) {
         $systemData = $this->databaseHelper->getCachedEsiDataFromDb('universe/systems/' . $systemId);
@@ -325,7 +326,7 @@ class EsiHelper extends AbstractSingleton {
         if(\is_null($systemData)) {
             $systemData = $this->universeApi->universeSystemsSystemId($systemId);
 
-            if(\is_a($systemData, '\WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId')) {
+            if(\is_a($systemData, '\WordPress\EsiClient\Model\Universe\Systems\SystemId')) {
                 $this->databaseHelper->writeEsiCacheDataToDb([
                     'universe/systems/' . $systemId,
                     \maybe_serialize($systemData),
@@ -341,7 +342,7 @@ class EsiHelper extends AbstractSingleton {
      * Getting all the needed constellation information from the ESI
      *
      * @param int $constellationId
-     * @return UniverseConstellationsConstellationId
+     * @return ConstellationId
      */
     public function getConstellationData(int $constellationId) {
         $constellationData = $this->databaseHelper->getCachedEsiDataFromDb('universe/constellations/' . $constellationId);
@@ -349,7 +350,7 @@ class EsiHelper extends AbstractSingleton {
         if(\is_null($constellationData)) {
             $constellationData = $this->universeApi->universeConstellationsConstellationId($constellationId);
 
-            if(\is_a($constellationData, '\WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId')) {
+            if(\is_a($constellationData, '\WordPress\EsiClient\Model\Universe\Constellations\ConstellationId')) {
                 $this->databaseHelper->writeEsiCacheDataToDb([
                     'universe/constellations/' . $constellationId,
                     \maybe_serialize($constellationData),
@@ -365,7 +366,7 @@ class EsiHelper extends AbstractSingleton {
      * Getting all the needed constellation information from the ESI
      *
      * @param int $regionId
-     * @return UniverseRegionsRegionId
+     * @return RegionId
      */
     public function getRegionsRegionId(int $regionId) {
         $regionData = $this->databaseHelper->getCachedEsiDataFromDb('universe/regions/' . $regionId);
@@ -373,7 +374,7 @@ class EsiHelper extends AbstractSingleton {
         if(\is_null($regionData)) {
             $regionData = $this->universeApi->universeRegionsRegionId($regionId);
 
-            if(\is_a($regionData, '\WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId')) {
+            if(\is_a($regionData, '\WordPress\EsiClient\Model\Universe\Regions\RegionId')) {
                 $this->databaseHelper->writeEsiCacheDataToDb([
                     'universe/regions/' . $regionId,
                     \maybe_serialize($regionData),
@@ -390,7 +391,7 @@ class EsiHelper extends AbstractSingleton {
      * at the timestamp of the Last-Modified header, excluding wormhole space.
      * Only systems with jumps will be listed
      *
-     * @return UniverseSystemJumps
+     * @return SystemJumps
      */
     public function getSystemJumps() {
         $systemJumpsData = $this->databaseHelper->getCachedEsiDataFromDb('universe/system_jumps');
@@ -415,7 +416,7 @@ class EsiHelper extends AbstractSingleton {
      * the last hour ending at the timestamp of the Last-Modified header,
      * excluding wormhole space. Only systems with kills will be listed
      *
-     * @return UniverseSystemKills
+     * @return SystemKills
      */
     public function getSystemKills() {
         $systemKillsData = $this->databaseHelper->getCachedEsiDataFromDb('universe/system_kills');
@@ -435,13 +436,18 @@ class EsiHelper extends AbstractSingleton {
         return $systemKillsData;
     }
 
+    /**
+     * get sov map
+     *
+     * @return Map
+     */
     public function getSovereigntyMap() {
         $sovereigntyCampaignData = $this->databaseHelper->getCachedEsiDataFromDb('sovereignty/map');
 
         if(\is_null($sovereigntyCampaignData)) {
             $sovereigntyCampaignData = $this->sovereigntyApi->sovereigntyMap();
 
-            if(\is_a($sovereigntyCampaignData, '\WordPress\EsiClient\Model\Sovereignty\SovereigntyMap')) {
+            if(\is_a($sovereigntyCampaignData, '\WordPress\EsiClient\Model\Sovereignty\Map')) {
                 $this->databaseHelper->writeEsiCacheDataToDb([
                     'sovereignty/map',
                     \maybe_serialize($sovereigntyCampaignData),

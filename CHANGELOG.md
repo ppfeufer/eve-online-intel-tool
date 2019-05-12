@@ -3,7 +3,8 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.1...development)
-- in development
+### Changed
+- Code updated to work with the new release of the ESI Client
 
 ## [v1.6.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.6.1) - 2019-05-04
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.0...v1.6.1)

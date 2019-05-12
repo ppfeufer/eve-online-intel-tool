@@ -121,7 +121,7 @@ class LocalScanParser extends AbstractSingleton {
                 $nameToIdSet = null;
 
                 foreach($esiData as $characterData) {
-                    /* @var $characterData \WordPress\EsiClient\Model\Universe\UniverseIds\Character */
+                    /* @var $characterData \WordPress\EsiClient\Model\Universe\Ids\Characters */
                     $nameToIdSet[] = $characterData->getId();
                     $pilotList[$characterData->getId()] = $characterData->getName();
                 }
@@ -129,8 +129,8 @@ class LocalScanParser extends AbstractSingleton {
                 $characterAffiliationData = $this->esiHelper->getCharacterAffiliation($nameToIdSet);
 
                 foreach($characterAffiliationData as $characterAffiliatedIds) {
-                    if(\is_a($characterAffiliatedIds, '\WordPress\EsiClient\Model\Character\CharactersAffiliation')) {
-                        /* @var $characterAffiliatedIds \WordPress\EsiClient\Model\Character\CharactersAffiliation */
+                    if(\is_a($characterAffiliatedIds, '\WordPress\EsiClient\Model\Characters\Affiliation\Characters')) {
+                        /* @var $characterAffiliatedIds \WordPress\EsiClient\Model\Characters\Affiliation\Characters */
                         $pilotDetails[$characterAffiliatedIds->getCharacterId()] = [
                             'characterID' => $characterAffiliatedIds->getCharacterId(),
                             'characterName' => $pilotList[$characterAffiliatedIds->getCharacterId()]
@@ -159,7 +159,7 @@ class LocalScanParser extends AbstractSingleton {
                         $pilotDetails[$characterAffiliatedIds->getCharacterId()]['allianceTicker'] = null;
 
                         if(!\is_null($characterAffiliatedIds->getAllianceId())) {
-                            /* @var $allianceSheet \WordPress\EsiClient\Model\Alliance\AlliancesAllianceId */
+                            /* @var $allianceSheet \WordPress\EsiClient\Model\Alliances\AllianceId */
                             $allianceSheet = $this->esiHelper->getAllianceData($characterAffiliatedIds->getAllianceId());
 
                             if(!\is_null($allianceSheet)) {
