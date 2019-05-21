@@ -77,7 +77,7 @@ if(!is_null($esiStatus)) {
 
                 <div class="panel-footer">
                     <?php
-                    if(count($countRedEndpoints) > 0) {
+                    if($countRedEndpoints > 0) {
                         foreach($redEndpoints as $categoryKey => $categoryEndpoints) {
                             ?>
                             <div class="panel panel-default">
@@ -126,7 +126,7 @@ if(!is_null($esiStatus)) {
 
                 <div class="panel-footer">
                     <?php
-                    if(count($countYellowEndpoints) > 0) {
+                    if($countYellowEndpoints > 0) {
                         foreach($yellowEndpoints as $categoryKey => $categoryEndpoints) {
                             ?>
                             <div class="panel panel-default">
@@ -175,7 +175,7 @@ if(!is_null($esiStatus)) {
 
                 <div class="panel-footer">
                     <?php
-                    if(count($countGreenEndpoints) > 0) {
+                    if($countGreenEndpoints > 0) {
                         foreach($greenEndpoints as $categoryKey => $categoryEndpoints) {
                             ?>
                             <div class="panel panel-default">
