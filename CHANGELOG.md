@@ -2,8 +2,19 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.1...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.2...development)
 - in development
+
+## [v1.6.2](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.6.2) - 2019-06-11
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.1...v1.6.2)
+### Added
+- Target system of an Ansiblex Jump Gate on grid is now linked linked
+
+### Changed
+- Code updated to work with the new release of the ESI Client
+
+### Fixed
+- PHP Warning count(): Parameter must be an array or an object
 
 ## [v1.6.1](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.6.1) - 2019-05-04
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.0...v1.6.1)

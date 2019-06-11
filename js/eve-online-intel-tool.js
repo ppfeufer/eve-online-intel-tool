@@ -403,6 +403,8 @@ jQuery(document).ready(function($) {
             $('tr[data-highlight="' + $(this).data('highlight') + '"]').each(function() {
                 $(this).toggleClass('dataHighlightSticky');
             });
+        }).on('click', '.eve-intel-information-link', function(e) {
+            e.stopPropagation();
         });
     });
 

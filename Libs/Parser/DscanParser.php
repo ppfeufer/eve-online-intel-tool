@@ -234,14 +234,14 @@ class DscanParser extends AbstractSingleton {
         $systemShortData = $this->esiHelper->getIdFromName([\trim($systemName)], 'systems');
 
         if(!\is_null($systemShortData)) {
-            /* @var $systemData \WordPress\EsiClient\Model\Universe\UniverseSystemsSystemId */
+            /* @var $systemData \WordPress\EsiClient\Model\Universe\Systems\SystemId */
             $systemData = $this->esiHelper->getSystemData($systemShortData['0']->getId());
             $systemId = $systemData->getSystemId();
             $constellationName = null;
             $regionName = null;
 
             // Get the constellation data
-            /* @var $constellationData \WordPress\EsiClient\Model\Universe\UniverseConstellationsConstellationId */
+            /* @var $constellationData \WordPress\EsiClient\Model\Universe\Constellations\ConstellationId */
             $constellationData = $this->esiHelper->getConstellationData($systemData->getConstellationId());
 
             // Set the constellation name
@@ -250,7 +250,7 @@ class DscanParser extends AbstractSingleton {
                 $constellationId = $constellationData->getConstellationId();
 
                 // Get the region data
-                /* @var $regionData \WordPress\EsiClient\Model\Universe\UniverseRegionsRegionId */
+                /* @var $regionData \WordPress\EsiClient\Model\Universe\Regions\RegionId */
                 $regionData = $this->esiHelper->getRegionsRegionId($constellationData->getRegionId());
 
                 // Set the region name
@@ -260,14 +260,14 @@ class DscanParser extends AbstractSingleton {
                 }
             }
 
-            /* @var $mapData \WordPress\EsiClient\Model\Sovereignty\SovereigntyMap */
+            /* @var $mapData \WordPress\EsiClient\Model\Sovereignty\Map */
             $mapData = $this->esiHelper->getSovereigntyMap();
 
             $sovHolder = null;
 
-            if(\is_a($mapData, '\WordPress\EsiClient\Model\Sovereignty\SovereigntyMap')) {
+            if(\is_a($mapData, '\WordPress\EsiClient\Model\Sovereignty\Map')) {
                 foreach($mapData->getSolarSystems() as $systemSovereigntyInformation) {
-                    /* @var $systemSovereigntyInformation \WordPress\EsiClient\Model\Sovereignty\SovereigntyMap\System */
+                    /* @var $systemSovereigntyInformation \WordPress\EsiClient\Model\Sovereignty\Sovereignty\Map\Systems */
                     if(($systemSovereigntyInformation->getSystemId() === $systemData->getSystemId()) && !\is_null($systemSovereigntyInformation->getAllianceId())) {
                         $sovHoldingAlliance = $this->esiHelper->getAllianceData($systemSovereigntyInformation->getAllianceId());
                         $sovHoldingCorporation = $this->esiHelper->getCorporationData($systemSovereigntyInformation->getCorporationId());
@@ -295,7 +295,7 @@ class DscanParser extends AbstractSingleton {
 
             $systemJumpsData = $this->esiHelper->getSystemJumps();
             foreach($systemJumpsData as $systemJumps) {
-                /* @var $systemJumps \WordPress\EsiClient\Model\Universe\UniverseSystemJumps */
+                /* @var $systemJumps \WordPress\EsiClient\Model\Universe\SystemJumps */
                 if($systemJumps->getSystemId() === $systemData->getSystemId()) {
                     $systemActivity['jumps'] = $systemJumps->getShipJumps();
                 }
@@ -303,7 +303,7 @@ class DscanParser extends AbstractSingleton {
 
             $systemKillsData = $this->esiHelper->getSystemKills();
             foreach($systemKillsData as $systemKills) {
-                /* @var $systemKills \WordPress\EsiClient\Model\Universe\UniverseSystemKills */
+                /* @var $systemKills \WordPress\EsiClient\Model\Universe\SystemKills */
                 if($systemKills->getSystemId() === $systemData->getSystemId()) {
                     $systemActivity['npcKills'] = $systemKills->getNpcKills();
                     $systemActivity['podKills'] = $systemKills->getPodKills();
@@ -666,6 +666,7 @@ class DscanParser extends AbstractSingleton {
     private function getScanResultDetails(array $scanResult, int $count) {
         return [
             'type' => ($scanResult['shipData']->getTypeId() === 35841) ? $scanResult['shipData']->getName() . $this->getAnsiblexJumGateDestination($scanResult) : $scanResult['shipData']->getName(),
+            'imageAlt' => ($scanResult['shipData']->getTypeId() === 35841) ? $scanResult['shipData']->getName() . $this->getAnsiblexJumGateDestination($scanResult, false) : $scanResult['shipData']->getName(),
             'type_id' => $scanResult['shipData']->getTypeId(),
             'shipTypeSanitized' => \sanitize_title($scanResult['shipData']->getName()),
             'count' => $count
@@ -676,9 +677,10 @@ class DscanParser extends AbstractSingleton {
      * Getting the destination system of an Ansiblex Jump Gate
      *
      * @param array $scanResult
+     * @param type $linkDestination
      * @return string
      */
-    private function getAnsiblexJumGateDestination(array $scanResult) {
+    private function getAnsiblexJumGateDestination(array $scanResult, $linkDestination = true) {
         $returnValue = null;
 
         $dscanData = $scanResult['dscanData'];
@@ -690,7 +692,19 @@ class DscanParser extends AbstractSingleton {
             $destinationSystem = \trim($gateSystems['1']);
 
             if(!empty($destinationSystem)) {
+                // get system information so we can link it to Dotlan
+                if($linkDestination === true) {
+                    /* @var $destinationSystemId \WordPress\EsiClient\Model\Universe\Ids\Systems */
+                    $destinationSystemId = $this->esiHelper->getIdFromName([$destinationSystem], 'systems');
+                    $destinationSystemData = $this->esiHelper->getSystemData($destinationSystemId['0']->getId());
+                    $destinationSystemContellationData = $this->esiHelper->getConstellationData($destinationSystemData->getConstellationId());
+                    $destinationSystemRegionData = $this->esiHelper->getRegionsRegionId($destinationSystemContellationData->getRegionId());
+
+                    $destinationSystem = '<a href="https://evemaps.dotlan.net/map/' . $destinationSystemRegionData->getName() . '/' . $destinationSystem . '" target="_blank" rel="noopener noreferer" class="eve-intel-information-link">' . $destinationSystem . '</a>';
+                }
+
                 $returnValue = ' » ' . $destinationSystem;
+
             }
         }
 
