@@ -2,8 +2,13 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.2...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.3...development)
 - in development
+
+## [v1.6.3](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.6.3) - 2019-06-11
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.2...v1.6.3)
+### Hotfix
+- Backwards compatibility with older ESI clients on update
 
 ## [v1.6.2](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.6.2) - 2019-06-11
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.1...v1.6.2)
