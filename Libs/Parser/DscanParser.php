@@ -699,9 +699,8 @@ class DscanParser extends AbstractSingleton {
                     $destinationSystemData = $this->esiHelper->getSystemData($destinationSystemId['0']->getId());
                     $destinationSystemContellationData = $this->esiHelper->getConstellationData($destinationSystemData->getConstellationId());
                     $destinationSystemRegionData = $this->esiHelper->getRegionsRegionId($destinationSystemContellationData->getRegionId());
-                    $destinationSystemRegionName = $destinationSystemRegionData->getName();
 
-                    $destinationSystem = '<a href="https://evemaps.dotlan.net/map/' . $destinationSystemRegionData->getName() . '/' . $destinationSystem . '" target="_blank" rel="noopener noreferer">' . $destinationSystem . '</a>';
+                    $destinationSystem = '<a href="https://evemaps.dotlan.net/map/' . $destinationSystemRegionData->getName() . '/' . $destinationSystem . '" target="_blank" rel="noopener noreferer" class="eve-intel-information-link">' . $destinationSystem . '</a>';
                 }
 
                 $returnValue = ' » ' . $destinationSystem;
