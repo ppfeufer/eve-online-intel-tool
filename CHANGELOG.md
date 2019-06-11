@@ -2,8 +2,13 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.3...development)
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.4...development)
 - in development
+
+## [v1.6.4](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.6.4) - 2019-06-11
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.3...v1.6.4)
+### Fixed
+- Hotfix for new ESI client and cache database table
 
 ## [v1.6.3](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.6.3) - 2019-06-11
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.2...v1.6.3)

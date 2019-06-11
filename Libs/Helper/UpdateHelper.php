@@ -39,7 +39,7 @@ class UpdateHelper extends AbstractSingleton {
      *
      * @var string
      */
-    protected $databaseVersion = 20181006;
+    protected $databaseVersion = 20190611;
 
     /**
      * Database version
@@ -132,6 +132,13 @@ class UpdateHelper extends AbstractSingleton {
         }
 
         /**
+         * truncate cache table
+         */
+        if($currentVersion < 20190611) {
+            $this->truncateCacheTable();
+        }
+
+        /**
          * Update database version
          */
         \update_option($this->getDatabaseFieldName(), $this->getNewDatabaseVersion());
@@ -161,6 +168,13 @@ class UpdateHelper extends AbstractSingleton {
             $sql = "DROP TABLE IF EXISTS $tableToDrop;";
             $this->wpdb->query($sql);
         }
+    }
+
+    private function truncateCacheTable() {
+        $tableName = $this->wpdb->base_prefix . 'eve_online_esi_cache';
+
+        $sql = "TRUNCATE $tableName;";
+        $this->wpdb->query($sql);
     }
 
     private function createEsiCacheTable() {
