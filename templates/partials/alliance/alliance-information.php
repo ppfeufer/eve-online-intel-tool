@@ -26,7 +26,7 @@
     if($data['allianceID'] !== 0) {
         ?>
         <span class="eve-intel-alliance-links-wrapper">
-            <small><a class="eve-intel-information-link" href="https://evemaps.dotlan.net/alliance/<?php echo \str_replace(' ', '_', $data['allianceName']); ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="eve-intel-information-link" href="https://zkillboard.com/alliance/<?php echo $data['allianceID']; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a></small>
+            <small><a class="eve-intel-information-link" href="https://evemaps.dotlan.net/alliance/<?php echo \str_replace(' ', '_', $data['allianceName']); ?>" target="_blank" rel="noopener noreferer">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="eve-intel-information-link" href="https://zkillboard.com/alliance/<?php echo $data['allianceID']; ?>/" target="_blank" rel="noopener noreferer">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a></small>
         </span>
         <?php
     }

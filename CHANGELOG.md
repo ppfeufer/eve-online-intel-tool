@@ -3,6 +3,9 @@
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.1...development)
+### Added
+- Target system of an Ansiblex Jump Gate on grid is now linked linked
+
 ### Changed
 - Code updated to work with the new release of the ESI Client
 

@@ -110,8 +110,8 @@ class WpHooks {
     public function addPluginRowMeta($links, $file) {
         if(\strpos($file, 'eve-online-intel-tool.php') !== false) {
             $new_links = [
-                'issue_tracker' => '<a href="https://github.com/ppfeufer/eve-online-intel-tool/issues" target="_blank">GitHub Issue Tracker</a>',
-                'support_discord' => '<a href="https://discord.gg/YymuCZa" target="_blank">Support Discord</a>'
+                'issue_tracker' => '<a href="https://github.com/ppfeufer/eve-online-intel-tool/issues" target="_blank" rel="noopener noreferer">GitHub Issue Tracker</a>',
+                'support_discord' => '<a href="https://discord.gg/YymuCZa" target="_blank" rel="noopener noreferer">Support Discord</a>'
             ];
 
             $links = \array_merge($links, $new_links);

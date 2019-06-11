@@ -34,7 +34,7 @@
 
                     <?php echo $systemData['system']['name']; ?><br>
                     <small>
-                        <a href="https://evemaps.dotlan.net/map/<?php echo $systemData['region']['name']; ?>/<?php echo $systemData['system']['name']; ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a></small> | <small><a href="https://zkillboard.com/system/<?php echo $systemData['system']['id']; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a>
+                        <a href="https://evemaps.dotlan.net/map/<?php echo $systemData['region']['name']; ?>/<?php echo $systemData['system']['name']; ?>" target="_blank" rel="noopener noreferer">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a></small> | <small><a href="https://zkillboard.com/system/<?php echo $systemData['system']['id']; ?>/" target="_blank" rel="noopener noreferer">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a>
                     </small>
                 </td>
             </tr>
@@ -45,7 +45,7 @@
                 <td class="data-align-right">
                     <?php echo $systemData['constellation']['name']; ?><br>
                     <small>
-                        <a href="https://evemaps.dotlan.net/map/<?php echo $systemData['region']['name']; ?>/<?php echo $systemData['constellation']['name']; ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a></small> | <small><a href="https://zkillboard.com/constellation/<?php echo $systemData['constellation']['id']; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a>
+                        <a href="https://evemaps.dotlan.net/map/<?php echo $systemData['region']['name']; ?>/<?php echo $systemData['constellation']['name']; ?>" target="_blank" rel="noopener noreferer">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a></small> | <small><a href="https://zkillboard.com/constellation/<?php echo $systemData['constellation']['id']; ?>/" target="_blank" rel="noopener noreferer">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a>
                     </small>
                 </td>
             </tr>
@@ -56,7 +56,7 @@
                 <td class="data-align-right">
                     <?php echo $systemData['region']['name']; ?><br>
                     <small>
-                        <a href="https://evemaps.dotlan.net/map/<?php echo $systemData['region']['name']; ?>" target="_blank">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a></small> | <small><a href="https://zkillboard.com/region/<?php echo $systemData['region']['id']; ?>/" target="_blank">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a>
+                        <a href="https://evemaps.dotlan.net/map/<?php echo $systemData['region']['name']; ?>" target="_blank" rel="noopener noreferer">dotlan <i class="fa fa-external-link" aria-hidden="true"></i></a></small> | <small><a href="https://zkillboard.com/region/<?php echo $systemData['region']['id']; ?>/" target="_blank" rel="noopener noreferer">zkillboard <i class="fa fa-external-link" aria-hidden="true"></i></a>
                     </small>
                 </td>
             </tr>
