@@ -42,7 +42,7 @@ if(\is_array($structures) && \count($structures) > 0) {
                         $templateHelper->getTemplate('partials/ship/ship-image', [
                             'data' => [
                                 'shipID' => $data['type_id'],
-                                'shipName' => $data['type']
+                                'shipName' => $data['imageAlt']
                             ]
                         ]);
 

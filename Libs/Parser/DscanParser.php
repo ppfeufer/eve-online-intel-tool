@@ -666,6 +666,7 @@ class DscanParser extends AbstractSingleton {
     private function getScanResultDetails(array $scanResult, int $count) {
         return [
             'type' => ($scanResult['shipData']->getTypeId() === 35841) ? $scanResult['shipData']->getName() . $this->getAnsiblexJumGateDestination($scanResult) : $scanResult['shipData']->getName(),
+            'imageAlt' => ($scanResult['shipData']->getTypeId() === 35841) ? $scanResult['shipData']->getName() . $this->getAnsiblexJumGateDestination($scanResult, false) : $scanResult['shipData']->getName(),
             'type_id' => $scanResult['shipData']->getTypeId(),
             'shipTypeSanitized' => \sanitize_title($scanResult['shipData']->getName()),
             'count' => $count
@@ -676,9 +677,10 @@ class DscanParser extends AbstractSingleton {
      * Getting the destination system of an Ansiblex Jump Gate
      *
      * @param array $scanResult
+     * @param type $linkDestination
      * @return string
      */
-    private function getAnsiblexJumGateDestination(array $scanResult) {
+    private function getAnsiblexJumGateDestination(array $scanResult, $linkDestination = true) {
         $returnValue = null;
 
         $dscanData = $scanResult['dscanData'];
@@ -690,7 +692,20 @@ class DscanParser extends AbstractSingleton {
             $destinationSystem = \trim($gateSystems['1']);
 
             if(!empty($destinationSystem)) {
+                // get system information so we can link it to Dotlan
+                if($linkDestination === true) {
+                    /* @var $destinationSystemId \WordPress\EsiClient\Model\Universe\Ids\Systems */
+                    $destinationSystemId = $this->esiHelper->getIdFromName([$destinationSystem], 'systems');
+                    $destinationSystemData = $this->esiHelper->getSystemData($destinationSystemId['0']->getId());
+                    $destinationSystemContellationData = $this->esiHelper->getConstellationData($destinationSystemData->getConstellationId());
+                    $destinationSystemRegionData = $this->esiHelper->getRegionsRegionId($destinationSystemContellationData->getRegionId());
+                    $destinationSystemRegionName = $destinationSystemRegionData->getName();
+
+                    $destinationSystem = '<a href="https://evemaps.dotlan.net/map/' . $destinationSystemRegionData->getName() . '/' . $destinationSystem . '" target="_blank" rel="noopener noreferer">' . $destinationSystem . '</a>';
+                }
+
                 $returnValue = ' » ' . $destinationSystem;
+
             }
         }
 
