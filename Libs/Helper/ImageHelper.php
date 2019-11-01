@@ -29,7 +29,8 @@ class ImageHelper extends AbstractSingleton {
      *
      * @var var
      */
-    public $imageserverUrl = 'https://imageserver.eveonline.com/';
+//    public $imageserverUrl = 'https://imageserver.eveonline.com/';
+    public $imageserverUrl = 'https://images.evetech.net/';
 
     /**
      * Array with possible end point on CCP's image server
@@ -45,12 +46,11 @@ class ImageHelper extends AbstractSingleton {
         parent::__construct();
 
         $this->imageserverEndpoints = [
-            'alliance' => 'Alliance/',
-            'corporation' => 'Corporation/',
-            'character' => 'Character/',
-            'item' => 'Type/',
-            'ship' => 'Type/',
-            'inventory' => 'InventoryType/' // all the other stuff
+            'alliance' => 'alliances/%d/logo',
+            'corporation' => 'corporations/%d/logo',
+            'character' => 'characters/%d/portrait',
+            'typeIcon' => 'types/%d/icon',
+            'typeRender' => 'types/%d/render'
         ];
     }
 

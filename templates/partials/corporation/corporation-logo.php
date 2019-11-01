@@ -19,7 +19,10 @@
 
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper;
 
-$corporationLogo = ImageHelper::getInstance()->getImageServerUrl('corporation') . $data['corporationID'] . '_32.png';
+$corporationLogo = sprintf(
+    ImageHelper::getInstance()->getImageServerUrl('corporation') . '?size=32',
+    $data['corporationID']
+);
 
 $size = 32;
 if(isset($data['size'])) {
