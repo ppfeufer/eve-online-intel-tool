@@ -19,6 +19,9 @@
 
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\ImageHelper;
 
-$image = ImageHelper::getInstance()->getImageServerUrl('ship') . $data['shipID'] . '_32.png';
+$image = sprintf(
+    ImageHelper::getInstance()->getImageServerUrl('typeIcon'). '?size=32',
+    $data['shipID']
+);
 ?>
 <span class="eve-intel-ship-image-wrapper"><img class="eve-image" data-eveid="<?php echo $data['shipID']; ?>" src="<?php echo $image; ?>" alt="<?php echo $data['shipName']; ?>" width="32" heigh="32"></span>

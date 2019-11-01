@@ -5,6 +5,11 @@
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.4...development)
 - in development
 
+## [v1.7.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.7.0) - 2019-11-01
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.4...v1.7.0)
+## Changed
+- CCP Imageserver, we're using their new Image API now
+
 ## [v1.6.4](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.6.4) - 2019-06-11
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.3...v1.6.4)
 ### Fixed
