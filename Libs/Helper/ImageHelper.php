@@ -29,7 +29,6 @@ class ImageHelper extends AbstractSingleton {
      *
      * @var var
      */
-//    public $imageserverUrl = 'https://imageserver.eveonline.com/';
     public $imageserverUrl = 'https://images.evetech.net/';
 
     /**
