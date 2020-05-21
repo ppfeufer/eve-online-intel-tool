@@ -2,12 +2,13 @@
 # Change Log
 
 ## [In Development](https://github.com/ppfeufer/eve-online-intel-tool/tree/development)
-[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.4...development)
-- in development
+[Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.7.0...development)
+### Fixed
+- Dotlan links for jump gates in D-Scan view
 
 ## [v1.7.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.7.0) - 2019-11-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.4...v1.7.0)
-## Changed
+### Changed
 - CCP Imageserver, we're using their new Image API now
 
 ## [v1.6.4](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.6.4) - 2019-06-11
