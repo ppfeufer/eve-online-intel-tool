@@ -57,6 +57,7 @@ class DscanParser extends AbstractSingleton {
 
         $this->esiHelper = EsiHelper::getInstance();
         $this->stringHelper = StringHelper::getInstance();
+        $this->dotlanHelper = DotlanHelper::getInstance();
     }
 
     /**
