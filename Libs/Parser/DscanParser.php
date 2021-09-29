@@ -19,6 +19,7 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
+use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\DotlanHelper;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
 use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StructureHelper;
@@ -35,6 +36,13 @@ class DscanParser extends AbstractSingleton {
     private $esiHelper = null;
 
     /**
+     * Dotlan Helper
+     *
+     * @var DotlanHelper
+     */
+    private $dotlanHelper = null;
+
+    /**
      * String Helper
      *
      * @var StringHelper
@@ -49,6 +57,7 @@ class DscanParser extends AbstractSingleton {
 
         $this->esiHelper = EsiHelper::getInstance();
         $this->stringHelper = StringHelper::getInstance();
+        $this->dotlanHelper = DotlanHelper::getInstance();
     }
 
     /**
@@ -691,17 +700,15 @@ class DscanParser extends AbstractSingleton {
             $gateSystems = \explode(' » ', $nameParts['0']);
             $destinationSystem = \trim($gateSystems['1']);
 
-            if(!empty($destinationSystem)) {
-                // get system information so we can link it to Dotlan
-                if($linkDestination === true) {
-                    /* @var $destinationSystemId \WordPress\EsiClient\Model\Universe\Ids\Systems */
-                    $destinationSystemId = $this->esiHelper->getIdFromName([$destinationSystem], 'systems');
-                    $destinationSystemData = $this->esiHelper->getSystemData($destinationSystemId['0']->getId());
-                    $destinationSystemContellationData = $this->esiHelper->getConstellationData($destinationSystemData->getConstellationId());
-                    $destinationSystemRegionData = $this->esiHelper->getRegionsRegionId($destinationSystemContellationData->getRegionId());
+            // get system information so we can link it to Dotlan
+            if((!empty($destinationSystem)) && ($linkDestination === true)) {
+                /* @var $destinationSystemId \WordPress\EsiClient\Model\Universe\Ids\Systems */
+                $destinationSystemId = $this->esiHelper->getIdFromName([$destinationSystem], 'systems');
+                $destinationSystemData = $this->esiHelper->getSystemData($destinationSystemId['0']->getId());
+                $destinationSystemContellationData = $this->esiHelper->getConstellationData($destinationSystemData->getConstellationId());
+                $destinationSystemRegionData = $this->esiHelper->getRegionsRegionId($destinationSystemContellationData->getRegionId());
 
-                    $destinationSystem = '<a href="https://evemaps.dotlan.net/map/' . $destinationSystemRegionData->getName() . '/' . $destinationSystem . '" target="_blank" rel="noopener noreferer" class="eve-intel-information-link">' . $destinationSystem . '</a>';
-                }
+                $destinationSystem = '<a href="https://evemaps.dotlan.net/map/' . $this->dotlanHelper->getDotlanLinkString($destinationSystemRegionData->getName() . '/' . $destinationSystem) . '" target="_blank" rel="noopener noreferer" class="eve-intel-information-link">' . $destinationSystem . '</a>';
 
                 $returnValue = ' » ' . $destinationSystem;
 
