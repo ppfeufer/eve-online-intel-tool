@@ -66,7 +66,7 @@ class DscanParser extends AbstractSingleton {
      * @param string $scanData
      * @return array
      */
-    public function getDscanArray(string $scanData) {
+    public function getDscanArray(string $scanData): array {
         /**
          * Correcting line breaks
          *
@@ -141,9 +141,9 @@ class DscanParser extends AbstractSingleton {
      * Try and detect the system the scan was made in
      *
      * @param string $cleanedScanData
-     * @return array
+     * @return array|null
      */
-    public function detectSystem(string $cleanedScanData) {
+    public function detectSystem(string $cleanedScanData): ?array {
         $returnValue = null;
 
         /**
@@ -174,9 +174,9 @@ class DscanParser extends AbstractSingleton {
      * Detecting the system by Upwell structures on d-scan
      *
      * @param string $scandata
-     * @return array
+     * @return array|null
      */
-    public function detectSystemByUpwellStructure(string $scandata) {
+    public function detectSystemByUpwellStructure(string $scandata): ?array {
         $systemFound = false;
         $systemName = null;
 
@@ -212,9 +212,9 @@ class DscanParser extends AbstractSingleton {
      * Detecting the system by it's sun on d-scan
      *
      * @param string $scandata
-     * @return array
+     * @return array|null
      */
-    public function detectSystemBySun(string $scandata) {
+    public function detectSystemBySun(string $scandata): ?array {
         $systemFound = false;
         $systemName = null;
 
@@ -236,9 +236,9 @@ class DscanParser extends AbstractSingleton {
      * Get the system information from the system name.
      *
      * @param string $systemName
-     * @return array
+     * @return array|null
      */
-    public function getSystemInformationBySystemName(string $systemName) {
+    public function getSystemInformationBySystemName(string $systemName): ?array {
         $returnValue = null;
         $systemShortData = $this->esiHelper->getIdFromName([\trim($systemName)], 'systems');
 
@@ -360,9 +360,9 @@ class DscanParser extends AbstractSingleton {
      * Parsing the D-Scan arrays
      *
      * @param array $dscanArray
-     * @return array
+     * @return array|null
      */
-    public function parseScanArray(array $dscanArray) {
+    public function parseScanArray(array $dscanArray): ?array {
         $returnData = null;
         $countShipClasses = [];
         $dscanDetails = [];
@@ -413,13 +413,10 @@ class DscanParser extends AbstractSingleton {
      * Parsing the D-Scan
      *
      * @param string $scanData
-     * @return array
+     * @return array|null
      */
-    public function parseDscan(string $scanData) {
+    public function parseDscan(string $scanData): ?array {
         $returnData = null;
-        $dscanAll = null;
-        $dscanOnGrid = null;
-        $dscanOffGrid = null;
 
         $dscanArray = $this->getDscanArray($scanData);
         if($dscanArray['all']['count'] !== 0) {
@@ -455,7 +452,7 @@ class DscanParser extends AbstractSingleton {
      * @param array $dscanArray
      * @return array
      */
-    public function getShipTypesArray(array $dscanArray) {
+    public function getShipTypesArray(array $dscanArray): array {
         $shipTypeArray = [];
         $count = [];
 
@@ -487,7 +484,7 @@ class DscanParser extends AbstractSingleton {
      * @param array $scanResult
      * @return boolean
      */
-    private function isOnGrid(array $scanResult) {
+    private function isOnGrid(array $scanResult): bool {
         $returnValue = false;
         $gridSize = 10000; // our defined grid size in km
         $dscanRangeArray = \explode(' ', $scanResult['dscanData']['3']);
@@ -498,6 +495,27 @@ class DscanParser extends AbstractSingleton {
         }
 
         return $returnValue;
+    }
+
+    /**
+     * Get type array
+     *
+     * @param array $count
+     * @param $scanResult
+     * @param array $shipTypeArray
+     * @return array
+     */
+    protected function getTypeArray(array $count, $scanResult, array $shipTypeArray): array {
+        if (!isset($count[\sanitize_title($scanResult['shipData']->getName())])) {
+            $count[\sanitize_title($scanResult['shipData']->getName())] = 0;
+        }
+
+        $count[\sanitize_title($scanResult['shipData']->getName())]++;
+        $shipTypeArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails(
+            $scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]
+        );
+
+        return $shipTypeArray;
     }
 
     /**
@@ -527,19 +545,14 @@ class DscanParser extends AbstractSingleton {
      * @param array $dscanArray
      * @return array
      */
-    public function getUpwellStructuresArray(array $dscanArray) {
+    public function getUpwellStructuresArray(array $dscanArray): array {
         $shipTypeArray = [];
         $count = [];
 
         foreach($dscanArray as $scanResult) {
             // Upwell structures on grid only ...
             if(($scanResult['shipClass']->getCategoryId() === 65) && ($this->isOnGrid($scanResult) === true)) {
-                if(!isset($count[\sanitize_title($scanResult['shipData']->getName())])) {
-                    $count[\sanitize_title($scanResult['shipData']->getName())] = 0;
-                }
-
-                $count[\sanitize_title($scanResult['shipData']->getName())] ++;
-                $shipTypeArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]);
+                $shipTypeArray = $this->getTypeArray($count, $scanResult, $shipTypeArray);
             }
         }
 
@@ -554,19 +567,14 @@ class DscanParser extends AbstractSingleton {
      * @param array $dscanArray
      * @return array
      */
-    public function getDeployablesArray(array $dscanArray) {
+    public function getDeployablesArray(array $dscanArray): array {
         $shipTypeArray = [];
         $count = [];
 
         foreach($dscanArray as $scanResult) {
             // Deployable structures on grid only ...
             if(($scanResult['shipClass']->getCategoryId() === 22) && ($this->isOnGrid($scanResult) === true)) {
-                if(!isset($count[\sanitize_title($scanResult['shipData']->getName())])) {
-                    $count[\sanitize_title($scanResult['shipData']->getName())] = 0;
-                }
-
-                $count[\sanitize_title($scanResult['shipData']->getName())] ++;
-                $shipTypeArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]);
+                $shipTypeArray = $this->getTypeArray($count, $scanResult, $shipTypeArray);
             }
         }
 
@@ -582,7 +590,7 @@ class DscanParser extends AbstractSingleton {
      * @param array $dscanArray
      * @return array
      */
-    public function getMiscellaneousArray(array $dscanArray) {
+    public function getMiscellaneousArray(array $dscanArray): array {
         $miscellaneousTypeArray = [];
         $count = [];
         $miscellaneousGroupIds = [
@@ -592,12 +600,7 @@ class DscanParser extends AbstractSingleton {
         foreach($dscanArray as $scanResult) {
             // Miscellaneous items on grid only ...
             if(\in_array($scanResult['shipClass']->getGroupId(), $miscellaneousGroupIds) && ($this->isOnGrid($scanResult) === true)) {
-                if(!isset($count[\sanitize_title($scanResult['shipData']->getName())])) {
-                    $count[\sanitize_title($scanResult['shipData']->getName())] = 0;
-                }
-
-                $count[\sanitize_title($scanResult['shipData']->getName())] ++;
-                $miscellaneousTypeArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]);
+                $miscellaneousTypeArray = $this->getTypeArray($count, $scanResult, $miscellaneousTypeArray);
             }
         }
 
@@ -612,7 +615,7 @@ class DscanParser extends AbstractSingleton {
      * @param array $dscanArray
      * @return array
      */
-    public function getLootSalvageArray(array $dscanArray) {
+    public function getLootSalvageArray(array $dscanArray): array {
         $lootSalvageArray = [];
         $count = [];
         $exclude = [
@@ -622,13 +625,7 @@ class DscanParser extends AbstractSingleton {
         foreach($dscanArray as $scanResult) {
             // Deployable structures on grid only ...
             if($scanResult['shipClass']->getCategoryId() === 2 && $scanResult['dscanData']['3'] !== '-' && !\in_array($scanResult['shipClass']->getName(), $exclude)) {
-                if(!isset($count[\sanitize_title($scanResult['shipData']->getName())])) {
-                    $count[\sanitize_title($scanResult['shipData']->getName())] = 0;
-                }
-
-                $count[\sanitize_title($scanResult['shipData']->getName())] ++;
-
-                $lootSalvageArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]);
+                $lootSalvageArray = $this->getTypeArray($count, $scanResult, $lootSalvageArray);
             }
         }
 
@@ -643,20 +640,14 @@ class DscanParser extends AbstractSingleton {
      * @param array $dscanArray
      * @return array
      */
-    public function getStarbaseArray(array $dscanArray) {
+    public function getStarbaseArray(array $dscanArray): array {
         $starbaseArray = [];
         $count = [];
 
         foreach($dscanArray as $scanResult) {
             // Deployable structures on grid only ...
             if($scanResult['shipClass']->getCategoryId() === 23 && $scanResult['dscanData']['3'] !== '-') {
-                if(!isset($count[\sanitize_title($scanResult['shipData']->getName())])) {
-                    $count[\sanitize_title($scanResult['shipData']->getName())] = 0;
-                }
-
-                $count[\sanitize_title($scanResult['shipData']->getName())] ++;
-
-                $starbaseArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails($scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]);
+                $starbaseArray = $this->getTypeArray($count, $scanResult, $starbaseArray);
             }
         }
 
@@ -672,7 +663,7 @@ class DscanParser extends AbstractSingleton {
      * @param int $count
      * @return array
      */
-    private function getScanResultDetails(array $scanResult, int $count) {
+    private function getScanResultDetails(array $scanResult, int $count): array {
         return [
             'type' => ($scanResult['shipData']->getTypeId() === 35841) ? $scanResult['shipData']->getName() . $this->getAnsiblexJumGateDestination($scanResult) : $scanResult['shipData']->getName(),
             'imageAlt' => ($scanResult['shipData']->getTypeId() === 35841) ? $scanResult['shipData']->getName() . $this->getAnsiblexJumGateDestination($scanResult, false) : $scanResult['shipData']->getName(),
@@ -687,16 +678,16 @@ class DscanParser extends AbstractSingleton {
      *
      * @param array $scanResult
      * @param type $linkDestination
-     * @return string
+     * @return string|null
      */
-    private function getAnsiblexJumGateDestination(array $scanResult, $linkDestination = true) {
+    private function getAnsiblexJumGateDestination(array $scanResult, $linkDestination = true): ?string {
         $returnValue = null;
 
         $dscanData = $scanResult['dscanData'];
         $ansiblexJumpGateName = $dscanData['1'];
         $nameParts = \explode(' - ', $ansiblexJumpGateName);
 
-        if(\strstr($nameParts['0'], '»')) {
+        if(\strpos($nameParts['0'], '»') !== false) {
             $gateSystems = \explode(' » ', $nameParts['0']);
             $destinationSystem = \trim($gateSystems['1']);
 

@@ -27,7 +27,7 @@ class Widgets extends AbstractSingleton {
     /**
      * Initialize frontend widgets
      */
-    public function registerWidgets() {
+    public function registerWidgets(): void {
         \register_widget('\\WordPress\Plugins\EveOnlineIntelTool\Libs\Widgets\Frontend\IntelFormWidget');
     }
 }

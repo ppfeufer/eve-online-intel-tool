@@ -48,7 +48,7 @@ class DatabaseHelper extends AbstractSingleton {
      * Getting cached Data from DB
      *
      * @param string $route
-     * @return Esi Object
+     * @return mixed Esi Object
      */
     public function getCachedEsiDataFromDb(string $route) {
         $returnValue = null;
@@ -71,8 +71,9 @@ class DatabaseHelper extends AbstractSingleton {
      * Write cache data into the DB
      *
      * @param array $data ([esi_route, value, valid_until])
+     * @return void
      */
-    public function writeEsiCacheDataToDb(array $data) {
+    public function writeEsiCacheDataToDb(array $data): void {
         $this->wpdb->query($this->wpdb->prepare(
             'REPLACE INTO ' . $this->wpdb->base_prefix . 'eve_online_esi_cache' . ' (esi_route, value, valid_until) VALUES (%s, %s, %s)', $data
         ));

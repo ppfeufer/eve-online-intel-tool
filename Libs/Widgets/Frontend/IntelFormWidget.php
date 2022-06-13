@@ -71,7 +71,7 @@ class IntelFormWidget extends WP_Widget {
      * @param array $args
      * @param array $instance
      */
-    public function widget($args, $instance) {
+    public function widget($args, $instance): void {
         echo $args['before_widget'];
 
         echo $args['before_title'];

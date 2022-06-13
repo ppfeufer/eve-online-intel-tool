@@ -119,9 +119,9 @@ class EsiHelper extends AbstractSingleton {
      * Getting all the needed ship information from the ESI
      *
      * @param int $shipId
-     * @return array
+     * @return array|null
      */
-    public function getShipData(int $shipId) {
+    public function getShipData(int $shipId): ?array {
         $returnData = null;
 
         /* @var $shipClassData TypeId */
@@ -150,7 +150,7 @@ class EsiHelper extends AbstractSingleton {
      * @param int $shipId
      * @return TypeId
      */
-    public function getShipClassDataFromShipId(int $shipId) {
+    public function getShipClassDataFromShipId(int $shipId): TypeId {
         /* @var $shipClassData TypeId */
         $shipClassData = $this->databaseHelper->getCachedEsiDataFromDb('universe/types/' . $shipId);
 
@@ -175,7 +175,7 @@ class EsiHelper extends AbstractSingleton {
      * @param TypeId $shipData
      * @return GroupId
      */
-    public function getShipTypeDataFromShipClass(TypeId $shipData) {
+    public function getShipTypeDataFromShipClass(TypeId $shipData): GroupId {
         /* @var $shipTypeData GroupId */
         $shipTypeData = $this->databaseHelper->getCachedEsiDataFromDb('universe/groups/' . $shipData->getGroupId());
 
@@ -198,9 +198,9 @@ class EsiHelper extends AbstractSingleton {
      * Get the affiliation for a set of characterIDs
      *
      * @param array $characterIds
-     * @return Characters
+     * @return array|null
      */
-    public function getCharacterAffiliation(array $characterIds) {
+    public function getCharacterAffiliation(array $characterIds): ?array {
         $characterAffiliationData = $this->characterApi->charactersAffiliation(\array_values($characterIds));
 
         return $characterAffiliationData;
@@ -211,9 +211,9 @@ class EsiHelper extends AbstractSingleton {
      *
      * @param array $names
      * @param string $type
-     * @return type
+     * @return array|null
      */
-    public function getIdFromName(array $names, string $type) {
+    public function getIdFromName(array $names, string $type): ?array {
         $returnData = null;
 
         /* @var $esiData Ids */
@@ -272,7 +272,7 @@ class EsiHelper extends AbstractSingleton {
      * @param int $corporationId
      * @return CorporationId
      */
-    public function getCorporationData(int $corporationId) {
+    public function getCorporationData(int $corporationId): CorporationId {
         $corporationData = $this->databaseHelper->getCachedEsiDataFromDb('corporations/' . $corporationId);
 
         if(\is_null($corporationData)) {
@@ -296,7 +296,7 @@ class EsiHelper extends AbstractSingleton {
      * @param int $allianceId
      * @return AllianceId
      */
-    public function getAllianceData(int $allianceId) {
+    public function getAllianceData(int $allianceId): AllianceId {
         $allianceData = $this->databaseHelper->getCachedEsiDataFromDb('alliances/' . $allianceId);
 
         if(\is_null($allianceData)) {
@@ -320,7 +320,7 @@ class EsiHelper extends AbstractSingleton {
      * @param int $systemId
      * @return SystemId
      */
-    public function getSystemData(int $systemId) {
+    public function getSystemData(int $systemId): SystemId {
         $systemData = $this->databaseHelper->getCachedEsiDataFromDb('universe/systems/' . $systemId);
 
         if(\is_null($systemData)) {
@@ -344,7 +344,7 @@ class EsiHelper extends AbstractSingleton {
      * @param int $constellationId
      * @return ConstellationId
      */
-    public function getConstellationData(int $constellationId) {
+    public function getConstellationData(int $constellationId): ConstellationId {
         $constellationData = $this->databaseHelper->getCachedEsiDataFromDb('universe/constellations/' . $constellationId);
 
         if(\is_null($constellationData)) {
@@ -368,7 +368,7 @@ class EsiHelper extends AbstractSingleton {
      * @param int $regionId
      * @return RegionId
      */
-    public function getRegionsRegionId(int $regionId) {
+    public function getRegionsRegionId(int $regionId): RegionId {
         $regionData = $this->databaseHelper->getCachedEsiDataFromDb('universe/regions/' . $regionId);
 
         if(\is_null($regionData)) {
@@ -393,7 +393,7 @@ class EsiHelper extends AbstractSingleton {
      *
      * @return SystemJumps
      */
-    public function getSystemJumps() {
+    public function getSystemJumps(): SystemJumps {
         $systemJumpsData = $this->databaseHelper->getCachedEsiDataFromDb('universe/system_jumps');
 
         if(\is_null($systemJumpsData)) {
@@ -418,7 +418,7 @@ class EsiHelper extends AbstractSingleton {
      *
      * @return SystemKills
      */
-    public function getSystemKills() {
+    public function getSystemKills(): SystemKills {
         $systemKillsData = $this->databaseHelper->getCachedEsiDataFromDb('universe/system_kills');
 
         if(\is_null($systemKillsData)) {
@@ -441,7 +441,7 @@ class EsiHelper extends AbstractSingleton {
      *
      * @return Map
      */
-    public function getSovereigntyMap() {
+    public function getSovereigntyMap(): Map {
         $sovereigntyCampaignData = $this->databaseHelper->getCachedEsiDataFromDb('sovereignty/map');
 
         if(\is_null($sovereigntyCampaignData)) {

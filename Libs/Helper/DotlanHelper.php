@@ -30,7 +30,7 @@ class DotlanHelper extends AbstractSingleton {
      * @param string $string
      * @return string
      */
-    public function getDotlanLinkString(string $string) {
+    public function getDotlanLinkString(string $string): string {
         return \str_replace(' ', '_', $string);
     }
 }

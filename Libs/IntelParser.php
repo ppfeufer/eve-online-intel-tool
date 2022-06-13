@@ -42,14 +42,14 @@ class IntelParser {
      *
      * @var string
      */
-    public $uniqueID = null;
+    public ?string $uniqueID = null;
 
     /**
      * ID of the new post
      *
      * @var int
      */
-    public $postID = null;
+    public ?int $postID = null;
 
     /**
      * Constructor
@@ -62,7 +62,7 @@ class IntelParser {
         }
 
         $this->eveIntel = \filter_input(\INPUT_POST, 'eveIntel');
-        $this->uniqueID = \uniqid();
+        $this->uniqueID = \uniqid('', true);
 
         /**
          * Let's get the intel type
@@ -111,9 +111,9 @@ class IntelParser {
      * Determine what type of intel we might have
      *
      * @param string $scanData
-     * @return string
+     * @return string|null
      */
-    private function checkIntelType(string $scanData) {
+    private function checkIntelType(string $scanData): ?string {
         $intelType = null;
 
         /**
@@ -162,9 +162,9 @@ class IntelParser {
      * Saving the D-Scan data
      *
      * @param string $scanData
-     * @return int
+     * @return int|null
      */
-    private function saveDscanData(string $scanData) {
+    private function saveDscanData(string $scanData): ?int {
         $returnData = null;
 
         $parsedDscanData = DscanParser::getInstance()->parseDscan($scanData);
@@ -214,9 +214,9 @@ class IntelParser {
      * Saving the fleet composition data
      *
      * @param string $scanData
-     * @return int
+     * @return int|null
      */
-    private function saveFleetComositionData(string $scanData) {
+    private function saveFleetComositionData(string $scanData): ?int {
         $returnData = null;
         $parsedFleetComposition = FleetCompositionParser::getInstance()->parseFleetCompositionScan($scanData);
 
@@ -247,9 +247,9 @@ class IntelParser {
      * Saving the local/chat scan data
      *
      * @param string $scanData
-     * @return int
+     * @return int|null
      */
-    private function saveLocalScanData(string $scanData) {
+    private function saveLocalScanData(string $scanData): ?int {
         $returnData = null;
 
         $parsedLocalData = LocalScanParser::getInstance()->parseLocalScan($scanData);
@@ -279,9 +279,9 @@ class IntelParser {
      * @param string $postName
      * @param array $metaData
      * @param string $category
-     * @return int
+     * @return int|null
      */
-    private function savePostdata(string $postName, array $metaData, string $category) {
+    private function savePostdata(string $postName, array $metaData, string $category): ?int {
         $returnData = null;
 
         switch($category) {

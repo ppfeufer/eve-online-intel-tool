@@ -32,9 +32,11 @@ class FormNonce implements AjaxInterface {
     }
 
     /**
-     * Ajax Acion
+     * Ajax Action
+     *
+     * @return void
      */
-    public function ajaxAction() {
+    public function ajaxAction(): void {
         $nonce = \wp_create_nonce('eve-online-intel-tool-new-intel-form');
 
         \wp_send_json($nonce);
@@ -45,8 +47,10 @@ class FormNonce implements AjaxInterface {
 
     /**
      * Initialize WP Actions
+     *
+     * @return void
      */
-    public function initActions() {
+    public function initActions(): void {
         \add_action('wp_ajax_nopriv_get-eve-intel-form-nonce', [$this, 'ajaxAction']);
         \add_action('wp_ajax_get-eve-intel-form-nonce', [$this, 'ajaxAction']);
     }

@@ -28,6 +28,7 @@ class RemoteHelper extends AbstractSingleton {
      * Getting data from a remote source
      *
      * @param string $url
+     * @param string $method
      * @param array $parameter
      * @return mixed
      */

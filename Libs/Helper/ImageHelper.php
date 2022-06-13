@@ -27,16 +27,16 @@ class ImageHelper extends AbstractSingleton {
     /**
      * base URL to CCP's image server
      *
-     * @var var
+     * @var string
      */
-    public $imageserverUrl = 'https://images.evetech.net/';
+    public string $imageserverUrl = 'https://images.evetech.net/';
 
     /**
      * Array with possible end point on CCP's image server
      *
      * @var array
      */
-    public $imageserverEndpoints = null;
+    public ?array $imageserverEndpoints = null;
 
     /**
      * The Construtor
@@ -56,7 +56,7 @@ class ImageHelper extends AbstractSingleton {
     /**
      * Assigning Imagesever Endpoints
      */
-    public function getImageserverEndpoints() {
+    public function getImageserverEndpoints(): ?array {
         return $this->imageserverEndpoints;
     }
 
@@ -66,7 +66,7 @@ class ImageHelper extends AbstractSingleton {
      * @param string $type
      * @return string The EVE API Url
      */
-    public function getImageServerUrl(string $type = null) {
+    public function getImageServerUrl(string $type = null): string {
         $endpoint = '';
 
         if($type !== null) {

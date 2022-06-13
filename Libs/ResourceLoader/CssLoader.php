@@ -46,14 +46,14 @@ class CssLoader implements AssetsInterface {
     /**
      * Initialize the loader
      */
-    public function init() {
+    public function init(): void {
         \add_action('wp_enqueue_scripts', [$this, 'enqueue'], 99);
     }
 
     /**
      * Load the styles
      */
-    public function enqueue() {
+    public function enqueue(): void {
         /**
          * Only in Frontend
          */
