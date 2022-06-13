@@ -364,14 +364,6 @@ msgstr ""
 msgid "Pilots in space"
 msgstr ""
 
-#: templates/partials/coalition/coalition-participation.php:21
-msgid "Coalitions Breakdown"
-msgstr ""
-
-#: templates/partials/coalition/coalition-participation.php:77
-msgid "Unaffiliated"
-msgstr ""
-
 #: templates/partials/ship/ship-types.php:28
 msgid "Ship Type"
 msgstr ""

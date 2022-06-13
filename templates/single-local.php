@@ -43,15 +43,6 @@ $templateHelper = TemplateHelper::getInstance();
     <section class="post-content">
         <div class="entry-content">
             <div class="local-scan-result row">
-                <div class="col-sm-12">
-                    <?php
-                    $templateHelper->getTemplate('partials/coalition/coalition-participation', [
-                        'coalitionParticipation' => $intelData['localDataCoalitionParticipation']
-                    ]);
-                    ?>
-                </div>
-            </div>
-            <div class="local-scan-result row">
                 <div class="col-md-6 col-lg-3">
                     <?php
                     $templateHelper->getTemplate('partials/alliance/alliance-participation', [

@@ -41,13 +41,6 @@ class LocalScanParser extends AbstractSingleton {
     protected $stringHelper = null;
 
     /**
-     * Coalition Helper
-     *
-     * @var \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\CoalitionHelper
-     */
-    protected $coalitionHelper = null;
-
-    /**
      * Constructor
      */
     protected function __construct() {
@@ -55,7 +48,6 @@ class LocalScanParser extends AbstractSingleton {
 
         $this->esiHelper = EsiHelper::getInstance();
         $this->stringHelper = StringHelper::getInstance();
-        $this->coalitionHelper = \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\CoalitionHelper::getInstance();
     }
 
     public function parseLocalScan(string $scanData) {
@@ -73,7 +65,6 @@ class LocalScanParser extends AbstractSingleton {
                 'allianceList' => (!\is_null($participationData)) ? $participationData['allianceList'] : null,
                 'corporationParticipation' => (!\is_null($participationData)) ? $participationData['corporationParticipation'] : null,
                 'allianceParticipation' => (!\is_null($participationData)) ? $participationData['allianceParticipation'] : null,
-                'coalitionParticipation' => $this->getCoalitionParticipation($participationData, $localArray['pilotList'])
             ];
         }
 
@@ -311,51 +302,6 @@ class LocalScanParser extends AbstractSingleton {
         }
 
         unset($counter);
-
-        return $returnValue;
-    }
-
-    public function getCoalitionParticipation(array $participationData, $pilotList) {
-        $returnValue = null;
-
-        if(!\is_null($participationData['allianceParticipation'])) {
-            $coalitionData = $this->coalitionHelper->getCoalitionInformation();
-            $coalitionParticipation = [];
-            $coalitionAffiliation = [];
-            $count = [];
-            $count['total'] = 0;
-
-            foreach($coalitionData as $coalitionInfo) {
-                $count[$coalitionInfo->_id] = 0;
-
-                foreach($coalitionInfo->alliances as $coalitionAlliance) {
-                    foreach($participationData['allianceParticipation'] as $participationNumber) {
-                        foreach($participationNumber as $participatedAlliance) {
-                            if($participatedAlliance['allianceID'] === $coalitionAlliance->id) {
-                                $count[$coalitionInfo->_id] += $participatedAlliance['count'];
-                                $count['total'] += $participatedAlliance['count'];
-                                $coalitionAffiliation[$coalitionInfo->_id] = $coalitionInfo;
-                            }
-                        }
-                    }
-                }
-            }
-
-            foreach($coalitionAffiliation as $affiliation) {
-                $coalitionParticipation['coalition'][$count[$affiliation->_id]][$affiliation->_id]['count'] = $count[$affiliation->_id];
-                $coalitionParticipation['coalition'][$count[$affiliation->_id]][$affiliation->_id]['percentage'] = 100 / \count($pilotList) * $count[$affiliation->_id];
-                $coalitionParticipation['coalition'][$count[$affiliation->_id]][$affiliation->_id]['data'] = $affiliation;
-            }
-
-            $countUnaffiliated = \count($pilotList) - $count['total'];
-
-            $coalitionParticipation['unaffiliated']['count'] = $countUnaffiliated;
-            $coalitionParticipation['unaffiliated']['percentage'] = 100 / \count($pilotList) * $countUnaffiliated;
-
-            \krsort($coalitionParticipation['coalition']);
-
-            $returnValue = $coalitionParticipation;
-        }
 
         return $returnValue;
     }
