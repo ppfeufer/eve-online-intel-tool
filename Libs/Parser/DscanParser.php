@@ -677,10 +677,10 @@ class DscanParser extends AbstractSingleton {
      * Getting the destination system of an Ansiblex Jump Gate
      *
      * @param array $scanResult
-     * @param type $linkDestination
+     * @param bool $linkDestination
      * @return string|null
      */
-    private function getAnsiblexJumGateDestination(array $scanResult, $linkDestination = true): ?string {
+    private function getAnsiblexJumGateDestination(array $scanResult, bool $linkDestination = true): ?string {
         $returnValue = null;
 
         $dscanData = $scanResult['dscanData'];

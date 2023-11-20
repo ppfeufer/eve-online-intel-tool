@@ -173,7 +173,7 @@ class IntelParser {
             $postName = $this->uniqueID;
 
             /**
-             * If we have a system, add it to the post title
+             * If we have a system, add it to the post-title
              */
             if(!empty($parsedDscanData['systemInformation']['system']['name'])) {
                 $postName = $parsedDscanData['systemInformation']['system']['name'];
@@ -274,7 +274,7 @@ class IntelParser {
     }
 
     /**
-     * Save the post data
+     * Save the post-data
      *
      * @param string $postName
      * @param array $metaData
@@ -282,6 +282,7 @@ class IntelParser {
      * @return int|null
      */
     private function savePostdata(string $postName, array $metaData, string $category): ?int {
+        $postTitle = null;
         $returnData = null;
 
         switch($category) {
@@ -298,22 +299,24 @@ class IntelParser {
                 break;
         }
 
-        $newPostID = \wp_insert_post([
-            'post_title' => $postTitle,
-            'post_name' => \sanitize_title($postTitle),
-            'post_content' => '',
-            'post_category' => '',
-            'post_status' => 'publish',
-            'post_type' => 'intel',
-            'comment_status' => 'closed',
-            'ping_status' => 'closed',
-            'meta_input' => $metaData
-        ], true);
+        if ($postTitle !== null) {
+            $newPostID = \wp_insert_post([
+                'post_title' => $postTitle,
+                'post_name' => \sanitize_title($postTitle),
+                'post_content' => '',
+                'post_category' => '',
+                'post_status' => 'publish',
+                'post_type' => 'intel',
+                'comment_status' => 'closed',
+                'ping_status' => 'closed',
+                'meta_input' => $metaData
+            ], true);
 
-        if($newPostID) {
-            \wp_set_object_terms($newPostID, $category, 'intel_category');
+            if ($newPostID) {
+                \wp_set_object_terms($newPostID, $category, 'intel_category');
 
-            $returnData = $newPostID;
+                $returnData = $newPostID;
+            }
         }
 
         return $returnData;
