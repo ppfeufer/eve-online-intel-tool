@@ -1,0 +1,40 @@
+# Apply to all files without committing:
+#   pre-commit run --all-files
+# Update this file:
+#   pre-commit autoupdate
+
+default_language_version:
+  # force all unspecified python hooks to run python3
+  python: python3
+
+# https://pre-commit.ci/
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit.com hooks
+
+    for more information, see https://pre-commit.ci
+  autofix_prs: false
+  autoupdate_branch: 'master'
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: monthly
+  skip: []
+  submodules: false
+
+# pre-commit setup
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-case-conflict
+      - id: check-json
+      - id: check-xml
+      - id: check-yaml
+      - id: fix-byte-order-marker
+      - id: trailing-whitespace
+        exclude: \.(min\.css|min\.js|po|mo)$
+      - id: end-of-file-fixer
+        exclude: \.(min\.css|min\.js|po|mo)$
+      - id: mixed-line-ending
+        args: [ '--fix=lf' ]
+      - id: fix-encoding-pragma
+        args: [ '--remove' ]
