@@ -44,7 +44,7 @@ class WpHooks {
     /**
      * Initialize all the needed hooks, filter, actions and so on
      */
-    public function init() {
+    public function init(): void {
         $this->initHooks();
         $this->initActions();
         $this->initFilter();
@@ -53,7 +53,7 @@ class WpHooks {
     /**
      * Initialize our hooks
      */
-    public function initHooks() {
+    public function initHooks(): void {
         \register_activation_hook($this->pluginFile, [UpdateHelper::getInstance(), 'checkDatabaseForUpdates']);
         \register_activation_hook($this->pluginFile, [UpdateHelper::getInstance(), 'checkEsiClientForUpdates']);
         \register_activation_hook($this->pluginFile, [$this, 'registerPostTypeOnActivation']);
@@ -65,7 +65,7 @@ class WpHooks {
     /**
      * Add our actions to WordPress
      */
-    public function initActions() {
+    public function initActions(): void {
         /**
          * Stuff that's added to the HTML head section
          */
@@ -91,7 +91,7 @@ class WpHooks {
     /**
      * Initializing our filter
      */
-    public function initFilter() {
+    public function initFilter(): void {
         \add_filter('plugin_row_meta', [$this, 'addPluginRowMeta'], 10, 2);
 
         \add_filter('template_include', [PostType::getInstance(), 'templateLoader']);
@@ -107,7 +107,7 @@ class WpHooks {
      * @param string $file
      * @return array
      */
-    public function addPluginRowMeta($links, $file) {
+    public function addPluginRowMeta($links, $file): array {
         if(\strpos($file, 'eve-online-intel-tool.php') !== false) {
             $new_links = [
                 'issue_tracker' => '<a href="https://github.com/ppfeufer/eve-online-intel-tool/issues" target="_blank" rel="noopener noreferer">GitHub Issue Tracker</a>',
@@ -123,7 +123,7 @@ class WpHooks {
     /**
      * Adding noindex and nofollow meta
      */
-    public function noindexForIntelPages() {
+    public function noindexForIntelPages(): void {
         if(PostType::getInstance()->isPostTypePage() === true) {
             echo '<meta name="robots" content="noindex, nofollow">' . "\n";
         }
@@ -132,7 +132,7 @@ class WpHooks {
     /**
      * Adding a meta description
      */
-    public function setMetaDescription() {
+    public function setMetaDescription(): void {
         if(PostType::getInstance()->isPostTypePage() === true) {
             echo '<meta name="description" content="' . \__('Intel tool for EVE Online. Parse and share directional scans, fleet compositions and chat scans.', 'eve-online-intel-tool') . '">';
         }
@@ -142,7 +142,7 @@ class WpHooks {
      * Hook: flushRewriteRulesOnActivation
      * Fired on: register_activation_hook
      */
-    public function registerPostTypeOnActivation() {
+    public function registerPostTypeOnActivation(): void {
         PostType::getInstance()->registerCustomPostType();
 
         \flush_rewrite_rules();
@@ -152,7 +152,7 @@ class WpHooks {
      * Hook: flushRewriteRulesOnDeactivation
      * Fired on: register_deactivation_hook
      */
-    public function unregisterPostTypeOnDeactivation() {
+    public function unregisterPostTypeOnDeactivation(): void {
         PostType::getInstance()->unregisterCustomPostType();
 
         \flush_rewrite_rules();
@@ -162,7 +162,7 @@ class WpHooks {
      * Removing the DB version on plugin decativation
      * Issue: https://github.com/ppfeufer/eve-online-killboard-widget/issues/50
      */
-    public function removeDatabaseVersionOnDeactivation() {
+    public function removeDatabaseVersionOnDeactivation(): void {
         \delete_option(UpdateHelper::getInstance()->getDatabaseFieldName());
     }
 }

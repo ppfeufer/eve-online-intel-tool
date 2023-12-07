@@ -76,7 +76,7 @@ class EveOnlineIntelTool {
     /**
      * Initialize the plugin
      */
-    public function init() {
+    public function init(): void {
         new WpHooks;
 
         $this->loadTextDomain();
@@ -100,7 +100,7 @@ class EveOnlineIntelTool {
     /**
      * Initializing the GitHub Updater
      */
-    private function initGitHubUpdater() {
+    private function initGitHubUpdater(): void {
         /**
          * Check Github for updates
          */
@@ -124,7 +124,7 @@ class EveOnlineIntelTool {
     /**
      * Setting up our text domain for translations
      */
-    public function loadTextDomain() {
+    public function loadTextDomain(): void {
         if(\function_exists('\load_plugin_textdomain')) {
             \load_plugin_textdomain($this->textDomain, false, $this->localizationDirectory);
         }

@@ -42,14 +42,14 @@ class IntelParser {
      *
      * @var string
      */
-    public $uniqueID = null;
+    public ?string $uniqueID = null;
 
     /**
      * ID of the new post
      *
      * @var int
      */
-    public $postID = null;
+    public ?int $postID = null;
 
     /**
      * Constructor
@@ -62,7 +62,7 @@ class IntelParser {
         }
 
         $this->eveIntel = \filter_input(\INPUT_POST, 'eveIntel');
-        $this->uniqueID = \uniqid();
+        $this->uniqueID = \uniqid('', true);
 
         /**
          * Let's get the intel type
@@ -111,9 +111,9 @@ class IntelParser {
      * Determine what type of intel we might have
      *
      * @param string $scanData
-     * @return string
+     * @return string|null
      */
-    private function checkIntelType(string $scanData) {
+    private function checkIntelType(string $scanData): ?string {
         $intelType = null;
 
         /**
@@ -162,9 +162,9 @@ class IntelParser {
      * Saving the D-Scan data
      *
      * @param string $scanData
-     * @return int
+     * @return int|null
      */
-    private function saveDscanData(string $scanData) {
+    private function saveDscanData(string $scanData): ?int {
         $returnData = null;
 
         $parsedDscanData = DscanParser::getInstance()->parseDscan($scanData);
@@ -173,7 +173,7 @@ class IntelParser {
             $postName = $this->uniqueID;
 
             /**
-             * If we have a system, add it to the post title
+             * If we have a system, add it to the post-title
              */
             if(!empty($parsedDscanData['systemInformation']['system']['name'])) {
                 $postName = $parsedDscanData['systemInformation']['system']['name'];
@@ -214,9 +214,9 @@ class IntelParser {
      * Saving the fleet composition data
      *
      * @param string $scanData
-     * @return int
+     * @return int|null
      */
-    private function saveFleetComositionData(string $scanData) {
+    private function saveFleetComositionData(string $scanData): ?int {
         $returnData = null;
         $parsedFleetComposition = FleetCompositionParser::getInstance()->parseFleetCompositionScan($scanData);
 
@@ -247,9 +247,9 @@ class IntelParser {
      * Saving the local/chat scan data
      *
      * @param string $scanData
-     * @return int
+     * @return int|null
      */
-    private function saveLocalScanData(string $scanData) {
+    private function saveLocalScanData(string $scanData): ?int {
         $returnData = null;
 
         $parsedLocalData = LocalScanParser::getInstance()->parseLocalScan($scanData);
@@ -264,7 +264,6 @@ class IntelParser {
                 'eve-intel-tool_local-allianceList' => \maybe_serialize($parsedLocalData['allianceList']),
                 'eve-intel-tool_local-corporationParticipation' => \maybe_serialize($parsedLocalData['corporationParticipation']),
                 'eve-intel-tool_local-allianceParticipation' => \maybe_serialize($parsedLocalData['allianceParticipation']),
-                'eve-intel-tool_local-coalitionParticipation' => \maybe_serialize($parsedLocalData['coalitionParticipation']),
                 'eve-intel-tool_local-time' => \maybe_serialize(\gmdate('Y-m-d H:i:s', \time())),
             ];
 
@@ -275,14 +274,15 @@ class IntelParser {
     }
 
     /**
-     * Save the post data
+     * Save the post-data
      *
      * @param string $postName
      * @param array $metaData
      * @param string $category
-     * @return int
+     * @return int|null
      */
-    private function savePostdata(string $postName, array $metaData, string $category) {
+    private function savePostdata(string $postName, array $metaData, string $category): ?int {
+        $postTitle = null;
         $returnData = null;
 
         switch($category) {
@@ -299,22 +299,24 @@ class IntelParser {
                 break;
         }
 
-        $newPostID = \wp_insert_post([
-            'post_title' => $postTitle,
-            'post_name' => \sanitize_title($postTitle),
-            'post_content' => '',
-            'post_category' => '',
-            'post_status' => 'publish',
-            'post_type' => 'intel',
-            'comment_status' => 'closed',
-            'ping_status' => 'closed',
-            'meta_input' => $metaData
-        ], true);
+        if ($postTitle !== null) {
+            $newPostID = \wp_insert_post([
+                'post_title' => $postTitle,
+                'post_name' => \sanitize_title($postTitle),
+                'post_content' => '',
+                'post_category' => '',
+                'post_status' => 'publish',
+                'post_type' => 'intel',
+                'comment_status' => 'closed',
+                'ping_status' => 'closed',
+                'meta_input' => $metaData
+            ], true);
 
-        if($newPostID) {
-            \wp_set_object_terms($newPostID, $category, 'intel_category');
+            if ($newPostID) {
+                \wp_set_object_terms($newPostID, $category, 'intel_category');
 
-            $returnData = $newPostID;
+                $returnData = $newPostID;
+            }
         }
 
         return $returnData;

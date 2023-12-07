@@ -33,7 +33,7 @@ class GithubUpdater {
     /**
      * GitHub Updater version
      */
-    const VERSION = 1.6;
+    public const VERSION = 1.6;
 
     /**
      * @var $config the config for the updater
@@ -64,7 +64,7 @@ class GithubUpdater {
     public function __construct(array $config = []) {
         $defaults = [
             'slug' => \plugin_basename(__FILE__),
-            'proper_folder_name' => \dirname(\dirname(\plugin_basename(__FILE__))),
+            'proper_folder_name' => dirname(\plugin_basename(__FILE__), 2),
             'sslverify' => true,
             'access_token' => '',
         ];
@@ -88,7 +88,7 @@ class GithubUpdater {
     /**
      * Fire all WordPress actions
      */
-    public function init() {
+    public function init(): void {
         \add_filter('pre_set_site_transient_update_plugins', [$this, 'apiCheck']);
 
         // Hook into the plugin details screen
@@ -107,7 +107,7 @@ class GithubUpdater {
      *
      * @return boolean
      */
-    public function hasMinimumConfig() {
+    public function hasMinimumConfig(): bool {
         $this->missingConfig = [];
 
         $requiredParams = [
@@ -134,7 +134,7 @@ class GithubUpdater {
      *
      * @return bool overrule or not
      */
-    public function overruleTransients() {
+    public function overruleTransients(): bool {
         return (\defined('\WordPress\Plugins\EveOnlineIntelTool\WP_GITHUB_FORCE_UPDATE') && \WordPress\Plugins\EveOnlineIntelTool\WP_GITHUB_FORCE_UPDATE);
     }
 
@@ -144,7 +144,7 @@ class GithubUpdater {
      * @since 1.2
      * @return void
      */
-    public function setDefaults() {
+    public function setDefaults(): void {
         if(!empty($this->config['access_token'])) {
             // See Downloading a zipball (private repo) https://help.github.com/articles/downloading-files-from-the-command-line
             $parsedUrl = \parse_url($this->config['zip_url']); // $scheme, $host, $path
@@ -195,7 +195,7 @@ class GithubUpdater {
      * @since 1.0
      * @return int timeout value
      */
-    public function httpRequestTimeout() {
+    public function httpRequestTimeout(): int {
         return 2;
     }
 
@@ -207,7 +207,7 @@ class GithubUpdater {
      *
      * @return array
      */
-    public function httpRequestSslVerify(array $args, string $url) {
+    public function httpRequestSslVerify(array $args, string $url): array {
         if($this->config['zip_url'] == $url) {
             $args['sslverify'] = $this->config['sslverify'];
         }
@@ -219,7 +219,7 @@ class GithubUpdater {
      * Get New Version from GitHub
      *
      * @since 1.0
-     * @return int $version the version number
+     * @return numeric $version the version number
      */
     public function getNewVersion() {
         $version = \get_site_transient(\md5($this->config['slug']) . '_new_version');
@@ -297,7 +297,7 @@ class GithubUpdater {
      * Get GitHub Data from the specified repository
      *
      * @since 1.0
-     * @return array $github_data the data
+     * @return array|bool $github_data the data or false
      */
     public function getGithubData() {
         $githubData = null;
@@ -333,7 +333,7 @@ class GithubUpdater {
      * Get update date
      *
      * @since 1.0
-     * @return string $date the date
+     * @return string|bool $date the date
      */
     public function getDate() {
         $githubData = $this->getGithubData();
@@ -345,7 +345,7 @@ class GithubUpdater {
      * Get plugin description
      *
      * @since 1.0
-     * @return string $description the description
+     * @return string|bool $description the description
      */
     public function getDescription() {
         $githubData = $this->getGithubData();
@@ -357,14 +357,12 @@ class GithubUpdater {
      * Get Plugin data
      *
      * @since 1.0
-     * @return object $data the data
+     * @return array $data the data
      */
-    public function getPluginData() {
+    public function getPluginData(): array {
         include_once(\ABSPATH . '/wp-admin/includes/plugin.php');
 
-        $data = \get_plugin_data(\WP_PLUGIN_DIR . '/' . $this->config['slug']);
-
-        return $data;
+        return \get_plugin_data(\WP_PLUGIN_DIR . '/' . $this->config['slug']);
     }
 
     /**
@@ -374,7 +372,7 @@ class GithubUpdater {
      * @param object $transient the plugin data transient
      * @return object $transient updated plugin data transient
      */
-    public function apiCheck($transient) {
+    public function apiCheck($transient): object {
         /**
          * Check if the transient contains the 'checked' information
          * If not, just return its value without hacking it
@@ -409,7 +407,7 @@ class GithubUpdater {
      * @param bool $false always false
      * @param string $action the API function being performed
      * @param object $response
-     * @return object
+     * @return object|bool
      */
     public function getPluginInfo(bool $false, string $action, $response) {
         // Check if this call API is for the right plugin
@@ -448,7 +446,7 @@ class GithubUpdater {
      * @param array $result the result of the move
      * @return array $result the result of the move
      */
-    public function upgraderPostInstall($true, $hookExtra, $result) {
+    public function upgraderPostInstall($true, $hookExtra, $result): array {
         global $wp_filesystem;
 
         /**

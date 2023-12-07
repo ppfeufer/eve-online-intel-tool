@@ -35,7 +35,7 @@ class StringHelper extends AbstractSingleton {
      * @param array $noStrip
      * @return string
      */
-    public function camelCase(string $string, bool $ucFirst = false, array $noStrip = []) {
+    public function camelCase(string $string, bool $ucFirst = false, array $noStrip = []): string {
         // First we make sure all is lower case
         $string = \strtolower($string);
 
@@ -63,9 +63,7 @@ class StringHelper extends AbstractSingleton {
      * @param string $scanData
      * @return string
      */
-    public function fixLineBreaks(string $scanData) {
-        $cleanedScanData = \str_replace("\r", "\n", \str_replace("\r\n", "\n", $scanData)); // mac -> linux
-
-        return $cleanedScanData;
+    public function fixLineBreaks(string $scanData): string {
+        return \str_replace("\r", "\n", \str_replace("\r\n", "\n", $scanData));
     }
 }

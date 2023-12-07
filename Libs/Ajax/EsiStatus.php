@@ -34,9 +34,11 @@ class EsiStatus implements AjaxInterface {
     }
 
     /**
-     * Ajax Acion
+     * Ajax Action
+     *
+     * @return void
      */
-    public function ajaxAction() {
+    public function ajaxAction(): void {
         $esiStatus = EsiHelper::getInstance()->getEsiStatusLatest();
 
         if(!\is_null($esiStatus)) {
@@ -83,8 +85,10 @@ class EsiStatus implements AjaxInterface {
 
     /**
      * Initialize WP Actions
+     *
+     * @return void
      */
-    public function initActions() {
+    public function initActions(): void {
         \add_action('wp_ajax_nopriv_get-esi-status', [$this, 'ajaxAction']);
         \add_action('wp_ajax_get-esi-status', [$this, 'ajaxAction']);
     }

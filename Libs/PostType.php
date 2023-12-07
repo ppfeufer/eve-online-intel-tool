@@ -32,7 +32,7 @@ class PostType extends AbstractSingleton {
     /**
      * Registering the custom post type
      */
-    public function registerCustomPostType() {
+    public function registerCustomPostType(): void {
         $cptSlug = $this->getPosttypeSlug('intel');
 
         $argsTaxonomyCategory = [
@@ -95,7 +95,7 @@ class PostType extends AbstractSingleton {
     /**
      * Fired on plugin deactivation
      */
-    public function unregisterCustomPostType() {
+    public function unregisterCustomPostType(): void {
         \unregister_post_type('intel');
     }
 
@@ -123,7 +123,7 @@ class PostType extends AbstractSingleton {
      * @param string $postType
      * @return string
      */
-    public function getPosttypeSlug(string $postType) {
+    public function getPosttypeSlug(string $postType): string {
         global $wpdb;
 
         $var_qry = '
@@ -145,9 +145,9 @@ class PostType extends AbstractSingleton {
          */
         if(!empty($slugData)) {
             return $slugData;
-        } else {
-            return $postType;
         }
+
+        return $postType;
     }
 
     /**
@@ -163,9 +163,9 @@ class PostType extends AbstractSingleton {
      * @return string Template file that should be loaded.
      *
      * @param string $template
-     * @return type
+     * @return string
      */
-    public function templateLoader(string $template) {
+    public function templateLoader(string $template): string {
         $templateFile = null;
 
         if(\is_singular('intel')) {
@@ -189,7 +189,7 @@ class PostType extends AbstractSingleton {
      * @param string $pageTemplate
      * @return string
      */
-    public function registerPageTemplate(string $pageTemplate) {
+    public function registerPageTemplate(string $pageTemplate): string {
         if(\is_page($this->getPosttypeSlug('intel'))) {
             $pageTemplate = PluginHelper::getInstance()->getPluginPath('templates/page-intel.php');
         }
@@ -197,7 +197,7 @@ class PostType extends AbstractSingleton {
         return $pageTemplate;
     }
 
-    public function isPostTypePage() {
+    public function isPostTypePage(): bool {
         $returnValue = false;
 
         if(\is_page($this->getPosttypeSlug('intel')) || \get_post_type() === 'intel' || \is_post_type_archive('intel') === true) {

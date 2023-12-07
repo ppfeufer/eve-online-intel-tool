@@ -30,7 +30,7 @@ class PluginHelper extends AbstractSingleton {
      * @param string $file
      * @return string
      */
-    public function getPluginPath(string $file = '') {
+    public function getPluginPath(string $file = ''): string {
         return \WP_PLUGIN_DIR . '/' . $this->getPluginDirName() . '/' . $file;
     }
 
@@ -40,7 +40,7 @@ class PluginHelper extends AbstractSingleton {
      * @param string $file
      * @return string
      */
-    public function getPluginUri(string $file = '') {
+    public function getPluginUri(string $file = ''): string {
         return \WP_PLUGIN_URL . '/' . $this->getPluginDirName() . '/' . $file;
     }
 
@@ -49,7 +49,7 @@ class PluginHelper extends AbstractSingleton {
      *
      * @return string
      */
-    public function getPluginDirName() {
-        return \dirname(\dirname(\dirname(\plugin_basename(__FILE__))));
+    public function getPluginDirName(): string {
+        return dirname(\plugin_basename(__FILE__), 3);
     }
 }

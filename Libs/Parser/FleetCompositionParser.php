@@ -62,9 +62,9 @@ class FleetCompositionParser extends AbstractSingleton {
      * Parsing the fleet composition
      *
      * @param string $scanData
-     * @return array
+     * @return array|null
      */
-    public function parseFleetCompositionScan(string $scanData) {
+    public function parseFleetCompositionScan(string $scanData): ?array {
         $returnData = null;
         $fleetCompArray = $this->getFleetCompositionArray($scanData);
 
@@ -79,7 +79,7 @@ class FleetCompositionParser extends AbstractSingleton {
      * @param string $scanData
      * @return array
      */
-    public function getFleetCompositionArray(string $scanData) {
+    public function getFleetCompositionArray(string $scanData): array {
         /**
          * Correcting line breaks
          *

@@ -32,7 +32,7 @@ class StructureHelper extends AbstractSingleton {
      *
      * @return array Upwell structure IDs
      */
-    public function getUpwellStructureIds() {
+    public function getUpwellStructureIds(): array {
         $returnValue = \array_merge(
             $this->getCitadelIds(),
             $this->getFactionFortizarIds(),
@@ -49,7 +49,7 @@ class StructureHelper extends AbstractSingleton {
      *
      * @return array
      */
-    public function getCitadelIds() {
+    public function getCitadelIds(): array {
         return [
             /**
              * Citadels
@@ -66,7 +66,7 @@ class StructureHelper extends AbstractSingleton {
      *
      * @return array
      */
-    public function getFactionFortizarIds() {
+    public function getFactionFortizarIds(): array {
         return [
             /**
              * Faction Fortizars (Former Outposts)
@@ -84,7 +84,7 @@ class StructureHelper extends AbstractSingleton {
      *
      * @return array
      */
-    public function getEngeneeringComplexIds() {
+    public function getEngeneeringComplexIds(): array {
         return [
             /**
              * Engeneering Complexes
@@ -100,7 +100,7 @@ class StructureHelper extends AbstractSingleton {
      *
      * @return array
      */
-    public function getRefineryIds() {
+    public function getRefineryIds(): array {
         return [
             /**
              * Refineries
@@ -115,7 +115,7 @@ class StructureHelper extends AbstractSingleton {
      *
      * @return array
      */
-    public function getNavigationalStructureIds() {
+    public function getNavigationalStructureIds(): array {
         return [
             /**
              * Navigational Structures

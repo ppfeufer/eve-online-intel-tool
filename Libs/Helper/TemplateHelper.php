@@ -40,7 +40,7 @@ class TemplateHelper extends AbstractSingleton {
      * @param string $default_path Default path to template files.
      * @return string Path to the template file.
      */
-    public function locateTemplate(string $template_name, string $template_path = '', string $default_path = '') {
+    public function locateTemplate(string $template_name, string $template_path = '', string $default_path = ''): string {
         // Set variable to search in templates folder of theme.
         if(!$template_path) {
             $template_path = 'templates/';
@@ -81,10 +81,11 @@ class TemplateHelper extends AbstractSingleton {
      * @param array $args Args passed for the template file.
      * @param string $tempate_path Path to templates.
      * @param string $default_path Default path to template files.
+     * @return string
      */
-    public function getTemplate(string $template_name, array $args = [], string $tempate_path = '', string $default_path = '') {
+    public function getTemplate(string $template_name, array $args = [], string $tempate_path = '', string $default_path = ''): string {
         if(\is_array($args) && isset($args)) {
-            \extract($args);
+            \extract($args, EXTR_OVERWRITE);
         }
 
         // fail safe

@@ -27,7 +27,7 @@ class TemplateLoader {
      *
      * @var array
      */
-    protected $templates = [];
+    protected array $templates = [];
 
     /**
      * Initializes the plugin by setting filters and administration functions.
@@ -55,7 +55,7 @@ class TemplateLoader {
      * @param array $postsTemplates
      * @return array
      */
-    public function addNewTemplate(array $postsTemplates) {
+    public function addNewTemplate(array $postsTemplates): array {
         $postsTemplates = \array_merge($postsTemplates, $this->templates);
 
         return $postsTemplates;
@@ -68,7 +68,7 @@ class TemplateLoader {
      * @param array $atts
      * @return array
      */
-    public function registerProjectTemplates(array $atts) {
+    public function registerProjectTemplates(array $atts): array {
         // Create the key used for the themes cache
         $cacheKey = 'page_templates-' . \md5(\get_theme_root() . '/' . \get_stylesheet());
 
@@ -97,9 +97,9 @@ class TemplateLoader {
     /**
      * Checks if the template is assigned to the page
      *
-     * @global object $post
      * @param array $template
-     * @return string
+     * @global object $post
+     * @return array|string
      */
     public function viewProjectTemplate(array $template) {
         // Get global post
@@ -120,9 +120,9 @@ class TemplateLoader {
         // Just to be safe, we check if the file exist first
         if(\file_exists($file)) {
             return $file;
-        } else {
-            echo $file;
         }
+
+        echo $file;
 
         // Return template
         return $template;

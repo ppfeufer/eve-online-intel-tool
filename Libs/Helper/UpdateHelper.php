@@ -32,21 +32,21 @@ class UpdateHelper extends AbstractSingleton {
      *
      * @var string
      */
-    protected $optionDatabaseFieldName = 'eve-online-intel-tool-database-version';
+    protected string $optionDatabaseFieldName = 'eve-online-intel-tool-database-version';
 
     /**
      * Database version
      *
-     * @var string
+     * @var int
      */
-    protected $databaseVersion = 20190611;
+    protected int $databaseVersion = 20190611;
 
     /**
      * Database version
      *
-     * @var string
+     * @var int
      */
-    protected $esiClientVersion = 20210929;
+    protected int $esiClientVersion = 20210929;
 
     /**
      * WordPress Database Instance
@@ -62,7 +62,7 @@ class UpdateHelper extends AbstractSingleton {
      *
      * @var bool
      */
-    protected $hasZipArchive = false;
+    protected bool $hasZipArchive = false;
 
     /**
      * Constructor
@@ -75,7 +75,7 @@ class UpdateHelper extends AbstractSingleton {
         global $wpdb;
 
         $this->wpdb = $wpdb;
-        $this->hasZipArchive = (\class_exists('ZipArchive')) ? true : false;
+        $this->hasZipArchive = \class_exists('ZipArchive');
     }
 
     /**
@@ -83,7 +83,7 @@ class UpdateHelper extends AbstractSingleton {
      *
      * @return int
      */
-    public function getNewDatabaseVersion() {
+    public function getNewDatabaseVersion(): int {
         return $this->databaseVersion;
     }
 
@@ -92,7 +92,7 @@ class UpdateHelper extends AbstractSingleton {
      *
      * @return int
      */
-    public function getNewEsiClientVersion() {
+    public function getNewEsiClientVersion(): int {
         return $this->esiClientVersion;
     }
 
@@ -101,7 +101,7 @@ class UpdateHelper extends AbstractSingleton {
      *
      * @return string
      */
-    public function getDatabaseFieldName() {
+    public function getDatabaseFieldName(): string {
         return $this->optionDatabaseFieldName;
     }
 
@@ -110,14 +110,14 @@ class UpdateHelper extends AbstractSingleton {
      *
      * @return string
      */
-    public function getCurrentDatabaseVersion() {
+    public function getCurrentDatabaseVersion(): string {
         return \get_option($this->getDatabaseFieldName());
     }
 
     /**
      * Check if the database needs to be updated
      */
-    public function checkDatabaseForUpdates() {
+    public function checkDatabaseForUpdates(): void {
         $currentVersion = $this->getCurrentDatabaseVersion();
 
         if(\version_compare($currentVersion, $this->getNewDatabaseVersion()) < 0) {
@@ -147,11 +147,11 @@ class UpdateHelper extends AbstractSingleton {
     /**
      * Update the plugin database
      */
-    public function updateDatabase() {
+    public function updateDatabase(): void {
         $this->createEsiCacheTable();
     }
 
-    private function removeOldTables() {
+    private function removeOldTables(): void {
         $oldTableNames = [
             'eveIntelAlliances',
             'eveIntelConstellations',
@@ -170,14 +170,14 @@ class UpdateHelper extends AbstractSingleton {
         }
     }
 
-    private function truncateCacheTable() {
+    private function truncateCacheTable(): void {
         $tableName = $this->wpdb->base_prefix . 'eve_online_esi_cache';
 
         $sql = "TRUNCATE $tableName;";
         $this->wpdb->query($sql);
     }
 
-    private function createEsiCacheTable() {
+    private function createEsiCacheTable(): void {
         $charsetCollate = $this->wpdb->get_charset_collate();
         $tableName = $this->wpdb->base_prefix . 'eve_online_esi_cache';
 
@@ -196,7 +196,7 @@ class UpdateHelper extends AbstractSingleton {
     /**
      * Check if the ESI clients needs to be updated
      */
-    public function checkEsiClientForUpdates() {
+    public function checkEsiClientForUpdates(): void {
         $esiClientCurrentVersion = null;
 
         /**
@@ -227,7 +227,7 @@ class UpdateHelper extends AbstractSingleton {
      *
      * @throws Exception
      */
-    private function updateEsiClient(string $version = null) {
+    private function updateEsiClient(string $version = null): void {
         $remoteZipFile = 'https://github.com/ppfeufer/wp-esi-client/archive/master.zip';
         $dirInZipFile = '/wp-esi-client-master';
 
@@ -283,7 +283,7 @@ class UpdateHelper extends AbstractSingleton {
      *
      * @param string $dir
      */
-    private function rrmdir(string $dir) {
+    private function rrmdir(string $dir): void {
         if(\is_dir($dir)) {
             $objects = \scandir($dir);
 

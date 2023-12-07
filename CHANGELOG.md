@@ -11,6 +11,11 @@
 
 - ESI client version
 
+### Removed
+
+- Coalition breakdown, since the API is no longer available
+
+
 ## [v1.7.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.7.0) - 2019-11-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.6.4...v1.7.0)
 ### Changed
@@ -44,7 +49,7 @@
 
 ### Changed
 - Show unaffiliated coalition numbers only if there are actually some
-- German tanslation updated
+- German translation updated
 
 ## [v1.6.0](https://github.com/ppfeufer/eve-online-intel-tool/releases/tag/v1.6.0) - 2019-05-01
 [Full Changelog](https://github.com/ppfeufer/eve-online-intel-tool/compare/v1.5.2...v1.6.0)

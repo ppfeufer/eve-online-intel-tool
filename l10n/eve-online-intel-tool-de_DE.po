@@ -377,14 +377,6 @@ msgstr "Piloten gedockt"
 msgid "Pilots in space"
 msgstr "Piloten im Weltraum"
 
-#: templates/partials/coalition/coalition-participation.php:21
-msgid "Coalitions Breakdown"
-msgstr "Koalition Übersicht"
-
-#: templates/partials/coalition/coalition-participation.php:77
-msgid "Unaffiliated"
-msgstr "Ohne Zugehörigkeit"
-
 #: templates/partials/ship/ship-types.php:28
 msgid "Ship Type"
 msgstr "Schiffstyp"
