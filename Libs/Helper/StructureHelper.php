@@ -19,9 +19,7 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
-
-\defined('ABSPATH') or die();
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 /**
  * Helper Class for manipulating and/or checking strings
@@ -33,15 +31,13 @@ class StructureHelper extends AbstractSingleton {
      * @return array Upwell structure IDs
      */
     public function getUpwellStructureIds(): array {
-        $returnValue = \array_merge(
+        return array_merge(
             $this->getCitadelIds(),
             $this->getFactionFortizarIds(),
             $this->getEngeneeringComplexIds(),
             $this->getRefineryIds(),
             $this->getNavigationalStructureIds()
         );
-
-        return $returnValue;
     }
 
     /**

@@ -19,15 +19,15 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
-
-\defined('ABSPATH') or die();
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 class Widgets extends AbstractSingleton {
     /**
      * Initialize frontend widgets
      */
     public function registerWidgets(): void {
-        \register_widget('\\WordPress\Plugins\EveOnlineIntelTool\Libs\Widgets\Frontend\IntelFormWidget');
+        register_widget(
+            widget: '\\WordPress\Plugins\EveOnlineIntelTool\Libs\Widgets\Frontend\IntelFormWidget'
+        );
     }
 }

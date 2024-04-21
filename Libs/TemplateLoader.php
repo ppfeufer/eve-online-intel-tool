@@ -19,8 +19,6 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
-\defined('ABSPATH') or die();
-
 class TemplateLoader {
     /**
      * The array of templates that this plugin tracks.
@@ -34,14 +32,23 @@ class TemplateLoader {
      */
     public function __construct() {
         // Add a filter to the attributes metabox to inject template into the cache.
-        \add_filter('theme_page_templates', [$this, 'addNewTemplate']);
+        add_filter(
+            hook_name: 'theme_page_templates',
+            callback: [$this, 'addNewTemplate']
+        );
 
         // Add a filter to the save post to inject out template into the page cache
-        \add_filter('wp_insert_post_data', [$this, 'registerProjectTemplates']);
+        add_filter(
+            hook_name: 'wp_insert_post_data',
+            callback: [$this, 'registerProjectTemplates']
+        );
 
         // Add a filter to the template include to determine if the page has our
-        // template assigned and return it's path
-        \add_filter('template_include', [$this, 'viewProjectTemplate']);
+        // template assigned and return its path
+        add_filter(
+            hook_name: 'template_include',
+            callback: [$this, 'viewProjectTemplate']
+        );
 
         // Add your templates to this array.
         $this->templates = [
@@ -56,9 +63,7 @@ class TemplateLoader {
      * @return array
      */
     public function addNewTemplate(array $postsTemplates): array {
-        $postsTemplates = \array_merge($postsTemplates, $this->templates);
-
-        return $postsTemplates;
+        return array_merge($postsTemplates, $this->templates);
     }
 
     /**
@@ -69,27 +74,29 @@ class TemplateLoader {
      * @return array
      */
     public function registerProjectTemplates(array $atts): array {
-        // Create the key used for the themes cache
-        $cacheKey = 'page_templates-' . \md5(\get_theme_root() . '/' . \get_stylesheet());
+        // Create the key used for the theme cache
+        $cacheKey = 'page_templates-' . md5(
+            string: get_theme_root() . '/' . get_stylesheet()
+        );
 
         // Retrieve the cache list.
-        // If it doesn't exist, or it's empty prepare an array
-        $templates = \wp_get_theme()->get_page_templates();
+        // If it doesn't exist, or it's empty, prepare an array
+        $templates = wp_get_theme()->get_page_templates();
 
-        if(empty($templates)) {
+        if (empty($templates)) {
             $templates = [];
         }
 
         // New cache, therefore remove the old one
-        \wp_cache_delete($cacheKey, 'themes');
+        wp_cache_delete(key: $cacheKey, group: 'themes');
 
         // Now add our template to the list of templates by merging our templates
         // with the existing templates array from the cache.
-        $templates = \array_merge($templates, $this->templates);
+        $templates = array_merge($templates, $this->templates);
 
         // Add the modified cache to allow WordPress to pick it up for listing
         // available templates
-        \wp_cache_add($cacheKey, $templates, 'themes', 1800);
+        wp_cache_add(key: $cacheKey, data: $templates, group: 'themes', expire: 1800);
 
         return $atts;
     }
@@ -98,27 +105,35 @@ class TemplateLoader {
      * Checks if the template is assigned to the page
      *
      * @param array $template
-     * @global object $post
      * @return array|string
+     * @global object $post
      */
-    public function viewProjectTemplate(array $template) {
+    public function viewProjectTemplate(array $template): array|string {
         // Get global post
         global $post;
 
         // Return template if post is empty
-        if(!$post) {
+        if (!$post) {
             return $template;
         }
 
         // Return default template if we don't have a custom one defined
-        if(!isset($this->templates[\get_post_meta($post->ID, '_wp_page_template', true)])) {
+        if (!isset($this->templates[get_post_meta(
+            post_id: $post->ID,
+            key: '_wp_page_template',
+            single: true
+        )])) {
             return $template;
         }
 
-        $file = \plugin_dir_path(__FILE__) . \get_post_meta($post->ID, '_wp_page_template', true);
+        $file = plugin_dir_path(file: __FILE__) . get_post_meta(
+            post_id: $post->ID,
+            key: '_wp_page_template',
+            single: true
+        );
 
-        // Just to be safe, we check if the file exist first
-        if(\file_exists($file)) {
+        // Just to be safe, we check if the file exists first
+        if (file_exists($file)) {
             return $file;
         }
 

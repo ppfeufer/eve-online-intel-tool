@@ -19,10 +19,8 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Widgets\Frontend;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
-use \WP_Widget;
-
-\defined('ABSPATH') or die();
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
+use WP_Widget;
 
 class IntelFormWidget extends WP_Widget {
     /**
@@ -49,7 +47,7 @@ class IntelFormWidget extends WP_Widget {
      * @since 2.8.0
      * @var bool|int
      */
-    public $number = false;
+    public $number;
 
     /**
      * Constructor
@@ -57,12 +55,17 @@ class IntelFormWidget extends WP_Widget {
     public function __construct() {
         $widgetOptions = [
             'classname' => 'eve-online-intel-tool-sidebar-widget',
-            'description' => \__('Displaying the EVE intel form in your sidebar.', 'eve-online-intel-tool')
+            'description' => __('Displaying the EVE intel form in your sidebar.', 'eve-online-intel-tool')
         ];
 
         $controlOptions = [];
 
-        parent::__construct('eve_online_intel_tool_sidebar_widget', \__('EVE Online Intel Form Widget', 'eve-online-intel-tool'), $widgetOptions, $controlOptions);
+        parent::__construct(
+            id_base: 'eve_online_intel_tool_sidebar_widget',
+            name: __('EVE Online Intel Form Widget', 'eve-online-intel-tool'),
+            widget_options: $widgetOptions,
+            control_options: $controlOptions
+        );
     }
 
     /**
@@ -75,10 +78,10 @@ class IntelFormWidget extends WP_Widget {
         echo $args['before_widget'];
 
         echo $args['before_title'];
-        echo \__('EVE Quick Intel', 'eve-online-intel-tool');
+        echo __('EVE Quick Intel', 'eve-online-intel-tool');
         echo $args['after_title'];
 
-        TemplateHelper::getInstance()->getTemplate('partials/intel-form', [
+        TemplateHelper::getInstance()->getTemplate(template_name: 'partials/intel-form', args: [
             'textareaRows' => 7
         ]);
 

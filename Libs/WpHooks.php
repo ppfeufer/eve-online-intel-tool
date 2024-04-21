@@ -19,10 +19,8 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\UpdateHelper;
-
-\defined('ABSPATH') or die();
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\UpdateHelper;
 
 class WpHooks {
     /**
@@ -30,13 +28,15 @@ class WpHooks {
      *
      * @var string
      */
-    private $pluginFile = null;
+    private string $pluginFile;
 
     /**
      * Constructor
      */
     public function __construct() {
-        $this->pluginFile = PluginHelper::getInstance()->getPluginPath('eve-online-intel-tool.php');
+        $this->pluginFile = PluginHelper::getInstance()->getPluginPath(
+            file: 'eve-online-intel-tool.php'
+        );
 
         $this->init();
     }
@@ -54,12 +54,27 @@ class WpHooks {
      * Initialize our hooks
      */
     public function initHooks(): void {
-        \register_activation_hook($this->pluginFile, [UpdateHelper::getInstance(), 'checkDatabaseForUpdates']);
-        \register_activation_hook($this->pluginFile, [UpdateHelper::getInstance(), 'checkEsiClientForUpdates']);
-        \register_activation_hook($this->pluginFile, [$this, 'registerPostTypeOnActivation']);
+        register_activation_hook(
+            file: $this->pluginFile,
+            callback: [UpdateHelper::getInstance(), 'checkDatabaseForUpdates']
+        );
+        register_activation_hook(
+            file: $this->pluginFile,
+            callback: [UpdateHelper::getInstance(), 'checkEsiClientForUpdates']
+        );
+        register_activation_hook(
+            file: $this->pluginFile,
+            callback: [$this, 'registerPostTypeOnActivation']
+        );
 
-        \register_deactivation_hook($this->pluginFile, [$this, 'unregisterPostTypeOnDeactivation']);
-        \register_deactivation_hook($this->pluginFile, [$this, 'removeDatabaseVersionOnDeactivation']);
+        register_deactivation_hook(
+            file: $this->pluginFile,
+            callback: [$this, 'unregisterPostTypeOnDeactivation']
+        );
+        register_deactivation_hook(
+            file: $this->pluginFile,
+            callback: [$this, 'removeDatabaseVersionOnDeactivation']
+        );
     }
 
     /**
@@ -69,35 +84,62 @@ class WpHooks {
         /**
          * Stuff that's added to the HTML head section
          */
-        \add_action('wp_head', [$this, 'noindexForIntelPages']);
-        \add_action('wp_head', [$this, 'setMetaDescription']);
+        add_action(hook_name: 'wp_head', callback: [$this, 'noindexForIntelPages']);
+        add_action(hook_name: 'wp_head', callback: [$this, 'setMetaDescription']);
 
         /**
          * in case of plugin update this need to be fired
          * since the activation doesn't fire on update
          * thx wordpress for removing update hooks ...
          */
-        \add_action('plugins_loaded', [UpdateHelper::getInstance(), 'checkDatabaseForUpdates']);
-        \add_action('plugins_loaded', [UpdateHelper::getInstance(), 'checkEsiClientForUpdates']);
+        add_action(
+            hook_name: 'plugins_loaded',
+            callback: [UpdateHelper::getInstance(), 'checkDatabaseForUpdates']
+        );
+        add_action(
+            hook_name: 'plugins_loaded',
+            callback: [UpdateHelper::getInstance(), 'checkEsiClientForUpdates']
+        );
 
         /**
          * Initializing widgets
          */
-        \add_action('widgets_init', [Widgets::getInstance(), 'registerWidgets']);
+        add_action(
+            hook_name: 'widgets_init',
+            callback: [Widgets::getInstance(), 'registerWidgets']
+        );
 
-        \add_action('init', [PostType::getInstance(), 'registerCustomPostType']);
+        add_action(
+            hook_name: 'init',
+            callback: [PostType::getInstance(), 'registerCustomPostType']
+        );
     }
 
     /**
      * Initializing our filter
      */
     public function initFilter(): void {
-        \add_filter('plugin_row_meta', [$this, 'addPluginRowMeta'], 10, 2);
+        add_filter(
+            hook_name: 'plugin_row_meta',
+            callback: [$this, 'addPluginRowMeta'],
+            accepted_args: 2
+        );
 
-        \add_filter('template_include', [PostType::getInstance(), 'templateLoader']);
-        \add_filter('page_template', [PostType::getInstance(), 'registerPageTemplate']);
+        add_filter(
+            hook_name: 'template_include',
+            callback: [PostType::getInstance(), 'templateLoader']
+        );
+        add_filter(
+            hook_name: 'page_template',
+            callback: [PostType::getInstance(), 'registerPageTemplate']
+        );
 
-        \add_filter('post_type_link', [PostType::getInstance(), 'createPermalinks'], 1, 2);
+        add_filter(
+            hook_name: 'post_type_link',
+            callback: [PostType::getInstance(), 'createPermalinks'],
+            priority: 1,
+            accepted_args: 2
+        );
     }
 
     /**
@@ -107,14 +149,14 @@ class WpHooks {
      * @param string $file
      * @return array
      */
-    public function addPluginRowMeta($links, $file): array {
-        if(\strpos($file, 'eve-online-intel-tool.php') !== false) {
+    public function addPluginRowMeta(array $links, string $file): array {
+        if (str_contains($file, 'eve-online-intel-tool.php')) {
             $new_links = [
                 'issue_tracker' => '<a href="https://github.com/ppfeufer/eve-online-intel-tool/issues" target="_blank" rel="noopener noreferer">GitHub Issue Tracker</a>',
                 'support_discord' => '<a href="https://discord.gg/YymuCZa" target="_blank" rel="noopener noreferer">Support Discord</a>'
             ];
 
-            $links = \array_merge($links, $new_links);
+            $links = array_merge($links, $new_links);
         }
 
         return $links;
@@ -124,7 +166,7 @@ class WpHooks {
      * Adding noindex and nofollow meta
      */
     public function noindexForIntelPages(): void {
-        if(PostType::getInstance()->isPostTypePage() === true) {
+        if (PostType::getInstance()->isPostTypePage() === true) {
             echo '<meta name="robots" content="noindex, nofollow">' . "\n";
         }
     }
@@ -133,8 +175,8 @@ class WpHooks {
      * Adding a meta description
      */
     public function setMetaDescription(): void {
-        if(PostType::getInstance()->isPostTypePage() === true) {
-            echo '<meta name="description" content="' . \__('Intel tool for EVE Online. Parse and share directional scans, fleet compositions and chat scans.', 'eve-online-intel-tool') . '">';
+        if (PostType::getInstance()->isPostTypePage() === true) {
+            echo '<meta name="description" content="' . __('Intel tool for EVE Online. Parse and share directional scans, fleet compositions and chat scans.', 'eve-online-intel-tool') . '">';
         }
     }
 
@@ -145,7 +187,7 @@ class WpHooks {
     public function registerPostTypeOnActivation(): void {
         PostType::getInstance()->registerCustomPostType();
 
-        \flush_rewrite_rules();
+        flush_rewrite_rules();
     }
 
     /**
@@ -155,7 +197,7 @@ class WpHooks {
     public function unregisterPostTypeOnDeactivation(): void {
         PostType::getInstance()->unregisterCustomPostType();
 
-        \flush_rewrite_rules();
+        flush_rewrite_rules();
     }
 
     /**
@@ -163,6 +205,6 @@ class WpHooks {
      * Issue: https://github.com/ppfeufer/eve-online-killboard-widget/issues/50
      */
     public function removeDatabaseVersionOnDeactivation(): void {
-        \delete_option(UpdateHelper::getInstance()->getDatabaseFieldName());
+        delete_option(UpdateHelper::getInstance()->getDatabaseFieldName());
     }
 }

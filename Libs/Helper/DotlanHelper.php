@@ -19,9 +19,7 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
-
-\defined('ABSPATH') or die();
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 class DotlanHelper extends AbstractSingleton {
     /**
@@ -31,6 +29,6 @@ class DotlanHelper extends AbstractSingleton {
      * @return string
      */
     public function getDotlanLinkString(string $string): string {
-        return \str_replace(' ', '_', $string);
+        return str_replace(search: ' ', replace: '_', subject: $string);
     }
 }

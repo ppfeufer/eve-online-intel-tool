@@ -19,12 +19,10 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\DscanParser;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\FleetCompositionParser;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\LocalScanParser;
-
-\defined('ABSPATH') or die();
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\DscanParser;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\FleetCompositionParser;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Parser\LocalScanParser;
 
 /**
  * Parsing our intel data
@@ -33,78 +31,48 @@ class IntelParser {
     /**
      * Intel data to parse
      *
-     * @var string
+     * @var mixed
      */
-    public $eveIntel = null;
+    public mixed $eveIntel;
 
     /**
      * Unique ID for this run
      *
      * @var string
      */
-    public ?string $uniqueID = null;
+    public string $uniqueID;
 
     /**
      * ID of the new post
      *
-     * @var int
+     * @var int|null
      */
-    public ?int $postID = null;
+    public ?int $postID;
 
     /**
      * Constructor
      */
     public function __construct() {
-        $nonce = \filter_input(\INPUT_POST, '_wpnonce');
+        $nonce = filter_input(type: INPUT_POST, var_name: '_wpnonce');
 
-        if(!\wp_verify_nonce($nonce, 'eve-online-intel-tool-new-intel-form')) {
+        if (!wp_verify_nonce(nonce: $nonce, action: 'eve-online-intel-tool-new-intel-form')) {
             die('Busted!');
         }
 
-        $this->eveIntel = \filter_input(\INPUT_POST, 'eveIntel');
-        $this->uniqueID = \uniqid('', true);
+        $this->eveIntel = filter_input(type: INPUT_POST, var_name: 'eveIntel');
+        $this->uniqueID = uniqid(prefix: '', more_entropy: true);
 
         /**
          * Let's get the intel type
          */
-        $intelType = $this->checkIntelType($this->eveIntel);
+        $intelType = $this->checkIntelType(scanData: $this->eveIntel);
 
-        switch($intelType) {
-            /**
-             * Error / non parsable data
-             */
-            case null:
-                $this->postID = null;
-                break;
-
-            /**
-             * D-Scan
-             */
-            case 'dscan':
-                $this->postID = $this->saveDscanData($this->eveIntel);
-                break;
-
-            /**
-             * Fleet Composition
-             */
-            case 'fleetcomposition':
-                $this->postID = $this->saveFleetComositionData($this->eveIntel);
-                break;
-
-            /**
-             * Chat Scan
-             */
-            case 'local':
-                $this->postID = $this->saveLocalScanData($this->eveIntel);
-                break;
-
-            /**
-             * Default
-             */
-            default:
-                $this->postID = null;
-                break;
-        }
+        $this->postID = match ($intelType) {
+            'dscan' => $this->saveDscanData(scanData: $this->eveIntel),
+            'fleetcomposition' => $this->saveFleetComositionData(scanData: $this->eveIntel),
+            'local' => $this->saveLocalScanData(scanData: $this->eveIntel),
+            default => null,
+        };
     }
 
     /**
@@ -114,7 +82,6 @@ class IntelParser {
      * @return string|null
      */
     private function checkIntelType(string $scanData): ?string {
-        $intelType = null;
 
         /**
          * Correcting line breaks
@@ -122,31 +89,27 @@ class IntelParser {
          * mac -> linux
          * windows -> linux
          */
-        $cleanedScanData = StringHelper::getInstance()->fixLineBreaks($scanData);
+        $cleanedScanData = StringHelper::getInstance()->fixLineBreaks(scanData: $scanData);
 
-        switch($cleanedScanData) {
-            case '':
-                $intelType = null;
-                break;
-
+        switch ($cleanedScanData) {
             /**
              * First: Fleet Comp
              */
-            case (\preg_match('/^([a-zA-Z0-9 -_]{3,37})[\t](.*)[\t](.* \/ .*) ?$/m', $cleanedScanData) ? true : false):
+            case (bool)preg_match(pattern: '/^([a-zA-Z0-9 -_]{3,37})[\t](.*)[\t](.* \/ .*) ?$/m', subject: $cleanedScanData):
                 $intelType = 'fleetcomposition';
                 break;
 
             /**
              * Second: D-Scan
              */
-            case (\preg_match('/^\d+[\t](.*)[\t](-|\d(.*)) ?$/m', $cleanedScanData) ? true : false):
+            case (bool)preg_match(pattern: '/^\d+[\t](.*)[\t](-|\d(.*)) ?$/m', subject: $cleanedScanData):
                 $intelType = 'dscan';
                 break;
 
             /**
              * Third: Chat Scan
              */
-            case (\preg_match('/^[a-zA-Z0-9 -_]{3,37}$/m', $cleanedScanData) ? true : false):
+            case (bool)preg_match(pattern: '/^[a-zA-Z0-9 -_]{3,37}$/m', subject: $cleanedScanData):
                 $intelType = 'local';
                 break;
 
@@ -167,22 +130,22 @@ class IntelParser {
     private function saveDscanData(string $scanData): ?int {
         $returnData = null;
 
-        $parsedDscanData = DscanParser::getInstance()->parseDscan($scanData);
+        $parsedDscanData = DscanParser::getInstance()->parseDscan(scanData: $scanData);
 
-        if($parsedDscanData !== null) {
+        if ($parsedDscanData !== null) {
             $postName = $this->uniqueID;
 
             /**
              * If we have a system, add it to the post-title
              */
-            if(!empty($parsedDscanData['systemInformation']['system']['name'])) {
+            if (!empty($parsedDscanData['systemInformation']['system']['name'])) {
                 $postName = $parsedDscanData['systemInformation']['system']['name'];
 
-                if(!empty($parsedDscanData['systemInformation']['constellation']['name'])) {
+                if (!empty($parsedDscanData['systemInformation']['constellation']['name'])) {
                     $postName .= ' - ' . $parsedDscanData['systemInformation']['constellation']['name'];
                 }
 
-                if(!empty($parsedDscanData['systemInformation']['region']['name'])) {
+                if (!empty($parsedDscanData['systemInformation']['region']['name'])) {
                     $postName .= ' - ' . $parsedDscanData['systemInformation']['region']['name'];
                 }
 
@@ -190,84 +153,49 @@ class IntelParser {
             }
 
             $metaData = [
-                'eve-intel-tool_dscan-rawData' => \maybe_serialize(StringHelper::getInstance()->fixLineBreaks($scanData)),
-                'eve-intel-tool_dscan-all' => \maybe_serialize($parsedDscanData['all']),
-                'eve-intel-tool_dscan-onGrid' => \maybe_serialize($parsedDscanData['onGrid']),
-                'eve-intel-tool_dscan-offGrid' => \maybe_serialize($parsedDscanData['offGrid']),
-                'eve-intel-tool_dscan-shipTypes' => \maybe_serialize($parsedDscanData['shipTypes']),
-                'eve-intel-tool_dscan-system' => \maybe_serialize($parsedDscanData['systemInformation']),
-                'eve-intel-tool_dscan-upwellStructures' => \maybe_serialize($parsedDscanData['upwellStructures']),
-                'eve-intel-tool_dscan-deployables' => \maybe_serialize($parsedDscanData['deployables']),
-                'eve-intel-tool_dscan-miscellaneous' => \maybe_serialize($parsedDscanData['miscellaneous']),
-                'eve-intel-tool_dscan-starbaseModules' => \maybe_serialize($parsedDscanData['starbaseModules']),
-                'eve-intel-tool_dscan-lootSalvage' => \maybe_serialize($parsedDscanData['lootSalvage']),
-                'eve-intel-tool_dscan-time' => \maybe_serialize(\gmdate('Y-m-d H:i:s', \time())),
+                'eve-intel-tool_dscan-rawData' => maybe_serialize(
+                    data: StringHelper::getInstance()->fixLineBreaks(scanData: $scanData)
+                ),
+                'eve-intel-tool_dscan-all' => maybe_serialize(
+                    data: $parsedDscanData['all']
+                ),
+                'eve-intel-tool_dscan-onGrid' => maybe_serialize(
+                    data: $parsedDscanData['onGrid']
+                ),
+                'eve-intel-tool_dscan-offGrid' => maybe_serialize(
+                    data: $parsedDscanData['offGrid']
+                ),
+                'eve-intel-tool_dscan-shipTypes' => maybe_serialize(
+                    data: $parsedDscanData['shipTypes']
+                ),
+                'eve-intel-tool_dscan-system' => maybe_serialize(
+                    data: $parsedDscanData['systemInformation']
+                ),
+                'eve-intel-tool_dscan-upwellStructures' => maybe_serialize(
+                    data: $parsedDscanData['upwellStructures']
+                ),
+                'eve-intel-tool_dscan-deployables' => maybe_serialize(
+                    data: $parsedDscanData['deployables']
+                ),
+                'eve-intel-tool_dscan-miscellaneous' => maybe_serialize(
+                    data: $parsedDscanData['miscellaneous']
+                ),
+                'eve-intel-tool_dscan-starbaseModules' => maybe_serialize(
+                    data: $parsedDscanData['starbaseModules']
+                ),
+                'eve-intel-tool_dscan-lootSalvage' => maybe_serialize(
+                    data: $parsedDscanData['lootSalvage']
+                ),
+                'eve-intel-tool_dscan-time' => maybe_serialize(
+                    data: gmdate(format: 'Y-m-d H:i:s', timestamp: time())
+                ),
             ];
 
-            $returnData = $this->savePostdata($postName, $metaData, 'dscan');
-        }
-
-        return $returnData;
-    }
-
-    /**
-     * Saving the fleet composition data
-     *
-     * @param string $scanData
-     * @return int|null
-     */
-    private function saveFleetComositionData(string $scanData): ?int {
-        $returnData = null;
-        $parsedFleetComposition = FleetCompositionParser::getInstance()->parseFleetCompositionScan($scanData);
-
-        if($parsedFleetComposition !== null) {
-            $postName = $this->uniqueID;
-            $metaData = [
-                'eve-intel-tool_fleetcomposition-rawData' => \maybe_serialize($parsedFleetComposition['rawData']),
-                'eve-intel-tool_fleetcomposition-fleetOverview' => \maybe_serialize($parsedFleetComposition['fleetCompositionData']['overview']),
-                'eve-intel-tool_fleetcomposition-fleetInformation' => \maybe_serialize($parsedFleetComposition['fleetInformation']),
-                'eve-intel-tool_fleetcomposition-shipClasses' => \maybe_serialize($parsedFleetComposition['fleetCompositionData']['shipClasses']),
-                'eve-intel-tool_fleetcomposition-shipTypes' => \maybe_serialize($parsedFleetComposition['fleetCompositionData']['shipTypes']),
-                'eve-intel-tool_fleetcomposition-pilotDetails' => \maybe_serialize($parsedFleetComposition['participationData']['pilotDetails']),
-                'eve-intel-tool_fleetcomposition-pilotList' => \maybe_serialize($parsedFleetComposition['participationData']['characterList']),
-                'eve-intel-tool_fleetcomposition-corporationList' => \maybe_serialize($parsedFleetComposition['participationData']['corporationList']),
-                'eve-intel-tool_fleetcomposition-allianceList' => \maybe_serialize($parsedFleetComposition['participationData']['allianceList']),
-                'eve-intel-tool_fleetcomposition-corporationParticipation' => \maybe_serialize($parsedFleetComposition['participationData']['corporationParticipation']),
-                'eve-intel-tool_fleetcomposition-allianceParticipation' => \maybe_serialize($parsedFleetComposition['participationData']['allianceParticipation']),
-                'eve-intel-tool_fleetcomposition-time' => \maybe_serialize(\gmdate('Y-m-d H:i:s', \time())),
-            ];
-
-            $returnData = $this->savePostdata($postName, $metaData, 'fleetcomposition');
-        }
-
-        return $returnData;
-    }
-
-    /**
-     * Saving the local/chat scan data
-     *
-     * @param string $scanData
-     * @return int|null
-     */
-    private function saveLocalScanData(string $scanData): ?int {
-        $returnData = null;
-
-        $parsedLocalData = LocalScanParser::getInstance()->parseLocalScan($scanData);
-
-        if($parsedLocalData !== null) {
-            $postName = $this->uniqueID;
-            $metaData = [
-                'eve-intel-tool_local-rawData' => \maybe_serialize($parsedLocalData['rawData']),
-                'eve-intel-tool_local-pilotDetails' => \maybe_serialize($parsedLocalData['pilotDetails']),
-                'eve-intel-tool_local-pilotList' => \maybe_serialize($parsedLocalData['characterList']),
-                'eve-intel-tool_local-corporationList' => \maybe_serialize($parsedLocalData['corporationList']),
-                'eve-intel-tool_local-allianceList' => \maybe_serialize($parsedLocalData['allianceList']),
-                'eve-intel-tool_local-corporationParticipation' => \maybe_serialize($parsedLocalData['corporationParticipation']),
-                'eve-intel-tool_local-allianceParticipation' => \maybe_serialize($parsedLocalData['allianceParticipation']),
-                'eve-intel-tool_local-time' => \maybe_serialize(\gmdate('Y-m-d H:i:s', \time())),
-            ];
-
-            $returnData = $this->savePostdata($postName, $metaData, 'local');
+            $returnData = $this->savePostdata(
+                postName: $postName,
+                metaData: $metaData,
+                category: 'dscan'
+            );
         }
 
         return $returnData;
@@ -285,38 +213,158 @@ class IntelParser {
         $postTitle = null;
         $returnData = null;
 
-        switch($category) {
+        switch ($category) {
             case 'dscan':
-                $postTitle = 'D-Scan: ' . \wp_filter_kses($postName);
+                $postTitle = 'D-Scan: ' . wp_filter_kses(data: $postName);
                 break;
 
             case 'fleetcomposition':
-                $postTitle = 'Fleet Composition: ' . \wp_filter_kses($postName);
+                $postTitle = 'Fleet Composition: ' . wp_filter_kses(data: $postName);
                 break;
 
             case 'local':
-                $postTitle = 'Chat Scan: ' . \wp_filter_kses($postName);
+                $postTitle = 'Chat Scan: ' . wp_filter_kses(data: $postName);
                 break;
         }
 
         if ($postTitle !== null) {
-            $newPostID = \wp_insert_post([
-                'post_title' => $postTitle,
-                'post_name' => \sanitize_title($postTitle),
-                'post_content' => '',
-                'post_category' => '',
-                'post_status' => 'publish',
-                'post_type' => 'intel',
-                'comment_status' => 'closed',
-                'ping_status' => 'closed',
-                'meta_input' => $metaData
-            ], true);
+            $newPostID = wp_insert_post(
+                postarr: [
+                    'post_title' => $postTitle,
+                    'post_name' => sanitize_title(title: $postTitle),
+                    'post_content' => '',
+                    'post_category' => '',
+                    'post_status' => 'publish',
+                    'post_type' => 'intel',
+                    'comment_status' => 'closed',
+                    'ping_status' => 'closed',
+                    'meta_input' => $metaData
+                ],
+                wp_error: true
+            );
 
             if ($newPostID) {
-                \wp_set_object_terms($newPostID, $category, 'intel_category');
+                wp_set_object_terms(
+                    object_id: $newPostID,
+                    terms: $category,
+                    taxonomy: 'intel_category'
+                );
 
                 $returnData = $newPostID;
             }
+        }
+
+        return $returnData;
+    }
+
+    /**
+     * Saving the fleet composition data
+     *
+     * @param string $scanData
+     * @return int|null
+     */
+    private function saveFleetComositionData(string $scanData): ?int {
+        $returnData = null;
+        $parsedFleetComposition = FleetCompositionParser::getInstance()
+            ->parseFleetCompositionScan(scanData: $scanData);
+
+        if ($parsedFleetComposition !== null) {
+            $postName = $this->uniqueID;
+            $metaData = [
+                'eve-intel-tool_fleetcomposition-rawData' => maybe_serialize(
+                    data: $parsedFleetComposition['rawData']
+                ),
+                'eve-intel-tool_fleetcomposition-fleetOverview' => maybe_serialize(
+                    data: $parsedFleetComposition['fleetCompositionData']['overview']
+                ),
+                'eve-intel-tool_fleetcomposition-fleetInformation' => maybe_serialize(
+                    data: $parsedFleetComposition['fleetInformation']
+                ),
+                'eve-intel-tool_fleetcomposition-shipClasses' => maybe_serialize(
+                    data: $parsedFleetComposition['fleetCompositionData']['shipClasses']
+                ),
+                'eve-intel-tool_fleetcomposition-shipTypes' => maybe_serialize(
+                    data: $parsedFleetComposition['fleetCompositionData']['shipTypes']
+                ),
+                'eve-intel-tool_fleetcomposition-pilotDetails' => maybe_serialize(
+                    data: $parsedFleetComposition['participationData']['pilotDetails']
+                ),
+                'eve-intel-tool_fleetcomposition-pilotList' => maybe_serialize(
+                    data: $parsedFleetComposition['participationData']['characterList']
+                ),
+                'eve-intel-tool_fleetcomposition-corporationList' => maybe_serialize(
+                    data: $parsedFleetComposition['participationData']['corporationList']
+                ),
+                'eve-intel-tool_fleetcomposition-allianceList' => maybe_serialize(
+                    data: $parsedFleetComposition['participationData']['allianceList']
+                ),
+                'eve-intel-tool_fleetcomposition-corporationParticipation' => maybe_serialize(
+                    data: $parsedFleetComposition['participationData']['corporationParticipation']
+                ),
+                'eve-intel-tool_fleetcomposition-allianceParticipation' => maybe_serialize(
+                    data: $parsedFleetComposition['participationData']['allianceParticipation']
+                ),
+                'eve-intel-tool_fleetcomposition-time' => maybe_serialize(
+                    data: gmdate(format: 'Y-m-d H:i:s', timestamp: time())
+                ),
+            ];
+
+            $returnData = $this->savePostdata(
+                postName: $postName,
+                metaData: $metaData,
+                category: 'fleetcomposition'
+            );
+        }
+
+        return $returnData;
+    }
+
+    /**
+     * Saving the local/chat scan data
+     *
+     * @param string $scanData
+     * @return int|null
+     */
+    private function saveLocalScanData(string $scanData): ?int {
+        $returnData = null;
+
+        $parsedLocalData = LocalScanParser::getInstance()
+            ->parseLocalScan(scanData: $scanData);
+
+        if ($parsedLocalData !== null) {
+            $postName = $this->uniqueID;
+            $metaData = [
+                'eve-intel-tool_local-rawData' => maybe_serialize(
+                    data: $parsedLocalData['rawData']
+                ),
+                'eve-intel-tool_local-pilotDetails' => maybe_serialize(
+                    data: $parsedLocalData['pilotDetails']
+                ),
+                'eve-intel-tool_local-pilotList' => maybe_serialize(
+                    data: $parsedLocalData['characterList']
+                ),
+                'eve-intel-tool_local-corporationList' => maybe_serialize(
+                    data: $parsedLocalData['corporationList']
+                ),
+                'eve-intel-tool_local-allianceList' => maybe_serialize(
+                    data: $parsedLocalData['allianceList']
+                ),
+                'eve-intel-tool_local-corporationParticipation' => maybe_serialize(
+                    data: $parsedLocalData['corporationParticipation']
+                ),
+                'eve-intel-tool_local-allianceParticipation' => maybe_serialize(
+                    data: $parsedLocalData['allianceParticipation']
+                ),
+                'eve-intel-tool_local-time' => maybe_serialize(
+                    data: gmdate(format: 'Y-m-d H:i:s', timestamp: time())
+                ),
+            ];
+
+            $returnData = $this->savePostdata(
+                postName: $postName,
+                metaData: $metaData,
+                category: 'local'
+            );
         }
 
         return $returnData;

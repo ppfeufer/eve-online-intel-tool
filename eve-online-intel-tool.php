@@ -31,21 +31,19 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\EsiStatus;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\FormNonce;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\GithubUpdater;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\CssLoader;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\JavascriptLoader;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\TemplateLoader;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\WpHooks;
-
-\defined('ABSPATH') or die();
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\EsiStatus;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax\FormNonce;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\GithubUpdater;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\CssLoader;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader\JavascriptLoader;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\TemplateLoader;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\WpHooks;
 
 const WP_GITHUB_FORCE_UPDATE = false;
 
-// Include the autoloader so we can dynamically include the rest of the classes.
-require_once(\trailingslashit(\dirname(__FILE__)) . 'inc/autoloader.php');
+// Include the autoloader, so we can dynamically include the rest of the classes.
+require_once trailingslashit(__DIR__) . 'inc/autoloader.php';
 
 class EveOnlineIntelTool {
     /**
@@ -53,14 +51,14 @@ class EveOnlineIntelTool {
      *
      * @var string
      */
-    private $textDomain = null;
+    private string $textDomain;
 
     /**
      * Localization Directory
      *
      * @var string
      */
-    private $localizationDirectory = null;
+    private string $localizationDirectory;
 
     /**
      * Plugin constructor
@@ -70,7 +68,7 @@ class EveOnlineIntelTool {
          * Initializing Variables
          */
         $this->textDomain = 'eve-online-intel-tool';
-        $this->localizationDirectory = \basename(\dirname(__FILE__)) . '/l10n/';
+        $this->localizationDirectory = basename(path: __DIR__) . '/l10n/';
     }
 
     /**
@@ -90,10 +88,22 @@ class EveOnlineIntelTool {
         $cssLoader = new CssLoader;
         $cssLoader->init();
 
-        if(\is_admin()) {
+        if (is_admin()) {
             new TemplateLoader;
 
             $this->initGitHubUpdater();
+        }
+    }
+
+    /**
+     * Setting up our text domain for translations
+     */
+    public function loadTextDomain(): void {
+        if (function_exists(function: '\load_plugin_textdomain')) {
+            load_plugin_textdomain(
+                domain: $this->textDomain,
+                plugin_rel_path: $this->localizationDirectory
+            );
         }
     }
 
@@ -105,7 +115,7 @@ class EveOnlineIntelTool {
          * Check Github for updates
          */
         $githubConfig = [
-            'slug' => \plugin_basename(__FILE__),
+            'slug' => plugin_basename(__FILE__),
             'proper_folder_name' => PluginHelper::getInstance()->getPluginDirName(),
             'api_url' => 'https://api.github.com/repos/ppfeufer/eve-online-intel-tool',
             'raw_url' => 'https://raw.github.com/ppfeufer/eve-online-intel-tool/master',
@@ -120,22 +130,13 @@ class EveOnlineIntelTool {
 
         new GithubUpdater($githubConfig);
     }
-
-    /**
-     * Setting up our text domain for translations
-     */
-    public function loadTextDomain(): void {
-        if(\function_exists('\load_plugin_textdomain')) {
-            \load_plugin_textdomain($this->textDomain, false, $this->localizationDirectory);
-        }
-    }
 }
 
 /**
  * Start the show ....
  */
-function initializePlugin() {
-    $eveIntelTool = new \WordPress\Plugins\EveOnlineIntelTool\EveOnlineIntelTool;
+function initializePlugin(): void {
+    $eveIntelTool = new EveOnlineIntelTool;
 
     /**
      * Initialize the plugin

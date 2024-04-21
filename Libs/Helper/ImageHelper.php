@@ -19,9 +19,7 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
-
-\defined('ABSPATH') or die();
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 class ImageHelper extends AbstractSingleton {
     /**
@@ -69,7 +67,7 @@ class ImageHelper extends AbstractSingleton {
     public function getImageServerUrl(string $type = null): string {
         $endpoint = '';
 
-        if($type !== null) {
+        if ($type !== null) {
             $endpoint = $this->imageserverEndpoints[$type];
         }
 

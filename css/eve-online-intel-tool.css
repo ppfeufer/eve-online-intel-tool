@@ -1,6 +1,5 @@
 @media all {
     .eve-intel-copy-to-clipboard {
-        margin-top: 16px;
         margin-top: 1rem;
     }
 
@@ -15,7 +14,6 @@
     }
 
     .copy-permalink-to-clipboard {
-        margin-bottom: 24px;
         margin-bottom: 1.5rem;
     }
 
@@ -39,7 +37,7 @@
     }
 
     .paste-explanation li > small {
-        color: rgb(119,119,119);
+        color: rgb(119 119 119);
     }
 
     td.data-align-right {
@@ -48,14 +46,12 @@
 
     .eve-intel-section-header {
         margin-bottom: 0;
-        margin-top: 32px;
         margin-top: 2rem;
-        border-bottom: 1px solid #ededed;
+        border-bottom: 1px solid rgb(237 237 237);
     }
 
     .eve-intel-alliance-logo-wrapper, .eve-intel-corporation-logo-wrapper, .eve-intel-pilot-avatar-wrapper, .eve-intel-ship-image-wrapper {
         display: inline-block;
-        margin-right: 8px;
         margin-right: 0.5rem;
     }
 
@@ -87,11 +83,11 @@
 ----------------------------------------------------------------------------- */
 @media all {
     .dataHighlight, .dataHighlightSticky {
-        background-color: rgba(255,255,255,0.5);
+        background-color: rgb(255 255 255 / 50%);
     }
 
     .dataHighlight td:first-child, .dataHighlightSticky td:first-child {
-        border-left: 1px solid #ff0000;
+        border-left: 1px solid rgb(255 0 0);
         margin-left: -11px;
         padding-left: 4px;
     }
@@ -110,18 +106,18 @@
     }
 
     .dataTable tr.even {
-        background-color: rgba(255,255,255,0.2);
+        background-color: rgb(255 255 255 / 20%);
     }
 
     .dataTable tbody tr:hover,
     .dataTable tbody tr.dataHighlight,
     .dataTable tbody tr.dataHighlightSticky {
-        background-color: rgba(255,255,255,0.5);
+        background-color: rgb(255 255 255 / 50%);
     }
 
     .table-eve-intel tbody > tr > td {
         vertical-align: middle;
-        color: rgb(51,51,51);
+        color: rgb(51 51 51);
     }
 
     .table-no-images > tbody > tr > td {
@@ -131,7 +127,6 @@
 
     .table-sortable > tbody > tr > .table-data-count {
         text-align: right;
-        padding-right: 16px;
         padding-right: 1rem;
     }
 }
@@ -147,7 +142,7 @@
     .bs-callout {
         padding: 20px;
         margin: 20px 0;
-        border: 1px solid #eee;
+        border: 1px solid rgb(238 238 238);
         border-left-width: 5px;
         border-radius: 3px;
     }
@@ -172,27 +167,27 @@
 
     /* Variations */
     .bs-callout-danger {
-        border-left-color: #ce4844;
+        border-left-color: rgb(206 72 68);
     }
 
     .bs-callout-danger h4 {
-        color: #ce4844;
+        color: rgb(206 72 68);
     }
 
     .bs-callout-warning {
-        border-left-color: #aa6708;
+        border-left-color: rgb(170 103 8);
     }
 
     .bs-callout-warning h4 {
-        color: #aa6708;
+        color: rgb(170 103 8);
     }
 
     .bs-callout-info {
-        border-left-color: #1b809e;
+        border-left-color: rgb(27 128 158);
     }
 
     .bs-callout-info h4 {
-        color: #1b809e;
+        color: rgb(27 128 158);
     }
 }
 

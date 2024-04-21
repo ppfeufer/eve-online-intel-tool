@@ -19,9 +19,7 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface;
-
-\defined('ABSPATH') or die();
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface;
 
 class FormNonce implements AjaxInterface {
     /**
@@ -32,26 +30,32 @@ class FormNonce implements AjaxInterface {
     }
 
     /**
-     * Ajax Action
-     *
-     * @return void
-     */
-    public function ajaxAction(): void {
-        $nonce = \wp_create_nonce('eve-online-intel-tool-new-intel-form');
-
-        \wp_send_json($nonce);
-
-        // always exit this API function
-        exit;
-    }
-
-    /**
      * Initialize WP Actions
      *
      * @return void
      */
     public function initActions(): void {
-        \add_action('wp_ajax_nopriv_get-eve-intel-form-nonce', [$this, 'ajaxAction']);
-        \add_action('wp_ajax_get-eve-intel-form-nonce', [$this, 'ajaxAction']);
+        add_action(
+            hook_name: 'wp_ajax_nopriv_get-eve-intel-form-nonce',
+            callback: [$this, 'ajaxAction']
+        );
+        add_action(
+            hook_name: 'wp_ajax_get-eve-intel-form-nonce',
+            callback: [$this, 'ajaxAction']
+        );
+    }
+
+    /**
+     * Ajax Action
+     *
+     * @return void
+     */
+    public function ajaxAction(): void {
+        $nonce = wp_create_nonce(action: 'eve-online-intel-tool-new-intel-form');
+
+        wp_send_json(response: $nonce);
+
+        // always exit this API function
+        exit;
     }
 }

@@ -19,11 +19,9 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\ResourceLoader;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces\AssetsInterface;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\PostType;
-
-\defined('ABSPATH') or die();
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces\AssetsInterface;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\PostType;
 
 /**
  * CSS Loader
@@ -34,7 +32,7 @@ class CssLoader implements AssetsInterface {
      *
      * @var PluginHelper
      */
-    private $pluginHelper = null;
+    private PluginHelper $pluginHelper;
 
     /**
      * Constructor
@@ -47,7 +45,7 @@ class CssLoader implements AssetsInterface {
      * Initialize the loader
      */
     public function init(): void {
-        \add_action('wp_enqueue_scripts', [$this, 'enqueue'], 99);
+        add_action(hook_name: 'wp_enqueue_scripts', callback: [$this, 'enqueue'], priority: 99);
     }
 
     /**
@@ -57,16 +55,26 @@ class CssLoader implements AssetsInterface {
         /**
          * Only in Frontend
          */
-        if(!\is_admin()) {
-            /**
-             * load only when needed
-             */
-            if(PostType::getInstance()->isPostTypePage() === true) {
-                \wp_enqueue_style('font-awesome', $this->pluginHelper->getPluginUri('font-awesome/css/font-awesome.min.css'));
-                \wp_enqueue_style('bootstrap', $this->pluginHelper->getPluginUri('bootstrap/css/bootstrap.min.css'));
-                \wp_enqueue_style('data-tables-bootstrap', $this->pluginHelper->getPluginUri('css/data-tables/dataTables.bootstrap.min.css'));
-                \wp_enqueue_style('eve-online-intel-tool', $this->pluginHelper->getPluginUri('css/eve-online-intel-tool.min.css'));
-            }
+        /**
+         * load only when needed
+         */
+        if (!is_admin() && PostType::getInstance()->isPostTypePage() === true) {
+            wp_enqueue_style(
+                handle: 'font-awesome',
+                src: $this->pluginHelper->getPluginUri(file: 'font-awesome/css/font-awesome.min.css')
+            );
+            wp_enqueue_style(
+                handle: 'bootstrap',
+                src: $this->pluginHelper->getPluginUri(file: 'bootstrap/css/bootstrap.min.css')
+            );
+            wp_enqueue_style(
+                handle: 'data-tables-bootstrap',
+                src: $this->pluginHelper->getPluginUri(file: 'css/data-tables/dataTables.bootstrap.min.css')
+            );
+            wp_enqueue_style(
+                handle: 'eve-online-intel-tool',
+                src: $this->pluginHelper->getPluginUri(file: 'css/eve-online-intel-tool.min.css')
+            );
         }
     }
 }

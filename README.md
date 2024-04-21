@@ -6,7 +6,7 @@ An easy way to parse D-Scans, fleet compositions and your local, and get all the
 #### D-Scan
 ![](images/d-scan.jpg)
 
-#### Chat Scan (Local for example)
+#### Chat Scan (Local, for example)
 ![](images/chat-scan.jpg)
 
 #### Fleet Composition
@@ -14,7 +14,8 @@ An easy way to parse D-Scans, fleet compositions and your local, and get all the
 ![](images/fleet-comp-bottom.jpg)
 
 ### Hint
-This plugin works best with WordPress themes utilizing the Bootstrap Framework. If your Theme doesn't use it, you might end up having to tweak it here and there a bit.
+This plugin works best with WordPress themes using the Bootstrap Framework.
+If your Theme doesn't use it, you might end up having to tweak it here and there a bit.
 Works best with the [EVE Online WordPress Theme](https://github.com/ppfeufer/eve-online-wordpress-theme)
 
 ### Requirements
@@ -22,7 +23,7 @@ Works best with the [EVE Online WordPress Theme](https://github.com/ppfeufer/eve
 - PHP 7.1 or newer
 
 ### Installation
-- Simply [download the archive](https://github.com/ppfeufer/eve-online-intel-tool/archive/master.zip) or one of the [releases](https://github.com/ppfeufer/eve-online-intel-tool/releases)
+- [Download the archive](https://github.com/ppfeufer/eve-online-intel-tool/archive/master.zip) or one of the [releases](https://github.com/ppfeufer/eve-online-intel-tool/releases)
 - Unzip it
 - Rename the folder to `eve-online-intel-tool` (This is important, otherwise automatic updates might not work as expected)
 - Copy the folder into your plugin directory in your WordPress installation.
@@ -39,5 +40,3 @@ This is, unfortunately, an issue with WordPress' new editor called "Gutenberg". 
 - [License](LICENSE)
 - [Changelog](CHANGELOG.md)
 - [Discord](https://discord.gg/YymuCZa)
-
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/97ad9ac1b1c84efeacd1f59dfd115c37)](https://www.codacy.com/app/ppfeufer/eve-online-intel-tool?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ppfeufer/eve-online-intel-tool&amp;utm_campaign=Badge_Grade)
