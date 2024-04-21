@@ -19,13 +19,11 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\DotlanHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StructureHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
-
-\defined('ABSPATH') or die();
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\DotlanHelper;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StructureHelper;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 class DscanParser extends AbstractSingleton {
     /**
@@ -33,21 +31,21 @@ class DscanParser extends AbstractSingleton {
      *
      * @var EsiHelper
      */
-    private $esiHelper = null;
+    private EsiHelper $esiHelper;
 
     /**
      * Dotlan Helper
      *
      * @var DotlanHelper
      */
-    private $dotlanHelper = null;
+    private DotlanHelper $dotlanHelper;
 
     /**
      * String Helper
      *
      * @var StringHelper
      */
-    private $stringHelper = null;
+    private StringHelper $stringHelper;
 
     /**
      * Constructor
@@ -58,6 +56,43 @@ class DscanParser extends AbstractSingleton {
         $this->esiHelper = EsiHelper::getInstance();
         $this->stringHelper = StringHelper::getInstance();
         $this->dotlanHelper = DotlanHelper::getInstance();
+    }
+
+    /**
+     * Parsing the D-Scan
+     *
+     * @param string $scanData
+     * @return array|null
+     */
+    public function parseDscan(string $scanData): ?array {
+        $returnData = null;
+
+        $dscanArray = $this->getDscanArray(scanData: $scanData);
+        if ($dscanArray['all']['count'] !== 0) {
+            $dscanAll = $this->parseScanArray(dscanArray: $dscanArray['all']);
+            $returnData['all'] = $dscanAll;
+
+            $returnData['shipTypes'] = $this->getShipTypesArray(dscanArray: $dscanArray['all']['data']);
+            $returnData['upwellStructures'] = $this->getUpwellStructuresArray(dscanArray: $dscanArray['all']['data']);
+            $returnData['deployables'] = $this->getDeployablesArray(dscanArray: $dscanArray['all']['data']);
+            $returnData['miscellaneous'] = $this->getMiscellaneousArray(dscanArray: $dscanArray['all']['data']);
+            $returnData['starbaseModules'] = $this->getStarbaseArray(dscanArray: $dscanArray['all']['data']);
+            $returnData['lootSalvage'] = $this->getLootSalvageArray(dscanArray: $dscanArray['all']['data']);
+        }
+
+        if ($dscanArray['onGrid']['count'] !== 0) {
+            $dscanOnGrid = $this->parseScanArray(dscanArray: $dscanArray['onGrid']);
+            $returnData['onGrid'] = $dscanOnGrid;
+        }
+
+        if ($dscanArray['offGrid']['count'] !== 0) {
+            $dscanOffGrid = $this->parseScanArray(dscanArray: $dscanArray['offGrid']);
+            $returnData['offGrid'] = $dscanOffGrid;
+        }
+
+        $returnData['systemInformation'] = $dscanArray['system'];
+
+        return $returnData;
     }
 
     /**
@@ -73,21 +108,21 @@ class DscanParser extends AbstractSingleton {
          * mac -> linux
          * windows -> linux
          */
-        $cleanedScanData = $this->stringHelper->fixLineBreaks($scanData);
+        $cleanedScanData = $this->stringHelper->fixLineBreaks(scanData: $scanData);
 
         $dscanDetailShipsAll = [];
         $dscanDetailShipsOnGrid = [];
         $dscanDetailShipsOffGrid = [];
         $shipData = [];
 
-        foreach(\explode("\n", \trim($cleanedScanData)) as $line) {
-            $lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
+        foreach (explode(separator: "\n", string: trim(string: $cleanedScanData)) as $line) {
+            $lineDetailsArray = explode(separator: "\t", string: str_replace(search: '*', replace: '', subject: trim(string: $line)));
 
-            if(!isset($shipData[$lineDetailsArray['0']])) {
-                $shipData[$lineDetailsArray['0']] = $this->esiHelper->getShipData($lineDetailsArray['0']);
+            if (!isset($shipData[$lineDetailsArray['0']])) {
+                $shipData[$lineDetailsArray['0']] = $this->esiHelper->getShipData(shipId: $lineDetailsArray['0']);
             }
 
-            if(!\is_null($shipData[$lineDetailsArray['0']]['shipData']) && !\is_null($shipData[$lineDetailsArray['0']]['shipTypeData'])) {
+            if (!is_null(value: $shipData[$lineDetailsArray['0']]['shipData']) && !is_null(value: $shipData[$lineDetailsArray['0']]['shipTypeData'])) {
                 $dscanDetailShipsAll[] = [
                     'dscanData' => $lineDetailsArray,
                     'shipData' => $shipData[$lineDetailsArray['0']]['shipData'],
@@ -97,7 +132,7 @@ class DscanParser extends AbstractSingleton {
                 /**
                  * Determine OnGrid and OffGrid
                  */
-                if($lineDetailsArray['3'] === '-') {
+                if ($lineDetailsArray['3'] === '-') {
                     $dscanDetailShipsOffGrid[] = [
                         'dscanData' => $lineDetailsArray,
                         'shipData' => $shipData[$lineDetailsArray['0']]['shipData'],
@@ -115,26 +150,24 @@ class DscanParser extends AbstractSingleton {
 
         unset($shipData);
 
-        // Let's see if we can find out in what system we are ....
-        $system = $this->detectSystem($cleanedScanData);
+        // Let's see if we can find out in what system we are …
+        $system = $this->detectSystem(cleanedScanData: $cleanedScanData);
 
-        $dscanArray = [
+        return [
             'all' => [
-                'count' => \count($dscanDetailShipsAll),
+                'count' => count($dscanDetailShipsAll),
                 'data' => $dscanDetailShipsAll
             ],
             'onGrid' => [
-                'count' => \count($dscanDetailShipsOnGrid),
+                'count' => count($dscanDetailShipsOnGrid),
                 'data' => $dscanDetailShipsOnGrid
             ],
             'offGrid' => [
-                'count' => \count($dscanDetailShipsOffGrid),
+                'count' => count($dscanDetailShipsOffGrid),
                 'data' => $dscanDetailShipsOffGrid
             ],
             'system' => $system
         ];
-
-        return $dscanArray;
     }
 
     /**
@@ -149,22 +182,22 @@ class DscanParser extends AbstractSingleton {
         /**
          * Trying to find the system by one of the structure IDs
          */
-        $systemInfo = $this->detectSystemByUpwellStructure($cleanedScanData);
+        $systemInfo = $this->detectSystemByUpwellStructure(scandata: $cleanedScanData);
 
         /**
          * Determine system by its sun if we couldn't get
          * a system from an Upwell structure
          */
-        if($systemInfo['systemFound'] === false) {
-            $systemInfo = $this->detectSystemBySun($cleanedScanData);
+        if ($systemInfo['systemFound'] === false) {
+            $systemInfo = $this->detectSystemBySun(scandata: $cleanedScanData);
         }
 
         /**
          * If we have a system name, get the system data,
          * like constellation and region
          */
-        if($systemInfo['systemName'] !== null) {
-            $returnValue = $this->getSystemInformationBySystemName($systemInfo['systemName']);
+        if ($systemInfo['systemName'] !== null) {
+            $returnValue = $this->getSystemInformationBySystemName(systemName: $systemInfo['systemName']);
         }
 
         return $returnValue;
@@ -182,21 +215,21 @@ class DscanParser extends AbstractSingleton {
 
         $upwellStructureIds = StructureHelper::getInstance()->getUpwellStructureIds();
 
-        foreach(\explode("\n", \trim($scandata)) as $line) {
-            $lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
+        foreach (explode(separator: "\n", string: trim(string: $scandata)) as $line) {
+            $lineDetailsArray = explode(separator: "\t", string: str_replace(search: '*', replace: '', subject: trim(string: $line)));
 
-            if(\in_array((int) $lineDetailsArray['0'], $upwellStructureIds)) {
-                $parts = \explode(' - ', $lineDetailsArray['1']);
+            if (in_array(needle: (int)$lineDetailsArray['0'], haystack: $upwellStructureIds)) {
+                $parts = explode(separator: ' - ', string: $lineDetailsArray['1']);
 
                 /**
                  * Fix for Ansiblex Jump Gate, since
                  * they can have 2 systems in their names
                  */
-                if((int) $lineDetailsArray['0'] === 35841 && \strstr($lineDetailsArray['1'], '»')) {
-                    $parts = \explode(' » ', $lineDetailsArray['1']);
+                if ((int)$lineDetailsArray['0'] === 35841 && str_contains(haystack: $lineDetailsArray['1'], needle: '»')) {
+                    $parts = explode(separator: ' » ', string: $lineDetailsArray['1']);
                 }
 
-                $systemName = \trim($parts['0']);
+                $systemName = trim(string: $parts['0']);
 
                 $systemFound = true;
             }
@@ -215,14 +248,15 @@ class DscanParser extends AbstractSingleton {
      * @return array|null
      */
     public function detectSystemBySun(string $scandata): ?array {
-        $systemFound = false;
         $systemName = null;
+        $systemFound = false;
 
-        foreach(\explode("\n", \trim($scandata)) as $line) {
-            $lineDetailsArray = \explode("\t", \str_replace('*', '', \trim($line)));
+        foreach (explode(separator: "\n", string: trim(string: $scandata)) as $line) {
+            $lineDetailsArray = explode(separator: "\t", string: str_replace(search: '*', replace: '', subject: trim($line)));
 
-            if(\preg_match('/(.*) - Star/', $lineDetailsArray['1']) && \preg_match('/Sun (.*)/', $lineDetailsArray['2'])) {
-                $systemName = \trim(\str_replace(' - Star', '', $lineDetailsArray['1']));
+            if (preg_match(pattern: '/(.*) - Star/', subject: $lineDetailsArray['1']) && preg_match(pattern: '/Sun (.*)/', subject: $lineDetailsArray['2'])) {
+                $systemName = trim(str_replace(search: ' - Star', replace: '', subject: $lineDetailsArray['1']));
+                $systemFound = true;
             }
         }
 
@@ -240,30 +274,30 @@ class DscanParser extends AbstractSingleton {
      */
     public function getSystemInformationBySystemName(string $systemName): ?array {
         $returnValue = null;
-        $systemShortData = $this->esiHelper->getIdFromName([\trim($systemName)], 'systems');
+        $systemShortData = $this->esiHelper->getIdFromName(names: [trim(string: $systemName)], type: 'systems');
 
-        if(!\is_null($systemShortData)) {
+        if (!is_null(value: $systemShortData)) {
             /* @var $systemData \WordPress\EsiClient\Model\Universe\Systems\SystemId */
-            $systemData = $this->esiHelper->getSystemData($systemShortData['0']->getId());
+            $systemData = $this->esiHelper->getSystemData(systemId: $systemShortData['0']->getId());
             $systemId = $systemData->getSystemId();
             $constellationName = null;
             $regionName = null;
 
             // Get the constellation data
             /* @var $constellationData \WordPress\EsiClient\Model\Universe\Constellations\ConstellationId */
-            $constellationData = $this->esiHelper->getConstellationData($systemData->getConstellationId());
+            $constellationData = $this->esiHelper->getConstellationData(constellationId: $systemData->getConstellationId());
 
             // Set the constellation name
-            if(!\is_null($constellationData)) {
+            if (!is_null($constellationData)) {
                 $constellationName = $constellationData->getName();
                 $constellationId = $constellationData->getConstellationId();
 
                 // Get the region data
                 /* @var $regionData \WordPress\EsiClient\Model\Universe\Regions\RegionId */
-                $regionData = $this->esiHelper->getRegionsRegionId($constellationData->getRegionId());
+                $regionData = $this->esiHelper->getRegionsRegionId(regionId: $constellationData->getRegionId());
 
                 // Set the region name
-                if(!\is_null($regionData)) {
+                if (!is_null($regionData)) {
                     $regionName = $regionData->getName();
                     $regionId = $regionData->getRegionId();
                 }
@@ -274,12 +308,14 @@ class DscanParser extends AbstractSingleton {
 
             $sovHolder = null;
 
-            if(\is_a($mapData, '\WordPress\EsiClient\Model\Sovereignty\Map')) {
-                foreach($mapData->getSolarSystems() as $systemSovereigntyInformation) {
+            if (is_a(object_or_class: $mapData, class: '\WordPress\EsiClient\Model\Sovereignty\Map')) {
+                foreach ($mapData->getSolarSystems() as $systemSovereigntyInformation) {
                     /* @var $systemSovereigntyInformation \WordPress\EsiClient\Model\Sovereignty\Sovereignty\Map\Systems */
-                    if(($systemSovereigntyInformation->getSystemId() === $systemData->getSystemId()) && !\is_null($systemSovereigntyInformation->getAllianceId())) {
-                        $sovHoldingAlliance = $this->esiHelper->getAllianceData($systemSovereigntyInformation->getAllianceId());
-                        $sovHoldingCorporation = $this->esiHelper->getCorporationData($systemSovereigntyInformation->getCorporationId());
+                    if (!is_null(value: $systemSovereigntyInformation->getAllianceId())
+                        && ($systemSovereigntyInformation->getSystemId() === $systemData->getSystemId())
+                    ) {
+                        $sovHoldingAlliance = $this->esiHelper->getAllianceData(allianceId: $systemSovereigntyInformation->getAllianceId());
+                        $sovHoldingCorporation = $this->esiHelper->getCorporationData(corporationId: $systemSovereigntyInformation->getCorporationId());
 
                         $sovHolder['alliance']['id'] = $systemSovereigntyInformation->getAllianceId();
                         $sovHolder['alliance']['name'] = $sovHoldingAlliance->getName();
@@ -303,17 +339,17 @@ class DscanParser extends AbstractSingleton {
             ];
 
             $systemJumpsData = $this->esiHelper->getSystemJumps();
-            foreach($systemJumpsData as $systemJumps) {
+            foreach ($systemJumpsData as $systemJumps) {
                 /* @var $systemJumps \WordPress\EsiClient\Model\Universe\SystemJumps */
-                if($systemJumps->getSystemId() === $systemData->getSystemId()) {
+                if ($systemJumps->getSystemId() === $systemData->getSystemId()) {
                     $systemActivity['jumps'] = $systemJumps->getShipJumps();
                 }
             }
 
             $systemKillsData = $this->esiHelper->getSystemKills();
-            foreach($systemKillsData as $systemKills) {
+            foreach ($systemKillsData as $systemKills) {
                 /* @var $systemKills \WordPress\EsiClient\Model\Universe\SystemKills */
-                if($systemKills->getSystemId() === $systemData->getSystemId()) {
+                if ($systemKills->getSystemId() === $systemData->getSystemId()) {
                     $systemActivity['npcKills'] = $systemKills->getNpcKills();
                     $systemActivity['podKills'] = $systemKills->getPodKills();
                     $systemActivity['shipKills'] = $systemKills->getShipKills();
@@ -323,12 +359,12 @@ class DscanParser extends AbstractSingleton {
             /**
              * Get system status
              */
-            $systemSecurityStatus = \number_format($systemData->getSecurityStatus(), 1);
+            $systemSecurityStatus = number_format(num: $systemData->getSecurityStatus(), decimals: 1);
             $systemAdm = null;
 
             $systemStructuresData = $this->esiHelper->getSovereigntyStryuctures();
-            foreach($systemStructuresData as $structureData) {
-                if($structureData->getSolarSystemId() === $systemData->getSystemId()) {
+            foreach ($systemStructuresData as $structureData) {
+                if ($structureData->getSolarSystemId() === $systemData->getSystemId()) {
                     $systemAdm = $structureData->getVulnerabilityOccupancyLevel();
                 }
             }
@@ -364,84 +400,34 @@ class DscanParser extends AbstractSingleton {
      */
     public function parseScanArray(array $dscanArray): ?array {
         $returnData = null;
-        $countShipClasses = [];
         $dscanDetails = [];
         $count = [];
         $shipCounter = 0;
 
-        foreach($dscanArray['data'] as $item) {
-            switch($item['shipClass']->getCategoryId()) {
-                // only ships
-                case 6:
-                    /**
-                     * Counter Ship Types
-                     */
-                    $count[$item['dscanData']['0']]['all'][] = '';
-                    $dscanDetails['count'] = ++$shipCounter;
+        foreach ($dscanArray['data'] as $item) {
+            if ($item['shipClass']->getCategoryId() === 6) {
+                /**
+                 * Counter for Ship Types
+                 */
+                $count[$item['dscanData']['0']]['all'][] = '';
+                $dscanDetails['count'] = ++$shipCounter;
 
-                    /**
-                     * Counter Ship Classes
-                     */
-                    $countShipClasses['shipClass_' . \sanitize_title((string) $item['shipClass']->getName())]['shipClass'] = (string) $item['shipClass']->getName();
-                    $countShipClasses['shipClass_' . \sanitize_title((string) $item['shipClass']->getName())]['counter'][] = '';
-
-                    /**
-                     * Ship breakdown
-                     */
-                    $dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipID'] = $item['dscanData']['0'];
-                    $dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipName'] = $item['dscanData']['2'];
-                    $dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['count'] = \count($count[$item['dscanData']['0']]['all']);
-                    $dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipClass'] = $item['shipClass']->getName();
-                    $dscanDetails['data'][\sanitize_title((string) $item['dscanData']['2'])]['shipTypeSanitized'] = \sanitize_title((string) $item['shipClass']->getName());
-                    break;
-
-                default:
-                    break;
+                /**
+                 * Ship breakdown
+                 */
+                $dscanDetails['data'][sanitize_title((string)$item['dscanData']['2'])]['shipID'] = $item['dscanData']['0'];
+                $dscanDetails['data'][sanitize_title((string)$item['dscanData']['2'])]['shipName'] = $item['dscanData']['2'];
+                $dscanDetails['data'][sanitize_title((string)$item['dscanData']['2'])]['count'] = count($count[$item['dscanData']['0']]['all']);
+                $dscanDetails['data'][sanitize_title((string)$item['dscanData']['2'])]['shipClass'] = $item['shipClass']->getName();
+                $dscanDetails['data'][sanitize_title((string)$item['dscanData']['2'])]['shipTypeSanitized'] = sanitize_title((string)$item['shipClass']->getName());
             }
         }
 
-        if(!empty($dscanDetails['data'])) {
-            \ksort($dscanDetails['data']);
+        if (!empty($dscanDetails['data'])) {
+            ksort(array: $dscanDetails['data']);
 
             $returnData = $dscanDetails;
         }
-
-        return $returnData;
-    }
-
-    /**
-     * Parsing the D-Scan
-     *
-     * @param string $scanData
-     * @return array|null
-     */
-    public function parseDscan(string $scanData): ?array {
-        $returnData = null;
-
-        $dscanArray = $this->getDscanArray($scanData);
-        if($dscanArray['all']['count'] !== 0) {
-            $dscanAll = $this->parseScanArray($dscanArray['all']);
-            $returnData['all'] = $dscanAll;
-
-            $returnData['shipTypes'] = $this->getShipTypesArray($dscanArray['all']['data']);
-            $returnData['upwellStructures'] = $this->getUpwellStructuresArray($dscanArray['all']['data']);
-            $returnData['deployables'] = $this->getDeployablesArray($dscanArray['all']['data']);
-            $returnData['miscellaneous'] = $this->getMiscellaneousArray($dscanArray['all']['data']);
-            $returnData['starbaseModules'] = $this->getStarbaseArray($dscanArray['all']['data']);
-            $returnData['lootSalvage'] = $this->getLootSalvageArray($dscanArray['all']['data']);
-        }
-
-        if($dscanArray['onGrid']['count'] !== 0) {
-            $dscanOnGrid = $this->parseScanArray($dscanArray['onGrid']);
-            $returnData['onGrid'] = $dscanOnGrid;
-        }
-
-        if($dscanArray['offGrid']['count'] !== 0) {
-            $dscanOffGrid = $this->parseScanArray($dscanArray['offGrid']);
-            $returnData['offGrid'] = $dscanOffGrid;
-        }
-
-        $returnData['systemInformation'] = $dscanArray['system'];
 
         return $returnData;
     }
@@ -456,64 +442,24 @@ class DscanParser extends AbstractSingleton {
         $shipTypeArray = [];
         $count = [];
 
-        foreach($dscanArray as $scanResult) {
+        foreach ($dscanArray as $scanResult) {
             // Ships only ...
-            if($scanResult['shipClass']->getcategoryId() === 6) {
-                if(!isset($count[\sanitize_title($scanResult['shipClass']->getName())])) {
-                    $count[\sanitize_title($scanResult['shipClass']->getName())] = 0;
+            if ($scanResult['shipClass']->getcategoryId() === 6) {
+                if (!isset($count[sanitize_title(title: $scanResult['shipClass']->getName())])) {
+                    $count[sanitize_title(title: $scanResult['shipClass']->getName())] = 0;
                 }
 
-                $count[\sanitize_title($scanResult['shipClass']->getName())] ++;
+                $count[sanitize_title(title: $scanResult['shipClass']->getName())]++;
 
-                $shipTypeArray[\sanitize_title($scanResult['shipClass']->getName())] = [
+                $shipTypeArray[sanitize_title(title: $scanResult['shipClass']->getName())] = [
                     'type' => $scanResult['shipClass']->getName(),
-                    'shipTypeSanitized' => \sanitize_title($scanResult['shipClass']->getName()),
-                    'count' => $count[\sanitize_title($scanResult['shipClass']->getName())]
+                    'shipTypeSanitized' => sanitize_title(title: $scanResult['shipClass']->getName()),
+                    'count' => $count[sanitize_title(title: $scanResult['shipClass']->getName())]
                 ];
             }
         }
 
-        \ksort($shipTypeArray);
-
-        return $shipTypeArray;
-    }
-
-    /**
-     * Determine is seomthing is on grid or not
-     *
-     * @param array $scanResult
-     * @return boolean
-     */
-    private function isOnGrid(array $scanResult): bool {
-        $returnValue = false;
-        $gridSize = 10000; // our defined grid size in km
-        $dscanRangeArray = \explode(' ', $scanResult['dscanData']['3']);
-        $range = (int) \number_format((float) \str_replace('.', '', $dscanRangeArray['0']), 0, '', '');
-
-        if(($scanResult['dscanData']['3'] !== '-') && ($range <= $gridSize && \preg_match('/km|m/', $dscanRangeArray['1']))) {
-            $returnValue = true;
-        }
-
-        return $returnValue;
-    }
-
-    /**
-     * Get type array
-     *
-     * @param array $count
-     * @param $scanResult
-     * @param array $shipTypeArray
-     * @return array
-     */
-    protected function getTypeArray(array $count, $scanResult, array $shipTypeArray): array {
-        if (!isset($count[\sanitize_title($scanResult['shipData']->getName())])) {
-            $count[\sanitize_title($scanResult['shipData']->getName())] = 0;
-        }
-
-        $count[\sanitize_title($scanResult['shipData']->getName())]++;
-        $shipTypeArray[\sanitize_title($scanResult['shipData']->getName())] = $this->getScanResultDetails(
-            $scanResult, $count[\sanitize_title($scanResult['shipData']->getName())]
-        );
+        ksort(array: $shipTypeArray);
 
         return $shipTypeArray;
     }
@@ -549,16 +495,132 @@ class DscanParser extends AbstractSingleton {
         $shipTypeArray = [];
         $count = [];
 
-        foreach($dscanArray as $scanResult) {
+        foreach ($dscanArray as $scanResult) {
             // Upwell structures on grid only ...
-            if(($scanResult['shipClass']->getCategoryId() === 65) && ($this->isOnGrid($scanResult) === true)) {
-                $shipTypeArray = $this->getTypeArray($count, $scanResult, $shipTypeArray);
+            if (($scanResult['shipClass']->getCategoryId() === 65) && ($this->isOnGrid(scanResult: $scanResult) === true)) {
+                $shipTypeArray = $this->getTypeArray(count: $count, scanResult: $scanResult, shipTypeArray: $shipTypeArray);
             }
         }
 
-        \ksort($shipTypeArray);
+        ksort(array: $shipTypeArray);
 
         return $shipTypeArray;
+    }
+
+    /**
+     * Determine is seomthing is on grid or not
+     *
+     * @param array $scanResult
+     * @return boolean
+     */
+    private function isOnGrid(array $scanResult): bool {
+        $returnValue = false;
+        $gridSize = 10000; // our defined grid size in km
+        $dscanRangeArray = explode(separator: ' ', string: $scanResult['dscanData']['3']);
+        $range = (int)number_format(
+            num: (float)str_replace(search: '.', replace: '', subject: $dscanRangeArray['0']),
+            decimal_separator: '',
+            thousands_separator: ''
+        );
+
+        if (($scanResult['dscanData']['3'] !== '-')
+            && ($range <= $gridSize && preg_match(
+                pattern: '/km|m/',
+                subject: $dscanRangeArray['1']
+            ))
+        ) {
+            $returnValue = true;
+        }
+
+        return $returnValue;
+    }
+
+    /**
+     * Get type array
+     *
+     * @param array $count
+     * @param $scanResult
+     * @param array $shipTypeArray
+     * @return array
+     */
+    protected function getTypeArray(array $count, $scanResult, array $shipTypeArray): array {
+        if (!isset($count[sanitize_title(title: $scanResult['shipData']->getName())])) {
+            $count[sanitize_title(title: $scanResult['shipData']->getName())] = 0;
+        }
+
+        $count[sanitize_title(title: $scanResult['shipData']->getName())]++;
+        $shipTypeArray[sanitize_title(title: $scanResult['shipData']->getName())] = $this->getScanResultDetails(
+            scanResult: $scanResult,
+            count: $count[sanitize_title(title: $scanResult['shipData']->getName())]
+        );
+
+        return $shipTypeArray;
+    }
+
+    /**
+     * Get the result for one d-scan line
+     *
+     * @param array $scanResult
+     * @param int $count
+     * @return array
+     */
+    private function getScanResultDetails(array $scanResult, int $count): array {
+        return [
+            'type' => ($scanResult['shipData']->getTypeId() === 35841)
+                ? $scanResult['shipData']->getName() . $this->getAnsiblexJumGateDestination(scanResult: $scanResult)
+                : $scanResult['shipData']->getName(),
+            'imageAlt' => ($scanResult['shipData']->getTypeId() === 35841)
+                ? $scanResult['shipData']->getName() . $this->getAnsiblexJumGateDestination(scanResult: $scanResult, linkDestination: false)
+                : $scanResult['shipData']->getName(),
+            'type_id' => $scanResult['shipData']->getTypeId(),
+            'shipTypeSanitized' => sanitize_title(title: $scanResult['shipData']->getName()),
+            'count' => $count
+        ];
+    }
+
+    /**
+     * Getting the destination system of an Ansiblex Jump Gate
+     *
+     * @param array $scanResult
+     * @param bool $linkDestination
+     * @return string|null
+     */
+    private function getAnsiblexJumGateDestination(array $scanResult, bool $linkDestination = true): ?string {
+        $returnValue = null;
+
+        $dscanData = $scanResult['dscanData'];
+        $ansiblexJumpGateName = $dscanData['1'];
+        $nameParts = explode(separator: ' - ', string: $ansiblexJumpGateName);
+
+        if (str_contains(haystack: $nameParts['0'], needle: '»')) {
+            $gateSystems = explode(separator: ' » ', string: $nameParts['0']);
+            $destinationSystem = trim($gateSystems['1']);
+
+            // get system information so we can link it to Dotlan
+            if ((!empty($destinationSystem)) && ($linkDestination === true)) {
+                /* @var $destinationSystemId \WordPress\EsiClient\Model\Universe\Ids\Systems */
+                $destinationSystemId = $this->esiHelper->getIdFromName(
+                    names: [$destinationSystem],
+                    type: 'systems'
+                );
+                $destinationSystemData = $this->esiHelper->getSystemData(
+                    systemId: $destinationSystemId['0']->getId()
+                );
+                $destinationSystemContellationData = $this->esiHelper->getConstellationData(
+                    constellationId: $destinationSystemData->getConstellationId()
+                );
+                $destinationSystemRegionData = $this->esiHelper->getRegionsRegionId(
+                    regionId: $destinationSystemContellationData->getRegionId()
+                );
+
+                $destinationSystem = '<a href="https://evemaps.dotlan.net/map/' . $this->dotlanHelper->getDotlanLinkString(string: $destinationSystemRegionData->getName() . '/' . $destinationSystem) . '" target="_blank" rel="noopener noreferer" class="eve-intel-information-link">' . $destinationSystem . '</a>';
+
+                $returnValue = ' » ' . $destinationSystem;
+
+            }
+        }
+
+        return $returnValue;
     }
 
     /**
@@ -571,14 +633,14 @@ class DscanParser extends AbstractSingleton {
         $shipTypeArray = [];
         $count = [];
 
-        foreach($dscanArray as $scanResult) {
+        foreach ($dscanArray as $scanResult) {
             // Deployable structures on grid only ...
-            if(($scanResult['shipClass']->getCategoryId() === 22) && ($this->isOnGrid($scanResult) === true)) {
-                $shipTypeArray = $this->getTypeArray($count, $scanResult, $shipTypeArray);
+            if (($scanResult['shipClass']->getCategoryId() === 22) && ($this->isOnGrid(scanResult: $scanResult) === true)) {
+                $shipTypeArray = $this->getTypeArray(count: $count, scanResult: $scanResult, shipTypeArray: $shipTypeArray);
             }
         }
 
-        \ksort($shipTypeArray);
+        ksort($shipTypeArray);
 
         return $shipTypeArray;
     }
@@ -597,16 +659,50 @@ class DscanParser extends AbstractSingleton {
             479 // Scanner Probes
         ];
 
-        foreach($dscanArray as $scanResult) {
+        foreach ($dscanArray as $scanResult) {
             // Miscellaneous items on grid only ...
-            if(\in_array($scanResult['shipClass']->getGroupId(), $miscellaneousGroupIds) && ($this->isOnGrid($scanResult) === true)) {
-                $miscellaneousTypeArray = $this->getTypeArray($count, $scanResult, $miscellaneousTypeArray);
+            if (($this->isOnGrid(scanResult: $scanResult) === true)
+                && in_array(
+                    needle: $scanResult['shipClass']->getGroupId(),
+                    haystack: $miscellaneousGroupIds,
+                    strict: true
+                )
+            ) {
+                $miscellaneousTypeArray = $this->getTypeArray(count: $count, scanResult: $scanResult, shipTypeArray: $miscellaneousTypeArray);
             }
         }
 
-        \ksort($miscellaneousTypeArray);
+        ksort(array: $miscellaneousTypeArray);
 
         return $miscellaneousTypeArray;
+    }
+
+    /**
+     * Getting starbase modules from d-scan
+     *
+     * @param array $dscanArray
+     * @return array
+     */
+    public function getStarbaseArray(array $dscanArray): array {
+        $starbaseArray = [];
+        $count = [];
+
+        foreach ($dscanArray as $scanResult) {
+            // Deployable structures on grid only ...
+            if ($scanResult['dscanData']['3'] !== '-'
+                && $scanResult['shipClass']->getCategoryId() === 23
+            ) {
+                $starbaseArray = $this->getTypeArray(
+                    count: $count,
+                    scanResult: $scanResult,
+                    shipTypeArray: $starbaseArray
+                );
+            }
+        }
+
+        ksort(array: $starbaseArray);
+
+        return $starbaseArray;
     }
 
     /**
@@ -622,90 +718,26 @@ class DscanParser extends AbstractSingleton {
             'Biomass'
         ];
 
-        foreach($dscanArray as $scanResult) {
+        foreach ($dscanArray as $scanResult) {
             // Deployable structures on grid only ...
-            if($scanResult['shipClass']->getCategoryId() === 2 && $scanResult['dscanData']['3'] !== '-' && !\in_array($scanResult['shipClass']->getName(), $exclude)) {
-                $lootSalvageArray = $this->getTypeArray($count, $scanResult, $lootSalvageArray);
+            if ($scanResult['dscanData']['3'] !== '-'
+                && $scanResult['shipClass']->getCategoryId() === 2 &&
+                !in_array(
+                    needle: $scanResult['shipClass']->getName(),
+                    haystack: $exclude,
+                    strict: true
+                )
+            ) {
+                $lootSalvageArray = $this->getTypeArray(
+                    count: $count,
+                    scanResult: $scanResult,
+                    shipTypeArray: $lootSalvageArray
+                );
             }
         }
 
-        \ksort($lootSalvageArray);
+        ksort(array: $lootSalvageArray);
 
         return $lootSalvageArray;
-    }
-
-    /**
-     * Getting starbase modules from d-scan
-     *
-     * @param array $dscanArray
-     * @return array
-     */
-    public function getStarbaseArray(array $dscanArray): array {
-        $starbaseArray = [];
-        $count = [];
-
-        foreach($dscanArray as $scanResult) {
-            // Deployable structures on grid only ...
-            if($scanResult['shipClass']->getCategoryId() === 23 && $scanResult['dscanData']['3'] !== '-') {
-                $starbaseArray = $this->getTypeArray($count, $scanResult, $starbaseArray);
-            }
-        }
-
-        \ksort($starbaseArray);
-
-        return $starbaseArray;
-    }
-
-    /**
-     * Get the result for one d-scan line
-     *
-     * @param array $scanResult
-     * @param int $count
-     * @return array
-     */
-    private function getScanResultDetails(array $scanResult, int $count): array {
-        return [
-            'type' => ($scanResult['shipData']->getTypeId() === 35841) ? $scanResult['shipData']->getName() . $this->getAnsiblexJumGateDestination($scanResult) : $scanResult['shipData']->getName(),
-            'imageAlt' => ($scanResult['shipData']->getTypeId() === 35841) ? $scanResult['shipData']->getName() . $this->getAnsiblexJumGateDestination($scanResult, false) : $scanResult['shipData']->getName(),
-            'type_id' => $scanResult['shipData']->getTypeId(),
-            'shipTypeSanitized' => \sanitize_title($scanResult['shipData']->getName()),
-            'count' => $count
-        ];
-    }
-
-    /**
-     * Getting the destination system of an Ansiblex Jump Gate
-     *
-     * @param array $scanResult
-     * @param bool $linkDestination
-     * @return string|null
-     */
-    private function getAnsiblexJumGateDestination(array $scanResult, bool $linkDestination = true): ?string {
-        $returnValue = null;
-
-        $dscanData = $scanResult['dscanData'];
-        $ansiblexJumpGateName = $dscanData['1'];
-        $nameParts = \explode(' - ', $ansiblexJumpGateName);
-
-        if(\strpos($nameParts['0'], '»') !== false) {
-            $gateSystems = \explode(' » ', $nameParts['0']);
-            $destinationSystem = \trim($gateSystems['1']);
-
-            // get system information so we can link it to Dotlan
-            if((!empty($destinationSystem)) && ($linkDestination === true)) {
-                /* @var $destinationSystemId \WordPress\EsiClient\Model\Universe\Ids\Systems */
-                $destinationSystemId = $this->esiHelper->getIdFromName([$destinationSystem], 'systems');
-                $destinationSystemData = $this->esiHelper->getSystemData($destinationSystemId['0']->getId());
-                $destinationSystemContellationData = $this->esiHelper->getConstellationData($destinationSystemData->getConstellationId());
-                $destinationSystemRegionData = $this->esiHelper->getRegionsRegionId($destinationSystemContellationData->getRegionId());
-
-                $destinationSystem = '<a href="https://evemaps.dotlan.net/map/' . $this->dotlanHelper->getDotlanLinkString($destinationSystemRegionData->getName() . '/' . $destinationSystem) . '" target="_blank" rel="noopener noreferer" class="eve-intel-information-link">' . $destinationSystem . '</a>';
-
-                $returnValue = ' » ' . $destinationSystem;
-
-            }
-        }
-
-        return $returnValue;
     }
 }

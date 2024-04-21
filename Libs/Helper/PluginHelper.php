@@ -19,9 +19,7 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
-
-\defined('ABSPATH') or die();
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 class PluginHelper extends AbstractSingleton {
     /**
@@ -31,7 +29,16 @@ class PluginHelper extends AbstractSingleton {
      * @return string
      */
     public function getPluginPath(string $file = ''): string {
-        return \WP_PLUGIN_DIR . '/' . $this->getPluginDirName() . '/' . $file;
+        return WP_PLUGIN_DIR . '/' . $this->getPluginDirName() . '/' . $file;
+    }
+
+    /**
+     * Get the plugins directory base name
+     *
+     * @return string
+     */
+    public function getPluginDirName(): string {
+        return dirname(path: plugin_basename(file: __FILE__), levels: 3);
     }
 
     /**
@@ -41,15 +48,6 @@ class PluginHelper extends AbstractSingleton {
      * @return string
      */
     public function getPluginUri(string $file = ''): string {
-        return \WP_PLUGIN_URL . '/' . $this->getPluginDirName() . '/' . $file;
-    }
-
-    /**
-     * Get the plugins directory base name
-     *
-     * @return string
-     */
-    public function getPluginDirName(): string {
-        return dirname(\plugin_basename(__FILE__), 3);
+        return WP_PLUGIN_URL . '/' . $this->getPluginDirName() . '/' . $file;
     }
 }

@@ -19,9 +19,7 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
-
-\defined('ABSPATH') or die();
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 class RemoteHelper extends AbstractSingleton {
     /**
@@ -30,34 +28,34 @@ class RemoteHelper extends AbstractSingleton {
      * @param string $url
      * @param string $method
      * @param array $parameter
-     * @return mixed
+     * @return string|null
      */
-    public function getRemoteData(string $url, string $method = 'get', array $parameter = []) {
+    public function getRemoteData(string $url, string $method = 'get', array $parameter = []): ?string {
         $returnValue = null;
         $params = '';
 
-        switch($method) {
+        switch ($method) {
             case 'get':
-                if(\count($parameter) > 0) {
-                    $params = '?' . \http_build_query($parameter);
+                if (count($parameter) > 0) {
+                    $params = '?' . http_build_query(data: $parameter);
                 }
 
-                $remoteData = \wp_remote_get($url . $params);
+                $remoteData = wp_remote_get(url: $url . $params);
                 break;
 
             case 'post':
-                $remoteData = \wp_remote_post($url, [
+                $remoteData = wp_remote_post(url: $url, args: [
                     'headers' => [
                         'Content-Type' => 'application/json; charset=utf-8'
                     ],
-                    'body' => \json_encode($parameter),
+                    'body' => json_encode(value: $parameter),
                     'method' => 'POST'
                 ]);
                 break;
         }
 
-        if(\wp_remote_retrieve_response_code($remoteData) === 200) {
-            $returnValue = \wp_remote_retrieve_body($remoteData);
+        if (wp_remote_retrieve_response_code(response: $remoteData) === 200) {
+            $returnValue = wp_remote_retrieve_body(response: $remoteData);
         }
 
         return $returnValue;

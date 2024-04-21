@@ -22,7 +22,7 @@ use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
 /* @var $templateHelper TemplateHelper */
 $templateHelper = TemplateHelper::getInstance();
 ?>
-<header class="entry-header"><h2 class="entry-title"><?php echo \__('Corporations Breakdown', 'eve-online-intel-tool'); ?> (<?php echo $corporationCount; ?>)</h2></header>
+<header class="entry-header"><h2 class="entry-title"><?php echo \__('Corporations', 'eve-online-intel-tool'); ?> (<?php echo $corporationCount; ?>)</h2></header>
 <?php
 if(!empty($corporationParticipation)) {
     ?>

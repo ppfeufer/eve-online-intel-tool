@@ -19,11 +19,9 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Ajax;
 
-use \WordPress\EsiClient\Model\Meta\Status;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface;
-
-\defined('ABSPATH') or die();
+use WordPress\EsiClient\Model\Meta\Status;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces\AjaxInterface;
 
 class EsiStatus implements AjaxInterface {
     /**
@@ -34,20 +32,34 @@ class EsiStatus implements AjaxInterface {
     }
 
     /**
+     * Initialize WP Actions
+     *
+     * @return void
+     */
+    public function initActions(): void {
+        add_action(hook_name: 'wp_ajax_nopriv_get-esi-status', callback: [$this, 'ajaxAction']);
+        add_action(hook_name: 'wp_ajax_get-esi-status', callback: [$this, 'ajaxAction']);
+    }
+
+    /**
      * Ajax Action
      *
      * @return void
      */
     public function ajaxAction(): void {
         $esiStatus = EsiHelper::getInstance()->getEsiStatusLatest();
+        $countTotalEndpoints = 0;
+        $countGreenEndpoints = 0;
+        $countYellowEndpoints = 0;
+        $countRedEndpoints = 0;
+        $percentageGreen = 0;
+        $percentageYellow = 0;
+        $percentageRed = 0;
 
-        if(!\is_null($esiStatus)) {
-            $countTotalEndpoints = \count($esiStatus);
-            $countGreenEndpoints = 0;
-            $countYellowEndpoints = 0;
-            $countRedEndpoints = 0;
+        if (!is_null($esiStatus)) {
+            $countTotalEndpoints = count($esiStatus);
 
-            foreach($esiStatus as $endpointStatus) {
+            foreach ($esiStatus as $endpointStatus) {
                 /* @var $endpointStatus Status */
                 switch ($endpointStatus->getStatus()) {
                     case 'green':
@@ -64,12 +76,12 @@ class EsiStatus implements AjaxInterface {
                 }
             }
 
-            $percentageGreen = \number_format(100 / $countTotalEndpoints * $countGreenEndpoints, 2);
-            $percentageYellow = \number_format(100 / $countTotalEndpoints * $countYellowEndpoints, 2);
-            $percentageRed = \number_format(100 / $countTotalEndpoints * $countRedEndpoints, 2);
+            $percentageGreen = number_format(num: 100 / $countTotalEndpoints * $countGreenEndpoints, decimals: 2);
+            $percentageYellow = number_format(num: 100 / $countTotalEndpoints * $countYellowEndpoints, decimals: 2);
+            $percentageRed = number_format(num: 100 / $countTotalEndpoints * $countRedEndpoints, decimals: 2);
         }
 
-        \wp_send_json([
+        wp_send_json(response: [
             'countTotalEndpoints' => $countTotalEndpoints,
             'countGreenEndpoints' => $countGreenEndpoints,
             'countYellowEndpoints' => $countYellowEndpoints,
@@ -81,15 +93,5 @@ class EsiStatus implements AjaxInterface {
 
         // always exit this API function
         exit;
-    }
-
-    /**
-     * Initialize WP Actions
-     *
-     * @return void
-     */
-    public function initActions(): void {
-        \add_action('wp_ajax_nopriv_get-esi-status', [$this, 'ajaxAction']);
-        \add_action('wp_ajax_get-esi-status', [$this, 'ajaxAction']);
     }
 }

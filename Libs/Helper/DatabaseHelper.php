@@ -19,9 +19,7 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
-
-\defined('ABSPATH') or die();
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 class DatabaseHelper extends AbstractSingleton {
     /**
@@ -50,18 +48,19 @@ class DatabaseHelper extends AbstractSingleton {
      * @param string $route
      * @return mixed Esi Object
      */
-    public function getCachedEsiDataFromDb(string $route) {
+    public function getCachedEsiDataFromDb(string $route): mixed {
         $returnValue = null;
 
-        $cacheResult = $this->wpdb->get_results($this->wpdb->prepare(
-            'SELECT * FROM ' . $this->wpdb->base_prefix . 'eve_online_esi_cache' . ' WHERE esi_route = %s AND valid_until > %s', [
+        $cacheResult = $this->wpdb->get_results(query: $this->wpdb->prepare(
+            'SELECT * FROM ' . $this->wpdb->base_prefix . 'eve_online_esi_cache' . ' WHERE esi_route = %s AND valid_until > %s',
+            [
                 $route,
-                \time()
+                time()
             ]
         ));
 
-        if($cacheResult) {
-            $returnValue = \maybe_unserialize($cacheResult['0']->value);
+        if ($cacheResult) {
+            $returnValue = maybe_unserialize(data: $cacheResult['0']->value);
         }
 
         return $returnValue;
@@ -74,8 +73,9 @@ class DatabaseHelper extends AbstractSingleton {
      * @return void
      */
     public function writeEsiCacheDataToDb(array $data): void {
-        $this->wpdb->query($this->wpdb->prepare(
-            'REPLACE INTO ' . $this->wpdb->base_prefix . 'eve_online_esi_cache' . ' (esi_route, value, valid_until) VALUES (%s, %s, %s)', $data
+        $this->wpdb->query(query: $this->wpdb->prepare(
+            'REPLACE INTO ' . $this->wpdb->base_prefix . 'eve_online_esi_cache' . ' (esi_route, value, valid_until) VALUES (%s, %s, %s)',
+            $data
         ));
     }
 }

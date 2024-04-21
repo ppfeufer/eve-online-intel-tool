@@ -19,11 +19,9 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Parser;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
-
-\defined('ABSPATH') or die();
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\EsiHelper;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\StringHelper;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 class LocalScanParser extends AbstractSingleton {
     /**
@@ -31,14 +29,14 @@ class LocalScanParser extends AbstractSingleton {
      *
      * @var EsiHelper
      */
-    protected $esiHelper = null;
+    protected EsiHelper $esiHelper;
 
     /**
      * String Helper
      *
      * @var StringHelper
      */
-    protected $stringHelper = null;
+    protected StringHelper $stringHelper;
 
     /**
      * Constructor
@@ -52,19 +50,19 @@ class LocalScanParser extends AbstractSingleton {
 
     public function parseLocalScan(string $scanData): ?array {
         $returnValue = null;
-        $localArray = $this->getLocalArray($scanData);
+        $localArray = $this->getLocalArray(scanData: $scanData);
 
-        if(!\is_null($localArray)) {
-            $participationData = $this->getParticipation($localArray['pilotDetails']);
+        if (!is_null($localArray)) {
+            $participationData = $this->getParticipation(pilotDetails: $localArray['pilotDetails']);
 
             $returnValue = [
                 'rawData' => $scanData,
-                'pilotDetails' => (!\is_null($localArray)) ? $localArray['pilotDetails'] : null,
-                'characterList' => (!\is_null($localArray)) ? $localArray['pilotList'] : null,
-                'corporationList' => (!\is_null($participationData)) ? $participationData['corporationList'] : null,
-                'allianceList' => (!\is_null($participationData)) ? $participationData['allianceList'] : null,
-                'corporationParticipation' => (!\is_null($participationData)) ? $participationData['corporationParticipation'] : null,
-                'allianceParticipation' => (!\is_null($participationData)) ? $participationData['allianceParticipation'] : null,
+                'pilotDetails' => $localArray['pilotDetails'] ?? null,
+                'characterList' => $localArray['pilotList'] ?? null,
+                'corporationList' => $participationData['corporationList'] ?? null,
+                'allianceList' => $participationData['allianceList'] ?? null,
+                'corporationParticipation' => $participationData['corporationParticipation'] ?? null,
+                'allianceParticipation' => $participationData['allianceParticipation'] ?? null,
             ];
         }
 
@@ -86,7 +84,7 @@ class LocalScanParser extends AbstractSingleton {
          * mac -> linux
          * windows -> linux
          */
-        $cleanedScanData = $this->stringHelper->fixLineBreaks($scanData);
+        $cleanedScanData = $this->stringHelper->fixLineBreaks(scanData: $scanData);
 
         $pilotList = [];
         $pilotDetails = [];
@@ -95,32 +93,30 @@ class LocalScanParser extends AbstractSingleton {
         $scanDataArraySanitized = [];
         $corporationSheet = [];
 
-        $scanDataArray = \explode("\n", \trim($cleanedScanData));
+        $scanDataArray = explode(separator: "\n", string: trim(string: $cleanedScanData));
 
         // making sure we don't have any multiples
-        foreach($scanDataArray as $line) {
-            if(!isset($arrayCharacterIds[\trim($line)])) {
-                $scanDataArraySanitized[\trim($line)] = $line;
-            }
+        foreach ($scanDataArray as $line) {
+            $scanDataArraySanitized[trim(string: $line)] = $line;
         }
 
         // running ESI in chunks to get the IDs to the names
-        foreach(\array_chunk($scanDataArraySanitized, $characterIdChunkSize, true) as $nameSet) {
-            $esiData = $this->esiHelper->getIdFromName($nameSet, 'characters');
+        foreach (array_chunk(array: $scanDataArraySanitized, length: $characterIdChunkSize, preserve_keys: true) as $nameSet) {
+            $esiData = $this->esiHelper->getIdFromName(names: $nameSet, type: 'characters');
 
-            if(!\is_null($esiData)) {
-                $nameToIdSet = null;
+            if (!is_null(value: $esiData)) {
+                $nameToIdSet = [];
 
-                foreach($esiData as $characterData) {
+                foreach ($esiData as $characterData) {
                     /* @var $characterData \WordPress\EsiClient\Model\Universe\Ids\Characters */
                     $nameToIdSet[] = $characterData->getId();
                     $pilotList[$characterData->getId()] = $characterData->getName();
                 }
 
-                $characterAffiliationData = $this->esiHelper->getCharacterAffiliation($nameToIdSet);
+                $characterAffiliationData = $this->esiHelper->getCharacterAffiliation(characterIds: $nameToIdSet);
 
-                foreach($characterAffiliationData as $characterAffiliatedIds) {
-                    if(\is_a($characterAffiliatedIds, '\WordPress\EsiClient\Model\Characters\Affiliation\Characters')) {
+                foreach ($characterAffiliationData as $characterAffiliatedIds) {
+                    if (is_a(object_or_class: $characterAffiliatedIds, class: '\WordPress\EsiClient\Model\Characters\Affiliation\Characters')) {
                         /* @var $characterAffiliatedIds \WordPress\EsiClient\Model\Characters\Affiliation\Characters */
                         $pilotDetails[$characterAffiliatedIds->getCharacterId()] = [
                             'characterID' => $characterAffiliatedIds->getCharacterId(),
@@ -130,12 +126,14 @@ class LocalScanParser extends AbstractSingleton {
                         /**
                          * Grabbing corporation information
                          */
-                        if(!\is_null($characterAffiliatedIds->getCorporationId())) {
-                            if(!isset($corporationSheet[$characterAffiliatedIds->getCorporationId()])) {
-                                $corporationSheet[$characterAffiliatedIds->getCorporationId()] = $this->esiHelper->getCorporationData($characterAffiliatedIds->getCorporationId());
+                        if (!is_null($characterAffiliatedIds->getCorporationId())) {
+                            if (!isset($corporationSheet[$characterAffiliatedIds->getCorporationId()])) {
+                                $corporationSheet[$characterAffiliatedIds->getCorporationId()] = $this->esiHelper->getCorporationData(
+                                    corporationId: $characterAffiliatedIds->getCorporationId()
+                                );
                             }
 
-                            if(!\is_null($corporationSheet[$characterAffiliatedIds->getCorporationId()])) {
+                            if (!is_null(value: $corporationSheet[$characterAffiliatedIds->getCorporationId()])) {
                                 $pilotDetails[$characterAffiliatedIds->getCharacterId()]['corporationID'] = $characterAffiliatedIds->getCorporationId();
                                 $pilotDetails[$characterAffiliatedIds->getCharacterId()]['corporationName'] = $corporationSheet[$characterAffiliatedIds->getCorporationId()]->getName();
                                 $pilotDetails[$characterAffiliatedIds->getCharacterId()]['corporationTicker'] = $corporationSheet[$characterAffiliatedIds->getCorporationId()]->getTicker();
@@ -149,11 +147,11 @@ class LocalScanParser extends AbstractSingleton {
                         $pilotDetails[$characterAffiliatedIds->getCharacterId()]['allianceName'] = null;
                         $pilotDetails[$characterAffiliatedIds->getCharacterId()]['allianceTicker'] = null;
 
-                        if(!\is_null($characterAffiliatedIds->getAllianceId())) {
+                        if (!is_null(value: $characterAffiliatedIds->getAllianceId())) {
                             /* @var $allianceSheet \WordPress\EsiClient\Model\Alliances\AllianceId */
-                            $allianceSheet = $this->esiHelper->getAllianceData($characterAffiliatedIds->getAllianceId());
+                            $allianceSheet = $this->esiHelper->getAllianceData(allianceId: $characterAffiliatedIds->getAllianceId());
 
-                            if(!\is_null($allianceSheet)) {
+                            if (!is_null($allianceSheet)) {
                                 $pilotDetails[$characterAffiliatedIds->getCharacterId()]['allianceID'] = $characterAffiliatedIds->getAllianceId();
                                 $pilotDetails[$characterAffiliatedIds->getCharacterId()]['allianceName'] = $allianceSheet->getName();
                                 $pilotDetails[$characterAffiliatedIds->getCharacterId()]['allianceTicker'] = $allianceSheet->getTicker();
@@ -164,7 +162,7 @@ class LocalScanParser extends AbstractSingleton {
             }
         }
 
-        if(\count($pilotDetails) > 0) {
+        if (count($pilotDetails) > 0) {
             $returnValue = [
                 'pilotList' => $pilotList,
                 'pilotDetails' => $pilotDetails
@@ -189,57 +187,57 @@ class LocalScanParser extends AbstractSingleton {
         $allianceParticipation = [];
         $counter = [];
 
-        foreach($pilotDetails as $pilotSheet) {
+        foreach ($pilotDetails as $pilotSheet) {
             /**
              * Corporation list
              */
-            if(isset($pilotSheet['corporationID'])) {
-                if(!isset($counter[\sanitize_title($pilotSheet['corporationName'])])) {
-                    $counter[\sanitize_title($pilotSheet['corporationName'])] = 0;
+            if (isset($pilotSheet['corporationID'])) {
+                if (!isset($counter[sanitize_title(title: $pilotSheet['corporationName'])])) {
+                    $counter[sanitize_title(title: $pilotSheet['corporationName'])] = 0;
                 }
 
-                $counter[\sanitize_title($pilotSheet['corporationName'])]++;
+                $counter[sanitize_title(title: $pilotSheet['corporationName'])]++;
 
-                $corporationList[\sanitize_title($pilotSheet['corporationName'])] = [
+                $corporationList[sanitize_title(title: $pilotSheet['corporationName'])] = [
                     'corporationID' => $pilotSheet['corporationID'],
                     'corporationName' => $pilotSheet['corporationName'],
                     'corporationTicker' => $pilotSheet['corporationTicker'],
 
-                    'allianceID' => (isset($pilotSheet['allianceID'])) ? $pilotSheet['allianceID'] : 0,
-                    'allianceName' => (isset($pilotSheet['allianceName'])) ? $pilotSheet['allianceName'] : null,
-                    'allianceTicker' => (isset($pilotSheet['allianceTicker'])) ? $pilotSheet['allianceTicker'] : null
+                    'allianceID' => $pilotSheet['allianceID'] ?? 0,
+                    'allianceName' => $pilotSheet['allianceName'] ?? null,
+                    'allianceTicker' => $pilotSheet['allianceTicker'] ?? null
                 ];
 
-                $corporationParticipation[\sanitize_title($pilotSheet['corporationName'])] = [
-                    'count' => $counter[\sanitize_title($pilotSheet['corporationName'])],
+                $corporationParticipation[sanitize_title(title: $pilotSheet['corporationName'])] = [
+                    'count' => $counter[sanitize_title(title: $pilotSheet['corporationName'])],
                     'corporationID' => $pilotSheet['corporationID'],
                     'corporationName' => $pilotSheet['corporationName'],
                     'corporationTicker' => $pilotSheet['corporationTicker'],
 
-                    'allianceID' => (isset($pilotSheet['allianceID'])) ? $pilotSheet['allianceID'] : 0,
-                    'allianceName' => (isset($pilotSheet['allianceName'])) ? $pilotSheet['allianceName'] : null,
-                    'allianceTicker' => (isset($pilotSheet['allianceTicker'])) ? $pilotSheet['allianceTicker'] : null
+                    'allianceID' => $pilotSheet['allianceID'] ?? 0,
+                    'allianceName' => $pilotSheet['allianceName'] ?? null,
+                    'allianceTicker' => $pilotSheet['allianceTicker'] ?? null
                 ];
             }
 
             /**
              * Alliance List
              */
-            if(isset($pilotSheet['allianceID'])) {
-                if(!isset($counter[\sanitize_title($pilotSheet['allianceName'])])) {
-                    $counter[\sanitize_title($pilotSheet['allianceName'])] = 0;
+            if (isset($pilotSheet['allianceID'])) {
+                if (!isset($counter[sanitize_title(title: $pilotSheet['allianceName'])])) {
+                    $counter[sanitize_title(title: $pilotSheet['allianceName'])] = 0;
                 }
 
-                $counter[\sanitize_title($pilotSheet['allianceName'])]++;
+                $counter[sanitize_title(title: $pilotSheet['allianceName'])]++;
 
-                $allianceList[\sanitize_title($pilotSheet['allianceName'])] = [
+                $allianceList[sanitize_title(title: $pilotSheet['allianceName'])] = [
                     'allianceID' => $pilotSheet['allianceID'],
                     'allianceName' => $pilotSheet['allianceName'],
                     'allianceTicker' => $pilotSheet['allianceTicker']
                 ];
 
-                $allianceParticipation[\sanitize_title($pilotSheet['allianceName'])] = [
-                    'count' => $counter[\sanitize_title($pilotSheet['allianceName'])],
+                $allianceParticipation[sanitize_title(title: $pilotSheet['allianceName'])] = [
+                    'count' => $counter[sanitize_title(title: $pilotSheet['allianceName'])],
                     'allianceID' => $pilotSheet['allianceID'],
                     'allianceName' => $pilotSheet['allianceName'],
                     'allianceTicker' => $pilotSheet['allianceTicker']
@@ -249,40 +247,40 @@ class LocalScanParser extends AbstractSingleton {
             /**
              * Unaffiliated pilots with no alliance
              */
-            if(!isset($pilotSheet['allianceID'])) {
-                if(!isset($counter[\sanitize_title('Unaffiliated / No Alliance')])) {
-                    $counter[\sanitize_title('Unaffiliated / No Alliance')] = 0;
+            if (!isset($pilotSheet['allianceID'])) {
+                if (!isset($counter[sanitize_title(title: 'Unaffiliated / No Alliance')])) {
+                    $counter[sanitize_title(title: 'Unaffiliated / No Alliance')] = 0;
                 }
 
-                $counter[\sanitize_title('Unaffiliated / No Alliance')]++;
+                $counter[sanitize_title(title: 'Unaffiliated / No Alliance')]++;
 
-                $allianceList[\sanitize_title('Unaffiliated / No Alliance')] = [
+                $allianceList[sanitize_title(title: 'Unaffiliated / No Alliance')] = [
                     'allianceID' => 0,
-                    'allianceName' => \__('Unaffiliated / No Alliance', 'eve-online-intel-tool'),
+                    'allianceName' => __('Unaffiliated / No Alliance', 'eve-online-intel-tool'),
                     'allianceTicker' => null
                 ];
 
-                $allianceParticipation[\sanitize_title('Unaffiliated / No Alliance')] = [
-                    'count' => $counter[\sanitize_title('Unaffiliated / No Alliance')],
+                $allianceParticipation[sanitize_title(title: 'Unaffiliated / No Alliance')] = [
+                    'count' => $counter[sanitize_title(title: 'Unaffiliated / No Alliance')],
                     'allianceID' => 0,
-                    'allianceName' => \__('Unaffiliated / No Alliance', 'eve-online-intel-tool'),
+                    'allianceName' => __('Unaffiliated / No Alliance', 'eve-online-intel-tool'),
                     'allianceTicker' => null
                 ];
             }
         }
 
-        \ksort($corporationList);
-        \ksort($corporationParticipation);
-        \ksort($allianceList);
-        \ksort($allianceParticipation);
+        ksort(array: $corporationList);
+        ksort(array: $corporationParticipation);
+        ksort(array: $allianceList);
+        ksort(array: $allianceParticipation);
 
         /**
          * Sorting corporations
          */
         $employementList['corporationList'] = $corporationList;
 
-        foreach($corporationParticipation as $corporation) {
-            $employementList['corporationParticipation'][$corporation['count']][\sanitize_title($corporation['corporationName'])] = $corporation;
+        foreach ($corporationParticipation as $corporation) {
+            $employementList['corporationParticipation'][$corporation['count']][sanitize_title(title: $corporation['corporationName'])] = $corporation;
         }
 
         /**
@@ -290,14 +288,14 @@ class LocalScanParser extends AbstractSingleton {
          */
         $employementList['allianceList'] = $allianceList;
 
-        foreach($allianceParticipation as $alliance) {
-            $employementList['allianceParticipation'][$alliance['count']][\sanitize_title($alliance['allianceName'])] = $alliance;
+        foreach ($allianceParticipation as $alliance) {
+            $employementList['allianceParticipation'][$alliance['count']][sanitize_title(title: $alliance['allianceName'])] = $alliance;
         }
 
-        \krsort($employementList['corporationParticipation']);
-        \krsort($employementList['allianceParticipation']);
+        krsort(array: $employementList['corporationParticipation']);
+        krsort(array: $employementList['allianceParticipation']);
 
-        if(\count($employementList) > 0) {
+        if (count($employementList) > 0) {
             $returnValue = $employementList;
         }
 

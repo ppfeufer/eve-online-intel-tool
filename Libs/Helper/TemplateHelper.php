@@ -19,11 +19,61 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Helper;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
-
-\defined('ABSPATH') or die();
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 class TemplateHelper extends AbstractSingleton {
+    /**
+     * Get template.
+     *
+     * Search for the template and include the file.
+     *
+     * @param string $template_name Template to load.
+     * @param array $args Args passed for the template file.
+     * @param string $tempate_path Path to templates.
+     * @param string $default_path Default path to template files.
+     * @return string|bool
+     * @since 1.0.0
+     *
+     */
+    public function getTemplate(
+        string $template_name,
+        array $args = [],
+        string $tempate_path = '',
+        string $default_path = ''
+    ): bool|string {
+        if (is_array(value: $args)) {
+            extract(array: $args);
+        }
+
+        // fail safe
+        if (!str_ends_with(haystack: $template_name, needle: '.php')) {
+            $template_name .= '.php';
+        }
+
+        $template_file = $this->locateTemplate(
+            template_name: $template_name,
+            template_path: $tempate_path,
+            default_path: $default_path
+        );
+
+        if (!file_exists(filename: $template_file)) {
+            _doing_it_wrong(
+                function_name: __FUNCTION__,
+                message: sprintf(
+                    '<code>%s</code> does not exist.',
+                    $template_file
+                ),
+                version: '1.0.0'
+            );
+
+            return false;
+        }
+
+        include $template_file;
+
+        return true;
+    }
+
     /**
      * Locate template.
      *
@@ -33,74 +83,52 @@ class TemplateHelper extends AbstractSingleton {
      * 2. /themes/theme/$template_name
      * 3. /plugins/eve-online-intel-tool/templates/$template_name.
      *
-     * @since 1.0.0
-     *
      * @param string $template_name Template to load.
      * @param string $template_path Path to templates.
      * @param string $default_path Default path to template files.
      * @return string Path to the template file.
+     * @since 1.0.0
+     *
      */
-    public function locateTemplate(string $template_name, string $template_path = '', string $default_path = ''): string {
-        // Set variable to search in templates folder of theme.
-        if(!$template_path) {
+    public function locateTemplate(
+        string $template_name,
+        string $template_path = '',
+        string $default_path = ''
+    ): string {
+        // Set variable to search in the templates folder of theme.
+        if (!$template_path) {
             $template_path = 'templates/';
         }
 
         // fail safe
-        if(\substr($template_name, -4) !== '.php') {
+        if (!str_ends_with(haystack: $template_name, needle: '.php')) {
             $template_name .= '.php';
         }
 
         // Set default plugin templates path.
-        if(!$default_path) {
-            $default_path = PluginHelper::getInstance()->getPluginPath('templates/'); // Path to the template folder
+        if (!$default_path) {
+            $default_path = PluginHelper::getInstance()->getPluginPath(
+                file: 'templates/' // Path to the template folder
+            );
         }
 
         // Search template file in theme folder.
-        $template = \locate_template([
+        $template = locate_template(template_names: [
             $template_path . $template_name,
             $template_name
         ]);
 
         // Get plugins template file.
-        if(!$template) {
+        if (!$template) {
             $template = $default_path . $template_name;
         }
 
-        return \apply_filters('eve-online-intel-tool_locate_template', $template, $template_name, $template_path, $default_path);
-    }
-
-    /**
-     * Get template.
-     *
-     * Search for the template and include the file.
-     *
-     * @since 1.0.0
-     *
-     * @param string $template_name Template to load.
-     * @param array $args Args passed for the template file.
-     * @param string $tempate_path Path to templates.
-     * @param string $default_path Default path to template files.
-     * @return string
-     */
-    public function getTemplate(string $template_name, array $args = [], string $tempate_path = '', string $default_path = ''): string {
-        if(\is_array($args) && isset($args)) {
-            \extract($args, EXTR_OVERWRITE);
-        }
-
-        // fail safe
-        if(\substr($template_name, -4) !== '.php') {
-            $template_name .= '.php';
-        }
-
-        $template_file = $this->locateTemplate($template_name, $tempate_path, $default_path);
-
-        if(!\file_exists($template_file)) {
-            \_doing_it_wrong(__FUNCTION__, \sprintf('<code>%s</code> does not exist.', $template_file), '1.0.0');
-
-            return;
-        }
-
-        include $template_file;
+        return apply_filters(
+            'eve-online-intel-tool_locate_template',
+            $template,
+            $template_name,
+            $template_path,
+            $default_path
+        );
     }
 }

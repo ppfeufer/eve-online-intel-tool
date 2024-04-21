@@ -19,8 +19,6 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces;
 
-\defined('ABSPATH') or die();
-
 /**
  * Defines a common set of functions that any class responsible for loading
  * stylesheets, JavaScript, or other assets should implement.

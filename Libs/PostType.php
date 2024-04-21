@@ -19,11 +19,9 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs;
 
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
-use \WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
-
-\defined('ABSPATH') or die();
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\PluginHelper;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Helper\TemplateHelper;
+use WordPress\Plugins\EveOnlineIntelTool\Libs\Singletons\AbstractSingleton;
 
 /**
  * Managing the custom post type
@@ -33,40 +31,35 @@ class PostType extends AbstractSingleton {
      * Registering the custom post type
      */
     public function registerCustomPostType(): void {
-        $cptSlug = $this->getPosttypeSlug('intel');
+        $cptSlug = $this->getPosttypeSlug(postType: 'intel');
 
         $argsTaxonomyCategory = [
-            'label' => \__('Category', 'eve-online-intel-tool'),
+            'label' => __('Category', 'eve-online-intel-tool'),
             'public' => false,
             'hierarchical' => true,
             'show_ui' => true,
             'show_in_nav_menus' => false,
             'show_in_menu' => false,
-            'args' => [
-                'orderby' => 'term_order'
-            ],
-            'rewrite' => [
-                'slug' => 'intel',
-                'with_front' => false
-            ],
+            'args' => ['orderby' => 'term_order'],
+            'rewrite' => ['slug' => 'intel', 'with_front' => false],
             'query_var' => true
         ];
 
-        \register_taxonomy('intel_category', ['intel'], $argsTaxonomyCategory);
+        register_taxonomy(
+            taxonomy: 'intel_category',
+            object_type: ['intel'],
+            args: $argsTaxonomyCategory
+        );
 
-        \register_post_type('intel', [
+        register_post_type(post_type: 'intel', args: [
             'labels' => [
-                'name' => \__('Intel', 'eve-online-intel-tool'),
-                'singular_name' => \__('Intel', 'eve-online-intel-tool')
+                'name' => __('Intel', 'eve-online-intel-tool'),
+                'singular_name' => __('Intel', 'eve-online-intel-tool')
             ],
             'public' => true,
             'show_ui' => true,
             'show_in_menu' => true,
-            'supports' => [
-                'title',
-                'custom-fields',
-                'category'
-            ],
+            'supports' => ['title', 'custom-fields', 'category'],
             'rewrite' => [
                 'slug' => $cptSlug . '/%intel_category%',
                 'with_front' => true
@@ -81,36 +74,15 @@ class PostType extends AbstractSingleton {
          * » Fleet Composition
          * » Local/Chat Scan
          */
-        \wp_insert_term('D-Scan', 'intel_category', [
+        wp_insert_term(term: 'D-Scan', taxonomy: 'intel_category', args: [
             'slug' => 'dscan'
         ]);
-        \wp_insert_term('Fleet Composition', 'intel_category', [
+        wp_insert_term(term: 'Fleet Composition', taxonomy: 'intel_category', args: [
             'slug' => 'fleetcomposition'
         ]);
-        \wp_insert_term('Local Scan', 'intel_category', [
+        wp_insert_term(term: 'Local Scan', taxonomy: 'intel_category', args: [
             'slug' => 'local'
         ]);
-    }
-
-    /**
-     * Fired on plugin deactivation
-     */
-    public function unregisterCustomPostType(): void {
-        \unregister_post_type('intel');
-    }
-
-    public function createPermalinks($postLink, $post) {
-        $returnValue = $postLink;
-
-        if(\is_object($post) && $post->post_type === 'intel') {
-            $terms = \wp_get_object_terms($post->ID, 'intel_category');
-
-            if($terms) {
-                $returnValue = \str_replace('%intel_category%', $terms[0]->slug, $postLink);
-            }
-        }
-
-        return $returnValue;
     }
 
     /**
@@ -119,9 +91,9 @@ class PostType extends AbstractSingleton {
      * If the pages for looping the custom post types have not the same name
      * as the custom post type, we need to find its slug to get it working.
      *
-     * @global \wpdb $wpdb
      * @param string $postType
      * @return string
+     * @global \wpdb $wpdb
      */
     public function getPosttypeSlug(string $postType): string {
         global $wpdb;
@@ -138,16 +110,44 @@ class PostType extends AbstractSingleton {
                 AND ' . $wpdb->posts . '.post_type = "page"
                 AND ' . $wpdb->posts . '.ID = ' . $wpdb->postmeta . '.post_id;';
 
-        $slugData = $wpdb->get_var($var_qry);
+        $slugData = $wpdb->get_var(query: $var_qry);
 
         /**
          * Returning the slug or, if not found the name of custom post type
          */
-        if(!empty($slugData)) {
+        if (!empty($slugData)) {
             return $slugData;
         }
 
         return $postType;
+    }
+
+    /**
+     * Fired on plugin deactivation
+     */
+    public function unregisterCustomPostType(): void {
+        unregister_post_type(post_type: 'intel');
+    }
+
+    public function createPermalinks($postLink, $post): array|string {
+        $returnValue = $postLink;
+
+        if (is_object(value: $post) && $post->post_type === 'intel') {
+            $terms = wp_get_object_terms(
+                object_ids: $post->ID,
+                taxonomies: 'intel_category'
+            );
+
+            if ($terms) {
+                $returnValue = str_replace(
+                    search: '%intel_category%',
+                    replace: $terms[0]->slug,
+                    subject: $postLink
+                );
+            }
+        }
+
+        return $returnValue;
     }
 
     /**
@@ -157,27 +157,34 @@ class PostType extends AbstractSingleton {
      * for a specific Post Type and will try to load the template
      * from out 'templates' directory.
      *
-     * @since 1.0.0
-     *
      * @param string $template Template file that is being loaded.
+     * @param string $template
      * @return string Template file that should be loaded.
      *
-     * @param string $template
      * @return string
+     * @since 1.0.0
+     *
      */
     public function templateLoader(string $template): string {
         $templateFile = null;
 
-        if(\is_singular('intel')) {
+        if (is_singular(post_types: 'intel')) {
             $templateFile = 'single-intel.php';
-        } elseif(\is_archive() && (\get_post_type() === 'intel' || \is_post_type_archive('intel') === true)) {
+        } elseif (is_archive()
+            && (get_post_type() === 'intel'
+            || is_post_type_archive(post_types: 'intel') === true)
+        ) {
             $templateFile = 'page-intel.php';
         }
 
-        if($templateFile !== null) {
-            if(\file_exists(TemplateHelper::getInstance()->locateTemplate($templateFile))) {
-                $template = TemplateHelper::getInstance()->locateTemplate($templateFile);
-            }
+        if (($templateFile !== null)
+            && file_exists(filename: TemplateHelper::getInstance()->locateTemplate(
+                template_name: $templateFile
+            ))
+        ) {
+            $template = TemplateHelper::getInstance()->locateTemplate(
+                template_name: $templateFile
+            );
         }
 
         return $template;
@@ -190,8 +197,10 @@ class PostType extends AbstractSingleton {
      * @return string
      */
     public function registerPageTemplate(string $pageTemplate): string {
-        if(\is_page($this->getPosttypeSlug('intel'))) {
-            $pageTemplate = PluginHelper::getInstance()->getPluginPath('templates/page-intel.php');
+        if (is_page(page: $this->getPosttypeSlug(postType: 'intel'))) {
+            $pageTemplate = PluginHelper::getInstance()->getPluginPath(
+                file: 'templates/page-intel.php'
+            );
         }
 
         return $pageTemplate;
@@ -200,7 +209,10 @@ class PostType extends AbstractSingleton {
     public function isPostTypePage(): bool {
         $returnValue = false;
 
-        if(\is_page($this->getPosttypeSlug('intel')) || \get_post_type() === 'intel' || \is_post_type_archive('intel') === true) {
+        if (get_post_type() === 'intel'
+            || is_post_type_archive(post_types: 'intel') === true
+            || is_page(page: $this->getPosttypeSlug(postType: 'intel'))
+        ) {
             $returnValue = true;
         }
 

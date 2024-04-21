@@ -19,8 +19,6 @@
 
 namespace WordPress\Plugins\EveOnlineIntelTool\Libs\Interfaces;
 
-\defined('ABSPATH') or die();
-
 interface AjaxInterface {
     /**
      * Initialize Actions and Filter
