@@ -302,10 +302,10 @@ class GithubUpdater {
     /**
      * Get GitHub Data from the specified repository
      *
-     * @return stdClass|bool $github_data the data or false
+     * @return bool|stdClass|null $github_data the data or false
      * @since 1.0
      */
-    public function getGithubData(): stdClass|bool {
+    public function getGithubData(): bool|stdClass|null {
         $githubData = null;
 
         if (!empty($this->githubData)) {
